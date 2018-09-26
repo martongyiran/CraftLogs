@@ -1,0 +1,8 @@
+ModernHttpClient/
+*/.droidres
+CraftLogs/.vs/
+CraftLogs/CraftLogs/CraftLogs/bin
+CraftLogs/CraftLogs/CraftLogs/obj
+CraftLogs/CraftLogs/CraftLogs.Android/bin
+CraftLogs/CraftLogs/CraftLogs.Android/obj
+CraftLogs/CraftLogs/CraftLogs.Android/CraftLogs.Android.csproj.user
