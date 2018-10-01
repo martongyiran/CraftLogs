@@ -3,6 +3,14 @@ ModernHttpClient/
 CraftLogs/.vs/
 CraftLogs/CraftLogs/CraftLogs/bin
 CraftLogs/CraftLogs/CraftLogs/obj
+CraftLogs/CraftLogs/CraftLogs.Services/bin
+CraftLogs/CraftLogs/CraftLogs.Services/obj
+CraftLogs/CraftLogs/CraftLogs.Views/bin
+CraftLogs/CraftLogs/CraftLogs.Views/obj
+CraftLogs/CraftLogs/CraftLogs.ViewModels/bin
+CraftLogs/CraftLogs/CraftLogs.ViewModels/obj
+CraftLogs/CraftLogs/CraftLogs.Values/bin
+CraftLogs/CraftLogs/CraftLogs.Values/obj
 CraftLogs/CraftLogs/CraftLogs.Android/bin
 CraftLogs/CraftLogs/CraftLogs.Android/obj
 CraftLogs/CraftLogs/CraftLogs.Android/CraftLogs.Android.csproj.user
