@@ -2,10 +2,10 @@
 
 namespace CraftLogs.Services
 {
-    public static class DataService
+    public class DataService : IDataService
     {
         #region Private functions
-        private static string GetPath()
+        private string GetPath()
         {
             var tempPath = Path.GetTempPath();
             var path = tempPath.Replace("/cache/", "");
@@ -13,7 +13,7 @@ namespace CraftLogs.Services
             return path;
         }
         
-        private static string GetFilePath(string fileName)
+        private string GetFilePath(string fileName)
         {
             return Path.Combine(GetPath(), fileName);
         }
@@ -22,16 +22,16 @@ namespace CraftLogs.Services
         #region Public functions
         /// <summary> Verifies that the specified file already exists. </summary>
         /// <param name="fileName">File name.</param>
-        public static bool IsFileExist(this string fileName)
+        public bool IsFileExist(string fileName)
         {
             return File.Exists(GetFilePath(fileName));
         }
 
         /// <summary> Create a new file. </summary>
         /// <param name="fileName">File name.</param>
-        public static bool CreateFile(this string fileName)
+        public bool CreateFile(string fileName)
         {
-            if (!fileName.IsFileExist())
+            if (!IsFileExist(fileName))
             {
                 File.WriteAllLines(GetFilePath(fileName), new string[] { "" });
                 return true;
@@ -42,17 +42,17 @@ namespace CraftLogs.Services
         /// <summary> Writes all text to the given file. </summary>
         /// <param name="fileName">File name.</param>
         /// <param name="content">The text that we want to write to the file.</param>
-        public static void WriteAllText(this string fileName, string content = "")
+        public void WriteAllText(string fileName, string content = "")
         {
             File.WriteAllText(GetFilePath(fileName), content);
         }
 
         /// <summary> Reads all text from the given file. </summary>
         /// <param name="fileName">File name.</param>
-        public static string ReadAllText(this string fileName)
+        public string ReadAllText(string fileName)
         {
             string content = "";
-            if (fileName.IsFileExist())
+            if (IsFileExist(fileName))
             {
                 content = File.ReadAllText(GetFilePath(fileName));
             }
@@ -61,7 +61,7 @@ namespace CraftLogs.Services
 
         /// <summary> Delete a file. </summary>
         /// <param name="fileName">File name.</param>
-        public static void DeleteFile(string fileName)
+        public void DeleteFile(string fileName)
         {
             File.Delete(GetFilePath(fileName));
         }
