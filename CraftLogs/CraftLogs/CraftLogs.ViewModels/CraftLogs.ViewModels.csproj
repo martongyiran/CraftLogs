@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CraftLogs.ViewModels\CraftLogs.ViewModels.csproj" />
-    <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj" />
+    <ProjectReference Include="..\CraftLogs.Services\CraftLogs.Services.csproj" />
+    <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
   </ItemGroup>
 
 </Project>

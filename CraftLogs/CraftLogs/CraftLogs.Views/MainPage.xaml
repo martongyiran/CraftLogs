@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
-
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
+        <Button Text="Profile" Command="{Binding NavigateToProfileCommand}"/>
+        <Button Text="PvP" IsEnabled="False"/>
+        <Button Text="Quest" IsEnabled="False"/>
+        <Button Text="Inventory" IsEnabled="False"/>
+        <Button Text="Settings" IsEnabled="False"/>
     </StackLayout>
-
 </ContentPage>
