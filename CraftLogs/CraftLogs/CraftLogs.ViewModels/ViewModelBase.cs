@@ -6,22 +6,39 @@ namespace CraftLogs.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
-        protected INavigationService NavigationService { get; private set; }
-        protected ILocalDataRepository DataRepository { get; private set; }
+        #region Private
+        private string title;
+        private bool isBusy;
+        #endregion
 
-        private string _title;
+        #region Public
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get { return title; }
+            set { SetProperty(ref title, value); }
         }
 
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { SetProperty(ref isBusy, value); }
+        }
+        #endregion
+
+        #region Services
+        protected INavigationService NavigationService { get; private set; }
+        protected ILocalDataRepository DataRepository { get; private set; }
+        #endregion
+
+        #region Ctor
         public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository)
         {
             NavigationService = navigationService;
             DataRepository = dataRepository;
         }
+        #endregion
 
+        #region Virtual
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
 
@@ -41,5 +58,6 @@ namespace CraftLogs.ViewModels
         {
 
         }
+        #endregion
     }
 }
