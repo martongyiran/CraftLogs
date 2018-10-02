@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using CraftLogs.Repositories.Local;
+using Prism.Commands;
 using Prism.Navigation;
 
 namespace CraftLogs.ViewModels
@@ -7,11 +8,12 @@ namespace CraftLogs.ViewModels
     {
         public DelegateCommand NavigateToProfileCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository)
+            : base(navigationService, dataRepository)
         {
             Title = "Landing Page";
             NavigateToProfileCommand = new DelegateCommand(NavigateToProfile);
+            Title = DataRepository.GetLogsAsync();
         }
 
         public async void NavigateToProfile()
