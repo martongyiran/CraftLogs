@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CraftLogs.Repositories.Local;
+﻿using CraftLogs.Repositories.Local;
+using CraftLogs.Values;
 using Prism.Navigation;
 
 namespace CraftLogs.ViewModels
@@ -10,7 +8,7 @@ namespace CraftLogs.ViewModels
     {
         public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository) : base(navigationService, dataRepository)
         {
-            Title = "Profile Page";
+            Title = Texts.ProfilePage;
         }
     }
 }
