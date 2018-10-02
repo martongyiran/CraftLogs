@@ -16,4 +16,10 @@ RD /s /q %CD%\CraftLogs.Values\obj
 RD /s /q %CD%\CraftLogs.Services\bin
 RD /s /q %CD%\CraftLogs.Services\obj
 
+RD /s /q %CD%\CraftLogs.Models\bin
+RD /s /q %CD%\CraftLogs.Models\obj
+
+RD /s /q %CD%\CraftLogs.Repositories\bin
+RD /s /q %CD%\CraftLogs.Repositories\obj
+
 pause
