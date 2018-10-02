@@ -7,13 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftLogs", "CraftLogs\Craf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Android", "CraftLogs\CraftLogs.Android\CraftLogs.Android.csproj", "{38D8493D-ECF5-4796-A3E7-E0398C36022E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Views", "CraftLogs\CraftLogs.Views\CraftLogs.Views.csproj", "{FCE9B80C-2FBF-4937-96C0-44FDB8650161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftLogs.Views", "CraftLogs\CraftLogs.Views\CraftLogs.Views.csproj", "{FCE9B80C-2FBF-4937-96C0-44FDB8650161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.ViewModels", "CraftLogs\CraftLogs.ViewModels\CraftLogs.ViewModels.csproj", "{9E364545-4723-4D88-AD71-487B9F93486D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftLogs.ViewModels", "CraftLogs\CraftLogs.ViewModels\CraftLogs.ViewModels.csproj", "{9E364545-4723-4D88-AD71-487B9F93486D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Values", "CraftLogs\CraftLogs.Values\CraftLogs.Values.csproj", "{478CF2D5-4392-4D50-AB7F-C7C81EE342E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftLogs.Values", "CraftLogs\CraftLogs.Values\CraftLogs.Values.csproj", "{478CF2D5-4392-4D50-AB7F-C7C81EE342E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Services", "CraftLogs\CraftLogs.Services\CraftLogs.Services.csproj", "{C5C4BBEE-BC14-4DF2-BEC5-A522D265297D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftLogs.Services", "CraftLogs\CraftLogs.Services\CraftLogs.Services.csproj", "{C5C4BBEE-BC14-4DF2-BEC5-A522D265297D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Repositories", "CraftLogs\CraftLogs.Repositories\CraftLogs.Repositories.csproj", "{5C531CAE-E7BB-4807-B243-284E9C5A5832}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftLogs.Models", "CraftLogs\CraftLogs.Models\CraftLogs.Models.csproj", "{65E16779-A656-4478-B067-707866BF664F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{C5C4BBEE-BC14-4DF2-BEC5-A522D265297D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5C4BBEE-BC14-4DF2-BEC5-A522D265297D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5C4BBEE-BC14-4DF2-BEC5-A522D265297D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C531CAE-E7BB-4807-B243-284E9C5A5832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C531CAE-E7BB-4807-B243-284E9C5A5832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C531CAE-E7BB-4807-B243-284E9C5A5832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C531CAE-E7BB-4807-B243-284E9C5A5832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E16779-A656-4478-B067-707866BF664F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E16779-A656-4478-B067-707866BF664F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E16779-A656-4478-B067-707866BF664F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E16779-A656-4478-B067-707866BF664F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
