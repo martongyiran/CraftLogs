@@ -10,7 +10,7 @@ I started writing the first version in 2017. We used the application in the 2018
 
 
 ### Differences between v1.0.0 and v2.0.0
-The first version ignored every mvvm framework. The code was negligent: "It will be okey like this, just don'tt be buggy!". It was templateable at some level, but not enough. The second version (this) is a more precise, more structured.  
+The first version ignored every mvvm framework. The code was negligent: "It will be okey like this, just don't be buggy!". It was templateable at some level, but not enough. The second version (this) is going to be more precise, more structured.  
 \
 \
 \
