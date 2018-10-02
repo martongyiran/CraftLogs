@@ -5,6 +5,8 @@ using CraftLogs.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Prism.Unity;
+using CraftLogs.Repositories.Local;
+using CraftLogs.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CraftLogs
@@ -32,6 +34,14 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
+
+            RegisterServices(containerRegistry);
+        }
+
+        protected void RegisterServices(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register<ILocalDataRepository, LocalDataRepository>();
+            containerRegistry.Register<IDataService, DataService>();
         }
     }
 }
