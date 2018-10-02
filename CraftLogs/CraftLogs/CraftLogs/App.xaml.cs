@@ -7,6 +7,9 @@ using Xamarin.Forms.Xaml;
 using Prism.Unity;
 using CraftLogs.Repositories.Local;
 using CraftLogs.Services;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CraftLogs
@@ -27,6 +30,12 @@ namespace CraftLogs
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            AppCenter.Start("android=5068d5dd-97bf-4fb3-bfdb-4d80a9a05a7b;", typeof(Analytics), typeof(Crashes));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
