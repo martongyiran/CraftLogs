@@ -8,5 +8,6 @@ namespace CraftLogs.Values
     {
         public const string MainPage = "MainPage/";
         public const string ProfilePage = "ProfilePage";
+        public const string SettingsPage = "SettingsPage";
     }
 }

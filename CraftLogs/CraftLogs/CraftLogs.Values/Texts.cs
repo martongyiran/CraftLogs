@@ -4,6 +4,7 @@
     {
         public const string MainPage = "Főoldal";
         public const string ProfilePage = "Profil";
+        public const string SettingsPage = "Beállítások";
         /// <summary>
         /// Version number on MainPage with {0} args.
         /// </summary>

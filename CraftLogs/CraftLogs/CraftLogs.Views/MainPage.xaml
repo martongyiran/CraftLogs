@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-        <Button Text="Profile" Command="{Binding NavigateToProfileCommand}"/>
+        <Button Text="{x:Static values:Texts.ProfilePage}" Command="{Binding NavigateToProfileCommand}"/>
         <Button Text="PvP" IsEnabled="False"/>
         <Button Text="Quest" IsEnabled="False"/>
         <Button Text="Inventory" IsEnabled="False"/>
-        <Button Text="Settings" IsEnabled="False"/>
+        <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}"/>
         <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
     </StackLayout>
 </ContentPage>
