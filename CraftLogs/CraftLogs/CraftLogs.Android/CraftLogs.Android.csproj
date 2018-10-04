@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\CustomEntryRenderer.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
@@ -85,6 +87,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj">
+      <Project>{fce9b80c-2fbf-4937-96c0-44fdb8650161}</Project>
+      <Name>CraftLogs.Views</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CraftLogs\CraftLogs.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>CraftLogs</Name>

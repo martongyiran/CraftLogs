@@ -2,12 +2,66 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.SettingsPage"
-             Title="{Binding Title}">
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             Title="{Binding Title}"
+             BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Alaphelyzet" Text="{x:Static values:Texts.SaveSettings}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Settings Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Spacing="3" Margin="5">
+                <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Style="{StaticResource SettingsFrame}">
+                    <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{x:Static values:Texts.CraftDay}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
+                        <Entry x:Name="craftDayEntry" Text="{Binding CraftDay, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="0"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft1Start}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="1"/>
+                        <Entry x:Name="craft1start" Text="{Binding Craft1Start, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="1"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft2Start}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="2"/>
+                        <Entry x:Name="craft2start" Text="{Binding Craft2Start, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="2"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft1MinPont}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="3"/>
+                        <Entry x:Name="craft1MinPont" Text="{Binding Craft1MinPont, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="3"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft2MinPont}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="4"/>
+                        <Entry x:Name="craft2MinPont" Text="{Binding Craft2MinPont, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="4"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft1QuestCount}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="5"/>
+                        <Entry x:Name="craft1AllomasSzam" Text="{Binding Craft1QuestCount, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="5"/>
+
+
+                        <Label Text="{x:Static values:Texts.Craft2QuestCount}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="6"/>
+                        <Entry x:Name="craft2AllomasSzam" Text="{Binding Craft2QuestCount, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="6"/>
+
+                    </Grid>
+                </Frame>
+
+                <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}"/>
+                <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}"/>
+                <Button Text="{x:Static values:Texts.Sum}" Style="{StaticResource WhiteButton}"/>
+                <Button x:Name="godMode" Text="{x:Static values:Texts.GodMode}" Style="{StaticResource WhiteButton}"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
