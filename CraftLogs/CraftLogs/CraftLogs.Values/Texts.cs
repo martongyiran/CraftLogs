@@ -5,6 +5,7 @@
         public const string MainPage = "Főoldal";
         public const string ProfilePage = "Profil";
         public const string SettingsPage = "Beállítások";
+        public static string QuestPage = "Állomás";
         /// <summary>
         /// Version number on MainPage with {0} args.
         /// </summary>

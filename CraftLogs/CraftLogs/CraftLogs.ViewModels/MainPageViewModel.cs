@@ -21,28 +21,25 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToProfileCommand { get; private set; }
         public DelegateCommand NavigateToSettingsCommand { get; private set; }
+        public DelegateCommand NavigateToQuestCommand { get; private set; }
         #endregion
 
         #region Ctor
         public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository)
             : base(navigationService, dataRepository)
         {
-            NavigateToProfileCommand = new DelegateCommand(NavigateToProfile);
-            NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
+            NavigateToProfileCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.ProfilePage));
+            NavigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage));
+            NavigateToQuestCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.QuestPage));
             Title = DataRepository.GetLogsAsync();
             Version = string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion);
         }
         #endregion
 
         #region Private functions
-        private async void NavigateToProfile()
+        private async void NavigateTo(string navigationLink)
         {
-            await NavigationService.NavigateAsync(NavigationLinks.ProfilePage);
-        }
-
-        private async void NavigateToSettings()
-        {
-            await NavigationService.NavigateAsync(NavigationLinks.SettingsPage);
+            await NavigationService.NavigateAsync(navigationLink);
         }
         #endregion
     }

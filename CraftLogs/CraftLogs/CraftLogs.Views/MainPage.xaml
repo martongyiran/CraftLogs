@@ -7,7 +7,7 @@
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
         <Button Text="{x:Static values:Texts.ProfilePage}" Command="{Binding NavigateToProfileCommand}"/>
         <Button Text="PvP" IsEnabled="False"/>
-        <Button Text="Quest" IsEnabled="False"/>
+        <Button Text="{x:Static values:Texts.QuestPage}" Command="{Binding NavigateToQuestCommand}"/>
         <Button Text="Inventory" IsEnabled="False"/>
         <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}"/>
         <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
