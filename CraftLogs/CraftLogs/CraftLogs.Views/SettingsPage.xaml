@@ -6,7 +6,7 @@
              Title="{Binding Title}"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Alaphelyzet" Text="{x:Static values:Texts.SaveSettings}" />
+        <ToolbarItem Name="{x:Static values:Texts.SaveSettings}" Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
@@ -57,10 +57,10 @@
                     </Grid>
                 </Frame>
 
-                <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}"/>
-                <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}"/>
-                <Button Text="{x:Static values:Texts.Sum}" Style="{StaticResource WhiteButton}"/>
-                <Button x:Name="godMode" Text="{x:Static values:Texts.GodMode}" Style="{StaticResource WhiteButton}"/>
+                <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}"/>
+                <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+                <Button Text="{x:Static values:Texts.Sum}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+                <Button Text="{x:Static values:Texts.GodMode}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

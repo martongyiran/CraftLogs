@@ -6,8 +6,12 @@ namespace CraftLogs.Services
 {
     public interface IDataService
     {
-        /// <summary> Verifies that the specified file already exists. </summary>
-        /// <param name="fileName">File name.</param>
+        /// <summary> 
+        /// Verifies that the specified file already exists. 
+        /// </summary>
+        /// <param name="fileName">
+        /// File name.
+        /// </param>
         bool IsFileExist(string fileName);
         /// <summary> Create a new file. </summary>
         /// <param name="fileName">File name.</param>

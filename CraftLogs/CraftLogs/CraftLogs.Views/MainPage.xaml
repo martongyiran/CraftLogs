@@ -5,9 +5,9 @@
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-        <Button Text="{x:Static values:Texts.ProfilePage}" Command="{Binding NavigateToProfileCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.ProfilePage}" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
         <Button Text="PvP" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.QuestPage}" Command="{Binding NavigateToQuestCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.QuestPage}" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
         <Button Text="Inventory" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}"/>
         <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>

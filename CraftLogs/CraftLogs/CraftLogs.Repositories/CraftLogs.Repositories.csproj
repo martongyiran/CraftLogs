@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CraftLogs.Models\CraftLogs.Models.csproj" />
     <ProjectReference Include="..\CraftLogs.Services\CraftLogs.Services.csproj" />
+    <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
   </ItemGroup>
 
 </Project>

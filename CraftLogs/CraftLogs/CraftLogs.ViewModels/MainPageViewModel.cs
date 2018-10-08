@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Plugin.VersionTracking;
 using CraftLogs.Values;
+using CraftLogs.Services;
 
 namespace CraftLogs.ViewModels
 {
@@ -10,37 +11,32 @@ namespace CraftLogs.ViewModels
     {
         #region Private
         private string version;
+        private DelegateCommand navigateToSettingsCommand;
         #endregion
 
         #region Public
-        public string Version
-        {
-            get { return version; }
-            set { SetProperty(ref version, value); }
-        }
+        public string Version => version ?? (version = string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion));
 
-        public DelegateCommand NavigateToProfileCommand { get; private set; }
-        public DelegateCommand NavigateToSettingsCommand { get; private set; }
-        public DelegateCommand NavigateToQuestCommand { get; private set; }
+        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage)));
         #endregion
 
         #region Ctor
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository)
-            : base(navigationService, dataRepository)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IDialogService dialogService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            NavigateToProfileCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.ProfilePage));
-            NavigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage));
-            NavigateToQuestCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.QuestPage));
-            Title = DataRepository.GetLogsAsync();
-            Version = string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion);
         }
         #endregion
 
-        #region Private functions
-        private async void NavigateTo(string navigationLink)
+        #region Overrides
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            await NavigationService.NavigateAsync(navigationLink);
+            base.OnNavigatedTo(parameters);
+            Title = Texts.MainPage;
+            //Temporary file cration for testing. 
+            DataRepository.CreateSettings();
         }
+
         #endregion
     }
 }

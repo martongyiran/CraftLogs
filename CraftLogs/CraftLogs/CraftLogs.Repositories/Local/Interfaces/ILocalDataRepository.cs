@@ -1,19 +1,36 @@
-﻿using System.Threading.Tasks;
+﻿using CraftLogs.Models;
+using System.Threading.Tasks;
 
 namespace CraftLogs.Repositories.Local
 {
     public interface ILocalDataRepository
     {
-        /// <summary> Returns all the logs. wip </summary>
-        string GetLogsAsync();
+        /// <summary> 
+        /// Returns all the logs. wip 
+        /// </summary>
+        string GetLogs();
         /// <summary> Save logs to file. </summary>
         /// <param name="data">Logs type object.</param>
-        Task<bool> SaveLogsToFileAsync(string data);
-        /// <summary> Returns the settings. </summary>
-        Task<string> GetSettingsAsync();
+        bool SaveLogsToFile(string data);
+        /// <summary> 
+        /// Creates a settings file(if it does not exist) from embedded resource.
+        /// </summary>
+        void CreateSettings();
+        /// <summary> 
+        /// Deletes the settings file.
+        /// </summary>
+        void DeleteSettings();
+        /// <summary> 
+        /// Returns the settings. 
+        /// </summary>
+        Settings GetSettings();
+        /// <summary> 
+        /// Resets settings.
+        /// </summary>
+        void ResetSettings();
         /// <summary> Save settings to file. </summary>
         /// <param name="data">Settings type object.</param>
-        Task<bool> SaveSettingsToFileAsync(string data);
+        void SaveSettingsToFile(Settings data);
 
         //TODO: Profile, Inventory, Items?? etc.
     }

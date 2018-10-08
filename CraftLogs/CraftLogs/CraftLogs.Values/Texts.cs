@@ -11,6 +11,14 @@
         /// </summary>
         public const string Version = "Version: {0}";
 
+        #region General
+
+        public const string Ok = "OK";
+        public const string Yes = "Igen";
+        public const string No = "Nem";
+
+        #endregion
+
         #region SettingsPage texts 
         /// <summary>
         /// SettingsPage toolbar text.
@@ -23,11 +31,11 @@
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft1Start = "Craft 1 kezdete(óra 0-24) ";
+        public const string Craft1Start = "Craft 1 kezdete (óra 0-24) ";
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft2Start = "Craft 2 kezdete(óra 0-24) ";
+        public const string Craft2Start = "Craft 2 kezdete (óra 0-24) ";
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
@@ -60,6 +68,15 @@
         /// SettingsPage: GodMode text.
         /// </summary>
         public const string GodMode = "Isteni üzemmód";
+        /// <summary>
+        /// SettingsPage: Settings succesfully saved text.
+        /// </summary>
+        public const string SuccessfulSaving= "A beállítások sikeresen elmentve!";
+        /// <summary>
+        /// SettingsPage: Settings reset question text.
+        /// </summary>
+        public const string ResetData= "Biztos, hogy alaphelyzetbe állítod a beállításokat?";
+
         #endregion
     }
 }
