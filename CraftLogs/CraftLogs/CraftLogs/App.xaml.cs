@@ -53,6 +53,7 @@ namespace CraftLogs
         {
             containerRegistry.Register<ILocalDataRepository, LocalDataRepository>();
             containerRegistry.Register<IDataService, DataService>();
+            containerRegistry.Register<IDialogService, DialogService>();
         }
     }
 }
