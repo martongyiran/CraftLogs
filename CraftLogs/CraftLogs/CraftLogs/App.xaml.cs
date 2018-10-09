@@ -5,12 +5,13 @@ using CraftLogs.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Prism.Unity;
-using CraftLogs.Services;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Repositories.Local;
+using CraftLogs.BLL.Services.Interfaces;
+using CraftLogs.BLL.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CraftLogs

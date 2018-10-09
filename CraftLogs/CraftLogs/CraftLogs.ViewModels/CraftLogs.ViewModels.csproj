@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.BLL\CraftLogs.BLL.csproj" />
-    <ProjectReference Include="..\CraftLogs.Services\CraftLogs.Services.csproj" />
     <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
   </ItemGroup>
 

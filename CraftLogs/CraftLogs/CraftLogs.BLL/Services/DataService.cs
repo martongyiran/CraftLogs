@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using CraftLogs.BLL.Services.Interfaces;
+using System.IO;
 
-namespace CraftLogs.Services
+namespace CraftLogs.BLL.Services
 {
     public class DataService : IDataService
     {
@@ -12,7 +13,7 @@ namespace CraftLogs.Services
             path += string.Format("/{0}", "files");
             return path;
         }
-        
+
         private string GetFilePath(string fileName)
         {
             return Path.Combine(GetPath(), fileName);

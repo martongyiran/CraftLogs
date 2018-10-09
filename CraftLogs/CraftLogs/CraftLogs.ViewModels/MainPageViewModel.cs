@@ -24,6 +24,7 @@ namespace CraftLogs.ViewModels
         public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
+            Title = Texts.MainPage;
         }
         #endregion
 
@@ -32,7 +33,7 @@ namespace CraftLogs.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            Title = Texts.MainPage;
+            
             //Temporary file cration for testing. 
             DataRepository.CreateSettings();
         }

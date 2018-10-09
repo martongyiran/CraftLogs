@@ -1,6 +1,6 @@
 ﻿using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
-using CraftLogs.Services;
+using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Newtonsoft.Json;
 using System;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CraftLogs.Services
+﻿namespace CraftLogs.BLL.Services.Interfaces
 {
     public interface IDataService
     {

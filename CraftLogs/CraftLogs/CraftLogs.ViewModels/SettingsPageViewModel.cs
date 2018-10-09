@@ -76,6 +76,7 @@ namespace CraftLogs.ViewModels
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
+            Title = Texts.SettingsPage;
         }
         #endregion
 
@@ -83,7 +84,6 @@ namespace CraftLogs.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            Title = Texts.SettingsPage;
             SetUp();
         }
 
