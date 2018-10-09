@@ -12,26 +12,22 @@ namespace CraftLogs.BLL.Repositories.Local
     public class LocalDataRepository : ILocalDataRepository
     {
         #region Ctor
-        public IDataService DataService { get; private set; }
+        private readonly IDataService dataService;
         public LocalDataRepository(IDataService dataService)
         {
-            DataService = dataService;
+            this.dataService = dataService;
         }
         #endregion
         public string GetLogs()
         {
-            DataService.CreateFile("data");
-            DataService.WriteAllText("data", "Text in file");
-            var a = DataService.ReadAllText("data");
-            return a;
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void CreateSettings()
         {
-            if (!DataService.IsFileExist(FileNames.Settings))
+            if (!dataService.IsFileExist(FileNames.Settings))
             {
-                DataService.CreateFile(FileNames.Settings);
+                dataService.CreateFile(FileNames.Settings);
 
                 var assembly = typeof(LocalDataRepository).GetTypeInfo().Assembly;
                 Stream stream = assembly.GetManifestResourceStream(string.Format(FileNames.FileAssembly, FileNames.Settings));
@@ -49,9 +45,9 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public void DeleteSettings()
         {
-            if (DataService.IsFileExist(FileNames.Settings))
+            if (dataService.IsFileExist(FileNames.Settings))
             {
-                DataService.DeleteFile(FileNames.Settings);
+                dataService.DeleteFile(FileNames.Settings);
             }
         }
 
@@ -64,15 +60,19 @@ namespace CraftLogs.BLL.Repositories.Local
         public Settings GetSettings()
         {
             Settings data = new Settings();
-            var input = DataService.ReadAllText(FileNames.Settings);
+            var input = dataService.ReadAllText(FileNames.Settings);
             data = JsonConvert.DeserializeObject<Settings>(input);
-            return data;
+            if (data != null)
+            {
+                return data;
+            }
+            throw new NullReferenceException("Settings is null.");
         }
 
         public void SaveSettingsToFile(Settings data)
         {
             var json = JsonConvert.SerializeObject(data);
-            DataService.WriteAllText(FileNames.Settings, json);
+            dataService.WriteAllText(FileNames.Settings, json);
         }
 
         public bool SaveLogsToFile(string data)

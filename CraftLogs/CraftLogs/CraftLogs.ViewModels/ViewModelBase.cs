@@ -1,7 +1,7 @@
 ﻿using CraftLogs.BLL.Repositories.Local.Interfaces;
-using CraftLogs.Services;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
 
 namespace CraftLogs.ViewModels
 {
@@ -29,11 +29,11 @@ namespace CraftLogs.ViewModels
         #region Services
         protected INavigationService NavigationService { get; private set; }
         protected ILocalDataRepository DataRepository { get; private set; }
-        protected IDialogService DialogService { get; private set; }
+        protected IPageDialogService DialogService { get; private set; }
         #endregion
 
         #region Ctor
-        public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository, IDialogService dialogService)
+        public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
         {
             NavigationService = navigationService;
             DataRepository = dataRepository;

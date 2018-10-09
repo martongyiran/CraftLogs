@@ -2,8 +2,8 @@
 using Prism.Navigation;
 using Plugin.VersionTracking;
 using CraftLogs.Values;
-using CraftLogs.Services;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using Prism.Services;
 
 namespace CraftLogs.ViewModels
 {
@@ -21,7 +21,7 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Ctor
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IDialogService dialogService)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
         }

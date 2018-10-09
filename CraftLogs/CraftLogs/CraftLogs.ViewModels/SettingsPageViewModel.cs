@@ -1,9 +1,9 @@
 ﻿using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
-using CraftLogs.Services;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 
 namespace CraftLogs.ViewModels
 {
@@ -73,7 +73,7 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Ctor
-        public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IDialogService dialogService)
+        public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
         }
@@ -115,12 +115,12 @@ namespace CraftLogs.ViewModels
             settings.Craft2QuestCount = Craft2QuestCount;
 
             DataRepository.SaveSettingsToFile(settings);
-            DialogService.DisplayAlert("", Texts.SuccessfulSaving, Texts.Ok);
+            DialogService.DisplayAlertAsync("", Texts.SuccessfulSaving, Texts.Ok);
         }
 
         private async void ResetSettingsAsync()
         {
-            var res = await DialogService.DisplayAlert("", Texts.ResetData, Texts.Yes, Texts.No);
+            var res = await DialogService.DisplayAlertAsync("", Texts.ResetData, Texts.Yes, Texts.No);
             if (res)
             {
                 DataRepository.ResetSettings();
