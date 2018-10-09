@@ -1,10 +1,9 @@
-﻿using CraftLogs.Models;
-using CraftLogs.Repositories.Local;
+﻿using CraftLogs.BLL.Models;
+using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Services;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 
 namespace CraftLogs.ViewModels
 {
@@ -70,7 +69,7 @@ namespace CraftLogs.ViewModels
         }
 
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
-        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(ResetSettings));
+        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(ResetSettingsAsync));
         #endregion
 
         #region Ctor
@@ -84,6 +83,7 @@ namespace CraftLogs.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            Title = Texts.SettingsPage;
             SetUp();
         }
 
@@ -95,32 +95,30 @@ namespace CraftLogs.ViewModels
         {
             settings = DataRepository.GetSettings();
 
-            CraftDay = settings.craftDay;
-            Craft1Start = settings.craft1Start;
-            Craft2Start = settings.craft2Start;
-            Craft1MinPont = settings.craft1MinPont;
-            Craft2MinPont = settings.craft2MinPont;
-            Craft1QuestCount = settings.craft1QuestCount;
-            Craft2QuestCount = settings.craft2QuestCount;
-
-            Title = Texts.SettingsPage;
+            CraftDay = settings.CraftDay;
+            Craft1Start = settings.Craft1Start;
+            Craft2Start = settings.Craft2Start;
+            Craft1MinPont = settings.Craft1MinPont;
+            Craft2MinPont = settings.Craft2MinPont;
+            Craft1QuestCount = settings.Craft1QuestCount;
+            Craft2QuestCount = settings.Craft2QuestCount;
         }
 
         private void SaveSettings()
         {
-            settings.craftDay = CraftDay;
-            settings.craft1Start = Craft1Start;
-            settings.craft2Start = Craft2Start;
-            settings.craft1MinPont = Craft1MinPont;
-            settings.craft2MinPont = Craft2MinPont;
-            settings.craft1QuestCount = Craft1QuestCount;
-            settings.craft2QuestCount = Craft2QuestCount;
+            settings.CraftDay = CraftDay;
+            settings.Craft1Start = Craft1Start;
+            settings.Craft2Start = Craft2Start;
+            settings.Craft1MinPont = Craft1MinPont;
+            settings.Craft2MinPont = Craft2MinPont;
+            settings.Craft1QuestCount = Craft1QuestCount;
+            settings.Craft2QuestCount = Craft2QuestCount;
 
             DataRepository.SaveSettingsToFile(settings);
             DialogService.DisplayAlert("", Texts.SuccessfulSaving, Texts.Ok);
         }
 
-        private async void ResetSettings()
+        private async void ResetSettingsAsync()
         {
             var res = await DialogService.DisplayAlert("", Texts.ResetData, Texts.Yes, Texts.No);
             if (res)

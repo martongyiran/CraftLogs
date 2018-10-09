@@ -1,4 +1,4 @@
-﻿using CraftLogs.Repositories.Local;
+﻿using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Services;
 using Prism.Mvvm;
 using Prism.Navigation;

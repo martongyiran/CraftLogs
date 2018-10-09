@@ -1,7 +1,6 @@
-﻿using CraftLogs.Models;
-using System.Threading.Tasks;
+﻿using CraftLogs.BLL.Models;
 
-namespace CraftLogs.Repositories.Local
+namespace CraftLogs.BLL.Repositories.Local.Interfaces
 {
     public interface ILocalDataRepository
     {

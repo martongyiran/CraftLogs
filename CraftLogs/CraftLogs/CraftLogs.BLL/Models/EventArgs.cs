@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CraftLogs.Models
+namespace CraftLogs.BLL.Models
 {
     public class EventArgs<T> : System.EventArgs
     {

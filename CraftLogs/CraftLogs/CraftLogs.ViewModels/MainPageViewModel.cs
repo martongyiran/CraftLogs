@@ -1,9 +1,9 @@
-﻿using CraftLogs.Repositories.Local;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Navigation;
 using Plugin.VersionTracking;
 using CraftLogs.Values;
 using CraftLogs.Services;
+using CraftLogs.BLL.Repositories.Local.Interfaces;
 
 namespace CraftLogs.ViewModels
 {

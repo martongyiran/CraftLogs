@@ -1,4 +1,5 @@
-﻿using CraftLogs.Models;
+﻿using CraftLogs.BLL.Models;
+using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Services;
 using CraftLogs.Values;
 using Newtonsoft.Json;
@@ -6,7 +7,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace CraftLogs.Repositories.Local
+namespace CraftLogs.BLL.Repositories.Local
 {
     public class LocalDataRepository : ILocalDataRepository
     {
@@ -32,7 +33,7 @@ namespace CraftLogs.Repositories.Local
             {
                 DataService.CreateFile(FileNames.Settings);
 
-                var assembly = typeof(FileNames).GetTypeInfo().Assembly;
+                var assembly = typeof(LocalDataRepository).GetTypeInfo().Assembly;
                 Stream stream = assembly.GetManifestResourceStream(string.Format(FileNames.FileAssembly, FileNames.Settings));
 
                 Settings data;
