@@ -2,7 +2,7 @@
 
 
 ### What is the "CraftLogs"?
-It's a Xamarin.Forms(Android only) project for ELTE IK Stork Camp's Craft game(some kind of LARP).
+It's a Xamarin.Forms(Android only) project for ELTE IK Freshman Camp's Craft game(some kind of LARP).
 
 
 ### What should I know about this project?
