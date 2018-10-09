@@ -28,18 +28,7 @@ namespace CraftLogs.BLL.Repositories.Local
             if (!dataService.IsFileExist(FileNames.Settings))
             {
                 dataService.CreateFile(FileNames.Settings);
-
-                var assembly = typeof(LocalDataRepository).GetTypeInfo().Assembly;
-                Stream stream = assembly.GetManifestResourceStream(string.Format(FileNames.FileAssembly, FileNames.Settings));
-
-                Settings data;
-                using (var reader = new StreamReader(stream))
-                {
-                    var json = reader.ReadToEnd();
-                    data = JsonConvert.DeserializeObject<Settings>(json);
-                }
-
-                SaveSettingsToFile(data);
+                SaveSettingsToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
             }
         }
 

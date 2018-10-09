@@ -1,5 +1,8 @@
 ﻿using CraftLogs.BLL.Services.Interfaces;
+using CraftLogs.Values;
+using Newtonsoft.Json;
 using System.IO;
+using System.Reflection;
 
 namespace CraftLogs.BLL.Services
 {
@@ -54,6 +57,20 @@ namespace CraftLogs.BLL.Services
         public void DeleteFile(string fileName)
         {
             File.Delete(GetFilePath(fileName));
+        }
+
+        public T ReadFromMockData<T>(string fileName)
+        {
+            var assembly = typeof(DataService).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream(string.Format(FileNames.FileAssembly, fileName));
+
+            T data;
+            using (var reader = new StreamReader(stream))
+            {
+                var json = reader.ReadToEnd();
+                data = JsonConvert.DeserializeObject<T>(json);
+            }
+            return data;
         }
         #endregion
     }

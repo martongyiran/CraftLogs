@@ -22,5 +22,8 @@
         /// <summary> Delete a file. </summary>
         /// <param name="fileName">File name.</param>
         void DeleteFile(string fileName);
+        /// <summary> Reads embedded resource and seriealize it. </summary>
+        /// <param name="fileName">File name.</param>
+        T ReadFromMockData<T>(string fileName);
     }
 }
