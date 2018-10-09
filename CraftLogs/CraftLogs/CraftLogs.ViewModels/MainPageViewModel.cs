@@ -12,12 +12,14 @@ namespace CraftLogs.ViewModels
         #region Private
         private string version;
         private DelegateCommand navigateToSettingsCommand;
+        private DelegateCommand navigateToLogsCommand;
         #endregion
 
         #region Public
         public string Version => version ?? (version = string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion));
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage)));
+        public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.LogsPage)));
         #endregion
 
         #region Ctor
@@ -33,9 +35,20 @@ namespace CraftLogs.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            
+
             //Temporary file cration for testing. 
+            SetUpFileSystem();
+        }
+
+        #endregion
+
+        #region Private functions
+
+        private void SetUpFileSystem()
+        {
             DataRepository.CreateSettings();
+            DataRepository.DeleteFile(FileNames.Logs);
+            DataRepository.CreateLogs();
         }
 
         #endregion

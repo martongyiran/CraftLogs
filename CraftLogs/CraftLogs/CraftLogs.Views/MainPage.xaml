@@ -9,6 +9,7 @@
         <Button Text="PvP" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.QuestPage}" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
         <Button Text="Inventory" IsEnabled="False" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.LogsPage}" Command="{Binding NavigateToLogsCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}"/>
         <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
         

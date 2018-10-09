@@ -6,6 +6,7 @@
         public const string ProfilePage = "Profil";
         public const string SettingsPage = "Beállítások";
         public static string QuestPage = "Állomás";
+        public static string LogsPage = "Napló";
         /// <summary>
         /// Version number on MainPage with {0} args.
         /// </summary>
@@ -76,6 +77,18 @@
         /// SettingsPage: Settings reset question text.
         /// </summary>
         public const string ResetData= "Biztos, hogy alaphelyzetbe állítod a beállításokat?";
+
+        #endregion
+
+        #region LogsPage texts
+        /// <summary>
+        /// LogsPage: LoadMore button text.
+        /// </summary>
+        public const string LoadMore = "Több betöltése";
+        /// <summary>
+        /// LogsPage: Page is empty text.
+        /// </summary>
+        public const string EmptyLogs = "Még nem találhatóak bejegyzések!";
 
         #endregion
     }

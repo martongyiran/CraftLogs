@@ -37,6 +37,8 @@ namespace CraftLogs.BLL.Repositories.Local
 
         #endregion
 
+        #region Public functions
+
         public void CreateSettings()
         {
             if (!dataService.IsFileExist(FileNames.Settings))
@@ -67,12 +69,12 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public void CreateLogs()
         {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteLogs()
-        {
-            throw new NotImplementedException();
+            if (!dataService.IsFileExist(FileNames.Logs))
+            {
+                dataService.CreateFile(FileNames.Logs);
+                Logs logs = new Logs();
+                SaveToFile(logs);
+            }
         }
 
         public Logs GetLogs()
@@ -98,5 +100,7 @@ namespace CraftLogs.BLL.Repositories.Local
             var json = JsonConvert.SerializeObject(data);
             dataService.WriteAllText(fileName, json);
         }
+
+        #endregion
     }
 }

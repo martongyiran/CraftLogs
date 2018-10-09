@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             x:Class="CraftLogs.Views.LogsPage"
+             Title="{Binding Title}">
+    <Grid>
+
+        <ListView x:Name="listView" 
+              ItemsSource="{Binding FilteredLogsList}" 
+              BackgroundColor="White" 
+              SeparatorVisibility="None" 
+              HasUnevenRows="True" 
+              CachingStrategy="RecycleElement"
+              SelectionMode="None"
+              IsRefreshing="{Binding IsBusy}">
+            <ListView.Footer>
+                <Button Text="{x:Static values:Texts.LoadMore}" IsVisible="{Binding FooterIsVisible}" Font="15" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding LoadLogsCommand}" Style="{StaticResource WhiteButton}"/>
+            </ListView.Footer>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Style="{StaticResource SettingsFrame}">
+                            <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Date, StringFormat='{0:HH:mm:ss}'}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="18" TextColor="Black"/>
+                                <Frame Grid.Row="0" Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HasShadow="True" OutlineColor="Gray" Margin="0,0,0,10" CornerRadius="5" BackgroundColor="White" Padding="5" >
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="Quest">
+                                            <Setter Property="BackgroundColor" Value="Blue"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="Buy">
+                                            <Setter Property="BackgroundColor" Value="Green"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="Sell">
+                                            <Setter Property="BackgroundColor" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="Trade">
+                                            <Setter Property="BackgroundColor" Value="Orange"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="Arena">
+                                            <Setter Property="BackgroundColor" Value="IndianRed"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding LogType}" Value="System">
+                                            <Setter Property="BackgroundColor" Value="Purple"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                    <Label FontSize="15" TextColor="White" Text="{Binding LogType}" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="Quest">
+                                                <Setter Property="Text" Value="Állomás"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="Buy">
+                                                <Setter Property="Text" Value="Vásárlás"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="Sell">
+                                                <Setter Property="Text" Value="Eladás"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="Trade">
+                                                <Setter Property="Text" Value="Csere"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="Arena">
+                                                <Setter Property="Text" Value="Aréna"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding LogType}" Value="System">
+                                                <Setter Property="Text" Value="System"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Frame>
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Text}" VerticalOptions="Center" HorizontalOptions="Start"  FontSize="18" TextColor="Black"/>
+
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Text="{x:Static values:Texts.EmptyLogs}"  Font="15" TextColor="Black" Margin="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding HeaderIsVisible}"/>
+    </Grid>
+</ContentPage>
