@@ -114,7 +114,7 @@ namespace CraftLogs.ViewModels
             settings.Craft1QuestCount = Craft1QuestCount;
             settings.Craft2QuestCount = Craft2QuestCount;
 
-            DataRepository.SaveSettingsToFile(settings);
+            DataRepository.SaveToFile(settings);
             DialogService.DisplayAlertAsync("", Texts.SuccessfulSaving, Texts.Ok);
         }
 

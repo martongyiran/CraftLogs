@@ -4,8 +4,6 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Newtonsoft.Json;
 using System;
-using System.IO;
-using System.Reflection;
 
 namespace CraftLogs.BLL.Repositories.Local
 {
@@ -18,56 +16,87 @@ namespace CraftLogs.BLL.Repositories.Local
             this.dataService = dataService;
         }
         #endregion
-        public string GetLogs()
+
+        #region Private functions
+
+        private T GetFile<T>(string fileName)
         {
-            throw new NotImplementedException();
+            if (dataService.IsFileExist(fileName))
+            {
+                T data;
+                var input = dataService.ReadAllText(fileName);
+                data = JsonConvert.DeserializeObject<T>(input);
+                if (data != null)
+                {
+                    return data;
+                }
+                throw new Exception("Value is null after deserialization.");
+            }
+            throw new Exception("File not found: " + fileName);
         }
+
+        #endregion
 
         public void CreateSettings()
         {
             if (!dataService.IsFileExist(FileNames.Settings))
             {
                 dataService.CreateFile(FileNames.Settings);
-                SaveSettingsToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
+                SaveToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
             }
         }
 
-        public void DeleteSettings()
+        public void DeleteFile(string fileName)
         {
-            if (dataService.IsFileExist(FileNames.Settings))
+            if (dataService.IsFileExist(fileName))
             {
-                dataService.DeleteFile(FileNames.Settings);
+                dataService.DeleteFile(fileName);
             }
         }
 
         public void ResetSettings()
         {
-            DeleteSettings();
+            DeleteFile(FileNames.Settings);
             CreateSettings();
         }
 
         public Settings GetSettings()
         {
-            Settings data = new Settings();
-            var input = dataService.ReadAllText(FileNames.Settings);
-            data = JsonConvert.DeserializeObject<Settings>(input);
-            if (data != null)
-            {
-                return data;
-            }
-            throw new NullReferenceException("Settings is null.");
+            return GetFile<Settings>(FileNames.Settings);
         }
 
-        public void SaveSettingsToFile(Settings data)
-        {
-            var json = JsonConvert.SerializeObject(data);
-            dataService.WriteAllText(FileNames.Settings, json);
-        }
-
-        public bool SaveLogsToFile(string data)
+        public void CreateLogs()
         {
             throw new NotImplementedException();
         }
 
+        public void DeleteLogs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Logs GetLogs()
+        {
+            return GetFile<Logs>(FileNames.Logs);
+        }
+
+        public void SaveToFile<T>(T data)
+        {
+            string fileName = "";
+            if (typeof(Settings) == data.GetType())
+            {
+                fileName = FileNames.Settings;
+            }
+            else if (typeof(Logs) == data.GetType())
+            {
+                fileName = FileNames.Logs;
+            }
+            else
+            {
+                throw new NotImplementedException("Can't save " + data.GetType().ToString() + "type objects to file.");
+            }
+            var json = JsonConvert.SerializeObject(data);
+            dataService.WriteAllText(fileName, json);
+        }
     }
 }

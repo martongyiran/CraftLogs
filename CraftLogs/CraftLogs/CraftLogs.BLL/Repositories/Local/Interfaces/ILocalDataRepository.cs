@@ -4,21 +4,23 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
 {
     public interface ILocalDataRepository
     {
+
         /// <summary> 
-        /// Returns all the logs. wip 
+        /// Creates a logs file(if it does not exist) from embedded resource.
         /// </summary>
-        string GetLogs();
-        /// <summary> Save logs to file. </summary>
-        /// <param name="data">Logs type object.</param>
-        bool SaveLogsToFile(string data);
+        void CreateLogs();
+        /// <summary> 
+        /// Returns all the logs. 
+        /// </summary>
+        Logs GetLogs();
         /// <summary> 
         /// Creates a settings file(if it does not exist) from embedded resource.
         /// </summary>
         void CreateSettings();
         /// <summary> 
-        /// Deletes the settings file.
+        /// Deletes the file.
         /// </summary>
-        void DeleteSettings();
+        void DeleteFile(string fileName);
         /// <summary> 
         /// Returns the settings. 
         /// </summary>
@@ -27,9 +29,10 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Resets settings.
         /// </summary>
         void ResetSettings();
-        /// <summary> Save settings to file. </summary>
-        /// <param name="data">Settings type object.</param>
-        void SaveSettingsToFile(Settings data);
+        /// <summary> 
+        /// Saves a model to a file.
+        /// </summary>
+        void SaveToFile<T>(T data);
 
         //TODO: Profile, Inventory, Items?? etc.
     }

@@ -7,6 +7,6 @@
         Sell,
         Trade,
         Arena,
-        Other
+        System
     }
 }
