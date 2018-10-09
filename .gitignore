@@ -11,10 +11,8 @@ CraftLogs/CraftLogs/CraftLogs.ViewModels/bin
 CraftLogs/CraftLogs/CraftLogs.ViewModels/obj
 CraftLogs/CraftLogs/CraftLogs.Values/bin
 CraftLogs/CraftLogs/CraftLogs.Values/obj
-CraftLogs/CraftLogs/CraftLogs.Repositories/bin
-CraftLogs/CraftLogs/CraftLogs.Repositories/obj
-CraftLogs/CraftLogs/CraftLogs.Models/bin
-CraftLogs/CraftLogs/CraftLogs.Models/obj
+CraftLogs/CraftLogs/CraftLogs.BLL/bin
+CraftLogs/CraftLogs/CraftLogs.BLL/obj
 CraftLogs/CraftLogs/CraftLogs.Android/bin
 CraftLogs/CraftLogs/CraftLogs.Android/obj
 CraftLogs/CraftLogs/CraftLogs.Android/CraftLogs.Android.csproj.user
