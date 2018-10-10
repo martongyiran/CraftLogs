@@ -4,6 +4,9 @@ using Plugin.VersionTracking;
 using CraftLogs.Values;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
+using CraftLogs.BLL.Services.Interfaces;
+using System.Collections.Generic;
+using CraftLogs.BLL.Models;
 
 namespace CraftLogs.ViewModels
 {
@@ -13,6 +16,7 @@ namespace CraftLogs.ViewModels
         private string version;
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToLogsCommand;
+        private readonly IItemGeneratorService itemGeneratorService;
         #endregion
 
         #region Public
@@ -23,10 +27,11 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Ctor
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.MainPage;
+            this.itemGeneratorService = itemGeneratorService;
         }
         #endregion
 
@@ -38,6 +43,7 @@ namespace CraftLogs.ViewModels
 
             //Temporary file cration for testing. 
             SetUpFileSystem();
+            var items = GenerateTestItems();
         }
 
         #endregion
@@ -49,6 +55,27 @@ namespace CraftLogs.ViewModels
             DataRepository.CreateSettings();
             DataRepository.DeleteFile(FileNames.Logs);
             DataRepository.CreateLogs();
+        }
+
+        private List<Item> GenerateTestItems()
+        {
+            List<Item> res = new List<Item>();
+            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Common));
+            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Uncommon));
+            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Rare));
+            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Epic));
+
+            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Common));
+            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Uncommon));
+            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Rare));
+            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Epic));
+
+            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Common));
+            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Uncommon));
+            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Rare));
+            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Epic));
+
+            return res;
         }
 
         #endregion
