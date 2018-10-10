@@ -8,6 +8,7 @@
         Axe,
         Spear,
         Hammer,
-        Shield
+        Shield,
+        Food
     }
 }

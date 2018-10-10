@@ -60,20 +60,10 @@ namespace CraftLogs.ViewModels
         private List<Item> GenerateTestItems()
         {
             List<Item> res = new List<Item>();
-            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Common));
-            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Uncommon));
-            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Rare));
-            res.Add(itemGeneratorService.GenerateBoots(1, BLL.Enums.ItemRarityEnum.Epic));
-
-            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Common));
-            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Uncommon));
-            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Rare));
-            res.Add(itemGeneratorService.GenerateBoots(2, BLL.Enums.ItemRarityEnum.Epic));
-
-            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Common));
-            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Uncommon));
-            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Rare));
-            res.Add(itemGeneratorService.GenerateBoots(3, BLL.Enums.ItemRarityEnum.Epic));
+            for (int i = 0; i < 21; i++)
+            {
+                res.Add(itemGeneratorService.GenerateRandom());
+            }
 
             return res;
         }

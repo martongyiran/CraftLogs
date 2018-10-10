@@ -12,5 +12,6 @@ namespace CraftLogs.BLL.Services.Interfaces
         Item GenerateLHand(int tier, ItemRarityEnum rarity);
         Item GenerateTrinket(int tier, ItemRarityEnum rarity);
         Item GenerateConsumable(int tier, ItemRarityEnum rarity);
+        Item GenerateRandom();
     }
 }

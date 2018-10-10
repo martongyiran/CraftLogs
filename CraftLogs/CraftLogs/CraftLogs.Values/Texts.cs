@@ -5,8 +5,9 @@
         public const string MainPage = "Főoldal";
         public const string ProfilePage = "Profil";
         public const string SettingsPage = "Beállítások";
-        public static string QuestPage = "Állomás";
-        public static string LogsPage = "Napló";
+        public const string QuestPage = "Állomás";
+        public const string LogsPage = "Napló";
+
         /// <summary>
         /// Version number on MainPage with {0} args.
         /// </summary>
@@ -72,11 +73,11 @@
         /// <summary>
         /// SettingsPage: Settings succesfully saved text.
         /// </summary>
-        public const string SuccessfulSaving= "A beállítások sikeresen elmentve!";
+        public const string SuccessfulSaving = "A beállítások sikeresen elmentve!";
         /// <summary>
         /// SettingsPage: Settings reset question text.
         /// </summary>
-        public const string ResetData= "Biztos, hogy alaphelyzetbe állítod a beállításokat?";
+        public const string ResetData = "Biztos, hogy alaphelyzetbe állítod a beállításokat?";
 
         #endregion
 
@@ -90,6 +91,31 @@
         /// </summary>
         public const string EmptyLogs = "Még nem találhatóak bejegyzések!";
 
+        #endregion
+
+        #region Itemtypes
+        public const string Head="sisakja";
+        public const string Chest = "páncélja";
+        public const string Boots = "csizmája";
+        public const string Trinket = "kiegészítője"; //ide majd randomgenerátor
+        #endregion
+
+        #region ItemSubTypes
+        public const string Dagger = "tőre";
+        public const string Sword = "kardja";
+        public const string Axe = "baltája";
+        public const string Spear = "lándzsája";
+        public const string Shield = "pajzsa";
+        public const string Hammer = "pörölye";
+        public const string Food = "étele"; //ide majd randomgenerátor
+        #endregion
+
+        #region SetNames
+        public const string Set1 = "Aladár";
+        public const string Set2 = "Béla";
+        public const string Set3 = "Cecil";
+        public const string Set4 = "Dominik";
+        public const string Set5 = "Erik";
         #endregion
     }
 }
