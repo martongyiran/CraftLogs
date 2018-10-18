@@ -13,5 +13,6 @@ namespace CraftLogs.BLL.Services.Interfaces
         Item GenerateTrinket(int tier, ItemRarityEnum rarity);
         Item GenerateConsumable(int tier, ItemRarityEnum rarity);
         Item GenerateRandom();
+        Item GenerateWeapon(ItemSubTypeEnum itemSubType, int tier, ItemRarityEnum rarity);
     }
 }

@@ -22,7 +22,7 @@ namespace CraftLogs.BLL.Helpers
             return res;
         }
 
-        private static string ItemTypeToName(ItemTypeEnum itemType)
+        public static string ItemTypeToName(ItemTypeEnum itemType)
         {
             switch (itemType)
             {
@@ -92,22 +92,22 @@ namespace CraftLogs.BLL.Helpers
             }
         }
 
-        public static int ItemSubTypeToDps(ItemSubTypeEnum itemSubType)
+        public static int ItemSubTypeToDps(Item item)
         {
-            switch (itemSubType)
+            switch (item.ItemSubType)
             {
                 case ItemSubTypeEnum.None:
                     return 0;
                 case ItemSubTypeEnum.Dagger:
-                    return 27;
+                    return (int)(27.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Sword:
-                    return 33;
+                    return (int)(33.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Axe:
-                    return 43;
+                    return (int)(43.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Spear:
-                    return 100;
+                    return (int)(100.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Hammer:
-                    return 150;
+                    return (int)(150.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Shield:
                     return 0;
                 default:
@@ -115,32 +115,27 @@ namespace CraftLogs.BLL.Helpers
             }
         }
 
-        public static int ItemSubTypeToMinDmg(ItemSubTypeEnum itemSubType)
+        public static int ItemSubTypeToMinDps(Item item)
         {
-            switch (itemSubType)
+            switch (item.ItemSubType)
             {
                 case ItemSubTypeEnum.None:
                     return 0;
                 case ItemSubTypeEnum.Dagger:
-                    return (int)(ItemSubTypeToDps(itemSubType) * 0.5) * ItemSubTypeToSpeed(itemSubType);
+                    return (int)(27.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.5);
                 case ItemSubTypeEnum.Sword:
-                    return (int)(ItemSubTypeToDps(itemSubType) * 0.6) * ItemSubTypeToSpeed(itemSubType);
+                    return (int)(33.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.6);
                 case ItemSubTypeEnum.Axe:
-                    return (int)(ItemSubTypeToDps(itemSubType) * 0.7) * ItemSubTypeToSpeed(itemSubType);
+                    return (int)(43.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.7);
                 case ItemSubTypeEnum.Spear:
-                    return (int)(ItemSubTypeToDps(itemSubType) * 0.8) * ItemSubTypeToSpeed(itemSubType);
+                    return (int)(100.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.8);
                 case ItemSubTypeEnum.Hammer:
-                    return (int)(ItemSubTypeToDps(itemSubType) * 0.9) * ItemSubTypeToSpeed(itemSubType);
+                    return (int)(150.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.9);
                 case ItemSubTypeEnum.Shield:
                     return 0;
                 default:
                     return 0;
             }
-        }
-
-        public static int ItemSubTypeToMaxDmg(ItemSubTypeEnum itemSubType)
-        {
-            return ItemSubTypeToDps(itemSubType) * ItemSubTypeToSpeed(itemSubType);
         }
 
         public static int ItemSubTypeToSpeed(ItemSubTypeEnum itemSubType)
@@ -166,7 +161,7 @@ namespace CraftLogs.BLL.Helpers
             }
         }
 
-        private static string ItemSubTypeToName(ItemSubTypeEnum itemSubType)
+        public static string ItemSubTypeToName(ItemSubTypeEnum itemSubType)
         {
             switch (itemSubType)
             {

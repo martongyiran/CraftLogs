@@ -1,4 +1,5 @@
 ﻿using CraftLogs.BLL.Enums;
+using CraftLogs.BLL.Helpers;
 
 namespace CraftLogs.BLL.Models
 {
@@ -18,8 +19,7 @@ namespace CraftLogs.BLL.Models
         public int HitRate { get; set; } = 0;
         public int DefRate { get; set; } = 0;
         public int Dps { get; set; } = 0;
-        public int MinDmg { get; set; } = 0;
-        public int MaxDmg { get; set; } = 0;
+        public int MinDps { get; set; } = 0;
         public int Armor { get; set; } = 0;
         public int Stamina { get; set; } = 0;
         public int CritRate { get; set; } = 0;
@@ -44,6 +44,50 @@ namespace CraftLogs.BLL.Models
             ItemType = itemType;
             ItemSubType = itemSubType;
         }
+
+        public override string ToString()
+        {
+            string res = string.Format("Neve: {0} \n", Name);
+            res += string.Format("Típus: {0} \n", ItemType.ToString());
+            res += string.Format("Tier: {0} \n", Tier);
+            res += string.Format("iLvl: {0} \n", Ilvl);
+            res += string.Format("Ritkaság: {0} \n", Rarity.ToString());
+            if (Speed != 0)
+            {
+                res += string.Format("Sebesség: {0} \n", Speed);
+            }
+            if (HitRate != 0)
+            {
+                res += string.Format("Találati esély: {0}% \n", HitRate);
+            }
+            if (DefRate != 0)
+            {
+                res += string.Format("Védekezési esély: {0}% \n", DefRate);
+            }
+            if (Dps != 0)
+            {
+                res += string.Format("Sebzés: {0} - {1} ( Dps: {2} ) \n", MinDps * Speed, Dps * Speed, Dps);
+            }
+            if (Armor != 0)
+            {
+                res += string.Format("Védelem: {0} \n", Armor);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("+ {0} állóképesség \n", Stamina);
+            }
+            if (CritRate != 0)
+            {
+                res += string.Format("+ {0}% kritikus ütés esély \n", CritRate);
+            }
+            if (Agility != 0)
+            {
+                res += string.Format("+ {0}% kitérés esély \n", Agility);
+            }
+
+            return res;
+        }
+
         #endregion
     }
 }

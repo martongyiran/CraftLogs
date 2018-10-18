@@ -4,9 +4,6 @@ using Plugin.VersionTracking;
 using CraftLogs.Values;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
-using CraftLogs.BLL.Services.Interfaces;
-using System.Collections.Generic;
-using CraftLogs.BLL.Models;
 
 namespace CraftLogs.ViewModels
 {
@@ -16,7 +13,7 @@ namespace CraftLogs.ViewModels
         private string version;
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToLogsCommand;
-        private readonly IItemGeneratorService itemGeneratorService;
+        private DelegateCommand navigateToItemTestPageCommand;
         #endregion
 
         #region Public
@@ -24,14 +21,14 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage)));
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.LogsPage)));
+        public DelegateCommand NavigateToItemTestPageCommand => navigateToItemTestPageCommand ?? (navigateToItemTestPageCommand = new DelegateCommand(() => NavigateTo("ItemTestPage")));
         #endregion
 
         #region Ctor
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.MainPage;
-            this.itemGeneratorService = itemGeneratorService;
         }
         #endregion
 
@@ -43,7 +40,6 @@ namespace CraftLogs.ViewModels
 
             //Temporary file cration for testing. 
             SetUpFileSystem();
-            var items = GenerateTestItems();
         }
 
         #endregion
@@ -56,18 +52,6 @@ namespace CraftLogs.ViewModels
             DataRepository.DeleteFile(FileNames.Logs);
             DataRepository.CreateLogs();
         }
-
-        private List<Item> GenerateTestItems()
-        {
-            List<Item> res = new List<Item>();
-            for (int i = 0; i < 21; i++)
-            {
-                res.Add(itemGeneratorService.GenerateRandom());
-            }
-
-            return res;
-        }
-
         #endregion
     }
 }

@@ -36,21 +36,41 @@ namespace CraftLogs.BLL.Services
 
         private void GetBonusStat(Item item)
         {
-            if (item.Rarity != ItemRarityEnum.Common)
+            switch (item.Rarity)
             {
-                int luck = random.Next(1, 4);
-                switch (luck)
-                {
-                    case 1:
-                        item.CritRate = GetTierPlusRarity(item.Tier, item.Rarity);
-                        break;
-                    case 2:
-                        item.Agility = GetTierPlusRarity(item.Tier, item.Rarity);
-                        break;
-                    case 3:
-                        item.Stamina = GetTierPlusRarity(item.Tier, item.Rarity);
-                        break;
-                }
+                case ItemRarityEnum.Common:
+                    break;
+                case ItemRarityEnum.Uncommon:
+                    GenerateBonusStat(item);
+                    break;
+                case ItemRarityEnum.Rare:
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    break;
+                case ItemRarityEnum.Epic:
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GenerateBonusStat(Item item)
+        {
+            int luck = random.Next(1, 4);
+            switch (luck)
+            {
+                case 1:
+                    item.CritRate += GetTierPlusRarity(item.Tier, item.Rarity);
+                    break;
+                case 2:
+                    item.Agility += GetTierPlusRarity(item.Tier, item.Rarity);
+                    break;
+                case 3:
+                    item.Stamina += GetTierPlusRarity(item.Tier, item.Rarity);
+                    break;
             }
         }
 
@@ -75,6 +95,29 @@ namespace CraftLogs.BLL.Services
             generated.Name = ItemConverter.ItemToItemName(generated);
 
             return generated;
+        }
+
+        private void GenerateHand(Item generated)
+        {
+            SetSubType(generated);
+            if (generated.ItemSubType != ItemSubTypeEnum.Shield)
+            {
+                generated.HitRate = GetHitRate(generated.Tier, generated.Rarity);
+                generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
+                generated.Dps = ItemConverter.ItemSubTypeToDps(generated);
+                generated.MinDps = ItemConverter.ItemSubTypeToMinDps(generated);
+            }
+            else
+            {
+                generated.DefRate = GetDefRate(generated.Tier, generated.Rarity);
+                generated.Armor = GetArmor(generated.Tier, generated.Rarity);
+            }
+
+            generated.Ilvl = GetTierPlusRarity(generated.Tier, generated.Rarity) * 10;
+            GetBonusStat(generated);
+            generated.SetName = GetSetName();
+            generated.Name = ItemConverter.ItemToItemName(generated);
+
         }
 
         private void SetSubType(Item generated)
@@ -125,22 +168,16 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateLHand(int tier, ItemRarityEnum rarity)
         {
-            throw new NotImplementedException();
+            Item generated = new Item(tier, rarity, ItemTypeEnum.LHand);
+            GenerateHand(generated);
+
+            return generated;
         }
 
         public Item GenerateRHand(int tier, ItemRarityEnum rarity)
         {
             Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
-            SetSubType(generated);
-            generated.HitRate = GetHitRate(tier, rarity);
-            generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
-            generated.Dps = ItemConverter.ItemSubTypeToDps(generated.ItemSubType);
-            generated.MinDmg = ItemConverter.ItemSubTypeToMinDmg(generated.ItemSubType);
-            generated.MaxDmg = ItemConverter.ItemSubTypeToMaxDmg(generated.ItemSubType);
-            generated.Ilvl = GetTierPlusRarity(tier, rarity) * 10;
-            GetBonusStat(generated);
-            generated.SetName = GetSetName();
-            generated.Name = ItemConverter.ItemToItemName(generated);
+            GenerateHand(generated);
 
             return generated;
         }
@@ -152,9 +189,9 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateRandom()
         {
-            var type = random.Next(1, 4);
+            var type = random.Next(1, 6);
             var tier = random.Next(1, 4);
-            var rarity = random.Next(1, 5);
+            var rarity = random.Next(0, 4);
 
             switch (type)
             {
@@ -164,11 +201,33 @@ namespace CraftLogs.BLL.Services
                     return GenerateChest(tier, (ItemRarityEnum)rarity);
                 case 3:
                     return GenerateHead(tier, (ItemRarityEnum)rarity);
+                case 4:
+                    return GenerateRHand(tier, (ItemRarityEnum)rarity);
+                case 5:
+                    return GenerateLHand(tier, (ItemRarityEnum)rarity);
                 default:
                     return new Item();
             }
 
         }
+
+        public Item GenerateWeapon(ItemSubTypeEnum itemSubType, int tier, ItemRarityEnum rarity)
+        {
+            Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
+
+            generated.ItemSubType = itemSubType;
+            generated.HitRate = GetHitRate(generated.Tier, generated.Rarity);
+            generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
+            generated.Dps = ItemConverter.ItemSubTypeToDps(generated);
+            generated.MinDps = ItemConverter.ItemSubTypeToMinDps(generated);
+            generated.Ilvl = GetTierPlusRarity(generated.Tier, generated.Rarity) * 10;
+            GetBonusStat(generated);
+            generated.SetName = GetSetName();
+            generated.Name = ItemConverter.ItemToItemName(generated);
+
+            return generated;
+        }
+
         #endregion
     }
 }
