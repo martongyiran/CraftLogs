@@ -6,6 +6,7 @@ namespace CraftLogs.BLL.Models
     {
         public int Id { get; set; } = 0;
         public int Tier { get; set; }
+        public int Ilvl { get; set; } = 0;
         public ItemRarityEnum Rarity { get; set; }
         public string Name { get; set; }
         public SetNameEnum SetName { get; set; }

@@ -10,7 +10,7 @@ namespace CraftLogs.BLL.Helpers
         public static string ItemToItemName(Item item)
         {
             var res = ItemSetNameEnumToString(item.SetName) + " ";
-            if(item.ItemSubType != ItemSubTypeEnum.None)
+            if (item.ItemSubType != ItemSubTypeEnum.None)
             {
                 res += ItemSubTypeToName(item.ItemSubType);
             }
@@ -113,6 +113,34 @@ namespace CraftLogs.BLL.Helpers
                 default:
                     return 0;
             }
+        }
+
+        public static int ItemSubTypeToMinDmg(ItemSubTypeEnum itemSubType)
+        {
+            switch (itemSubType)
+            {
+                case ItemSubTypeEnum.None:
+                    return 0;
+                case ItemSubTypeEnum.Dagger:
+                    return (int)(ItemSubTypeToDps(itemSubType) * 0.5) * ItemSubTypeToSpeed(itemSubType);
+                case ItemSubTypeEnum.Sword:
+                    return (int)(ItemSubTypeToDps(itemSubType) * 0.6) * ItemSubTypeToSpeed(itemSubType);
+                case ItemSubTypeEnum.Axe:
+                    return (int)(ItemSubTypeToDps(itemSubType) * 0.7) * ItemSubTypeToSpeed(itemSubType);
+                case ItemSubTypeEnum.Spear:
+                    return (int)(ItemSubTypeToDps(itemSubType) * 0.8) * ItemSubTypeToSpeed(itemSubType);
+                case ItemSubTypeEnum.Hammer:
+                    return (int)(ItemSubTypeToDps(itemSubType) * 0.9) * ItemSubTypeToSpeed(itemSubType);
+                case ItemSubTypeEnum.Shield:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+
+        public static int ItemSubTypeToMaxDmg(ItemSubTypeEnum itemSubType)
+        {
+            return ItemSubTypeToDps(itemSubType) * ItemSubTypeToSpeed(itemSubType);
         }
 
         public static int ItemSubTypeToSpeed(ItemSubTypeEnum itemSubType)

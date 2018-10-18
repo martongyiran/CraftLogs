@@ -21,12 +21,17 @@ namespace CraftLogs.BLL.Services
 
         private int GetDefRate(int tier, ItemRarityEnum rarity)
         {
-            return (int)((ItemConverter.TierToRate(tier) + ItemConverter.RarityToRate(rarity)) * 1.5);
+            return (int)(GetTierPlusRarity(tier, rarity) * 1.5);
+        }
+
+        private int GetHitRate(int tier, ItemRarityEnum rarity)
+        {
+            return GetTierPlusRarity(tier, rarity) * 2;
         }
 
         private int GetArmor(int tier, ItemRarityEnum rarity)
         {
-            return (int)((ItemConverter.TierToRate(tier) + ItemConverter.RarityToRate(rarity)) * 12.5);
+            return (int)(GetTierPlusRarity(tier, rarity) * 12.5);
         }
 
         private void GetBonusStat(Item item)
@@ -37,19 +42,19 @@ namespace CraftLogs.BLL.Services
                 switch (luck)
                 {
                     case 1:
-                        item.CritRate = GetBonusSecStat(item.Tier, item.Rarity);
+                        item.CritRate = GetTierPlusRarity(item.Tier, item.Rarity);
                         break;
                     case 2:
-                        item.Agility = GetBonusSecStat(item.Tier, item.Rarity);
+                        item.Agility = GetTierPlusRarity(item.Tier, item.Rarity);
                         break;
                     case 3:
-                        item.Stamina = GetBonusSecStat(item.Tier, item.Rarity);
+                        item.Stamina = GetTierPlusRarity(item.Tier, item.Rarity);
                         break;
                 }
             }
         }
 
-        private int GetBonusSecStat(int tier, ItemRarityEnum rarity)
+        private int GetTierPlusRarity(int tier, ItemRarityEnum rarity)
         {
             return (ItemConverter.TierToRate(tier) + ItemConverter.RarityToRate(rarity));
         }
@@ -59,16 +64,32 @@ namespace CraftLogs.BLL.Services
             return (SetNameEnum)random.Next(1, 5);
         }
 
-        private Item GenerateArmor(ItemTypeEnum itemType,int tier, ItemRarityEnum rarity)
+        private Item GenerateArmor(ItemTypeEnum itemType, int tier, ItemRarityEnum rarity)
         {
             Item generated = new Item(tier, rarity, itemType);
             generated.DefRate = GetDefRate(tier, rarity);
             generated.Armor = GetArmor(tier, rarity);
+            generated.Ilvl = GetTierPlusRarity(tier, rarity) * 10;
             GetBonusStat(generated);
             generated.SetName = GetSetName();
             generated.Name = ItemConverter.ItemToItemName(generated);
 
             return generated;
+        }
+
+        private void SetSubType(Item generated)
+        {
+            switch (generated.ItemType)
+            {
+                case ItemTypeEnum.RHand:
+                    generated.ItemSubType = (ItemSubTypeEnum)random.Next(1, 6);
+                    break;
+                case ItemTypeEnum.LHand:
+                    generated.ItemSubType = random.Next(1, 5) == 4 ? ItemSubTypeEnum.Shield : (ItemSubTypeEnum)random.Next(1, 4);
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -109,7 +130,19 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateRHand(int tier, ItemRarityEnum rarity)
         {
-            throw new NotImplementedException();
+            Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
+            SetSubType(generated);
+            generated.HitRate = GetHitRate(tier, rarity);
+            generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
+            generated.Dps = ItemConverter.ItemSubTypeToDps(generated.ItemSubType);
+            generated.MinDmg = ItemConverter.ItemSubTypeToMinDmg(generated.ItemSubType);
+            generated.MaxDmg = ItemConverter.ItemSubTypeToMaxDmg(generated.ItemSubType);
+            generated.Ilvl = GetTierPlusRarity(tier, rarity) * 10;
+            GetBonusStat(generated);
+            generated.SetName = GetSetName();
+            generated.Name = ItemConverter.ItemToItemName(generated);
+
+            return generated;
         }
 
         public Item GenerateTrinket(int tier, ItemRarityEnum rarity)
