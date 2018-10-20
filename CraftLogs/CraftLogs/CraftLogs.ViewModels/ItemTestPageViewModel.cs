@@ -10,7 +10,7 @@ namespace CraftLogs.ViewModels
 {
     public class ItemTestPageViewModel : ViewModelBase
     {
-        private readonly IItemGeneratorService itemGeneratorService;
+        private readonly IItemGeneratorService ItemGeneratorService;
 
         private ObservableCollection<string> itemsList;
 
@@ -21,19 +21,11 @@ namespace CraftLogs.ViewModels
         }
         User player1;
         User player2;
-        User player3;
-        User player4;
-        User player5;
 
         public ItemTestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService) : base(navigationService, dataRepository, dialogService)
         {
-            this.itemGeneratorService = itemGeneratorService;
+            ItemGeneratorService = itemGeneratorService;
             Title = "Item Generator Test Page";
-            player1 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Dagger, 1, BLL.Enums.ItemRarityEnum.Common));
-            player2 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Sword, 1, BLL.Enums.ItemRarityEnum.Common));
-            player3 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Axe, 1, BLL.Enums.ItemRarityEnum.Common));
-            player4 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Spear, 1, BLL.Enums.ItemRarityEnum.Common));
-            player5 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Hammer, 1, BLL.Enums.ItemRarityEnum.Common));
             ItemsList = new ObservableCollection<string>();
 
         }
@@ -42,40 +34,37 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatedTo(parameters);
             //ItemsList = GenerateTestItems();
-            DoTest(player1, player2);
-            DoTest(player1, player3);
-            DoTest(player1, player4);
-            DoTest(player1, player5);
+            player1 = Generateuser(1, 0);
+            player2 = Generateuser(1, 0);
+            GenerateTest();
 
-            player1 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Dagger, 3, BLL.Enums.ItemRarityEnum.Epic));
-            player2 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Sword, 3, BLL.Enums.ItemRarityEnum.Epic));
-            player3 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Axe, 3, BLL.Enums.ItemRarityEnum.Epic));
-            player4 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Spear, 3, BLL.Enums.ItemRarityEnum.Epic));
-            player5 = new User(this.itemGeneratorService.GenerateWeapon(BLL.Enums.ItemSubTypeEnum.Hammer, 3, BLL.Enums.ItemRarityEnum.Epic));
-
-            DoTest(player1, player2);
-            DoTest(player1, player3);
-            DoTest(player1, player4);
-            DoTest(player1, player5);
         }
 
-        private void DoTest(User pl1, User pl2)
+        private void GenerateTest()
         {
-            IsBusy = true;
-            int p1 = 0;
-            int p2 = 0;
+            ItemsList.Add("Tier 1, Common Characters");
+            ItemsList.Add(player1.ToString());
+            ItemsList.Add(player2.ToString());
+            ItemsList.Add("Tier3, Epic Characters");
+            player1 = Generateuser(3, 3);
+            player2 = Generateuser(3, 3);
+            ItemsList.Add(player1.ToString());
+            ItemsList.Add(player2.ToString());
+        }
 
-            for (int i = 1; i <= 10000; i++)
+        private User Generateuser(int tier, int rarity)
+        {
+            Item Head = ItemGeneratorService.GenerateHead(tier, (BLL.Enums.ItemRarityEnum)rarity);
+            Item Chest = ItemGeneratorService.GenerateChest(tier, (BLL.Enums.ItemRarityEnum)rarity);
+            Item Boots = ItemGeneratorService.GenerateBoots(tier, (BLL.Enums.ItemRarityEnum)rarity);
+            Item Trinket = ItemGeneratorService.GenerateTrinket(tier, (BLL.Enums.ItemRarityEnum)rarity);
+            Item RHand = ItemGeneratorService.GenerateRHand(tier, (BLL.Enums.ItemRarityEnum)rarity);
+            Item LHand = null;
+            if (RHand.ItemSubType != BLL.Enums.ItemSubTypeEnum.Spear && RHand.ItemSubType != BLL.Enums.ItemSubTypeEnum.Hammer)
             {
-                p1 += pl1.Attack();
-                p2 += pl2.Attack();
+                LHand = ItemGeneratorService.GenerateLHand(tier, (BLL.Enums.ItemRarityEnum)rarity);
             }
-            p1 /= 10000;
-            p2 /= 10000;
-
-            ItemsList.Add(string.Format("Tier: {4}, {5} \n {0} vs. {1} \n {2} - {3}", pl1.Weapon.ItemSubType.ToString(), pl2.Weapon.ItemSubType.ToString(), p1, p2, pl1.Weapon.Tier, pl1.Weapon.Rarity.ToString()));
-
-            IsBusy = false;
+            return new User(Head, Chest, Boots, RHand, LHand, Trinket);
         }
 
         private ObservableCollection<string> GenerateTestItems()
@@ -89,7 +78,7 @@ namespace CraftLogs.ViewModels
                 {
                     for (int k = 0; k < 4; k++)
                     {
-                        res.Add(itemGeneratorService.GenerateWeapon((BLL.Enums.ItemSubTypeEnum)i, tier, (BLL.Enums.ItemRarityEnum)rarity).ToString());
+                        res.Add(ItemGeneratorService.GenerateWeapon((BLL.Enums.ItemSubTypeEnum)i, tier, (BLL.Enums.ItemRarityEnum)rarity).ToString());
                         if (rarity == 3)
                         {
                             rarity = 0;
@@ -112,30 +101,87 @@ namespace CraftLogs.ViewModels
 
             return res;
         }
+
     }
+
     public class User
     {
         public int Hit { get; set; } = 40;
         public int Crit { get; set; } = 15;
-        public double CritD { get; } = 1.5;
-        public Item Weapon { get; set; }
-        private Random random;
+        public double CritD { get; set; } = 1.5;
+        public int Agility { get; set; } = 15;
+        public int Armor { get; set; } = 0;
+        public int Stamina { get; set; } = 50;
+        public Item Head { get; set; }
+        public Item Chest { get; set; }
+        public Item Boots { get; set; }
+        public Item RHand { get; set; }
+        public Item LHand { get; set; }
+        public Item Trinket { get; set; }
+        public int HP { get { return Stamina * 10; } }
 
-        public User(Item weapon)
+        private Random random;
+        public User(Item head, Item chest, Item boots, Item rhand, Item lHand, Item trinket)
         {
-            Weapon = weapon;
-            //Hit += weapon.HitRate;
-            //Crit += weapon.CritRate;
+            Head = head;
+            Chest = chest;
+            Boots = boots;
+            Trinket = trinket;
+            RHand = rhand;
+            LHand = lHand;
+
+            UpdateAll();
             random = new Random();
+        }
+
+        private void UpdateAll()
+        {
+            Update(Head);
+            Update(Chest);
+            Update(Boots);
+            Update(Trinket);
+            Update(RHand);
+            if (LHand != null)
+            {
+                Update(LHand);
+            }
+        }
+
+        private void Update(Item item)
+        {
+            if (item != null)
+            {
+                Hit += item.HitRate;
+                Crit += item.CritRate;
+                CritD += item.CritDamage;
+                Agility += item.Agility;
+                Armor += item.Armor;
+                Stamina += item.Stamina;
+            }
         }
 
         public int Attack()
         {
+            int res = Attack(RHand);
+
+            if (LHand != null)
+            {
+                res += Attack(LHand);
+            }
+
+            return res;
+        }
+
+        private int Attack(Item weapon)
+        {
             int res = 0;
 
-            for (int i = 0; i <= Weapon.Speed; i++)
+            if (IsHit())
             {
-                res += GetDmg();
+                for (int i = 0; i < weapon.Speed; i++)
+                {
+                    res += GetDmg(weapon);
+                }
             }
 
             return res;
@@ -143,26 +189,45 @@ namespace CraftLogs.ViewModels
 
         private bool IsHit()
         {
-            return Hit <= random.Next(1, 101);
+            return random.Next(1, 101) <= Hit;
         }
 
         private bool IsCrit()
         {
-            return Crit <= random.Next(1, 101);
+            return random.Next(1, 101) <= Crit;
         }
 
-        private int GetDmg()
+        private int GetDmg(Item weapon)
         {
-            /*if (IsHit())
+            if (IsCrit())
             {
-                if (IsCrit())
-                {
-                    return (int)(random.Next(Weapon.MinDps, Weapon.Dps + 1) * CritD);
-                }
-                return random.Next(Weapon.MinDps, Weapon.Dps + 1);
+                return (int)(random.Next(weapon.MinDps, weapon.Dps + 1) * CritD);
             }
-            return 0;*/
-            return Weapon.Dps;
+
+            return random.Next(weapon.MinDps, weapon.Dps + 1);
+
+        }
+
+        public override string ToString()
+        {
+            string res = "";
+
+            res += string.Format("HP: {0} \n", HP);
+            res += string.Format("Armor: {0}% \n", Armor);
+            res += string.Format("Stamina: {0} \n", Stamina);
+            res += string.Format("Agility: {0}% \n", Agility);
+            res += string.Format("Hit Rate: {0}% \n", Hit);
+            res += string.Format("Crit Rate: {0}% \n", Crit);
+            res += string.Format("Crit Damage: {0}% \n", CritD * 100);
+            if (LHand != null)
+            {
+                res += string.Format("Damage: {0} \n", (RHand.Dps * RHand.Speed) + (LHand.Dps * LHand.Speed));
+            }
+            else
+            {
+                res += string.Format("Damage: {0} \n", RHand.Dps * RHand.Speed);
+            }
+            return res;
         }
     }
 }

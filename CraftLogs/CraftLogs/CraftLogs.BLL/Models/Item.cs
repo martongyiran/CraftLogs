@@ -17,12 +17,12 @@ namespace CraftLogs.BLL.Models
         public ItemStateEnum State { get; set; } = 0;
         public int Speed { get; set; } = 0;
         public int HitRate { get; set; } = 0;
-        public int DefRate { get; set; } = 0;
         public int Dps { get; set; } = 0;
         public int MinDps { get; set; } = 0;
         public int Armor { get; set; } = 0;
         public int Stamina { get; set; } = 0;
         public int CritRate { get; set; } = 0;
+        public double CritDamage { get; set; } = 0;
         public int Agility { get; set; } = 0;
 
         #region Ctor
@@ -60,17 +60,13 @@ namespace CraftLogs.BLL.Models
             {
                 res += string.Format("Találati esély: {0}% \n", HitRate);
             }
-            if (DefRate != 0)
-            {
-                res += string.Format("Védekezési esély: {0}% \n", DefRate);
-            }
             if (Dps != 0)
             {
                 res += string.Format("Sebzés: {0} - {1} ( Dps: {2} ) \n", MinDps * Speed, Dps * Speed, Dps);
             }
             if (Armor != 0)
             {
-                res += string.Format("Védelem: {0} \n", Armor);
+                res += string.Format("{0}% védelem \n", Armor);
             }
             if (Stamina != 0)
             {
@@ -79,6 +75,10 @@ namespace CraftLogs.BLL.Models
             if (CritRate != 0)
             {
                 res += string.Format("+ {0}% kritikus ütés esély \n", CritRate);
+            }
+            if (CritDamage != 0)
+            {
+                res += string.Format("+ {0}% kritikus sebzés \n", CritDamage * 100);
             }
             if (Agility != 0)
             {

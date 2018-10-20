@@ -1,5 +1,4 @@
-﻿using System;
-using CraftLogs.BLL.Enums;
+﻿using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.Values;
 
@@ -99,15 +98,15 @@ namespace CraftLogs.BLL.Helpers
                 case ItemSubTypeEnum.None:
                     return 0;
                 case ItemSubTypeEnum.Dagger:
-                    return (int)(27.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
+                    return (int)(20.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Sword:
-                    return (int)(33.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
+                    return (int)(25.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Axe:
-                    return (int)(43.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
+                    return (int)(33.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Spear:
                     return (int)(100.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Hammer:
-                    return (int)(150.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
+                    return (int)(200.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Shield:
                     return 0;
                 default:
@@ -117,25 +116,11 @@ namespace CraftLogs.BLL.Helpers
 
         public static int ItemSubTypeToMinDps(Item item)
         {
-            switch (item.ItemSubType)
+            if(item.Dps != 0)
             {
-                case ItemSubTypeEnum.None:
-                    return 0;
-                case ItemSubTypeEnum.Dagger:
-                    return (int)(27.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.5);
-                case ItemSubTypeEnum.Sword:
-                    return (int)(33.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.6);
-                case ItemSubTypeEnum.Axe:
-                    return (int)(43.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.7);
-                case ItemSubTypeEnum.Spear:
-                    return (int)(100.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.8);
-                case ItemSubTypeEnum.Hammer:
-                    return (int)(150.0 * (1.0 + ((TierToRate(item.Tier) + RarityToRate(item.Rarity)) / 10.0) - 0.1) * 0.9);
-                case ItemSubTypeEnum.Shield:
-                    return 0;
-                default:
-                    return 0;
+                return (int)(ItemSubTypeToDps(item) * 0.8);
             }
+            return 0;
         }
 
         public static int ItemSubTypeToSpeed(ItemSubTypeEnum itemSubType)
@@ -145,15 +130,15 @@ namespace CraftLogs.BLL.Helpers
                 case ItemSubTypeEnum.None:
                     return 0;
                 case ItemSubTypeEnum.Dagger:
-                    return 6;
-                case ItemSubTypeEnum.Sword:
                     return 5;
-                case ItemSubTypeEnum.Axe:
+                case ItemSubTypeEnum.Sword:
                     return 4;
-                case ItemSubTypeEnum.Spear:
+                case ItemSubTypeEnum.Axe:
                     return 3;
-                case ItemSubTypeEnum.Hammer:
+                case ItemSubTypeEnum.Spear:
                     return 2;
+                case ItemSubTypeEnum.Hammer:
+                    return 1;
                 case ItemSubTypeEnum.Shield:
                     return 0;
                 default:
