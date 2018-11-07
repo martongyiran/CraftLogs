@@ -1,5 +1,4 @@
 ﻿using CraftLogs.BLL.Enums;
-using CraftLogs.BLL.Helpers;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Services.Interfaces;
 using System;
@@ -10,24 +9,6 @@ namespace CraftLogs.BLL.Services
     {
         #region Private
         private Random random;
-        private int DpsToMinDmg(Item item)
-        {
-            return 0;
-        }
-        private int DpsToMaxDmg(Item item)
-        {
-            return 0;
-        }
-
-        private int GetHitRate(int tier, ItemRarityEnum rarity)
-        {
-            return GetTierPlusRarity(tier, rarity) * 2;
-        }
-
-        private int GetArmor(int tier, ItemRarityEnum rarity)
-        {
-            return (int)(GetTierPlusRarity(tier, rarity) * 2.2);
-        }
 
         private void GetBonusStat(Item item)
         {
@@ -58,20 +39,15 @@ namespace CraftLogs.BLL.Services
             switch (luck)
             {
                 case 1:
-                    item.CritRate += (GetTierPlusRarity(item.Tier, item.Rarity) / 3);
+                    item.Strength += item.GetTierPlusRarity(); //todo
                     break;
                 case 2:
-                    item.Agility += (int)(GetTierPlusRarity(item.Tier, item.Rarity) * 0.2);
+                    item.Agility += item.GetTierPlusRarity(); //todo
                     break;
                 case 3:
-                    item.Stamina += GetTierPlusRarity(item.Tier, item.Rarity); //todo
+                    item.Stamina += item.GetTierPlusRarity(); //todo
                     break;
             }
-        }
-
-        private int GetTierPlusRarity(int tier, ItemRarityEnum rarity)
-        {
-            return (ItemConverter.TierToRate(tier) + ItemConverter.RarityToRate(rarity));
         }
 
         private SetNameEnum GetSetName()
@@ -82,11 +58,8 @@ namespace CraftLogs.BLL.Services
         private Item GenerateArmor(ItemTypeEnum itemType, int tier, ItemRarityEnum rarity)
         {
             Item generated = new Item(tier, rarity, itemType);
-            generated.Armor = GetArmor(tier, rarity);
-            generated.Ilvl = GetTierPlusRarity(tier, rarity) * 10;
             GetBonusStat(generated);
             generated.SetName = GetSetName();
-            generated.Name = ItemConverter.ItemToItemName(generated);
 
             return generated;
         }
@@ -94,26 +67,13 @@ namespace CraftLogs.BLL.Services
         private void GenerateHand(Item generated)
         {
             SetSubType(generated);
-            if (generated.ItemSubType != ItemSubTypeEnum.Shield)
-            {
-                generated.HitRate = GetHitRate(generated.Tier, generated.Rarity);
-                generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
-                generated.Dps = ItemConverter.ItemSubTypeToDps(generated);
-                generated.MinDps = ItemConverter.ItemSubTypeToMinDps(generated);
-            }
-            else
-            {
-                generated.Armor = GetArmor(generated.Tier, generated.Rarity);
-            }
 
-            generated.Ilvl = GetTierPlusRarity(generated.Tier, generated.Rarity) * 10;
             if (generated.ItemSubType == ItemSubTypeEnum.Spear || generated.ItemSubType == ItemSubTypeEnum.Hammer)
             {
                 GetBonusStat(generated);
             }
             GetBonusStat(generated);
             generated.SetName = GetSetName();
-            generated.Name = ItemConverter.ItemToItemName(generated);
 
         }
 
@@ -132,7 +92,7 @@ namespace CraftLogs.BLL.Services
             }
             if (generated.ItemSubType == ItemSubTypeEnum.Spear || generated.ItemSubType == ItemSubTypeEnum.Hammer)
             {
-                generated.CritDamage = 0.5;
+                //generated.CritDamage = 0.5;
             }
         }
 
@@ -187,10 +147,8 @@ namespace CraftLogs.BLL.Services
         {
             Item generated = new Item(tier, rarity, ItemTypeEnum.Trinket);
 
-            generated.Ilvl = GetTierPlusRarity(tier, rarity) * 10;
             GetBonusStat(generated);
             generated.SetName = GetSetName();
-            generated.Name = ItemConverter.ItemToItemName(generated);
 
             return generated;
             
@@ -198,7 +156,7 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateRandom()
         {
-            var type = random.Next(1, 6);
+            var type = random.Next(1, 7);
             var tier = random.Next(1, 4);
             var rarity = random.Next(0, 4);
 
@@ -214,6 +172,8 @@ namespace CraftLogs.BLL.Services
                     return GenerateRHand(tier, (ItemRarityEnum)rarity);
                 case 5:
                     return GenerateLHand(tier, (ItemRarityEnum)rarity);
+                case 6:
+                    return GenerateTrinket(tier, (ItemRarityEnum)rarity);
                 default:
                     return new Item();
             }
@@ -225,14 +185,8 @@ namespace CraftLogs.BLL.Services
             Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
 
             generated.ItemSubType = itemSubType;
-            generated.HitRate = GetHitRate(generated.Tier, generated.Rarity);
-            generated.Speed = ItemConverter.ItemSubTypeToSpeed(generated.ItemSubType);
-            generated.Dps = ItemConverter.ItemSubTypeToDps(generated);
-            generated.MinDps = ItemConverter.ItemSubTypeToMinDps(generated);
-            generated.Ilvl = GetTierPlusRarity(generated.Tier, generated.Rarity) * 10;
             GetBonusStat(generated);
             generated.SetName = GetSetName();
-            generated.Name = ItemConverter.ItemToItemName(generated);
 
             return generated;
         }
