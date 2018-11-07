@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
+    <ProjectReference Include="..\CraftLogs.BLL\CraftLogs.BLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,4 +41,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
 </Project>

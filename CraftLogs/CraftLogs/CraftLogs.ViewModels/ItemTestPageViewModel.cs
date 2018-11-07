@@ -12,9 +12,9 @@ namespace CraftLogs.ViewModels
     {
         private readonly IItemGeneratorService ItemGeneratorService;
 
-        private ObservableCollection<string> itemsList;
+        private ObservableCollection<Item> itemsList;
 
-        public ObservableCollection<string> ItemsList
+        public ObservableCollection<Item> ItemsList
         {
             get { return itemsList; }
             set { SetProperty(ref itemsList, value); }
@@ -24,7 +24,7 @@ namespace CraftLogs.ViewModels
         {
             ItemGeneratorService = itemGeneratorService;
             Title = "Item Generator Test Page";
-            ItemsList = new ObservableCollection<string>();
+            ItemsList = new ObservableCollection<Item>();
 
         }
 
@@ -35,12 +35,12 @@ namespace CraftLogs.ViewModels
 
         }
 
-        private ObservableCollection<string> GenerateTestItems()
+        private ObservableCollection<Item> GenerateTestItems()
         {
-            ObservableCollection<string> res = new ObservableCollection<string>();
+            ObservableCollection<Item> res = new ObservableCollection<Item>();
             for (int i = 1; i < 20; i++)
             {
-                res.Add(ItemGeneratorService.GenerateRandom().ToString());
+                res.Add(ItemGeneratorService.GenerateRandom());
             }
 
             return res;
