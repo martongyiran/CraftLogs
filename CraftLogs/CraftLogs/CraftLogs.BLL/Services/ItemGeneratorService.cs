@@ -41,7 +41,7 @@ namespace CraftLogs.BLL.Services
 
         private void GenerateBonusStat(Item item)
         {
-            int luck = random.Next(1, 4);
+            int luck = random.Next(1, 5);
             switch (luck)
             {
                 case 1:
@@ -52,6 +52,9 @@ namespace CraftLogs.BLL.Services
                     break;
                 case 3:
                     item.Stamina += item.GetTierPlusRarity(); //todo
+                    break;
+                case 4:
+                    item.Intellect += item.GetTierPlusRarity(); //todo
                     break;
             }
         }

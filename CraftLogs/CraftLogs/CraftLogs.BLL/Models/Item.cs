@@ -28,16 +28,17 @@ namespace CraftLogs.BLL.Models
         public int MinDps { get { return GetMinDps(); } }
         [JsonIgnore]
         public int Armor { get { return GetArmor(); } }
-        public int Stamina { get; set; } = 0;
-        public int Strength { get; set; } = 0;
-        public int Agility { get; set; } = 0;
+        public int Stamina { get; set; } = 0; //+hp és 1 stamina = +1% armor
+        public int Strength { get; set; } = 0; //+1% dmg
+        public int Agility { get; set; } = 0; //+x% CR
+        public int Intellect { get; set; } = 0; //+x% HitRate
         [JsonIgnore]
         public int HitRate { get { return GetHitRate(); } }
 
         #region Ctor
         public Item()
         {
-            Id = GenerateNewGuid();
+            Id = GenerateId();
         }
 
         public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType)
@@ -45,7 +46,7 @@ namespace CraftLogs.BLL.Models
             Tier = tier;
             Rarity = rarity;
             ItemType = itemType;
-            Id = GenerateNewGuid();
+            Id = GenerateId();
         }
 
         public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, ItemSubTypeEnum itemSubType)
@@ -54,14 +55,14 @@ namespace CraftLogs.BLL.Models
             Rarity = rarity;
             ItemType = itemType;
             ItemSubType = itemSubType;
-            Id = GenerateNewGuid();
+            Id = GenerateId();
         }
 
         #endregion
 
         #region Getters
 
-        private string GenerateNewGuid()
+        private string GenerateId()
         {
             var ticks = DateTime.Now.Ticks;
             var guid = Guid.NewGuid().ToString();
@@ -257,7 +258,7 @@ namespace CraftLogs.BLL.Models
         {
             if (ItemType != ItemTypeEnum.Hand && ItemType != ItemTypeEnum.Trinket)
             {
-                return (int)(GetTierPlusRarity() * 2.2);
+                return (GetTierPlusRarity() * 10);
             }
             return 0;
         }
@@ -305,6 +306,10 @@ namespace CraftLogs.BLL.Models
             if (Agility != 0)
             {
                 res += string.Format("+ {0} fürgeség \n", Agility);
+            }
+            if (Intellect != 0)
+            {
+                res += string.Format("+ {0} intelligencia \n", Intellect);
             }
 
             return res;
