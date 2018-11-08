@@ -15,7 +15,8 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public string Name { get { return GetItemName(); } }
         public SetNameEnum SetName { get; set; }
-        public int Value { get; } = 0;
+        [JsonIgnore]
+        public int Value { get { return GetValue(); } }
         public ItemTypeEnum ItemType { get; set; }
         public ItemSubTypeEnum ItemSubType { get; set; } = 0;
         public ItemStateEnum State { get; set; } = 0;
@@ -259,6 +260,11 @@ namespace CraftLogs.BLL.Models
                 return (int)(GetTierPlusRarity() * 2.2);
             }
             return 0;
+        }
+
+        private int GetValue()
+        {
+            return GetTierPlusRarity() * 15;
         }
 
         #endregion
