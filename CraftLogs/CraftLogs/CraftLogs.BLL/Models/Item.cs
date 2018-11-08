@@ -1,39 +1,50 @@
-﻿using CraftLogs.BLL.Enums;
+﻿using System;
+using CraftLogs.BLL.Enums;
 using CraftLogs.Values;
+using Newtonsoft.Json;
 
 namespace CraftLogs.BLL.Models
 {
     public class Item
     {
-        public int Id { get; set; } = 0;
+        public string Id { get; private set; }
         public int Tier { get; set; }
+        [JsonIgnore]
         public int Ilvl { get { return GetILvl(); } }
         public ItemRarityEnum Rarity { get; set; }
+        [JsonIgnore]
         public string Name { get { return GetItemName(); } }
         public SetNameEnum SetName { get; set; }
         public int Value { get; } = 0;
         public ItemTypeEnum ItemType { get; set; }
         public ItemSubTypeEnum ItemSubType { get; set; } = 0;
         public ItemStateEnum State { get; set; } = 0;
+        [JsonIgnore]
         public int Speed { get { return GetSpeed(); } }
+        [JsonIgnore]
         public int Dps { get { return GetDps(); } }
+        [JsonIgnore]
         public int MinDps { get { return GetMinDps(); } }
+        [JsonIgnore]
         public int Armor { get { return GetArmor(); } }
         public int Stamina { get; set; } = 0;
         public int Strength { get; set; } = 0;
         public int Agility { get; set; } = 0;
+        [JsonIgnore]
         public int HitRate { get { return GetHitRate(); } }
 
         #region Ctor
         public Item()
         {
-
+            Id = GenerateNewGuid();
         }
+
         public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType)
         {
             Tier = tier;
             Rarity = rarity;
             ItemType = itemType;
+            Id = GenerateNewGuid();
         }
 
         public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, ItemSubTypeEnum itemSubType)
@@ -42,11 +53,20 @@ namespace CraftLogs.BLL.Models
             Rarity = rarity;
             ItemType = itemType;
             ItemSubType = itemSubType;
+            Id = GenerateNewGuid();
         }
 
         #endregion
 
         #region Getters
+
+        private string GenerateNewGuid()
+        {
+            var ticks = DateTime.Now.Ticks;
+            var guid = Guid.NewGuid().ToString();
+            var uniqueId = ticks.ToString() + '-' + guid;
+            return uniqueId;
+        }
 
         private string GetItemName()
         {
@@ -109,18 +129,16 @@ namespace CraftLogs.BLL.Models
                     return "";
                 case ItemSubTypeEnum.Dagger:
                     return Texts.Dagger;
+                case ItemSubTypeEnum.Bow:
+                    return Texts.Bow;
                 case ItemSubTypeEnum.Sword:
                     return Texts.Sword;
-                case ItemSubTypeEnum.Axe:
-                    return Texts.Axe;
-                case ItemSubTypeEnum.Spear:
-                    return Texts.Spear;
                 case ItemSubTypeEnum.Hammer:
                     return Texts.Hammer;
-                case ItemSubTypeEnum.Shield:
-                    return Texts.Shield;
-                case ItemSubTypeEnum.Food:
-                    return Texts.Food;
+                case ItemSubTypeEnum.Wand:
+                    return Texts.Wand;
+                case ItemSubTypeEnum.Staff:
+                    return Texts.Staff;
                 default:
                     return "";
             }
@@ -134,16 +152,16 @@ namespace CraftLogs.BLL.Models
                     return 0;
                 case ItemSubTypeEnum.Dagger:
                     return (int)(20.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
-                case ItemSubTypeEnum.Sword:
+                case ItemSubTypeEnum.Bow:
                     return (int)(25.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
-                case ItemSubTypeEnum.Axe:
+                case ItemSubTypeEnum.Sword:
                     return (int)(33.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
-                case ItemSubTypeEnum.Spear:
-                    return (int)(100.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
                 case ItemSubTypeEnum.Hammer:
-                    return (int)(200.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
-                case ItemSubTypeEnum.Shield:
-                    return 0;
+                    return (int)(50.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
+                case ItemSubTypeEnum.Wand:
+                    return (int)(100.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
+                case ItemSubTypeEnum.Staff:
+                    return (int)(100.0 * (1.0 + ((TierToRate() + RarityToRate()) / 10.0) - 0.1));
                 default:
                     return 0;
             }
@@ -176,6 +194,8 @@ namespace CraftLogs.BLL.Models
                     return 2;
                 case ItemRarityEnum.Epic:
                     return 3;
+                case ItemRarityEnum.Legend:
+                    return 4;
                 default:
                     return 0;
             }
@@ -208,16 +228,16 @@ namespace CraftLogs.BLL.Models
                     return 0;
                 case ItemSubTypeEnum.Dagger:
                     return 5;
-                case ItemSubTypeEnum.Sword:
+                case ItemSubTypeEnum.Bow:
                     return 4;
-                case ItemSubTypeEnum.Axe:
+                case ItemSubTypeEnum.Sword:
                     return 3;
-                case ItemSubTypeEnum.Spear:
-                    return 2;
                 case ItemSubTypeEnum.Hammer:
+                    return 2;
+                case ItemSubTypeEnum.Wand:
                     return 1;
-                case ItemSubTypeEnum.Shield:
-                    return 0;
+                case ItemSubTypeEnum.Staff:
+                    return 1;
                 default:
                     return 0;
             }
@@ -225,7 +245,7 @@ namespace CraftLogs.BLL.Models
 
         private int GetHitRate()
         {
-            if (ItemSubType != ItemSubTypeEnum.None && ItemSubType != ItemSubTypeEnum.Shield)
+            if (ItemType == ItemTypeEnum.Hand)
             {
                 return GetTierPlusRarity() * 2;
             }
@@ -234,7 +254,7 @@ namespace CraftLogs.BLL.Models
 
         private int GetArmor()
         {
-            if ((ItemSubType == ItemSubTypeEnum.None || ItemSubType == ItemSubTypeEnum.Shield) && ItemType != ItemTypeEnum.Trinket)
+            if (ItemType != ItemTypeEnum.Hand && ItemType != ItemTypeEnum.Trinket)
             {
                 return (int)(GetTierPlusRarity() * 2.2);
             }

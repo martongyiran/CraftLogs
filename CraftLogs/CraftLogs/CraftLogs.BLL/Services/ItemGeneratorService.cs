@@ -28,6 +28,12 @@ namespace CraftLogs.BLL.Services
                     GenerateBonusStat(item);
                     GenerateBonusStat(item);
                     break;
+                case ItemRarityEnum.Legend:
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    GenerateBonusStat(item);
+                    break;
                 default:
                     break;
             }
@@ -67,33 +73,13 @@ namespace CraftLogs.BLL.Services
         private void GenerateHand(Item generated)
         {
             SetSubType(generated);
-
-            if (generated.ItemSubType == ItemSubTypeEnum.Spear || generated.ItemSubType == ItemSubTypeEnum.Hammer)
-            {
-                GetBonusStat(generated);
-            }
             GetBonusStat(generated);
             generated.SetName = GetSetName();
-
         }
 
         private void SetSubType(Item generated)
         {
-            switch (generated.ItemType)
-            {
-                case ItemTypeEnum.RHand:
-                    generated.ItemSubType = (ItemSubTypeEnum)random.Next(1, 6);
-                    break;
-                case ItemTypeEnum.LHand:
-                    generated.ItemSubType = random.Next(1, 5) == 4 ? ItemSubTypeEnum.Shield : (ItemSubTypeEnum)random.Next(1, 4);
-                    break;
-                default:
-                    break;
-            }
-            if (generated.ItemSubType == ItemSubTypeEnum.Spear || generated.ItemSubType == ItemSubTypeEnum.Hammer)
-            {
-                //generated.CritDamage = 0.5;
-            }
+           generated.ItemSubType = (ItemSubTypeEnum)random.Next(1, 7);
         }
 
         #endregion
@@ -127,17 +113,9 @@ namespace CraftLogs.BLL.Services
             return GenerateArmor(ItemTypeEnum.Head, tier, rarity);
         }
 
-        public Item GenerateLHand(int tier, ItemRarityEnum rarity)
+        public Item GenerateHand(int tier, ItemRarityEnum rarity)
         {
-            Item generated = new Item(tier, rarity, ItemTypeEnum.LHand);
-            GenerateHand(generated);
-
-            return generated;
-        }
-
-        public Item GenerateRHand(int tier, ItemRarityEnum rarity)
-        {
-            Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
+            Item generated = new Item(tier, rarity, ItemTypeEnum.Hand);
             GenerateHand(generated);
 
             return generated;
@@ -156,7 +134,7 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateRandom()
         {
-            var type = random.Next(1, 7);
+            var type = random.Next(1, 6);
             var tier = random.Next(1, 4);
             var rarity = random.Next(0, 4);
 
@@ -169,10 +147,8 @@ namespace CraftLogs.BLL.Services
                 case 3:
                     return GenerateHead(tier, (ItemRarityEnum)rarity);
                 case 4:
-                    return GenerateRHand(tier, (ItemRarityEnum)rarity);
+                    return GenerateHand(tier, (ItemRarityEnum)rarity);
                 case 5:
-                    return GenerateLHand(tier, (ItemRarityEnum)rarity);
-                case 6:
                     return GenerateTrinket(tier, (ItemRarityEnum)rarity);
                 default:
                     return new Item();
@@ -182,7 +158,7 @@ namespace CraftLogs.BLL.Services
 
         public Item GenerateWeapon(ItemSubTypeEnum itemSubType, int tier, ItemRarityEnum rarity)
         {
-            Item generated = new Item(tier, rarity, ItemTypeEnum.RHand);
+            Item generated = new Item(tier, rarity, ItemTypeEnum.Hand);
 
             generated.ItemSubType = itemSubType;
             GetBonusStat(generated);

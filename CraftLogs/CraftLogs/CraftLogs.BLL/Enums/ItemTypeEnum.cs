@@ -5,8 +5,7 @@
         Head,
         Chest,
         Boots,
-        RHand,
-        LHand,
+        Hand,
         Trinket,
         Consumable
     }

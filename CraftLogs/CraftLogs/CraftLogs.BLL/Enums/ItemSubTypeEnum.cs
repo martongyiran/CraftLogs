@@ -4,11 +4,10 @@
     {
         None,
         Dagger,
+        Bow,
         Sword,
-        Axe,
-        Spear,
         Hammer,
-        Shield,
-        Food
+        Wand,
+        Staff
     }
 }

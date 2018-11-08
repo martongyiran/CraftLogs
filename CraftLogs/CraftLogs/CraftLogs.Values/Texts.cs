@@ -103,11 +103,10 @@
         #region ItemSubTypes
         public const string Dagger = "tőre";
         public const string Sword = "kardja";
-        public const string Axe = "baltája";
-        public const string Spear = "lándzsája";
-        public const string Shield = "pajzsa";
+        public const string Bow = "íja";
+        public const string Wand = "pálcája";
+        public const string Staff = "botja";
         public const string Hammer = "pörölye";
-        public const string Food = "étele"; //ide majd randomgenerátor
         #endregion
 
         #region SetNames

@@ -21,6 +21,8 @@ namespace CraftLogs.Views.Converters
                         return Color.Blue;
                     case ItemRarityEnum.Epic:
                         return Color.Purple;
+                    case ItemRarityEnum.Legend:
+                        return Color.Orange;
                     default:
                         return Color.White;
                 }
