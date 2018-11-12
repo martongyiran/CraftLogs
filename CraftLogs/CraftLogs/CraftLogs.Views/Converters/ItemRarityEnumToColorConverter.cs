@@ -14,7 +14,7 @@ namespace CraftLogs.Views.Converters
                 switch ((ItemRarityEnum)value)
                 {
                     case ItemRarityEnum.Common:
-                        return Color.Gray;
+                        return Color.Black;
                     case ItemRarityEnum.Uncommon:
                         return Color.Green;
                     case ItemRarityEnum.Rare:

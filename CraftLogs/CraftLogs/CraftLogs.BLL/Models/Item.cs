@@ -35,6 +35,13 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public int HitRate { get { return GetHitRate(); } }
 
+        [JsonIgnore]
+        public string Text_TypeRarityILvl { get { return GetTypeRarityILvl(); } }
+        [JsonIgnore]
+        public string Text_Bonuses { get { return GetBonuses(); } }
+        [JsonIgnore]
+        public string Text_Values { get { return GetValues(); } }
+
         #region Ctor
         public Item()
         {
@@ -268,6 +275,58 @@ namespace CraftLogs.BLL.Models
             return GetTierPlusRarity() * 15;
         }
 
+        private string GetTypeRarityILvl()
+        {
+            return string.Format("{0} - {1} ({2} iLvl)", ItemType.ToString(), Rarity.ToString(), Ilvl);
+        }
+
+        private string GetBonuses()
+        {
+            string res = "";
+            if (Strength != 0)
+            {
+                res += string.Format("+ {0} erő \n", Strength);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("+ {0} állóképesség \n", Stamina);
+            }
+            if (Agility != 0)
+            {
+                res += string.Format("+ {0} fürgeség \n", Agility);
+            }
+            if (Intellect != 0)
+            {
+                res += string.Format("+ {0} intelligencia \n", Intellect);
+            }
+
+            return res;
+        }
+
+        private string GetValues()
+        {
+            string res = "";
+
+            if (Speed != 0)
+            {
+                res += string.Format("Sebesség: {0} \n", Speed);
+            }
+            if (HitRate != 0)
+            {
+                res += string.Format("Találati esély: + {0}% \n", HitRate);
+            }
+            if (Dps != 0)
+            {
+                res += string.Format("Sebzés: {0} - {1} ( Dps: {2} ) \n", MinDps * Speed, Dps * Speed, Dps);
+            }
+            if (Armor != 0)
+            {
+                res += string.Format("{0} védelem \n", Armor);
+            }
+
+            return res;
+        }
+
         #endregion
 
         #region Overrides
@@ -285,7 +344,7 @@ namespace CraftLogs.BLL.Models
             }
             if (HitRate != 0)
             {
-                res += string.Format("Találati esély: {0}% \n", HitRate);
+                res += string.Format("Találati esély: + {0}% \n", HitRate);
             }
             if (Dps != 0)
             {

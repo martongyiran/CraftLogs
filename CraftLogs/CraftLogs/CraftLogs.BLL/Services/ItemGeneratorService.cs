@@ -15,6 +15,10 @@ namespace CraftLogs.BLL.Services
             switch (item.Rarity)
             {
                 case ItemRarityEnum.Common:
+                    if(item.ItemType == ItemTypeEnum.Trinket)
+                    {
+                        GenerateBonusStat(item);
+                    }
                     break;
                 case ItemRarityEnum.Uncommon:
                     GenerateBonusStat(item);

@@ -44,6 +44,7 @@
             </Style>
             
             <converters:ItemRarityEnumToColorConverter x:Key="RarityToColorConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
 
         </ResourceDictionary>
 

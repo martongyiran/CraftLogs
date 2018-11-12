@@ -100,6 +100,13 @@
         public const string Trinket = "kiegészítője"; //ide majd randomgenerátor
         #endregion
 
+        #region Stats
+        public const string Stamina = "állóképesség";
+        public const string Strength = "erő";
+        public const string Agility = "fürgeség";
+        public const string Intellect = "intelligencia";
+        #endregion
+
         #region ItemSubTypes
         public const string Dagger = "tőre";
         public const string Sword = "kardja";

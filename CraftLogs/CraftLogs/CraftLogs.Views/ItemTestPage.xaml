@@ -7,6 +7,7 @@
               ItemsSource="{Binding ItemsList}" 
               BackgroundColor="White" 
               SeparatorVisibility="Default" 
+              SeparatorColor="Black"
               HasUnevenRows="True" 
               CachingStrategy="RecycleElement"
               SelectionMode="None"
@@ -14,7 +15,12 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Label Text="{Binding Name}" TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}" Margin="10"/>
+                    <StackLayout Spacing="0">
+                        <Label Text="{Binding Name}" TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}" FontAttributes="Bold" Margin="10,10,10,0" FontSize="18"/>
+                        <Label Text="{Binding Text_TypeRarityILvl}" TextColor="Gray" FontAttributes="Italic" Margin="15,0,10,10" FontSize="15"/>
+                        <Label Text="{Binding Text_Values}" TextColor="Black" Margin="15,0,10,0" FontSize="15" IsVisible="{Binding Text_Values, Converter={StaticResource StringToBoolConverter}}"/>
+                        <Label Text="{Binding Text_Bonuses}" TextColor="Green" Margin="30,0,10,10" FontSize="15" IsVisible="{Binding Text_Bonuses, Converter={StaticResource StringToBoolConverter}}"/>
+                    </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
