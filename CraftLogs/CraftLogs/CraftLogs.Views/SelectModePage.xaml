@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             x:Class="CraftLogs.Views.SelectModePage">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+        <Label 
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            HorizontalTextAlignment="Center"
+            Text="{x:Static values:Texts.ChooseDialog}" 
+            FontSize="15" 
+            TextColor="Black" 
+            Margin="5,0,5,5"/>
+        <Button Text="{x:Static values:Texts.TeamMode}" Command="{Binding SetModeToTeamCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.QuestMode}" Command="{Binding SetModeToQuestCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.ShopMode}" Command="{Binding SetModeToShopCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="{x:Static values:Texts.ArenaMode}" Command="{Binding SetModeToArenaCommand}" Style="{StaticResource WhiteButton}"/>
+        <Button Text="DEVELOP" Command="{Binding SetModeToNoneCommand}" Style="{StaticResource WhiteButton}" BackgroundColor="Green"/>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             x:Class="CraftLogs.Views.QuestMenuView">
+  <ContentView.Content>
+      <StackLayout>
+            <Button Text="Quest test button"  Style="{StaticResource WhiteButton}" />
+            <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5" />
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

@@ -1,4 +1,6 @@
-﻿namespace CraftLogs.BLL.Models
+﻿using CraftLogs.BLL.Enums;
+
+namespace CraftLogs.BLL.Models
 {
     public class Settings
     {
@@ -9,5 +11,6 @@
         public int Craft2MinPont { get; set; }
         public int Craft1QuestCount { get; set; }
         public int Craft2QuestCount { get; set; }
+        public AppModeEnum AppMode { get; set; }
     }
 }
