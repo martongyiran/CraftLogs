@@ -7,5 +7,6 @@
         public const string SettingsPage = "SettingsPage";
         public const string QuestPage = "QuestPage";
         public const string LogsPage = "LogsPage";
+        public const string SelectModePage = "SelectModePage";
     }
 }

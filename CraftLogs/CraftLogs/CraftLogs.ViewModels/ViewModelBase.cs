@@ -1,4 +1,5 @@
-﻿using CraftLogs.BLL.Repositories.Local.Interfaces;
+﻿using System.Threading.Tasks;
+using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
@@ -65,7 +66,7 @@ namespace CraftLogs.ViewModels
 
         #region Protected functions
 
-        protected async void NavigateTo(string navigationLink)
+        protected async Task NavigateTo(string navigationLink)
         {
             await NavigationService.NavigateAsync(navigationLink);
         }

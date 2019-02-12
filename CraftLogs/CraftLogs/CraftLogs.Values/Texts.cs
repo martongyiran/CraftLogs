@@ -21,6 +21,34 @@
 
         #endregion
 
+        #region SelectModePage texts
+
+        /// <summary>
+        /// SelectModePage button text.
+        /// </summary>
+        public const string TeamMode = "Csapat";
+
+        /// <summary>
+        /// SelectModePage button text.
+        /// </summary>
+        public const string QuestMode = "Állomás";
+
+        /// <summary>
+        /// SelectModePage button text.
+        /// </summary>
+        public const string ShopMode = "Bolt";
+
+        /// <summary>
+        /// SelectModePage button text.
+        /// </summary>
+        public const string ArenaMode = "Aréna";
+
+        /// <summary>
+        /// SelectModePage dialog text.
+        /// </summary>
+        public const string ChooseDialog = "Kérlek válaszd ki, milyen módban indítod az alkalmazást!";
+        #endregion
+
         #region SettingsPage texts 
         /// <summary>
         /// SettingsPage toolbar text.
