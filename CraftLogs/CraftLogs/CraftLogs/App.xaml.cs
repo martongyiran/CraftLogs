@@ -48,7 +48,6 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<QuestPage, QuestPageViewModel>();
             containerRegistry.RegisterForNavigation<LogsPage, LogsPageViewModel>();
-            containerRegistry.RegisterForNavigation<ItemTestPage, ItemTestPageViewModel>();
 
             RegisterServices(containerRegistry);
         }
@@ -58,7 +57,6 @@ namespace CraftLogs
             containerRegistry.Register<ILocalDataRepository, LocalDataRepository>();
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<ILoggerService, LoggerService>();
-            containerRegistry.Register<IItemGeneratorService, ItemGeneratorService>();
         }
     }
 }

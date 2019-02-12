@@ -13,7 +13,6 @@ namespace CraftLogs.ViewModels
         private string version;
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToLogsCommand;
-        private DelegateCommand navigateToItemTestPageCommand;
         #endregion
 
         #region Public
@@ -21,7 +20,6 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.SettingsPage)));
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(() => NavigateTo(NavigationLinks.LogsPage)));
-        public DelegateCommand NavigateToItemTestPageCommand => navigateToItemTestPageCommand ?? (navigateToItemTestPageCommand = new DelegateCommand(() => NavigateTo("ItemTestPage")));
         #endregion
 
         #region Ctor
