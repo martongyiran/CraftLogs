@@ -38,7 +38,7 @@ namespace CraftLogs.ViewModels
 
         #region Overrides
 
-        public override async void OnNavigatedTo(NavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 

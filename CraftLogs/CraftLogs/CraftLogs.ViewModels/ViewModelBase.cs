@@ -43,25 +43,24 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Virtual
-        public virtual void OnNavigatedFrom(NavigationParameters parameters)
+      
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
-
         }
 
-        public virtual void OnNavigatedTo(NavigationParameters parameters)
+        public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
-
         }
 
-        public virtual void OnNavigatingTo(NavigationParameters parameters)
+        public virtual void OnNavigatingTo(INavigationParameters parameters)
         {
-
         }
 
         public virtual void Destroy()
         {
 
         }
+
         #endregion
 
         #region Protected functions
@@ -70,7 +69,7 @@ namespace CraftLogs.ViewModels
         {
             await NavigationService.NavigateAsync(navigationLink);
         }
-
+        
         #endregion
     }
 }
