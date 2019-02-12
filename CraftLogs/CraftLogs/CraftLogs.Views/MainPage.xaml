@@ -2,12 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding DevMenuVisibility}">
-        <Button Text="{x:Static values:Texts.LogsPage}" Command="{Binding NavigateToLogsCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="Clear Mode" Command="{Binding ClearModeCommand}" Style="{StaticResource WhiteButton}" BackgroundColor="Silver"/>
-        <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Clear mode" Text="Clear mode" Command="{Binding ClearModeCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+        <views:DevMenuView IsVisible="{Binding DevMenuVisibility}"/>
+        <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}"/>
+        <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}"/>
+        <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}"/>
+        <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}"/>
     </StackLayout>
 </ContentPage>

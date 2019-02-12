@@ -20,6 +20,11 @@ namespace CraftLogs.ViewModels
         private DelegateCommand clearModeCommand; //for testing
         private AppModeEnum mode;
         private bool devMenuVisibility = false;
+        private bool teamMenuVisibility = false;
+        private bool questMenuVisibility = false;
+        private bool shopMenuVisibility = false;
+        private bool arenaMenuVisibility = false;
+
 
         #endregion
 
@@ -41,6 +46,30 @@ namespace CraftLogs.ViewModels
         {
             get { return devMenuVisibility; }
             set { SetProperty(ref devMenuVisibility, value); }
+        }
+
+        public bool TeamMenuVisibility
+        {
+            get { return teamMenuVisibility; }
+            set { SetProperty(ref teamMenuVisibility, value); }
+        }
+
+        public bool QuestMenuVisibility
+        {
+            get { return questMenuVisibility; }
+            set { SetProperty(ref questMenuVisibility, value); }
+        }
+
+        public bool ShopMenuVisibility
+        {
+            get { return shopMenuVisibility; }
+            set { SetProperty(ref shopMenuVisibility, value); }
+        }
+
+        public bool ArenaMenuVisibility
+        {
+            get { return arenaMenuVisibility; }
+            set { SetProperty(ref arenaMenuVisibility, value); }
         }
 
         #endregion
@@ -86,7 +115,29 @@ namespace CraftLogs.ViewModels
 
         private void SetUpVisibility()
         {
-            DevMenuVisibility = Mode == AppModeEnum.None ? false : true;
+            switch (Mode)
+            {
+                case AppModeEnum.None:
+                    DevMenuVisibility = false;
+                    break;
+                case AppModeEnum.Team:
+                    TeamMenuVisibility = true;
+                    break;
+                case AppModeEnum.Quest:
+                    QuestMenuVisibility = true;
+                    break;
+                case AppModeEnum.Shop:
+                    ShopMenuVisibility = true;
+                    break;
+                case AppModeEnum.Arena:
+                    ArenaMenuVisibility = true;
+                    break;
+                case AppModeEnum.Dev:
+                    DevMenuVisibility = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         //for testing

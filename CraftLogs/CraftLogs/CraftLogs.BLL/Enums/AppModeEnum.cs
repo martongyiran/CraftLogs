@@ -6,6 +6,7 @@
             Team,
             Quest,
             Shop,
-            Arena
+            Arena,
+            Dev
         }
 }
