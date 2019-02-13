@@ -21,6 +21,7 @@ namespace CraftLogs.ViewModels
         private bool headerIsVisible;
         private DelegateCommand loadLogsCommand;
         private readonly ILoggerService loggerService;
+
         #endregion
 
         #region Public
@@ -48,11 +49,13 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Ctor
+
         public LogsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, ILoggerService loggerService) : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.LogsPage;
             this.loggerService = loggerService;
         }
+
         #endregion
 
         #region Overrides
@@ -60,7 +63,7 @@ namespace CraftLogs.ViewModels
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            await CreateMock();
+            await CreateMock(); //for testing
             SetUp();
         }
 

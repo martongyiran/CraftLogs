@@ -25,7 +25,6 @@ namespace CraftLogs.ViewModels
         private bool shopMenuVisibility = false;
         private bool arenaMenuVisibility = false;
 
-
         #endregion
 
         #region Public
@@ -90,7 +89,6 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            //Temporary file cration for testing. 
             SetUpFileSystem();
 
             settings = DataRepository.GetSettings();
@@ -147,6 +145,7 @@ namespace CraftLogs.ViewModels
             DataRepository.SaveToFile(settings);
             DialogService.DisplayAlertAsync("Figyelem", "Kérlek indítsd újra az alkalmazást!", "OK");
         }
+
         #endregion
     }
 }

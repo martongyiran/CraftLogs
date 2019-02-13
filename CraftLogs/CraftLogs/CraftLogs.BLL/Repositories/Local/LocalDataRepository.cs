@@ -39,30 +39,6 @@ namespace CraftLogs.BLL.Repositories.Local
 
         #region Public functions
 
-        #region Settings
-
-        public void CreateSettings()
-        {
-            if (!dataService.IsFileExist(FileNames.Settings))
-            {
-                dataService.CreateFile(FileNames.Settings);
-                SaveToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
-            }
-        }
-
-        public Settings GetSettings()
-        {
-            return GetFile<Settings>(FileNames.Settings);
-        }
-
-        public void ResetSettings()
-        {
-            DeleteFile(FileNames.Settings);
-            CreateSettings();
-        }
-
-        #endregion
-
         #region General
 
         public void DeleteFile(string fileName)
@@ -90,6 +66,30 @@ namespace CraftLogs.BLL.Repositories.Local
             }
             var json = JsonConvert.SerializeObject(data);
             dataService.WriteAllText(fileName, json);
+        }
+
+        #endregion
+
+        #region Settings
+
+        public void CreateSettings()
+        {
+            if (!dataService.IsFileExist(FileNames.Settings))
+            {
+                dataService.CreateFile(FileNames.Settings);
+                SaveToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
+            }
+        }
+
+        public Settings GetSettings()
+        {
+            return GetFile<Settings>(FileNames.Settings);
+        }
+
+        public void ResetSettings()
+        {
+            DeleteFile(FileNames.Settings);
+            CreateSettings();
         }
 
         #endregion

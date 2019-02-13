@@ -9,12 +9,16 @@ namespace CraftLogs.BLL.Services
     public class LoggerService : ILoggerService
     {
         #region Ctor
+
         private readonly ILocalDataRepository dataRepository;
         public LoggerService(ILocalDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
         }
+
         #endregion
+
+        #region Public
 
         public void CreateArenaLog(string enemyTeam)
         {
@@ -73,5 +77,7 @@ namespace CraftLogs.BLL.Services
             logs.LogList.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
+
+        #endregion
     }
 }

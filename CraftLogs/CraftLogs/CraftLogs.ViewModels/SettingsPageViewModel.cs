@@ -58,17 +58,21 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
+
         #endregion
 
         #region Ctor
+
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.SettingsPage;
         }
+
         #endregion
 
         #region Overrides
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);

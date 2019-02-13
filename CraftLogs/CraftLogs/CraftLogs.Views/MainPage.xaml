@@ -5,6 +5,7 @@
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Clear mode" Text="Clear mode" Command="{Binding ClearModeCommand}"/>
     </ContentPage.ToolbarItems>
@@ -15,5 +16,6 @@
         <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}"/>
         <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}"/>
         <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}"/>
+        <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5" />
     </StackLayout>
 </ContentPage>

@@ -9,11 +9,14 @@ namespace CraftLogs.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
         #region Private
+
         private string title;
         private bool isBusy;
+
         #endregion
 
         #region Public
+
         public string Title
         {
             get { return title; }
@@ -25,21 +28,26 @@ namespace CraftLogs.ViewModels
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
         }
+
         #endregion
 
         #region Services
+
         protected INavigationService NavigationService { get; private set; }
         protected ILocalDataRepository DataRepository { get; private set; }
         protected IPageDialogService DialogService { get; private set; }
+
         #endregion
 
         #region Ctor
+
         public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
         {
             NavigationService = navigationService;
             DataRepository = dataRepository;
             DialogService = dialogService;
         }
+
         #endregion
 
         #region Virtual
