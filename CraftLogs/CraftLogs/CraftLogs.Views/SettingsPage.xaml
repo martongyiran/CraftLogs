@@ -23,8 +23,6 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <Label Text="{x:Static values:Texts.CraftDay}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
@@ -45,14 +43,6 @@
 
                         <Label Text="{x:Static values:Texts.Craft2MinPont}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="4"/>
                         <Entry x:Name="craft2MinPont" Text="{Binding Craft2MinPont, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="4"/>
-
-
-                        <Label Text="{x:Static values:Texts.Craft1QuestCount}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="5"/>
-                        <Entry x:Name="craft1AllomasSzam" Text="{Binding Craft1QuestCount, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="5"/>
-
-
-                        <Label Text="{x:Static values:Texts.Craft2QuestCount}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="6"/>
-                        <Entry x:Name="craft2AllomasSzam" Text="{Binding Craft2QuestCount, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="6"/>
 
                     </Grid>
                 </Frame>

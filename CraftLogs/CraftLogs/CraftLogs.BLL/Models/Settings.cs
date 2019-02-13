@@ -9,8 +9,6 @@ namespace CraftLogs.BLL.Models
         public int Craft2Start { get; set; }
         public int Craft1MinPont { get; set; }
         public int Craft2MinPont { get; set; }
-        public int Craft1QuestCount { get; set; }
-        public int Craft2QuestCount { get; set; }
         public AppModeEnum AppMode { get; set; }
     }
 }
