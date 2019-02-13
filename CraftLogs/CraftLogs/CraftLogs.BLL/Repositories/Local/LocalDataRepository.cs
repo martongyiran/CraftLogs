@@ -39,6 +39,8 @@ namespace CraftLogs.BLL.Repositories.Local
 
         #region Public functions
 
+        #region Settings
+
         public void CreateSettings()
         {
             if (!dataService.IsFileExist(FileNames.Settings))
@@ -48,12 +50,9 @@ namespace CraftLogs.BLL.Repositories.Local
             }
         }
 
-        public void DeleteFile(string fileName)
+        public Settings GetSettings()
         {
-            if (dataService.IsFileExist(fileName))
-            {
-                dataService.DeleteFile(fileName);
-            }
+            return GetFile<Settings>(FileNames.Settings);
         }
 
         public void ResetSettings()
@@ -62,24 +61,16 @@ namespace CraftLogs.BLL.Repositories.Local
             CreateSettings();
         }
 
-        public Settings GetSettings()
-        {
-            return GetFile<Settings>(FileNames.Settings);
-        }
+        #endregion
 
-        public void CreateLogs()
+        #region General
+
+        public void DeleteFile(string fileName)
         {
-            if (!dataService.IsFileExist(FileNames.Logs))
+            if (dataService.IsFileExist(fileName))
             {
-                dataService.CreateFile(FileNames.Logs);
-                Logs logs = new Logs();
-                SaveToFile(logs);
+                dataService.DeleteFile(fileName);
             }
-        }
-
-        public Logs GetLogs()
-        {
-            return GetFile<Logs>(FileNames.Logs);
         }
 
         public void SaveToFile<T>(T data)
@@ -100,6 +91,27 @@ namespace CraftLogs.BLL.Repositories.Local
             var json = JsonConvert.SerializeObject(data);
             dataService.WriteAllText(fileName, json);
         }
+
+        #endregion
+
+        #region Logs
+
+        public void CreateLogs()
+        {
+            if (!dataService.IsFileExist(FileNames.Logs))
+            {
+                dataService.CreateFile(FileNames.Logs);
+                Logs logs = new Logs();
+                SaveToFile(logs);
+            }
+        }
+
+        public Logs GetLogs()
+        {
+            return GetFile<Logs>(FileNames.Logs);
+        }
+
+        #endregion
 
         #endregion
     }
