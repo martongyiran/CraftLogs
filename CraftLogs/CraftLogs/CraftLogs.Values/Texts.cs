@@ -6,6 +6,8 @@
 
         public const string MainPage = "Főoldal";
         public const string ProfilePage = "Profil";
+        public const string InventoryPage = "Hátizsák";
+        public const string TradePage = "Csere";
         public const string SettingsPage = "Beállítások";
         public const string QuestPage = "Állomás";
         public const string LogsPage = "Napló";
@@ -46,6 +48,11 @@
         /// SelectModePage button text.
         /// </summary>
         public const string ArenaMode = "Aréna";
+
+        /// <summary>
+        /// SelectModePage button text.
+        /// </summary>
+        public const string HqMode = "HQ";
 
         /// <summary>
         /// SelectModePage dialog text.

@@ -6,6 +6,7 @@ using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Enums;
+using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
 {
@@ -19,7 +20,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToLogsCommand;
         private DelegateCommand clearModeCommand; //for testing
         private AppModeEnum mode;
-        private bool devMenuVisibility = false;
+        private bool hqMenuVisibility = false;
         private bool teamMenuVisibility = false;
         private bool questMenuVisibility = false;
         private bool shopMenuVisibility = false;
@@ -33,7 +34,7 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
-        public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(() => ClearMode()));
+        public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
 
         public AppModeEnum Mode
         {
@@ -41,10 +42,10 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref mode, value); }
         }
 
-        public bool DevMenuVisibility
+        public bool HqMenuVisibility
         {
-            get { return devMenuVisibility; }
-            set { SetProperty(ref devMenuVisibility, value); }
+            get { return hqMenuVisibility; }
+            set { SetProperty(ref hqMenuVisibility, value); }
         }
 
         public bool TeamMenuVisibility
@@ -113,10 +114,11 @@ namespace CraftLogs.ViewModels
 
         private void SetUpVisibility()
         {
+            ResetVisibility();
             switch (Mode)
             {
                 case AppModeEnum.None:
-                    DevMenuVisibility = false;
+                    HqMenuVisibility = false;
                     break;
                 case AppModeEnum.Team:
                     TeamMenuVisibility = true;
@@ -130,20 +132,29 @@ namespace CraftLogs.ViewModels
                 case AppModeEnum.Arena:
                     ArenaMenuVisibility = true;
                     break;
-                case AppModeEnum.Dev:
-                    DevMenuVisibility = true;
+                case AppModeEnum.Hq:
+                    HqMenuVisibility = true;
                     break;
                 default:
                     break;
             }
         }
 
+        private void ResetVisibility()
+        {
+            HqMenuVisibility = false;
+            TeamMenuVisibility = false;
+            QuestMenuVisibility = false;
+            ShopMenuVisibility = false;
+            ArenaMenuVisibility = false;
+    }
+
         //for testing
-        private void ClearMode()
+        private async Task ClearMode()
         {
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
-            DialogService.DisplayAlertAsync("Figyelem", "Kérlek indítsd újra az alkalmazást!", "OK");
+            await NavigateTo(NavigationLinks.SelectModePage);
         }
 
         #endregion

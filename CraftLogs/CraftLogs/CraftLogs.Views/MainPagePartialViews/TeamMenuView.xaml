@@ -5,7 +5,11 @@
              x:Class="CraftLogs.Views.TeamMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Button Text="Team test button"  Style="{StaticResource WhiteButton}" />
+            <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.ProfilePage}"  Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.InventoryPage}"  Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.LogsPage}" Command="{Binding NavigateToLogsCommand}" Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.TradePage}"  Style="{StaticResource WhiteButton}" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>

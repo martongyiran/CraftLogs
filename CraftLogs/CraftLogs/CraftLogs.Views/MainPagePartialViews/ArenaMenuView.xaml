@@ -5,7 +5,8 @@
              x:Class="CraftLogs.Views.ArenaMenuView">
   <ContentView.Content>
         <StackLayout>
-            <Button Text="Arena test button"  Style="{StaticResource WhiteButton}" />
+            <Button Text="QR leolvasás"  Style="{StaticResource WhiteButton}" />
+            <Button Text="Toplista"  Style="{StaticResource WhiteButton}" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>

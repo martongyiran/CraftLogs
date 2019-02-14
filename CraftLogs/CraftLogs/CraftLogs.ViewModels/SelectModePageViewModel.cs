@@ -16,7 +16,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand setModeToQuestCommand;
         private DelegateCommand setModeToShopCommand;
         private DelegateCommand setModeToArenaCommand;
-        private DelegateCommand setModeToNoneCommand; //for dev menu
+        private DelegateCommand setModeToHqCommand; //for dev menu
         private Settings settings;
 
         #endregion
@@ -27,7 +27,7 @@ namespace CraftLogs.ViewModels
         public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest)));
         public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop)));
         public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena)));
-        public DelegateCommand SetModeToNoneCommand => setModeToNoneCommand ?? (setModeToNoneCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Dev)));
+        public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq)));
 
         #endregion
 

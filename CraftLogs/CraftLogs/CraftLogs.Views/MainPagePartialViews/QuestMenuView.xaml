@@ -5,7 +5,8 @@
              x:Class="CraftLogs.Views.QuestMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Button Text="Quest test button"  Style="{StaticResource WhiteButton}" />
+            <Button Text="Pontozás"  Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>

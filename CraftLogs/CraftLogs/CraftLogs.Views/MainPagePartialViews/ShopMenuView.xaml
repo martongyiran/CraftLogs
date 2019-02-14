@@ -5,7 +5,8 @@
              x:Class="CraftLogs.Views.ShopMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Button Text="Shop test button"  Style="{StaticResource WhiteButton}" />
+            <Button Text="Kínálat"  Style="{StaticResource WhiteButton}" />
+            <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>

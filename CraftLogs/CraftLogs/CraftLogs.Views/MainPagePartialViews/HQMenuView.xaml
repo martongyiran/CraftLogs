@@ -2,10 +2,11 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             x:Class="CraftLogs.Views.DevMenuView">
+             x:Class="CraftLogs.Views.HQMenuView">
     <ContentView.Content>
         <StackLayout>
-            <Button Text="{x:Static values:Texts.LogsPage}" Command="{Binding NavigateToLogsCommand}" Style="{StaticResource WhiteButton}" />
+            <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" />
+            <Button Text="Godmode"  Style="{StaticResource WhiteButton}" />
             <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>
     </ContentView.Content>
