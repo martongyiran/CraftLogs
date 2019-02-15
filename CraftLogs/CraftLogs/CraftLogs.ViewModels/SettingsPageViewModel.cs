@@ -124,11 +124,6 @@ namespace CraftLogs.ViewModels
             //TODO
         }
 
-        private void FinalScore()
-        {
-            //TODO
-        }
-
         #endregion
 
 

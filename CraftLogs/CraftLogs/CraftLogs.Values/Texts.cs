@@ -9,7 +9,7 @@
         public const string InventoryPage = "Hátizsák";
         public const string TradePage = "Csere";
         public const string SettingsPage = "Beállítások";
-        public const string QuestPage = "Állomás";
+        public const string QuestPage = "Pontozás";
         public const string LogsPage = "Napló";
 
         /// <summary>

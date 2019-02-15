@@ -16,9 +16,16 @@ namespace CraftLogs.ViewModels
 
         private Settings settings;
         private string version;
+
+        private bool isDevMode = false;
+
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToLogsCommand;
-        private DelegateCommand clearModeCommand; //for testing
+        private DelegateCommand navigateToProfileCommand;
+        private DelegateCommand navigateToQuestCommand;
+        private DelegateCommand clearModeCommand;
+        private DelegateCommand devModeCommand;
+
         private AppModeEnum mode;
         private bool hqMenuVisibility = false;
         private bool teamMenuVisibility = false;
@@ -34,12 +41,22 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
+        public DelegateCommand NavigateToProfileCommand => navigateToProfileCommand ?? (navigateToProfileCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.ProfilePage)));
+        public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QuestPage)));
+
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
+        public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand( () =>  DevMode()));
 
         public AppModeEnum Mode
         {
             get { return mode; }
             set { SetProperty(ref mode, value); }
+        }
+
+        public bool IsDevMode
+        {
+            get { return isDevMode; }
+            set { SetProperty(ref isDevMode, value); }
         }
 
         public bool HqMenuVisibility
@@ -114,9 +131,17 @@ namespace CraftLogs.ViewModels
 
         private void SetUpVisibility()
         {
-            ResetVisibility();
+            SetMenuVisibility(false);
             switch (Mode)
             {
+                case AppModeEnum.Dev:
+                    HqMenuVisibility = true;
+                    TeamMenuVisibility = true;
+                    QuestMenuVisibility = true;
+                    ShopMenuVisibility = true;
+                    ArenaMenuVisibility = true;
+                    IsDevMode = true;
+                    break;
                 case AppModeEnum.None:
                     HqMenuVisibility = false;
                     break;
@@ -140,14 +165,14 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private void ResetVisibility()
+        private void SetMenuVisibility(bool value)
         {
-            HqMenuVisibility = false;
-            TeamMenuVisibility = false;
-            QuestMenuVisibility = false;
-            ShopMenuVisibility = false;
-            ArenaMenuVisibility = false;
-    }
+            HqMenuVisibility = value;
+            TeamMenuVisibility = value;
+            QuestMenuVisibility = value;
+            ShopMenuVisibility = value;
+            ArenaMenuVisibility = value;
+        }
 
         //for testing
         private async Task ClearMode()
@@ -155,6 +180,22 @@ namespace CraftLogs.ViewModels
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
             await NavigateTo(NavigationLinks.SelectModePage);
+        }
+
+        private async Task DevMode()
+        {
+            IsDevMode = !IsDevMode;
+            if (IsDevMode)
+            {
+                settings.AppMode = AppModeEnum.Dev;
+                DataRepository.SaveToFile(settings);
+            }
+            else
+            {
+                await ClearMode();
+            }
+
+            SetMenuVisibility(IsDevMode);
         }
 
         #endregion

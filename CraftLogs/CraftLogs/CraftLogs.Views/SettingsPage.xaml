@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.SettingsPage"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             Title="{Binding Title}"
-             BackgroundColor="White">
+             Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="{x:Static values:Texts.SaveSettings}" Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}"/>
     </ContentPage.ToolbarItems>
@@ -49,8 +48,6 @@
 
                 <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}"/>
                 <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
-                <Button Text="{x:Static values:Texts.Sum}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
-                <Button Text="{x:Static values:Texts.GodMode}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

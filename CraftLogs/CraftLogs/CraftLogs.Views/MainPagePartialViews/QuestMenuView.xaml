@@ -5,7 +5,8 @@
              x:Class="CraftLogs.Views.QuestMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Button Text="Pontozás"  Style="{StaticResource WhiteButton}" />
+            <Label Text="Állomás menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
+            <Button Text="{x:Static values:Texts.QuestPage}" Command="{Binding NavigateToQuestCommand}" Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>
   </ContentView.Content>

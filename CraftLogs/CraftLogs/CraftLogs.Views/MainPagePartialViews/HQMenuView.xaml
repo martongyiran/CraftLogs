@@ -5,8 +5,9 @@
              x:Class="CraftLogs.Views.HQMenuView">
     <ContentView.Content>
         <StackLayout>
-            <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" />
-            <Button Text="Godmode"  Style="{StaticResource WhiteButton}" />
+             <Label Text="HQ menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
+            <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+            <Button Text="Godmode"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>
     </ContentView.Content>
