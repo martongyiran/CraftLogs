@@ -11,6 +11,7 @@ namespace CraftLogs.BLL.Models
         public ItemRarityEnum Rarity { get; set; }
         public string Name { get; set; }
         public ItemTypeEnum ItemType { get; set; }
+        public CharacterClassEnum UsableFor { get; set; }
         public ItemStateEnum State { get; set; } = 0;
 
         public int Hp { get; set; } = 0;
