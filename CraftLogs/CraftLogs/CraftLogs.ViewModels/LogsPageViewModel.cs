@@ -14,7 +14,7 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private Logs logs;
+        private ObservableCollection<Log> logs;
         private int numberOfVisibleLogs = 20;
         private ObservableCollection<Log> filteredLogsList;
         private bool footerIsVisible;
@@ -81,13 +81,13 @@ namespace CraftLogs.ViewModels
         {
             IsBusy = true;
 
-            HeaderIsVisible = logs.LogList.Count == 0;
-            if (logs.LogList.Count > numberOfVisibleLogs)
+            HeaderIsVisible = logs.Count == 0;
+            if (logs.Count > numberOfVisibleLogs)
             {
                 FilteredLogsList = new ObservableCollection<Log>();
                 for (int i = 0; i < numberOfVisibleLogs; i++)
                 {
-                    FilteredLogsList.Add(logs.LogList[i]);
+                    FilteredLogsList.Add(logs[i]);
                 }
                 numberOfVisibleLogs += 20;
                 FooterIsVisible = true;
@@ -95,7 +95,7 @@ namespace CraftLogs.ViewModels
             else
             {
                 FooterIsVisible = false;
-                FilteredLogsList = logs.LogList;
+                FilteredLogsList = logs;
             }
 
             IsBusy = false;

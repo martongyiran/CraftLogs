@@ -1,4 +1,5 @@
 ﻿using CraftLogs.BLL.Models;
+using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Repositories.Local.Interfaces
 {
@@ -38,7 +39,7 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// <summary> 
         /// Returns all the logs. 
         /// </summary>
-        Logs GetLogs();
+        ObservableCollection<Log> GetLogs();
 
         //TODO: Profile, Inventory, Items?? etc.
     }

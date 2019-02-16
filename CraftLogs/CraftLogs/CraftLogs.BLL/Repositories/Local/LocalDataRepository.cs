@@ -4,6 +4,7 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Newtonsoft.Json;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Repositories.Local
 {
@@ -56,7 +57,7 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.Settings;
             }
-            else if (typeof(Logs) == data.GetType())
+            else if (typeof(ObservableCollection<Log>) == data.GetType())
             {
                 fileName = FileNames.Logs;
             }
@@ -100,15 +101,15 @@ namespace CraftLogs.BLL.Repositories.Local
         {
             if (!dataService.IsFileExist(FileNames.Logs))
             {
+                ObservableCollection<Log> logs = new ObservableCollection<Log>();
                 dataService.CreateFile(FileNames.Logs);
-                Logs logs = new Logs();
                 SaveToFile(logs);
             }
         }
 
-        public Logs GetLogs()
+        public ObservableCollection<Log> GetLogs()
         {
-            return GetFile<Logs>(FileNames.Logs);
+            return GetFile<ObservableCollection<Log>>(FileNames.Logs);
         }
 
         #endregion

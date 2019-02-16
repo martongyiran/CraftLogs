@@ -23,6 +23,11 @@ namespace CraftLogs.BLL.Services
             return Path.Combine(GetPath(), fileName);
         }
 
+        private void LogToDebug(string text)
+        {
+            System.Diagnostics.Debug.WriteLine(this.GetType().Name+" | Saved json: "+ text);
+        }
+
         #endregion
 
         #region Public functions
@@ -45,6 +50,7 @@ namespace CraftLogs.BLL.Services
         public void WriteAllText(string fileName, string content = "")
         {
             File.WriteAllText(GetFilePath(fileName), content);
+            LogToDebug(content);
         }
 
         public string ReadAllText(string fileName)
