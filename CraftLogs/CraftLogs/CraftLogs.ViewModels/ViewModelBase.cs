@@ -77,6 +77,11 @@ namespace CraftLogs.ViewModels
         {
             await NavigationService.NavigateAsync(navigationLink);
         }
+
+        protected async Task DirectNavigateTo(string navigationLink)
+        {
+            await NavigationService.NavigateAsync("app://NavigationPage/" + navigationLink);
+        }
         
         #endregion
     }
