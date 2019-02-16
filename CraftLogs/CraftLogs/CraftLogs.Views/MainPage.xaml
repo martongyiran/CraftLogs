@@ -14,6 +14,9 @@
         
         <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
             <StackLayout>
+                <Button Text="QR_GEN" Command="{Binding NavigateToQRPageCommand}" Style="{StaticResource WhiteButton}" />
+                <Button Text="QR_READ" Command="{Binding NavigateToQRScannerPageCommand}" Style="{StaticResource WhiteButton}" />
+
                 <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
                 <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}" />
                 <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}" />

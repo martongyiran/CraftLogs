@@ -25,6 +25,9 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToQuestCommand;
         private DelegateCommand clearModeCommand;
         private DelegateCommand devModeCommand;
+        //test
+        private DelegateCommand navigateToQRPageCommand;
+        private DelegateCommand navigateToQRScannerPageCommand;
 
         private AppModeEnum mode;
         private bool hqMenuVisibility = false;
@@ -32,6 +35,8 @@ namespace CraftLogs.ViewModels
         private bool questMenuVisibility = false;
         private bool shopMenuVisibility = false;
         private bool arenaMenuVisibility = false;
+
+        private NavigationParameters param = new NavigationParameters();
 
         #endregion
 
@@ -43,9 +48,13 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
         public DelegateCommand NavigateToProfileCommand => navigateToProfileCommand ?? (navigateToProfileCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.ProfilePage)));
         public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QuestPage)));
+        public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage, param)));
+        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
+
+
 
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
-        public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand( () =>  DevMode()));
+        public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand(async () => await DevMode()));
 
         public AppModeEnum Mode
         {
@@ -116,6 +125,13 @@ namespace CraftLogs.ViewModels
 
             Mode = settings.AppMode;
             SetUpVisibility();
+            param.Add("code", "csigabiga");
+
+            var lul = parameters["res"] as string; 
+            if(lul != null)
+            {
+                await DialogService.DisplayAlertAsync("", lul, "K");
+            }
         }
 
         #endregion

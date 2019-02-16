@@ -8,5 +8,7 @@
         public const string QuestPage = "QuestPage";
         public const string LogsPage = "LogsPage";
         public const string SelectModePage = "SelectModePage";
+        public const string QRPage = "QRPage";
+        public const string QRScannerPage = "QRScannerPage";
     }
 }
