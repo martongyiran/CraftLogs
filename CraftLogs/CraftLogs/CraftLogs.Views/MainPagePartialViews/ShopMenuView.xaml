@@ -5,7 +5,6 @@
              x:Class="CraftLogs.Views.ShopMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Label Text="Bolt menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
             <Button Text="Kínálat"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
         </StackLayout>

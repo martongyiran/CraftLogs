@@ -52,7 +52,6 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
 
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
-        public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand(async () => await DevMode()));
 
         public AppModeEnum Mode
         {
@@ -105,6 +104,7 @@ namespace CraftLogs.ViewModels
         {
 #if DEV
             Title = Texts.MainPage + " DEV";
+            IsDevMode = true;
 #elif STG
             Title = Texts.MainPage + " STG";
 #elif PRD
@@ -155,14 +155,6 @@ namespace CraftLogs.ViewModels
             SetMenuVisibility(false);
             switch (Mode)
             {
-                case AppModeEnum.Dev:
-                    HqMenuVisibility = true;
-                    TeamMenuVisibility = true;
-                    QuestMenuVisibility = true;
-                    ShopMenuVisibility = true;
-                    ArenaMenuVisibility = true;
-                    IsDevMode = true;
-                    break;
                 case AppModeEnum.None:
                     HqMenuVisibility = false;
                     break;
@@ -201,22 +193,6 @@ namespace CraftLogs.ViewModels
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
             await NavigateTo(NavigationLinks.SelectModePage);
-        }
-
-        private async Task DevMode()
-        {
-            IsDevMode = !IsDevMode;
-            if (IsDevMode)
-            {
-                settings.AppMode = AppModeEnum.Dev;
-                DataRepository.SaveToFile(settings);
-            }
-            else
-            {
-                await ClearMode();
-            }
-
-            SetMenuVisibility(IsDevMode);
         }
 
         #endregion

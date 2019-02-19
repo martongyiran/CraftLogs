@@ -5,7 +5,6 @@
              x:Class="CraftLogs.Views.ArenaMenuView">
   <ContentView.Content>
         <StackLayout>
-            <Label Text="Aréna menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
             <Button Text="QR leolvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="Toplista"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
         </StackLayout>
