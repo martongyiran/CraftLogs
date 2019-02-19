@@ -126,7 +126,7 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             if (settings.AppMode == AppModeEnum.None)
-                await NavigateTo(NavigationLinks.SelectModePage);
+                await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
 
             Mode = settings.AppMode;
             SetUpVisibility();
@@ -192,7 +192,7 @@ namespace CraftLogs.ViewModels
         {
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
-            await NavigateTo(NavigationLinks.SelectModePage);
+            await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
         }
 
         #endregion

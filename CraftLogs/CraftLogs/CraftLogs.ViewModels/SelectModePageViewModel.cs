@@ -2,6 +2,7 @@
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -48,7 +49,7 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             if (settings.AppMode != AppModeEnum.None)
-                await NavigationService.GoBackToRootAsync();
+                await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
         #endregion
@@ -60,7 +61,7 @@ namespace CraftLogs.ViewModels
             settings.AppMode = appMode;
             DataRepository.SaveToFile(settings);
 
-            await NavigationService.GoBackToRootAsync();
+            await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
         #endregion

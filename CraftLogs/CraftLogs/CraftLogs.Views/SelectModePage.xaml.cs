@@ -9,6 +9,7 @@ namespace CraftLogs.Views
         public SelectModePage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }
