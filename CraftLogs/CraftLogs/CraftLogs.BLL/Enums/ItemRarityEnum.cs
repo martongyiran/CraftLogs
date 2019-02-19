@@ -3,9 +3,7 @@
     public enum ItemRarityEnum
     {
         Common,
-        Uncommon,
         Rare,
-        Epic,
-        Legend
+        Legendary
     }
 }

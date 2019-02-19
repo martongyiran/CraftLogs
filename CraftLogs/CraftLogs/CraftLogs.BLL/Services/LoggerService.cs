@@ -9,19 +9,23 @@ namespace CraftLogs.BLL.Services
     public class LoggerService : ILoggerService
     {
         #region Ctor
+
         private readonly ILocalDataRepository dataRepository;
         public LoggerService(ILocalDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
         }
+
         #endregion
+
+        #region Public
 
         public void CreateArenaLog(string enemyTeam)
         {
             var logs = dataRepository.GetLogs();
             string logText = enemyTeam;
             Log newLog = new Log(LogTypeEnum.Arena, logText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
 
@@ -34,7 +38,7 @@ namespace CraftLogs.BLL.Services
                 logText += item.ToString() + "\n";
             }
             Log newLog = new Log(LogTypeEnum.Buy, logText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
 
@@ -43,7 +47,7 @@ namespace CraftLogs.BLL.Services
             var logs = dataRepository.GetLogs();
             string logText = questId + "\n" + reward.ToString();
             Log newLog = new Log(LogTypeEnum.Quest, logText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
 
@@ -52,7 +56,7 @@ namespace CraftLogs.BLL.Services
             var logs = dataRepository.GetLogs();
             string logText = item.ToString();
             Log newLog = new Log(LogTypeEnum.Sell, logText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
 
@@ -61,7 +65,7 @@ namespace CraftLogs.BLL.Services
             var logs = dataRepository.GetLogs();
             string newLogText = logText;
             Log newLog = new Log(LogTypeEnum.System, newLogText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
 
@@ -70,8 +74,10 @@ namespace CraftLogs.BLL.Services
             var logs = dataRepository.GetLogs();
             string logText = teamName;
             Log newLog = new Log(LogTypeEnum.Trade, logText);
-            logs.LogList.Insert(0, newLog);
+            logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
         }
+
+        #endregion
     }
 }

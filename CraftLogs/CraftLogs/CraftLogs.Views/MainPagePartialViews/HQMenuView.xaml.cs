@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace CraftLogs.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DevMenuView : ContentView
+	public partial class HQMenuView : ContentView
 	{
-		public DevMenuView ()
+		public HQMenuView()
 		{
 			InitializeComponent ();
 		}

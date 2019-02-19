@@ -2,7 +2,7 @@
 
 namespace CraftLogs.BLL.Models
 {
-    public class EventArgs<T> : System.EventArgs
+    public class EventArgs<T> : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs"/> class.

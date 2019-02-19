@@ -16,6 +16,6 @@
         <Button Text="{x:Static values:Texts.QuestMode}" Command="{Binding SetModeToQuestCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.ShopMode}" Command="{Binding SetModeToShopCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.ArenaMode}" Command="{Binding SetModeToArenaCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="DEVELOP" Command="{Binding SetModeToNoneCommand}" Style="{StaticResource WhiteButton}" BackgroundColor="Green"/>
+        <Button Text="{x:Static values:Texts.HqMode}" Command="{Binding SetModeToHqCommand}" Style="{StaticResource WhiteButton}" />
     </StackLayout>
 </ContentPage>

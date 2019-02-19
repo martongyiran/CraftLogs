@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CraftLogs.Views.QRPage"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             BackgroundColor="White">
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        
+        <Entry x:Name="EntryPhoneNumber" Text="{Binding QrCode}" IsVisible="False"/>
+        
+        <zxing:ZXingBarcodeImageView 
+        x:Name="qrcode"
+        WidthRequest="600"
+        HeightRequest="600" 
+        BindingContext="{x:Reference Name=EntryPhoneNumber}"
+	    BarcodeValue="{Binding Path=Text}" 
+        BarcodeFormat="QR_CODE"
+        VerticalOptions="FillAndExpand" 
+        HorizontalOptions="FillAndExpand" />
+    </StackLayout>
+    
+</ContentPage>

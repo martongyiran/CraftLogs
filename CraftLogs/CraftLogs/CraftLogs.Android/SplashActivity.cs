@@ -10,7 +10,6 @@ namespace CraftLogs.Droid
         {
             base.OnCreate(savedInstanceState);
             StartActivity(typeof(MainActivity));
-            // Create your application here
         }
     }
 }

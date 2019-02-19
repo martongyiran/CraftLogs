@@ -5,15 +5,36 @@
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              x:Class="CraftLogs.Views.MainPage"
              Title="{Binding Title}">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Clear mode" Text="Clear mode" Command="{Binding ClearModeCommand}"/>
-    </ContentPage.ToolbarItems>
     
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-        <views:DevMenuView IsVisible="{Binding DevMenuVisibility}"/>
-        <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}"/>
-        <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}"/>
-        <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}"/>
-        <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}"/>
-    </StackLayout>
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
+            <StackLayout>
+                <Button Text="QR_GEN" Command="{Binding NavigateToQRPageCommand}" Style="{StaticResource WhiteButton}" />
+                <Button Text="QR_READ" Command="{Binding NavigateToQRScannerPageCommand}" Style="{StaticResource WhiteButton}" />
+
+                <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
+                <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}" />
+                <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}" />
+                <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}" />
+                <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}" />
+            </StackLayout>
+        </ScrollView>
+        
+        <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5">
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClearModeCommand}" NumberOfTapsRequired="2" />
+            </Label.GestureRecognizers>
+        </Label>
+        
+        <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Text="DEV_MODE" FontSize="15" TextColor="Red" Margin="5">
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DevModeCommand}" NumberOfTapsRequired="2" />
+            </Label.GestureRecognizers>
+        </Label>
+    </Grid>
 </ContentPage>

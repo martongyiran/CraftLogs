@@ -1,4 +1,5 @@
-﻿using CraftLogs.BLL.Models;
+﻿using System.Threading.Tasks;
+using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
@@ -16,9 +17,7 @@ namespace CraftLogs.ViewModels
         private int craft1Start;        
         private int craft2Start;        
         private int craft1MinPont;        
-        private int craft2MinPont;        
-        private int craft1QuestCount;       
-        private int craft2QuestCount;
+        private int craft2MinPont;     
         private DelegateCommand saveSettingsCommand;
         private DelegateCommand resetSettingsCommand;
 
@@ -56,31 +55,24 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref craft2MinPont, value); }
         }
 
-        public int Craft1QuestCount
-        {
-            get { return craft1QuestCount; }
-            set { SetProperty(ref craft1QuestCount, value); }
-        }
-
-        public int Craft2QuestCount
-        {
-            get { return craft2QuestCount; }
-            set { SetProperty(ref craft2QuestCount, value); }
-        }
 
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
-        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(ResetSettingsAsync));
+        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
+
         #endregion
 
         #region Ctor
+
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.SettingsPage;
         }
+
         #endregion
 
         #region Overrides
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -100,8 +92,6 @@ namespace CraftLogs.ViewModels
             Craft2Start = settings.Craft2Start;
             Craft1MinPont = settings.Craft1MinPont;
             Craft2MinPont = settings.Craft2MinPont;
-            Craft1QuestCount = settings.Craft1QuestCount;
-            Craft2QuestCount = settings.Craft2QuestCount;
         }
 
         private void SaveSettings()
@@ -111,29 +101,25 @@ namespace CraftLogs.ViewModels
             settings.Craft2Start = Craft2Start;
             settings.Craft1MinPont = Craft1MinPont;
             settings.Craft2MinPont = Craft2MinPont;
-            settings.Craft1QuestCount = Craft1QuestCount;
-            settings.Craft2QuestCount = Craft2QuestCount;
 
             DataRepository.SaveToFile(settings);
             DialogService.DisplayAlertAsync("", Texts.SuccessfulSaving, Texts.Ok);
         }
 
-        private async void ResetSettingsAsync()
+        private async Task ResetSettingsAsync()
         {
             var res = await DialogService.DisplayAlertAsync("", Texts.ResetData, Texts.Yes, Texts.No);
             if (res)
             {
+                var mode = settings.AppMode;
                 DataRepository.ResetSettings();
                 SetUp();
+                settings.AppMode = mode;
+                DataRepository.SaveToFile(settings);
             }
         }
 
         private void DeleteProfile()
-        {
-            //TODO
-        }
-
-        private void FinalScore()
         {
             //TODO
         }

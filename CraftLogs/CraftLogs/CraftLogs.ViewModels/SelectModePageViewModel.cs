@@ -2,7 +2,6 @@
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
-using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -12,12 +11,14 @@ namespace CraftLogs.ViewModels
     public class SelectModePageViewModel : ViewModelBase
     {
         #region Private
+
         private DelegateCommand setModeToTeamCommand;
         private DelegateCommand setModeToQuestCommand;
         private DelegateCommand setModeToShopCommand;
         private DelegateCommand setModeToArenaCommand;
-        private DelegateCommand setModeToNoneCommand; //for dev menu
+        private DelegateCommand setModeToHqCommand; //for dev menu
         private Settings settings;
+
         #endregion
 
         #region Public
@@ -26,7 +27,7 @@ namespace CraftLogs.ViewModels
         public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest)));
         public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop)));
         public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena)));
-        public DelegateCommand SetModeToNoneCommand => setModeToNoneCommand ?? (setModeToNoneCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Dev)));
+        public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq)));
 
         #endregion
 
@@ -58,7 +59,7 @@ namespace CraftLogs.ViewModels
         {
             settings.AppMode = appMode;
             DataRepository.SaveToFile(settings);
-            //Only for testing. I should change it to s switch and navigate to the specific page based on the enum.
+
             await NavigationService.GoBackToRootAsync();
         }
 

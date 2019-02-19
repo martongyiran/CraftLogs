@@ -1,12 +1,13 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              x:Class="CraftLogs.Views.ArenaMenuView">
   <ContentView.Content>
         <StackLayout>
-            <Button Text="Arena test button"  Style="{StaticResource WhiteButton}" />
-            <Label VerticalOptions="End" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5" />
+            <Label Text="Aréna menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
+            <Button Text="QR leolvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+            <Button Text="Toplista"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
         </StackLayout>
   </ContentView.Content>
 </ContentView>
