@@ -4,7 +4,7 @@
     {
         #region Menu texts
 
-        public const string MainPage = "Főoldal";
+        public const string MainPage = "CraftLogs";
         public const string ProfilePage = "Profil";
         public const string InventoryPage = "Hátizsák";
         public const string TradePage = "Csere";

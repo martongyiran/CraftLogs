@@ -51,8 +51,6 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage, param)));
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
 
-
-
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
         public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand(async () => await DevMode()));
 
@@ -105,7 +103,14 @@ namespace CraftLogs.ViewModels
         public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
+#if DEV
+            Title = Texts.MainPage + " DEV";
+#elif STG
+            Title = Texts.MainPage + " STG";
+#elif PRD
             Title = Texts.MainPage;
+#endif
+
         }
 
         #endregion
@@ -127,8 +132,8 @@ namespace CraftLogs.ViewModels
             SetUpVisibility();
             param.Add("code", "csigabiga");
 
-            var lul = parameters["res"] as string; 
-            if(lul != null)
+            var lul = parameters["res"] as string;
+            if (lul != null)
             {
                 await DialogService.DisplayAlertAsync("", lul, "K");
             }
