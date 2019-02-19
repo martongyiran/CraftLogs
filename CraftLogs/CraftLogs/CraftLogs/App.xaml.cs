@@ -37,7 +37,13 @@ namespace CraftLogs
         protected override void OnStart()
         {
             base.OnStart();
-            AppCenter.Start("android=5068d5dd-97bf-4fb3-bfdb-4d80a9a05a7b;", typeof(Analytics), typeof(Crashes));
+#if DEV
+            AppCenter.Start("android=00145b51-79b0-43ab-be63-0069f7f0c386;", typeof(Analytics), typeof(Crashes));
+#elif STG
+            AppCenter.Start("android=e0308c93-f3e1-4366-8a1c-95535e7309ad;", typeof(Analytics), typeof(Crashes));
+#elif PRD
+            AppCenter.Start("android=74a73c15-e833-43a6-b3e8-d95c2b3e6ec2;", typeof(Analytics), typeof(Crashes));
+#endif
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
