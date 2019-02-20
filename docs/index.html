@@ -9,14 +9,12 @@
 </head>
 
 <body>
-    <div id="navbar">
-        <a class="active" href="javascript:void(0)">About</a>
-        <a href="javascript:void(0)">Features</a>
-        <a href="javascript:void(0)">Releases</a>
+    <div class="navbar">
+        <a href="#home">About</a>
+        <a href="#news">Features</a>
+        <a href="#contact">Releases</a>
     </div>
-
-
-    <div class="content">
+    <div class="main">
         <h3>What is the "CraftLogs"?</h3>
         <p>It's a Xamarin.Forms(Android only) project for ELTE IK Freshman Camp's Craft game(some kind of LARP).</p>
         <h3>What should I know about this project?</h3>
@@ -30,20 +28,6 @@
             more
             precise, more structured.</p>
     </div>
-    <script>
-        window.onscroll = function () { myFunction() };
-
-        var navbar = document.getElementById("navbar");
-        var sticky = navbar.offsetTop;
-
-        function myFunction() {
-            if (window.pageYOffset >= sticky) {
-                navbar.classList.add("sticky")
-            } else {
-                navbar.classList.remove("sticky");
-            }
-        }
-    </script>
 </body>
 
 </html>
