@@ -9,7 +9,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </head>
 
-<body onload="$('#first').addClass('active')">
+<body onload="start()">
     <div class="navbar">
         <a id="first" href="#about">About</a>
         <a href="#features">Features</a>
@@ -48,8 +48,12 @@
             $('a').click(function () {
                 $('a').removeClass('active');
                 $(this).addClass('active')
-            });
-        });
+            })
+        })
+
+        function start(){
+            $("#first").addClass('active')
+        }
     </script>
 
 </body>
