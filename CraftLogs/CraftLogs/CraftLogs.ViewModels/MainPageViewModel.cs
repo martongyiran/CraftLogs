@@ -51,10 +51,7 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage, param)));
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
 
-
-
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
-        public DelegateCommand DevModeCommand => devModeCommand ?? (devModeCommand = new DelegateCommand(async () => await DevMode()));
 
         public AppModeEnum Mode
         {
@@ -105,7 +102,15 @@ namespace CraftLogs.ViewModels
         public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
+#if DEV
+            Title = Texts.MainPage + " DEV";
+            IsDevMode = true;
+#elif STG
+            Title = Texts.MainPage + " STG";
+#elif PRD
             Title = Texts.MainPage;
+#endif
+
         }
 
         #endregion
@@ -121,14 +126,14 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             if (settings.AppMode == AppModeEnum.None)
-                await NavigateTo(NavigationLinks.SelectModePage);
+                await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
 
             Mode = settings.AppMode;
             SetUpVisibility();
             param.Add("code", "csigabiga");
 
-            var lul = parameters["res"] as string; 
-            if(lul != null)
+            var lul = parameters["res"] as string;
+            if (lul != null)
             {
                 await DialogService.DisplayAlertAsync("", lul, "K");
             }
@@ -150,14 +155,6 @@ namespace CraftLogs.ViewModels
             SetMenuVisibility(false);
             switch (Mode)
             {
-                case AppModeEnum.Dev:
-                    HqMenuVisibility = true;
-                    TeamMenuVisibility = true;
-                    QuestMenuVisibility = true;
-                    ShopMenuVisibility = true;
-                    ArenaMenuVisibility = true;
-                    IsDevMode = true;
-                    break;
                 case AppModeEnum.None:
                     HqMenuVisibility = false;
                     break;
@@ -195,23 +192,7 @@ namespace CraftLogs.ViewModels
         {
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
-            await NavigateTo(NavigationLinks.SelectModePage);
-        }
-
-        private async Task DevMode()
-        {
-            IsDevMode = !IsDevMode;
-            if (IsDevMode)
-            {
-                settings.AppMode = AppModeEnum.Dev;
-                DataRepository.SaveToFile(settings);
-            }
-            else
-            {
-                await ClearMode();
-            }
-
-            SetMenuVisibility(IsDevMode);
+            await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
         }
 
         #endregion

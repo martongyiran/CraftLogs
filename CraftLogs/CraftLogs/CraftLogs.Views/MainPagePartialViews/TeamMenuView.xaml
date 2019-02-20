@@ -5,7 +5,6 @@
              x:Class="CraftLogs.Views.TeamMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Label Text="Csapat menü" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Start" FontSize="15" TextColor="Gray" IsVisible="{Binding IsDevMode}"/>
             <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="{x:Static values:Texts.ProfilePage}" Command="{Binding NavigateToProfileCommand}" Style="{StaticResource WhiteButton}" />
             <Button Text="{x:Static values:Texts.InventoryPage}"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>

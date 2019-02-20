@@ -51,7 +51,7 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Virtual
-      
+
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
@@ -83,11 +83,16 @@ namespace CraftLogs.ViewModels
             await NavigationService.NavigateAsync(navigationLink, parameters);
         }
 
-        protected async Task DirectNavigateTo(string navigationLink)
+        protected async Task NavigateToWithoutHistory(string navigationLink)
         {
-            await NavigationService.NavigateAsync("app://NavigationPage/" + navigationLink);
+            await NavigationService.NavigateAsync("../" + navigationLink);
         }
-        
+
+        protected async Task NavigateToWithoutHistory(string navigationLink, INavigationParameters parameters)
+        {
+            await NavigationService.NavigateAsync("../" + navigationLink, parameters);
+        }
+
         #endregion
     }
 }

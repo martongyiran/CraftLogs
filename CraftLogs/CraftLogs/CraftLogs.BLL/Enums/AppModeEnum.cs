@@ -7,7 +7,6 @@
             Quest,
             Shop,
             Arena,
-            Hq,
-            Dev
+            Hq
         }
 }
