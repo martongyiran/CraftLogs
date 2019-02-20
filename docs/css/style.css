@@ -25,12 +25,12 @@ body {
   }
   
   .navbar a:hover {
-    background: #ddd;
+    background: #f1f1f1;
     color: black;
   }
 
   .navbar a:active, a.active { 
-    background: #ddd;
+    background: #f1f1f1;
     color: black; 
 }
   
