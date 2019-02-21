@@ -44,3 +44,6 @@ body {
       margin-left: 5%;
       margin-right: 5%;
   }
+
+  a { color: #dc8100; text-decoration: none; }
+  a:hover { color: #333; text-decoration: none; }
