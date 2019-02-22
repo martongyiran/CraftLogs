@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.QRScannerPage"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-             ScanResultCommand="{Binding GetResultCommand}">
+             ScanResultCommand="{Binding GetResultCommand}"
+             Title="{Binding Title}">
     
 </views:BaseScannerPage>

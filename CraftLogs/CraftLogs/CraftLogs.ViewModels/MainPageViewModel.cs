@@ -131,12 +131,7 @@ namespace CraftLogs.ViewModels
             Mode = settings.AppMode;
             SetUpVisibility();
             param.Add("code", "csigabiga");
-
-            var lul = parameters["res"] as string;
-            if (lul != null)
-            {
-                await DialogService.DisplayAlertAsync("", lul, "K");
-            }
+            
         }
 
         #endregion

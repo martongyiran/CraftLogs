@@ -18,8 +18,7 @@ namespace CraftLogs.ViewModels
         #region Public
 
         public DelegateCommand<string> GetResultCommand => getResultCommand ?? (getResultCommand = new DelegateCommand<string>(async (a) => await HandleResult(a)));
-
-
+        
         #endregion
 
         #region ctor
@@ -27,7 +26,7 @@ namespace CraftLogs.ViewModels
         public QRScannerPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-
+            Title = "QR Scanner Page";
         }
 
         #endregion
@@ -36,7 +35,7 @@ namespace CraftLogs.ViewModels
         {
             NavigationParameters param = new NavigationParameters();
             param.Add("res", text);
-            await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
+            await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, param);
         }
     }
 }

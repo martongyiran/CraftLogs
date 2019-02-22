@@ -10,5 +10,6 @@
         public const string SelectModePage = "SelectModePage";
         public const string QRPage = "QRPage";
         public const string QRScannerPage = "QRScannerPage";
+        public const string QRHandlerPage = "QRHandlerPage";
     }
 }

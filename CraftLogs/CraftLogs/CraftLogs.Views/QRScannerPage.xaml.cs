@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace CraftLogs.Views
 {
@@ -10,11 +11,17 @@ namespace CraftLogs.Views
 		{
             InitializeComponent ();
 
-            this.OnScanResult += (result) =>
+            this.OnScanResult += QRScannerPage_OnScanResult;
+            
+        }
+
+        private void QRScannerPage_OnScanResult(ZXing.Result result)
+        {
+            Device.BeginInvokeOnMainThread( () =>
             {
                 IsScanning = false;
                 ScanResultCommand?.Execute(result.Text);
-            };
+            });
         }
-	}
+    }
 }
