@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<zxing:ZXingScannerPage xmlns="http://xamarin.com/schemas/2014/forms"
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseScannerPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.QRScannerPage"
-             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             DefaultOverlayBottomText ="{Binding ScannedCode, Mode=TwoWay}">
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+             ScanResultCommand="{Binding GetResultCommand}">
     
-</zxing:ZXingScannerPage>
+</views:BaseScannerPage>

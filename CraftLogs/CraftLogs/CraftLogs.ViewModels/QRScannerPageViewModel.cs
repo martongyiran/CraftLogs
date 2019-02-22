@@ -1,5 +1,6 @@
 ﻿using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Threading.Tasks;
@@ -10,17 +11,14 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private string scannedCode ="none";
+        private DelegateCommand<string> getResultCommand;
 
         #endregion
 
         #region Public
 
-        public string ScannedCode
-        {
-            get { return scannedCode; }
-            set { SetProperty(ref scannedCode, value); }
-        }
+        public DelegateCommand<string> GetResultCommand => getResultCommand ?? (getResultCommand = new DelegateCommand<string>(async (a) => await HandleResult(a)));
+
 
         #endregion
 
@@ -34,16 +32,11 @@ namespace CraftLogs.ViewModels
 
         #endregion
 
-        #region Public functions
-
-        public async override void Destroy()
+        private async Task HandleResult(string text)
         {
-            base.Destroy();
             NavigationParameters param = new NavigationParameters();
-            param.Add("res", ScannedCode);
-            await NavigateTo(NavigationLinks.MainPage, param);
+            param.Add("res", text);
+            await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
         }
-
-        #endregion
     }
 }
