@@ -7,12 +7,16 @@ using Prism.Services;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Enums;
 using System.Threading.Tasks;
+using CraftLogs.BLL.Services.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace CraftLogs.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         #region Private
+
+        private readonly IQRService QRService;
 
         private Settings settings;
         private string version;
@@ -24,7 +28,6 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToProfileCommand;
         private DelegateCommand navigateToQuestCommand;
         private DelegateCommand clearModeCommand;
-        private DelegateCommand devModeCommand;
         //test
         private DelegateCommand navigateToQRPageCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
@@ -99,9 +102,17 @@ namespace CraftLogs.ViewModels
 
         #region Ctor
 
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
+            QRService = qrService;
+            ObservableCollection<Item> items = new ObservableCollection<Item>();
+            items.Add(new Item(1, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Warrior, "0 4 2 0 0"));
+            items.Add(new Item(2, ItemRarityEnum.Rare, ItemTypeEnum.TwoHand, CharacterClassEnum.Mage, "5 0 0 3 0"));
+            items.Add(new Item(3, ItemRarityEnum.Legendary, ItemTypeEnum.Trinket, CharacterClassEnum.Rogue, "5 5 5 5 5"));
+            string toSend = QRService.CreateQR(new QuestReward("Mocsári veszedelem",40, 100, 2, items));
+
+            param.Add("code", toSend);
 #if DEV
             Title = Texts.MainPage + " DEV";
             IsDevMode = true;
@@ -130,8 +141,8 @@ namespace CraftLogs.ViewModels
 
             Mode = settings.AppMode;
             SetUpVisibility();
-            param.Add("code", "csigabiga");
-            
+
+
         }
 
         #endregion

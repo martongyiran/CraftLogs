@@ -30,7 +30,7 @@ namespace CraftLogs.ViewModels
         public QRPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            
+            Title = "QR Generator Page";
         }
 
         #endregion

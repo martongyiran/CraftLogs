@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.QRPage"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Title="{Binding Title}">
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        
+        <!--Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323-->
         <Entry x:Name="EntryPhoneNumber" Text="{Binding QrCode}" IsVisible="False"/>
         
         <zxing:ZXingBarcodeImageView 
