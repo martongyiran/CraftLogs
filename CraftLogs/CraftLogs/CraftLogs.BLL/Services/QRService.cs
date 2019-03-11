@@ -35,10 +35,17 @@ namespace CraftLogs.BLL.Services
 
             return "";
         }
-
-        public void HandleQR(string scanResult)
+        //TODO
+        public QRResponse<T> CreateResponse<T>(object data)
         {
             throw new NotImplementedException();
+        }
+
+        private QRResponse HandleQR(string scanResult)
+        {
+            var response = JsonConvert.DeserializeObject<QRResponse>(scanResult);
+
+            return response;
         }
     }
 }

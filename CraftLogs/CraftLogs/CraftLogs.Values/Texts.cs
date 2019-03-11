@@ -40,6 +40,9 @@ namespace CraftLogs.Values
         public const string Ok = "OK";
         public const string Yes = "Igen";
         public const string No = "Nem";
+        public const string Save = "Mentés";
+        public const string Cancel = "Mégse";
+        public const string Error = "Hiba";
 
         #endregion
 
@@ -139,6 +142,11 @@ namespace CraftLogs.Values
         /// </summary>
         public const string ResetData = "Biztos, hogy alaphelyzetbe állítod a beállításokat?";
 
+        /// <summary>
+        /// SettingsPage: Settings delete question text.
+        /// </summary>
+        public const string DeleteProfileQuestion = "Biztos, hogy törlöd a profilodat?";
+
         #endregion
 
         #region LogsPage texts
@@ -155,6 +163,27 @@ namespace CraftLogs.Values
 
         #endregion
 
+        #region RegisterPage texts
+
+        public const string RegisterName = "Állomás neve:";
+
+        public const string RegisterTitle = "Profil létrehozása";
+
+        public const string RegisterNameSave = "Biztos, hogy elmented ezt a nevet? A későbbiekben nem módosíthatod!";
+
+        public const string RegisterMissingName = "Kérlek írj be valamilyen nevet!";
+
+        #endregion
+
+        #region Quest
+
+        public const string Result = "Eredmény";
+
+        public const string ResultDialog = "Biztos, hogy {0} pontot adsz a csapatnak?";
+
+        public const string CantScore = "Most nem pontozhatsz!";
+
+        #endregion
         //Ezeket törölni kell majd valszeg a jövőben
 
         #region Itemtypes

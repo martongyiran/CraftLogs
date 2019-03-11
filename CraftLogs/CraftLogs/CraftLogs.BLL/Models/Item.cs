@@ -63,6 +63,14 @@ namespace CraftLogs.BLL.Models
             Id = GenerateId();
         }
 
+        /// <summary>
+        /// Creates a new item.
+        /// </summary>
+        /// <param name="tier"></param>
+        /// <param name="rarity"></param>
+        /// <param name="itemType"></param>
+        /// <param name="usableFor"></param>
+        /// <param name="statsForQR"> atk,def,hp,crit,dodge</param>
         public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsForQR)
         {
             Id = GenerateId();

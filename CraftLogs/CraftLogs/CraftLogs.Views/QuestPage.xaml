@@ -2,12 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.QuestPage"
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Quest page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" 
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" 
+                   FontSize="60" 
+                   TextColor="{StaticResource ColorDark}"
+                   Text="{Binding Score, StringFormat='{0} pont'}"/>
+
+            <Slider
+                Grid.Row="0"
+                Minimum="0"
+                Maximum="100"
+                VerticalOptions="End" 
+                HorizontalOptions="FillAndExpand"
+                MinimumTrackColor="{StaticResource ColorLight}"
+                MaximumTrackColor="{StaticResource ColorPrimary}"
+                ThumbColor="{StaticResource ColorDark}"
+                Value="{Binding SliderScore, Mode=TwoWay}"/>
+
+            <Button Grid.Row="1" Text="{x:Static values:Texts.QuestPage}" Style="{StaticResource WhiteButton}" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Command="{Binding ScoreCommand}"/>
+
+            <ImageButton Grid.Row="2" 
+                         Source="@drawable/settings.png" 
+                         HeightRequest="60" 
+                         WidthRequest="60" 
+                         HorizontalOptions="EndAndExpand" 
+                         VerticalOptions="CenterAndExpand" 
+                         Margin="0,0,20,0" 
+                         Command="{Binding NavigateToSettingsCommand}" 
+                         BackgroundColor="{StaticResource BackgroundColorLight}"
+                         FlowDirection="LeftToRight"
+                         />
+            <Label Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
+
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -34,5 +34,10 @@ namespace CraftLogs.BLL.Models
             Honor = honor;
             Items = items;
         }
+
+        public QuestReward()
+        {
+
+        }
     }
 }

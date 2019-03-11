@@ -52,6 +52,11 @@ namespace CraftLogs.ViewModels
 
         public SelectModePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
         {
+#if STG
+            IsDev = false;
+#elif PRD
+            IsDev = false;
+#endif
         }
 
         #endregion
@@ -70,14 +75,50 @@ namespace CraftLogs.ViewModels
 
         #endregion
 
+        #region Properties
+
+        private bool isDev = true;
+
+        public bool IsDev
+        {
+            get { return isDev; }
+            set { SetProperty(ref isDev, value); }
+        }
+
+        #endregion
+
         #region Private functions
 
         private async Task SetMode(AppModeEnum appMode)
         {
             settings.AppMode = appMode;
             DataRepository.SaveToFile(settings);
+            NavigationParameters param = new NavigationParameters();
 
-            await NavigateToWithoutHistory(NavigationLinks.MainPage);
+            switch (appMode)
+            {
+                case AppModeEnum.None:
+                    break;
+                case AppModeEnum.Team:
+                    param.Add("mode", "team");
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    break;
+                case AppModeEnum.Quest:
+                    param.Add("mode", "quest");
+                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
+                    break;
+                case AppModeEnum.Shop:
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    break;
+                case AppModeEnum.Arena:
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    break;
+                case AppModeEnum.Hq:
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

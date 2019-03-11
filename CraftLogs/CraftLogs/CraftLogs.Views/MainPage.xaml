@@ -4,8 +4,9 @@
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              x:Class="CraftLogs.Views.MainPage"
+             BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
-    
+
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,7 +21,6 @@
 
                 <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
                 <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}" />
-                <views:QuestMenuView IsVisible="{Binding QuestMenuVisibility}" />
                 <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}" />
                 <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}" />
             </StackLayout>

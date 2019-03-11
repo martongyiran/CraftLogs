@@ -109,6 +109,16 @@ namespace CraftLogs.ViewModels
             await NavigationService.NavigateAsync("../" + navigationLink, parameters);
         }
 
+        protected async Task NavigateToWithoutHistoryDouble(string navigationLink)
+        {
+            await NavigationService.NavigateAsync("../../" + navigationLink);
+        }
+
+        protected async Task NavigateToWithoutHistoryDouble(string navigationLink, INavigationParameters parameters)
+        {
+            await NavigationService.NavigateAsync("../../" + navigationLink, parameters);
+        }
+
         #endregion
     }
 }

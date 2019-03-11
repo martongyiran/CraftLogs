@@ -24,18 +24,14 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Enums;
 using System.Threading.Tasks;
 using CraftLogs.BLL.Services.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace CraftLogs.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         #region Private
-
-        private readonly IQRService QRService;
-
+        
         private Settings settings;
-        private string version;
 
         private bool isDevMode = false;
 
@@ -51,9 +47,9 @@ namespace CraftLogs.ViewModels
         private AppModeEnum mode;
         private bool hqMenuVisibility = false;
         private bool teamMenuVisibility = false;
-        private bool questMenuVisibility = false;
         private bool shopMenuVisibility = false;
         private bool arenaMenuVisibility = false;
+        private bool isNpc = false;
 
         private NavigationParameters param = new NavigationParameters();
 
@@ -61,13 +57,13 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public string Version => version ?? (version = string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion));
+        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
         public DelegateCommand NavigateToProfileCommand => navigateToProfileCommand ?? (navigateToProfileCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.ProfilePage)));
         public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QuestPage)));
-        public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage, param)));
+        public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage)));
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
 
         public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
@@ -95,13 +91,7 @@ namespace CraftLogs.ViewModels
             get { return teamMenuVisibility; }
             set { SetProperty(ref teamMenuVisibility, value); }
         }
-
-        public bool QuestMenuVisibility
-        {
-            get { return questMenuVisibility; }
-            set { SetProperty(ref questMenuVisibility, value); }
-        }
-
+        
         public bool ShopMenuVisibility
         {
             get { return shopMenuVisibility; }
@@ -114,6 +104,12 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref arenaMenuVisibility, value); }
         }
 
+        public bool IsNpc
+        {
+            get { return isNpc; }
+            set { SetProperty(ref isNpc, value); }
+        }
+
         #endregion
 
         #region Ctor
@@ -121,14 +117,6 @@ namespace CraftLogs.ViewModels
         public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
-            QRService = qrService;
-            ObservableCollection<Item> items = new ObservableCollection<Item>();
-            items.Add(new Item(1, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Warrior, "0 4 2 0 0"));
-            items.Add(new Item(2, ItemRarityEnum.Rare, ItemTypeEnum.TwoHand, CharacterClassEnum.Mage, "5 0 0 3 0"));
-            items.Add(new Item(3, ItemRarityEnum.Legendary, ItemTypeEnum.Trinket, CharacterClassEnum.Rogue, "5 5 5 5 5"));
-            string toSend = QRService.CreateQR(new QuestReward("Mocsári veszedelem",40, 100, 2, items));
-
-            param.Add("code", toSend);
 #if DEV
             Title = Texts.MainPage + " DEV";
             IsDevMode = true;
@@ -153,12 +141,23 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             if (settings.AppMode == AppModeEnum.None)
+            {
                 await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
+            }
+            else if (settings.AppMode == AppModeEnum.Quest && !DataRepository.IsQuestProfileExist())
+            {
+                NavigationParameters mode = new NavigationParameters();
+                mode.Add("mode", "quest");
+                await NavigateToWithoutHistory(NavigationLinks.RegisterPage, mode);
+            }
+            else if (settings.AppMode == AppModeEnum.Quest)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
+            }
 
             Mode = settings.AppMode;
             SetUpVisibility();
-
-
+            
         }
 
         #endregion
@@ -183,17 +182,17 @@ namespace CraftLogs.ViewModels
                 case AppModeEnum.Team:
                     TeamMenuVisibility = true;
                     break;
-                case AppModeEnum.Quest:
-                    QuestMenuVisibility = true;
-                    break;
                 case AppModeEnum.Shop:
                     ShopMenuVisibility = true;
+                    IsNpc = true;
                     break;
                 case AppModeEnum.Arena:
                     ArenaMenuVisibility = true;
+                    IsNpc = true;
                     break;
                 case AppModeEnum.Hq:
                     HqMenuVisibility = true;
+                    IsNpc = true;
                     break;
                 default:
                     break;
@@ -204,7 +203,6 @@ namespace CraftLogs.ViewModels
         {
             HqMenuVisibility = value;
             TeamMenuVisibility = value;
-            QuestMenuVisibility = value;
             ShopMenuVisibility = value;
             ArenaMenuVisibility = value;
         }

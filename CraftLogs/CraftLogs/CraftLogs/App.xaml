@@ -8,12 +8,24 @@
 
         <ResourceDictionary>
             
+            <Color x:Key="BackgroundColorLight">#f6f6f6</Color>
+            <Color x:Key="ColorLight">#7a7cff</Color>
+            <Color x:Key="ColorPrimary">#304ffe</Color>
+            <Color x:Key="ColorDark">#0026ca</Color>
+
             <Style x:Key="SettingsEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="EndAndExpand" />
                 <Setter Property="WidthRequest" Value="50" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="Keyboard" Value="Telephone" />
+            </Style>
+
+            <Style x:Key="RegisterEntry" TargetType="Entry">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="WidthRequest" Value="400" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
 
             <Style x:Key="DefaultFrame" TargetType="Frame">

@@ -10,14 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace CraftLogs.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class QRPage : ContentPage
+	public partial class QuestRegisterView : ContentView
 	{
-		public QRPage ()
+		public QuestRegisterView ()
 		{
 			InitializeComponent ();
-            NavigationPage.SetHasNavigationBar(this, false);
-            qrcode.BarcodeOptions.Width = 600;
-            qrcode.BarcodeOptions.Height = 600;
 		}
 	}
 }

@@ -14,14 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using CraftLogs.BLL.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CraftLogs.BLL.Services.Interfaces
+namespace CraftLogs.BLL.Models
 {
-    public interface IQRService
+    
+    public class QuestProfile
     {
-        string CreateQR<T>(T data);
-        
-        QRResponse<T> CreateResponse<T>(object data);
+        public string QuestName { get; set; }
+
+        public List<int> AvgScore { get; set; } = new List<int>();
+
+        public QuestProfile(string questName)
+        {
+            QuestName = questName;
+        }
     }
+
 }

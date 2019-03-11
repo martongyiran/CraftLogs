@@ -57,6 +57,27 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// </summary>
         ObservableCollection<Log> GetLogs();
 
+        /// <summary>
+        /// Creates a QuestProfile file.
+        /// </summary>
+        void CreateQuestProfile(string name);
+
+        /// <summary>
+        /// Returns the QuestProfile.
+        /// </summary>
+        /// <returns></returns>
+        QuestProfile GetQuestProfile();
+
+        /// <summary>
+        /// Checks if QuestProfile exist.
+        /// </summary>
+        /// <returns></returns>
+        bool IsQuestProfileExist();
+
+        /// <summary>
+        /// Deletes QuestProfile file.
+        /// </summary>
+        void DeleteQuestProfile();
         //TODO: Profile, Inventory, Items?? etc.
     }
 }

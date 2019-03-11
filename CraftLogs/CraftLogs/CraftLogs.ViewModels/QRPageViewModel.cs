@@ -14,9 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.Values;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
 {
@@ -24,11 +28,16 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
+        private DelegateCommand navigateToHomeCommand;
+
         private string qrCode;
+        private Settings settings;
 
         #endregion
 
         #region Public
+
+        public DelegateCommand NavigateToHomeCommand => navigateToHomeCommand ?? (navigateToHomeCommand = new DelegateCommand(async () => await SmartNavigation()));
 
         public string QrCode
         {
@@ -43,7 +52,6 @@ namespace CraftLogs.ViewModels
         public QRPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = "QR Generator Page";
         }
 
         #endregion
@@ -54,9 +62,24 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
+            settings = DataRepository.GetSettings();
+
             QrCode = parameters["code"] as string;
         }
-        
+
+        #endregion
+
+        #region Private functions
+
+        private async Task SmartNavigation()
+        {
+            if(settings.AppMode == BLL.Enums.AppModeEnum.Quest)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
+            }
+            await NavigateToWithoutHistory(NavigationLinks.MainPage);
+        }
+
         #endregion
     }
 }

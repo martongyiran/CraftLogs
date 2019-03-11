@@ -77,6 +77,10 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.Logs;
             }
+            else if (typeof(QuestProfile) == data.GetType())
+            {
+                fileName = FileNames.QuestProfile;
+            }
             else
             {
                 throw new NotImplementedException("Can't save " + data.GetType().ToString() + "type objects to file.");
@@ -126,6 +130,38 @@ namespace CraftLogs.BLL.Repositories.Local
         public ObservableCollection<Log> GetLogs()
         {
             return GetFile<ObservableCollection<Log>>(FileNames.Logs);
+        }
+
+        #endregion
+
+        #region QuestProfile
+
+        public void CreateQuestProfile(string name)
+        {
+            if (!dataService.IsFileExist(FileNames.QuestProfile))
+            {
+                QuestProfile profile = new QuestProfile(name);
+                dataService.CreateFile(FileNames.QuestProfile);
+                SaveToFile(profile);
+            }
+        }
+
+        public QuestProfile GetQuestProfile()
+        {
+            return GetFile<QuestProfile>(FileNames.QuestProfile);
+        }
+
+        public bool IsQuestProfileExist()
+        {
+            return dataService.IsFileExist(FileNames.QuestProfile);
+        }
+
+        public void DeleteQuestProfile()
+        {
+            if (!dataService.IsFileExist(FileNames.QuestProfile))
+            {
+                DeleteFile(FileNames.QuestProfile);
+            }
         }
 
         #endregion

@@ -36,6 +36,7 @@ namespace CraftLogs.ViewModels
         private int craft2MinPont;     
         private DelegateCommand saveSettingsCommand;
         private DelegateCommand resetSettingsCommand;
+        private DelegateCommand deleteProfileCommand;
 
         #endregion
 
@@ -74,6 +75,7 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
+        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
 
         #endregion
 
@@ -135,9 +137,16 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private void DeleteProfile()
+        private async Task DeleteProfileAsync()
         {
-            //TODO
+            var res = await DialogService.DisplayAlertAsync("", Texts.DeleteProfileQuestion, Texts.Yes, Texts.No);
+            if (res)
+            {
+                DataRepository.ResetSettings();
+                SetUp();
+                DataRepository.DeleteQuestProfile();
+                await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
+            }
         }
 
         #endregion
