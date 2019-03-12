@@ -14,22 +14,47 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CraftLogs.BLL.Models
 {
-    
+
     public class QuestProfile
     {
         public string QuestName { get; set; }
 
-        public List<int> AvgScore { get; set; } = new List<int>();
+        public ObservableCollection<int> AvgScore { get; set; } = new ObservableCollection<int>();
 
         public QuestProfile(string questName)
         {
             QuestName = questName;
+        }
+
+        public double GetAvgScore()
+        {
+            double sum = AvgScore.Sum();
+            double avg = sum / AvgScore.Count();
+            return avg;
+        }
+    }
+
+    public class QuestProfileQR
+    {
+        public string QuestName { get; set; }
+
+        public double Avg { get; set; }
+
+        public QuestProfileQR(QuestProfile profile)
+        {
+            QuestName = profile.QuestName;
+            Avg = profile.GetAvgScore();
+        }
+
+        public QuestProfileQR(string name, double avg)
+        {
+            QuestName = name;
+            Avg = avg;
         }
     }
 

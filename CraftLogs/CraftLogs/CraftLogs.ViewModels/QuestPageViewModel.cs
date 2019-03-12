@@ -65,7 +65,7 @@ namespace CraftLogs.ViewModels
         public DelegateCommand StartCommand => startCommand ?? (startCommand = new DelegateCommand(Start));
 
         public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; }));
-
+        
         #endregion
 
         #region Ctor
@@ -255,11 +255,11 @@ namespace CraftLogs.ViewModels
 
                     reward.Money = usablePoints * 10;
 
-                    var qr = qRService.CreateQR(reward);
+                    var qrCode = qRService.CreateQR(reward);
 
                     NavigationParameters param = new NavigationParameters();
-                    param.Add("code", qr);
-                    await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+                    param.Add("code", qrCode);
+                    await NavigateToWithoutHistory(NavigationLinks.RatingPage, param);
                 }
             }
             else
@@ -268,7 +268,7 @@ namespace CraftLogs.ViewModels
             }
 
         }
-
+        
         //TEMP: waiting for item generator service
         private Item RandomItem(int tier)
         {

@@ -17,6 +17,7 @@ limitations under the License.
 using System.Threading.Tasks;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
@@ -28,19 +29,40 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
+        private IQRService qRService;
         private Settings settings;
-        private int craftDay;        
-        private int craft1Start;        
-        private int craft2Start;        
-        private int craft1MinPont;        
-        private int craft2MinPont;     
         private DelegateCommand saveSettingsCommand;
         private DelegateCommand resetSettingsCommand;
         private DelegateCommand deleteProfileCommand;
+        private DelegateCommand getAvgCommand;
 
         #endregion
 
         #region Public
+
+        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
+        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
+        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
+        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync()));
+
+        #endregion
+
+
+
+        #region Ctor
+
+        public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
+        {
+            qRService = qrService;
+            Title = Texts.SettingsPage;
+        }
+
+        #endregion
+
+        #region Properties
+
+        private int craftDay;
 
         public int CraftDay
         {
@@ -48,11 +70,15 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref craftDay, value); }
         }
 
+        private int craft1Start;
+
         public int Craft1Start
         {
             get { return craft1Start; }
             set { SetProperty(ref craft1Start, value); }
         }
+
+        private int craft2Start;
 
         public int Craft2Start
         {
@@ -60,11 +86,15 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref craft2Start, value); }
         }
 
+        private int craft1MinPont;
+
         public int Craft1MinPont
         {
             get { return craft1MinPont; }
             set { SetProperty(ref craft1MinPont, value); }
         }
+
+        private int craft2MinPont;
 
         public int Craft2MinPont
         {
@@ -72,19 +102,12 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref craft2MinPont, value); }
         }
 
+        private bool avgVisibility;
 
-        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
-        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
-        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
-
-        #endregion
-
-        #region Ctor
-
-        public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
-            : base(navigationService, dataRepository, dialogService)
+        public bool AvgVisibility
         {
-            Title = Texts.SettingsPage;
+            get { return avgVisibility; }
+            set { SetProperty(ref avgVisibility, value); }
         }
 
         #endregion
@@ -104,6 +127,8 @@ namespace CraftLogs.ViewModels
         private void SetUp()
         {
             settings = DataRepository.GetSettings();
+
+            AvgVisibility = settings.AppMode == BLL.Enums.AppModeEnum.Quest;
 
             CraftDay = settings.CraftDay;
             Craft1Start = settings.Craft1Start;
@@ -147,6 +172,15 @@ namespace CraftLogs.ViewModels
                 DataRepository.DeleteQuestProfile();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
+        }
+
+        private async Task GetAvgAsync()
+        {
+            var qrCode = qRService.CreateQR(new QuestProfileQR(DataRepository.GetQuestProfile()));
+
+            NavigationParameters param = new NavigationParameters();
+            param.Add("code", qrCode);
+            await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
         }
 
         #endregion

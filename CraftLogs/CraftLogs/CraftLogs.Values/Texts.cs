@@ -127,6 +127,8 @@ namespace CraftLogs.Values
         /// </summary>
         public const string DeleteProfile = "Profil törlése";
 
+        public const string GetAvgText = "Állomás átlag";
+
         /// <summary>
         /// SettingsPage: GodMode text.
         /// </summary>
@@ -182,6 +184,12 @@ namespace CraftLogs.Values
         public const string ResultDialog = "Biztos, hogy {0} pontot adsz a csapatnak?";
 
         public const string CantScore = "Most nem pontozhatsz!";
+
+        #endregion
+
+        #region Rating
+
+        public const string RatingTitle = "Értékelés";
 
         #endregion
         //Ezeket törölni kell majd valszeg a jövőben

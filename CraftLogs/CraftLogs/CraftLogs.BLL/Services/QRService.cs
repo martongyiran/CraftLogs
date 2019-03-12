@@ -32,6 +32,12 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
+            else if (typeof(QuestProfileQR) == data.GetType())
+            {
+                QRResponse<QuestProfileQR> response = new QRResponse<QuestProfileQR>(QRTypeEnum.QuestAvg, data as QuestProfileQR);
+
+                return JsonConvert.SerializeObject(response);
+            }
 
             return "";
         }
