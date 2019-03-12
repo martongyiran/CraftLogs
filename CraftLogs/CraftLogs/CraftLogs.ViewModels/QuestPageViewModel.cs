@@ -35,6 +35,9 @@ namespace CraftLogs.ViewModels
 
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand scoreCommand;
+        private DelegateCommand startCommand;
+        private DelegateCommand reloadCommand;
+
         private Settings settings;
         private QuestProfile profile;
         private IQRService qRService;
@@ -58,6 +61,10 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
 
         public DelegateCommand ScoreCommand => scoreCommand ?? (scoreCommand = new DelegateCommand(async () => await ScoreAsync()));
+
+        public DelegateCommand StartCommand => startCommand ?? (startCommand = new DelegateCommand(Start));
+
+        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; }));
 
         #endregion
 
@@ -99,6 +106,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref score, value); }
         }
 
+        private bool readyToScore = false;
+
+        public bool ReadyToScore
+        {
+            get { return readyToScore; }
+            set { SetProperty(ref readyToScore, value); }
+        }
+
         #endregion
 
         #region Private functions
@@ -108,9 +123,14 @@ namespace CraftLogs.ViewModels
             profile = DataRepository.GetQuestProfile();
             Title = string.Concat(Texts.QuestPage, " - ", profile.QuestName);
             settings = DataRepository.GetSettings();
+        }
+
+        private void Start()
+        {
             date = DateTime.Now;
             GetPointRange();
             Score = minPoint + (int)((SliderScore / 100.0) * pointRange);
+            ReadyToScore = true;
         }
 
         private void GetPointRange()

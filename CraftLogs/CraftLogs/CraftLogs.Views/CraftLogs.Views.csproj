@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
     <ProjectReference Include="..\CraftLogs.BLL\CraftLogs.BLL.csproj" />
+    <ProjectReference Include="..\CraftLogs.ViewModels\CraftLogs.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,7 +89,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 

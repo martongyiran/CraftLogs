@@ -56,6 +56,7 @@
             </Style>
             
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 
         </ResourceDictionary>
 

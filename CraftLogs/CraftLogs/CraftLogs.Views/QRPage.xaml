@@ -4,7 +4,7 @@
              x:Class="CraftLogs.Views.QRPage"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             BackgroundColor="{StaticResource BackgroundColorLight}">
+             BackgroundColor="White">
   <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <!--Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323-->
     <Entry x:Name="EntryPhoneNumber" Text="{Binding QrCode}" IsVisible="False"/>
