@@ -158,7 +158,7 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public void DeleteQuestProfile()
         {
-            if (!dataService.IsFileExist(FileNames.QuestProfile))
+            if (dataService.IsFileExist(FileNames.QuestProfile))
             {
                 DeleteFile(FileNames.QuestProfile);
             }
