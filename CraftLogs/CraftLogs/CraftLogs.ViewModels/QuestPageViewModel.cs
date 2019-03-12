@@ -66,22 +66,17 @@ namespace CraftLogs.ViewModels
         public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
         {
             qRService = qrService;
-            profile = DataRepository.GetQuestProfile();
-            Title = string.Concat(Texts.QuestPage, " - ", profile.QuestName);
         }
 
         #endregion
 
         #region Overrides
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatingTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
+            base.OnNavigatingTo(parameters);
 
-            settings = DataRepository.GetSettings();
-            date = DateTime.Now;
-            GetPointRange();
-            Score = minPoint + (int)((SliderScore / 100.0) * pointRange);
+            Init();
         }
 
         #endregion
@@ -107,6 +102,16 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Private functions
+
+        private void Init()
+        {
+            profile = DataRepository.GetQuestProfile();
+            Title = string.Concat(Texts.QuestPage, " - ", profile.QuestName);
+            settings = DataRepository.GetSettings();
+            date = DateTime.Now;
+            GetPointRange();
+            Score = minPoint + (int)((SliderScore / 100.0) * pointRange);
+        }
 
         private void GetPointRange()
         {

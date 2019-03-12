@@ -91,9 +91,9 @@ namespace CraftLogs.ViewModels
 
         #region Overrides
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatingTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
+            base.OnNavigatingTo(parameters);
             SetUp();
         }
 
