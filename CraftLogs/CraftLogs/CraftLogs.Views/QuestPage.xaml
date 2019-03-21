@@ -31,6 +31,7 @@
                     Maximum="100"
                     VerticalOptions="End" 
                     HorizontalOptions="FillAndExpand"
+                    Margin="10,0,10,0"
                     MinimumTrackColor="{StaticResource ColorLight}"
                     MaximumTrackColor="{StaticResource ColorPrimary}"
                     ThumbColor="{StaticResource ColorDark}"

@@ -64,7 +64,7 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand StartCommand => startCommand ?? (startCommand = new DelegateCommand(Start));
 
-        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; }));
+        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; Init(); }));
         
         #endregion
 
