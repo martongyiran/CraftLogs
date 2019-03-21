@@ -42,7 +42,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
+        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(async () => await SaveSettings()));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
         public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
         public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync()));
@@ -147,7 +147,7 @@ namespace CraftLogs.ViewModels
             Craft2MinPont = settings.Craft2MinPont;
         }
 
-        private void SaveSettings()
+        private async Task SaveSettings()
         {
             settings.CraftDay = CraftDay;
             settings.Craft1Start = Craft1Start;
@@ -156,7 +156,12 @@ namespace CraftLogs.ViewModels
             settings.Craft2MinPont = Craft2MinPont;
 
             DataRepository.SaveToFile(settings);
-            DialogService.DisplayAlertAsync("", Texts.SuccessfulSaving, Texts.Ok);
+
+            if (settings.AppMode == BLL.Enums.AppModeEnum.Quest)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
+            }
+            await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
         private async Task ResetSettingsAsync()
@@ -192,7 +197,7 @@ namespace CraftLogs.ViewModels
             param.Add("code", qrCode);
             await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
         }
-
+        
         #endregion
 
 
