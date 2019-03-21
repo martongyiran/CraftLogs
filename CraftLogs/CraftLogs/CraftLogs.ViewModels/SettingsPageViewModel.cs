@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
@@ -46,9 +48,7 @@ namespace CraftLogs.ViewModels
         public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync()));
 
         #endregion
-
-
-
+        
         #region Ctor
 
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
@@ -61,6 +61,16 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Properties
+
+        public List<int> Days { get; set; } = Enumerable.Range(1, 2).ToList();
+
+        public List<int> C1Starts { get; set; } = Enumerable.Range(8, 12).ToList();
+
+        public List<int> C2Starts { get; set; } = Enumerable.Range(8, 12).ToList();
+
+        public List<int> C1PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
+
+        public List<int> C2PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
 
         private int craftDay;
 

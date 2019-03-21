@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Views;
 using CraftLogs.Droid.Renderers;
@@ -33,6 +34,11 @@ namespace CraftLogs.Droid.Renderers
             if (Control != null)
             {
                 Control.Gravity = GravityFlags.CenterHorizontal;
+                /* To remove underline.
+                GradientDrawable gd = new GradientDrawable();
+                gd.SetStroke(0, Android.Graphics.Color.Transparent);
+                Control.SetBackgroundDrawable(gd);
+                */
 
                 if (e.OldElement == null)
                     Control.InputType = InputTypes.TextFlagNoSuggestions;

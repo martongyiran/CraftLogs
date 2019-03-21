@@ -8,10 +8,14 @@
         <ContentPage.Content>
             <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="10">
 
-                <views:CardView VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="White" InputTransparent="True" Padding="5" HeightRequest="150">
-                    <Picker
+            <views:CardView VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="5" HeightRequest="150">
+                <views:CardView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </views:CardView.GestureRecognizers>
+                <Picker
+                        x:Name="scorePicker"
                         ItemsSource="{Binding Numbers}"
-                        SelectedIndex="{Binding Rating, Mode=TwoWay}"
+                        SelectedItem="{Binding Rating, Mode=TwoWay}"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="CenterAndExpand"
                         FontSize="60"
