@@ -105,7 +105,17 @@ namespace CraftLogs.BLL.Models
 
         private int GetValue()
         {
-            return Tier * 15;
+            switch (Tier)
+            {
+                case 1:
+                    return 16;
+                case 2:
+                    return 50;
+                case 3:
+                    return 100;
+                default:
+                    return 0;
+            }
         }
 
         private void SetStats(string statsForQr)
@@ -134,6 +144,7 @@ namespace CraftLogs.BLL.Models
             res += string.Format("Típusa: {0} \n", ItemType);
             res += string.Format("Kaszt: {0} \n", UsableFor);
             res += string.Format("Statok:\n{0} ATK\n{1} DEF\n{2} STM\n{3} CR\n{4} DDG\n", Atk, Def, Stamina, CritR, Dodge);
+            res += string.Format("Értéke: {0} \n", Value);
             //TODO
             return res;
         }

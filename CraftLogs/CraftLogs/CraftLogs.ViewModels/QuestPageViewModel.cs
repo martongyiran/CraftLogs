@@ -237,23 +237,23 @@ namespace CraftLogs.ViewModels
 
                     if (usablePoints >= 30)
                     {
-                        reward.Items.Add(RandomItem(3));
-                        reward.Items.Add(RandomItem(3));
-                        reward.Items.Add(RandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
                         usablePoints -= 30;
                     }
                     else if (usablePoints >= 15)
                     {
-                        reward.Items.Add(RandomItem(2));
-                        reward.Items.Add(RandomItem(2));
-                        reward.Items.Add(RandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
                         usablePoints -= 15;
                     }
                     else if (usablePoints >= 5)
                     {
-                        reward.Items.Add(RandomItem(1));
-                        reward.Items.Add(RandomItem(1));
-                        reward.Items.Add(RandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
                         usablePoints -= 5;
                     }
 
@@ -273,23 +273,6 @@ namespace CraftLogs.ViewModels
 
         }
         
-        //TEMP: waiting for item generator service
-        private Item RandomItem(int tier)
-        {
-            switch (tier)
-            {
-                case 1:
-                    return new Item(1, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                case 2:
-                    return new Item(2, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                case 3:
-                    return new Item(3, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                default:
-                    return null;
-            }
-
-        }
-
         #endregion
     }
 }
