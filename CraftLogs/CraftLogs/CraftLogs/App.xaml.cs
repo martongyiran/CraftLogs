@@ -86,6 +86,7 @@ namespace CraftLogs
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<ILoggerService, LoggerService>();
             containerRegistry.Register<IQRService, QRService>();
+            containerRegistry.Register<IItemGeneratorService, ItemGeneratorService>();
         }
     }
 }

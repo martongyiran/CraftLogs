@@ -24,6 +24,8 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -41,6 +43,7 @@ namespace CraftLogs.ViewModels
         private Settings settings;
         private QuestProfile profile;
         private IQRService qRService;
+        private IItemGeneratorService itemGeneratorService;
         private DateTime date;
         private int minPoint;
         private int maxPoint;
@@ -70,11 +73,12 @@ namespace CraftLogs.ViewModels
 
         #region Ctor
 
-        public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, IItemGeneratorService itemgeneratorService) : base(navigationService, dataRepository, dialogService)
         {
             qRService = qrService;
+            itemGeneratorService = itemgeneratorService;
         }
-
+        
         #endregion
 
         #region Overrides
