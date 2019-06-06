@@ -175,6 +175,12 @@ namespace CraftLogs.Values
 
         public const string RegisterMissingName = "Kérlek írj be valamilyen nevet!";
 
+        public const string TeamRegisterName = "Csapat neve:";
+
+        public const string TeamHouse = "Ház választása";
+
+        public const string TeamClass = "Kaszt választása";
+
         #endregion
 
         #region Quest

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using System.Collections.ObjectModel;
 
@@ -78,6 +79,28 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes QuestProfile file.
         /// </summary>
         void DeleteQuestProfile();
+
+        /// <summary>
+        /// Creates a TeamProfile file.
+        /// </summary>
+        void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast);
+
+        /// <summary>
+        /// Returns the TeamProfile.
+        /// </summary>
+        /// <returns></returns>
+        TeamProfile GetTeamProfile();
+
+        /// <summary>
+        /// Checks if TeamProfile exist.
+        /// </summary>
+        /// <returns></returns>
+        bool IsTeamProfileExist();
+
+        /// <summary>
+        /// Deletes TeamProfile file.
+        /// </summary>
+        void DeleteTeamProfile();
         //TODO: Profile, Inventory, Items?? etc.
     }
 }

@@ -101,11 +101,11 @@ namespace CraftLogs.ViewModels
                     break;
                 case AppModeEnum.Team:
                     param.Add("mode", "team");
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
                     break;
                 case AppModeEnum.Quest:
                     param.Add("mode", "quest");
-                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
                     break;
                 case AppModeEnum.Shop:
                     await NavigateToWithoutHistory(NavigationLinks.MainPage);

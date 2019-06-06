@@ -154,6 +154,12 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.QuestPage);
             }
+            else if (settings.AppMode == AppModeEnum.Team && !DataRepository.IsTeamProfileExist())
+            {
+                NavigationParameters mode = new NavigationParameters();
+                mode.Add("mode", "team");
+                await NavigateToWithoutHistory(NavigationLinks.RegisterPage, mode);
+            }
 
             Mode = settings.AppMode;
             SetUpVisibility();
@@ -212,6 +218,8 @@ namespace CraftLogs.ViewModels
         {
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
+            DataRepository.DeleteQuestProfile();
+            DataRepository.DeleteTeamProfile();
             await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
         }
 

@@ -14,14 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-namespace CraftLogs.Values
+namespace CraftLogs.BLL.Enums
 {
-    public static class FileNames
+    public enum HouseEnum
     {
-        public const string Settings = "Settings.json";
-        public const string Logs = "Logs.json";
-        public const string QuestProfile = "QuestProfile.json";
-        public const string TeamProfile = "TeamProfile.json";
-        public const string FileAssembly = "CraftLogs.BLL.MockData.{0}";
+       House1,
+       House2,
+       House3,
+       House4,
+       House5,
+       House6
     }
 }

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -80,6 +81,10 @@ namespace CraftLogs.BLL.Repositories.Local
             else if (typeof(QuestProfile) == data.GetType())
             {
                 fileName = FileNames.QuestProfile;
+            }
+            else if (typeof(TeamProfile) == data.GetType())
+            {
+                fileName = FileNames.TeamProfile;
             }
             else
             {
@@ -161,6 +166,38 @@ namespace CraftLogs.BLL.Repositories.Local
             if (dataService.IsFileExist(FileNames.QuestProfile))
             {
                 DeleteFile(FileNames.QuestProfile);
+            }
+        }
+
+        #endregion
+
+        #region Teamprofile
+
+        public void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast)
+        {
+            if (!dataService.IsFileExist(FileNames.TeamProfile))
+            {
+                TeamProfile profile = new TeamProfile(name, house, cast);
+                dataService.CreateFile(FileNames.TeamProfile);
+                SaveToFile(profile);
+            }
+        }
+
+        public TeamProfile GetTeamProfile()
+        {
+            return GetFile<TeamProfile>(FileNames.TeamProfile);
+        }
+
+        public bool IsTeamProfileExist()
+        {
+            return dataService.IsFileExist(FileNames.TeamProfile);
+        }
+
+        public void DeleteTeamProfile()
+        {
+            if (dataService.IsFileExist(FileNames.TeamProfile))
+            {
+                DeleteFile(FileNames.TeamProfile);
             }
         }
 

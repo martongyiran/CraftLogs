@@ -185,6 +185,7 @@ namespace CraftLogs.ViewModels
                 DataRepository.ResetSettings();
                 SetUp();
                 DataRepository.DeleteQuestProfile();
+                DataRepository.DeleteTeamProfile();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }
