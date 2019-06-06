@@ -12,6 +12,11 @@
             <Button Style="{StaticResource WhiteButton}" Text="{Binding House}" Command="{Binding SelectHouseCommand}"/>
             <Button Style="{StaticResource WhiteButton}" Text="{x:Static values:Texts.TeamClass}" />
             <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
+                <Picker
+                        ItemsSource="{Binding Houses}"
+                        SelectedIndex="{Binding House, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
         </StackLayout>
        </ScrollView>
     </ContentView.Content>

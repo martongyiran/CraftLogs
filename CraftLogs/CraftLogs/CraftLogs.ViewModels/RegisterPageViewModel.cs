@@ -17,7 +17,6 @@ namespace CraftLogs.ViewModels
 
         private DelegateCommand saveCommand;
 
-        private DelegateCommand<HouseEnum> selectHouseCommand;
 
         #endregion
 
@@ -25,7 +24,6 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(async () => await Save()));
 
-        public DelegateCommand<HouseEnum> SelectHouseCommand => selectHouseCommand ?? (selectHouseCommand = new DelegateCommand<HouseEnum>(SelectHouse()));
 
         #endregion
 
@@ -66,9 +64,9 @@ namespace CraftLogs.ViewModels
 
         public ObservableCollection<HouseEnum> Houses { get; set; } = new ObservableCollection<HouseEnum> { HouseEnum.House1, HouseEnum.House2, HouseEnum.House3, HouseEnum.House4, HouseEnum.House5, HouseEnum.House6 };
 
-        private HouseEnum house;
+        private int house;
 
-        public HouseEnum House
+        public int House
         {
             get { return house; }
             set { SetProperty(ref house, value); }
@@ -115,7 +113,7 @@ namespace CraftLogs.ViewModels
                 }
                 else if (sure && !IsQuest)
                 {
-                    DataRepository.CreateTeamProfile(Name, House, Cast);
+                    DataRepository.CreateTeamProfile(Name, Houses[house], Cast);
                     await NavigateToWithoutHistory(NavigationLinks.MainPage);
                 }
             }
@@ -127,8 +125,6 @@ namespace CraftLogs.ViewModels
 
         private void SelectHouse()
         {
-            House = arg;
-            System.Diagnostics.Debug.WriteLine("------------------------------------"+arg.ToString());
         }
 
         #endregion

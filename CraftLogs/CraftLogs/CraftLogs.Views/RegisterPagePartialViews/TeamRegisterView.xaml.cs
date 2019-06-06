@@ -10,10 +10,5 @@ namespace CraftLogs.Views
         {
             InitializeComponent();
         }
-
-        void Handle_Clicked(object sender, System.EventArgs e)
-        {
-            housesList.IsVisible = !housesList.IsVisible;
-        }
     }
 }
