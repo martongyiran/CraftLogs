@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Views;
@@ -24,15 +25,18 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(Picker), typeof(CustomPickerRenderer))]
 namespace CraftLogs.Droid.Renderers
 {
-#pragma warning disable CS0618 // Type or member is obsolete
     public class CustomPickerRenderer : PickerRenderer
     {
+
+        public CustomPickerRenderer(Context context) : base(context) { }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
         {
             base.OnElementChanged(e);
 
             if (Control != null)
             {
+                Control.Focusable = false;
                 Control.Gravity = GravityFlags.CenterHorizontal;
                 /* To remove underline.
                 GradientDrawable gd = new GradientDrawable();
@@ -45,5 +49,4 @@ namespace CraftLogs.Droid.Renderers
             }
         }
     }
-#pragma warning restore CS0618 // Type or member is obsolete
 }
