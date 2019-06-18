@@ -62,17 +62,17 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref name, value); }
         }
 
-        public ObservableCollection<HouseEnum> Houses { get; set; } = new ObservableCollection<HouseEnum> { HouseEnum.House1, HouseEnum.House2, HouseEnum.House3, HouseEnum.House4, HouseEnum.House5, HouseEnum.House6 };
+        public List<HouseEnum> Houses { get; set; } = new List<HouseEnum> { HouseEnum.House1, HouseEnum.House2, HouseEnum.House3, HouseEnum.House4, HouseEnum.House5, HouseEnum.House6 };
 
-        private int house;
+        private HouseEnum house;
 
-        public int House
+        public HouseEnum House
         {
             get { return house; }
             set { SetProperty(ref house, value); }
         }
 
-        public ObservableCollection<CharacterClassEnum> Classes { get; set; } = new ObservableCollection<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
+        public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
 
         private CharacterClassEnum cast;
 
@@ -113,7 +113,7 @@ namespace CraftLogs.ViewModels
                 }
                 else if (sure && !IsQuest)
                 {
-                    DataRepository.CreateTeamProfile(Name, Houses[house], Cast);
+                    DataRepository.CreateTeamProfile(Name, House, Cast);
                     await NavigateToWithoutHistory(NavigationLinks.MainPage);
                 }
             }
