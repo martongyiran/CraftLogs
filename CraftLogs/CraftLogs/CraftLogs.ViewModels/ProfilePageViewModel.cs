@@ -20,6 +20,7 @@ using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
 {
@@ -32,6 +33,8 @@ namespace CraftLogs.ViewModels
 
         private DelegateCommand navigateToLogsCommand;
         private DelegateCommand navigateToSettingsCommand;
+        private DelegateCommand navigateToQRScannerPageCommand;
+        private DelegateCommand getProfileQRCommand;
 
         #endregion
 
@@ -40,6 +43,10 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
+
+        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
+
+        public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync()));
 
         #endregion
 
@@ -52,18 +59,128 @@ namespace CraftLogs.ViewModels
 
         #endregion
 
+        #region Properties
+
+        private string image;
+
+        public string Image
+        {
+            get { return image; }
+            set { SetProperty(ref image, value); }
+        }
+
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
+
+        private string lvl;
+
+        public string Lvl
+        {
+            get { return lvl; }
+            set { SetProperty(ref lvl, value); }
+        }
+
+        private string hp;
+
+        public string Hp
+        {
+            get { return hp; }
+            set { SetProperty(ref hp, value); }
+        }
+
+        private string exp;
+
+        public string Exp
+        {
+            get { return exp; }
+            set { SetProperty(ref exp, value); }
+        }
+
+        private string atk;
+
+        public string Atk
+        {
+            get { return atk; }
+            set { SetProperty(ref atk, value); }
+        }
+
+        private string def;
+
+        public string Def
+        {
+            get { return def; }
+            set { SetProperty(ref def, value); }
+        }
+
+        private string stamina;
+
+        public string Stamina
+        {
+            get { return stamina; }
+            set { SetProperty(ref stamina, value); }
+        }
+
+        private string critR;
+
+        public string CritR
+        {
+            get { return critR; }
+            set { SetProperty(ref critR, value); }
+        }
+
+        private string dodge;
+
+        public string Dodge
+        {
+            get { return dodge; }
+            set { SetProperty(ref dodge, value); }
+        }
+
+        #endregion
+
         #region Overrides
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
+            Init();
+        }
+
+        #endregion
+
+        #region Private functions
+
+        private void Init()
+        {
             teamProfile = DataRepository.GetTeamProfile();
 
             if (string.IsNullOrEmpty(Title))
             {
                 Title = Texts.ProfilePage + " - " + teamProfile.Name;
             }
+
+            Image = teamProfile.Image;
+            Lvl = "Lvl." + teamProfile.Level;
+            Name = teamProfile.Name;
+            Hp = "HP: " + teamProfile.ActHp + "/" + teamProfile.MaxHp;
+            Exp = "EXP: " + teamProfile.AllExp + "/" + teamProfile.XpForNextLevel;
+
+            Atk = "ATK: " + teamProfile.Atk;
+            Def = "DEF: " + teamProfile.Def;
+            Stamina = "STM: " + teamProfile.Stamina;
+            CritR = "CritR: " + teamProfile.CritR + "%";
+            Dodge = "Dodge: " + teamProfile.Dodge + "%";
+        }
+
+        private async Task GetProfileQRAsync()
+        {
+
         }
 
         #endregion

@@ -95,22 +95,22 @@ namespace CraftLogs.Values
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft1Start = "Craft 1 kezdete (óra 0-24) ";
+        public const string Craft1Start = "Craft 1 kezdete (óra 0-24): ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft2Start = "Craft 2 kezdete (óra 0-24) ";
+        public const string Craft2Start = "Craft 2 kezdete (óra 0-24): ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft1MinPont = "Craft 1 Minimum Pont ";
+        public const string Craft1MinPont = "Craft 1 Minimum Pont: ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft2MinPont = "Craft 2 Minimum Pont ";
+        public const string Craft2MinPont = "Craft 2 Minimum Pont: ";
 
         /// <summary>
         /// SettingsPage: save settings text.

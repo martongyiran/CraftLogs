@@ -4,6 +4,7 @@
                  x:Class="CraftLogs.Views.RatingPage"
                  xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
                  xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+                 BackgroundColor="{StaticResource BackgroundColorLight}"
                  Title="{Binding Title}">
         <ContentPage.Content>
             <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="10">
