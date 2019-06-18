@@ -3,20 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.ProfilePage"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <views:BindableToolbarItem Icon="@drawable/ic_cqr_white.png" Command="{Binding GetProfileQRCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
-                <StackLayout>
+            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
+                <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Image  Source="{Binding Image}" 
+                    HeightRequest="100" 
+                    WidthRequest="100" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    FlowDirection="LeftToRight"/>
+                    
+                    <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                      <Label TextColor="Black" FontSize="18" FontAttributes="Bold" Text="{Binding Name}" />
+                        <Label TextColor="Black" FontSize="16"  Text="{Binding Lvl}" />
+                        <Label TextColor="Black" FontSize="16"  Text="{Binding Hp}" />
+                        <Label TextColor="Black" FontSize="16"  Text="{Binding Exp}" />
+                    </StackLayout>
+                        
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
-            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}" Grid.Row="1">
+                <Image  Source="@drawable/ic_bag.png" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource BackgroundColorLight}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Inventory_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image  Source="@drawable/ic_logs.png" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource BackgroundColorLight}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Logs_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image  Source="@drawable/ic_rqr.png" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource BackgroundColorLight}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ReadQR_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image  Source="@drawable/ic_trade.png" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    HorizontalOptions="EndAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource BackgroundColorLight}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Trade_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <Image  Source="@drawable/ic_settings.png" 
                     HeightRequest="60" 
                     WidthRequest="60" 
@@ -29,10 +93,10 @@
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>
-            
+
         </Grid>
 
 
-        
+
     </ContentPage.Content>
 </ContentPage>

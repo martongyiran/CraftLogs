@@ -162,7 +162,7 @@ namespace CraftLogs.ViewModels
 
             if (string.IsNullOrEmpty(Title))
             {
-                Title = Texts.ProfilePage + " - " + teamProfile.Name;
+                Title = teamProfile.House + " - " + teamProfile.Name;
             }
 
             Image = teamProfile.Image;
@@ -180,7 +180,7 @@ namespace CraftLogs.ViewModels
 
         private async Task GetProfileQRAsync()
         {
-
+            await DialogService.DisplayAlertAsync("ok", "ok", "ok");
         }
 
         #endregion

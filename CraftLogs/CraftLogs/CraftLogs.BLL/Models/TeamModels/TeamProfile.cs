@@ -83,6 +83,7 @@ namespace CraftLogs.BLL.Models
 
         private string GetImage()
         {
+            /*
             switch (House)
             {
                 case HouseEnum.House1:
@@ -159,8 +160,8 @@ namespace CraftLogs.BLL.Models
                     }
                 default:
                     return "@drawable/filler.png";
-
-            }
+            }*/
+            return "@drawable/filler.png";
         }
 
         private int CalculateLevel()
