@@ -6,28 +6,26 @@
              x:Name="view">
     <ContentView.Content>
         <ScrollView>
-        <StackLayout>
-            <Label TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamRegisterName}" />
+            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                <Label TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamRegisterName}" />
                 <Entry Text="{Binding Name, Mode=TwoWay}" Style="{StaticResource RegisterEntry}"/>
-
-                <Label TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamHouse}" />
-                <Picker
+                
+                    <Label TextColor="Black" FontSize="16" HorizontalOptions="Start" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamHouse}" />
+                    <Picker
                         ItemsSource="{Binding Houses}"
                         SelectedItem="{Binding House, Mode=TwoWay}"
                         FontSize="16"
-                        TextColor="{StaticResource ColorDark}"
-                        HorizontalOptions="Center"/>
+                        TextColor="{StaticResource ColorDark}"/>
 
-                <Label TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamClass}" />
-                <Picker
+                    <Label TextColor="Black" FontSize="16" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamClass}" />
+                    <Picker
                         ItemsSource="{Binding Classes}"
                         SelectedItem="{Binding Cast, Mode=TwoWay}"
                         FontSize="16"
-                        TextColor="{StaticResource ColorDark}"
-                        HorizontalOptions="Center"/>
+                        TextColor="{StaticResource ColorDark}"/>
 
-                <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
+                    <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
             </StackLayout>
-       </ScrollView>
+        </ScrollView>
     </ContentView.Content>
 </ContentView>

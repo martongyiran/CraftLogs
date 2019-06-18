@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -24,8 +23,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels

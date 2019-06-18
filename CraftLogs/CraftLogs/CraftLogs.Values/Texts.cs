@@ -177,9 +177,9 @@ namespace CraftLogs.Values
 
         public const string TeamRegisterName = "Csapat neve:";
 
-        public const string TeamHouse = "Ház választása";
+        public const string TeamHouse = "Ház választása:";
 
-        public const string TeamClass = "Kaszt választása";
+        public const string TeamClass = "Kaszt választása:";
 
         #endregion
 

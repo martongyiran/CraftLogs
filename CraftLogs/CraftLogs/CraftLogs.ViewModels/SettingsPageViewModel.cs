@@ -120,6 +120,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref avgVisibility, value); }
         }
 
+        private bool isNpc;
+
+        public bool IsNpc
+        {
+            get { return isNpc; }
+            set { SetProperty(ref isNpc, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -139,6 +147,7 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             AvgVisibility = settings.AppMode == BLL.Enums.AppModeEnum.Quest;
+            IsNpc = settings.AppMode != BLL.Enums.AppModeEnum.Team;
 
             CraftDay = settings.CraftDay;
             Craft1Start = settings.Craft1Start;

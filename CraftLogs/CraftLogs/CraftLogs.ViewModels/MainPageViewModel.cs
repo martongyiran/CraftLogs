@@ -36,8 +36,6 @@ namespace CraftLogs.ViewModels
         private bool isDevMode = false;
 
         private DelegateCommand navigateToSettingsCommand;
-        private DelegateCommand navigateToLogsCommand;
-        private DelegateCommand navigateToProfileCommand;
         private DelegateCommand navigateToQuestCommand;
         private DelegateCommand clearModeCommand;
         //test
@@ -46,10 +44,8 @@ namespace CraftLogs.ViewModels
 
         private AppModeEnum mode;
         private bool hqMenuVisibility = false;
-        private bool teamMenuVisibility = false;
         private bool shopMenuVisibility = false;
         private bool arenaMenuVisibility = false;
-        private bool isNpc = false;
 
         private NavigationParameters param = new NavigationParameters();
 
@@ -60,8 +56,6 @@ namespace CraftLogs.ViewModels
         public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
-        public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.LogsPage)));
-        public DelegateCommand NavigateToProfileCommand => navigateToProfileCommand ?? (navigateToProfileCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.ProfilePage)));
         public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QuestPage)));
         public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRPage)));
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
@@ -85,12 +79,6 @@ namespace CraftLogs.ViewModels
             get { return hqMenuVisibility; }
             set { SetProperty(ref hqMenuVisibility, value); }
         }
-
-        public bool TeamMenuVisibility
-        {
-            get { return teamMenuVisibility; }
-            set { SetProperty(ref teamMenuVisibility, value); }
-        }
         
         public bool ShopMenuVisibility
         {
@@ -102,12 +90,6 @@ namespace CraftLogs.ViewModels
         {
             get { return arenaMenuVisibility; }
             set { SetProperty(ref arenaMenuVisibility, value); }
-        }
-
-        public bool IsNpc
-        {
-            get { return isNpc; }
-            set { SetProperty(ref isNpc, value); }
         }
 
         #endregion
@@ -160,6 +142,10 @@ namespace CraftLogs.ViewModels
                 mode.Add("mode", "team");
                 await NavigateToWithoutHistory(NavigationLinks.RegisterPage, mode);
             }
+            else if (settings.AppMode == AppModeEnum.Team)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+            }
 
             Mode = settings.AppMode;
             SetUpVisibility();
@@ -185,20 +171,14 @@ namespace CraftLogs.ViewModels
                 case AppModeEnum.None:
                     HqMenuVisibility = false;
                     break;
-                case AppModeEnum.Team:
-                    TeamMenuVisibility = true;
-                    break;
                 case AppModeEnum.Shop:
                     ShopMenuVisibility = true;
-                    IsNpc = true;
                     break;
                 case AppModeEnum.Arena:
                     ArenaMenuVisibility = true;
-                    IsNpc = true;
                     break;
                 case AppModeEnum.Hq:
                     HqMenuVisibility = true;
-                    IsNpc = true;
                     break;
                 default:
                     break;
@@ -208,7 +188,6 @@ namespace CraftLogs.ViewModels
         private void SetMenuVisibility(bool value)
         {
             HqMenuVisibility = value;
-            TeamMenuVisibility = value;
             ShopMenuVisibility = value;
             ArenaMenuVisibility = value;
         }
