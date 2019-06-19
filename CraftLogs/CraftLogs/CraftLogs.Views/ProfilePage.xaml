@@ -17,24 +17,24 @@
             </Grid.RowDefinitions>
 
             <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
-                
+
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-               
+
                     <Image
                         Grid.Row="0"
                         Grid.Column="0"
@@ -46,47 +46,83 @@
                         VerticalOptions="StartAndExpand"
                         FlowDirection="LeftToRight"
                         Margin="15,15,0,0"/>
-                    
-                        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,15,0,0">
+
+                    <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,15,0,0">
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Name}" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Lvl}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Exp}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Honor}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                     </StackLayout>
-                   
+
                     <Label TextColor="Black" FontSize="16" Text="{Binding Points}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding PointIsVisible}" Margin="15,0,0,0"/>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Stamina}" VerticalOptions="CenterAndExpand"/>
+                        <Image  Source="@drawable/ic_plus_blue.png" 
+                                HeightRequest="40" 
+                                WidthRequest="40" 
+                                HorizontalOptions="CenterAndExpand" 
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="{StaticResource BackgroundColorLight}"
+                                FlowDirection="LeftToRight"
+                                IsVisible="{Binding PointIsVisible}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Plus_Tapped1" />
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Atk}" VerticalOptions="CenterAndExpand"/>
+                        <Image  Source="@drawable/ic_plus_blue.png" 
+                                HeightRequest="40" 
+                                WidthRequest="40" 
+                                HorizontalOptions="CenterAndExpand" 
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="{StaticResource BackgroundColorLight}"
+                                FlowDirection="LeftToRight"
+                                IsVisible="{Binding PointIsVisible}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Plus_Tapped2" />
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Def}" VerticalOptions="CenterAndExpand"/>
+                        <Image  Source="@drawable/ic_plus_blue.png" 
+                                HeightRequest="40" 
+                                WidthRequest="40" 
+                                HorizontalOptions="CenterAndExpand" 
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="{StaticResource BackgroundColorLight}"
+                                FlowDirection="LeftToRight"
+                                IsVisible="{Binding PointIsVisible}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Plus_Tapped3" />
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Hp}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding CritR}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
                         <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Dodge}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
-                    
-                   </Grid>
+
+                </Grid>
             </ScrollView>
             <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="1">
                 <Image  Source="@drawable/ic_bag_white.png" 
@@ -145,7 +181,7 @@
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>
-
+            <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="0" Color="{StaticResource ColorPrimary}" IsRunning="True" IsVisible="{Binding IsBusy}"/>
         </Grid>
 
 

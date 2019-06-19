@@ -35,6 +35,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
         private DelegateCommand getProfileQRCommand;
+        private DelegateCommand<object> raiseStatCommand;
 
         #endregion
 
@@ -47,6 +48,8 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage)));
 
         public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync()));
+
+        public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
 
         #endregion
 
@@ -192,7 +195,7 @@ namespace CraftLogs.ViewModels
             Honor = "Honor: " + teamProfile.Honor;
 
             Points = "Elosztható pontok: " + teamProfile.StatPoint;
-            PointIsVisible = teamProfile.StatPoint != 0;
+            PointIsVisible = teamProfile.StatPoint > 0;
 
             Atk = "ATK: " + teamProfile.Atk;
             Def = "DEF: " + teamProfile.Def;
@@ -206,6 +209,34 @@ namespace CraftLogs.ViewModels
         private async Task GetProfileQRAsync()
         {
             await DialogService.DisplayAlertAsync("ok", "ok", "ok");
+        }
+
+        private void RaiseStat(object a)
+        {
+            if(!IsBusy && teamProfile.StatPoint > 0)
+            {
+                IsBusy = true;
+
+                switch ((int)a)
+                {
+                    case 1:
+                        teamProfile.Stamina += 1;
+                        break;
+                    case 2:
+                        teamProfile.Atk += 1;
+                        break;
+                    case 3:
+                        teamProfile.Def += 1;
+                        break;
+                    default:
+                        break;
+                }
+
+                DataRepository.SaveToFile(teamProfile);
+                Init();
+                IsBusy = false;
+            }
+            
         }
 
         #endregion

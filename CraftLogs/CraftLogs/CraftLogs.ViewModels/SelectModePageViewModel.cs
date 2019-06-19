@@ -40,7 +40,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team)));
+        public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team), ()=> !IsBusy));
         public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest)));
         public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop)));
         public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena)));
@@ -91,6 +91,7 @@ namespace CraftLogs.ViewModels
 
         private async Task SetMode(AppModeEnum appMode)
         {
+            IsBusy = true;
             settings.AppMode = appMode;
             DataRepository.SaveToFile(settings);
             NavigationParameters param = new NavigationParameters();

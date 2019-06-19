@@ -65,5 +65,37 @@ namespace CraftLogs.Views
             viewModel.NavigateToSettingsCommand.Execute();
         }
 
+        private async void Plus_Tapped1(object sender, System.EventArgs e)
+        {
+            if (!(BindingContext is ProfilePageViewModel viewModel))
+                return;
+
+            var view = sender as Image;
+            await view.FadeTo(0.5, 100);
+            await view.FadeTo(1.0, 100);
+            viewModel.RaiseStatCommand.Execute(1);
+        }
+
+        private async void Plus_Tapped2(object sender, System.EventArgs e)
+        {
+            if (!(BindingContext is ProfilePageViewModel viewModel))
+                return;
+
+            var view = sender as Image;
+            await view.FadeTo(0.5, 100);
+            await view.FadeTo(1.0, 100);
+            viewModel.RaiseStatCommand.Execute(2);
+        }
+
+        private async void Plus_Tapped3(object sender, System.EventArgs e)
+        {
+            if (!(BindingContext is ProfilePageViewModel viewModel))
+                return;
+
+            var view = sender as Image;
+            await view.FadeTo(0.5, 100);
+            await view.FadeTo(1.0, 100);
+            viewModel.RaiseStatCommand.Execute(3);
+        }
     }
 }

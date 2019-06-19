@@ -27,7 +27,7 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private string title;
-        private bool isBusy;
+        private bool isBusy = false;
 
         #endregion
 
@@ -74,10 +74,12 @@ namespace CraftLogs.ViewModels
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
+            IsBusy = false;
         }
 
         public virtual void OnNavigatingTo(INavigationParameters parameters)
         {
+            IsBusy = false;
         }
 
         public virtual void Destroy()
@@ -91,31 +93,37 @@ namespace CraftLogs.ViewModels
 
         protected async Task NavigateTo(string navigationLink)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync(navigationLink);
         }
 
         protected async Task NavigateTo(string navigationLink, INavigationParameters parameters)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync(navigationLink, parameters);
         }
 
         protected async Task NavigateToWithoutHistory(string navigationLink)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync("../" + navigationLink);
         }
 
         protected async Task NavigateToWithoutHistory(string navigationLink, INavigationParameters parameters)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync("../" + navigationLink, parameters);
         }
 
         protected async Task NavigateToWithoutHistoryDouble(string navigationLink)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync("../../" + navigationLink);
         }
 
         protected async Task NavigateToWithoutHistoryDouble(string navigationLink, INavigationParameters parameters)
         {
+            IsBusy = true;
             await NavigationService.NavigateAsync("../../" + navigationLink, parameters);
         }
 
