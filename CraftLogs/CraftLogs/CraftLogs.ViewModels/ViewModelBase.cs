@@ -45,6 +45,11 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
+        public bool CanSubmit()
+        {
+            return !IsBusy;
+        }
+
         #endregion
 
         #region Services
