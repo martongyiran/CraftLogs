@@ -54,12 +54,20 @@ namespace CraftLogs.ViewModels
 
         public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
         {
-            Title = null;
+            Title = Texts.ProfilePage;
         }
 
         #endregion
 
         #region Properties
+
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
 
         private string image;
 
@@ -133,6 +141,30 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref dodge, value); }
         }
 
+        private string points;
+
+        public string Points
+        {
+            get { return points; }
+            set { SetProperty(ref points, value); }
+        }
+
+        private string honor;
+
+        public string Honor
+        {
+            get { return honor; }
+            set { SetProperty(ref honor, value); }
+        }
+
+        private bool pointIsVisible;
+
+        public bool PointIsVisible
+        {
+            get { return pointIsVisible; }
+            set { SetProperty(ref pointIsVisible, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -152,14 +184,15 @@ namespace CraftLogs.ViewModels
         {
             teamProfile = DataRepository.GetTeamProfile();
 
-            if (string.IsNullOrEmpty(Title))
-            {
-                Title = teamProfile.House + " - " + teamProfile.Name;
-            }
+            Name = teamProfile.Name;
 
             Image = teamProfile.Image;
             Lvl = "Lvl." + teamProfile.Level + " " + teamProfile.Cast;
             Exp = "EXP: " + teamProfile.AllExp + "/" + teamProfile.XpForNextLevel;
+            Honor = "Honor: " + teamProfile.Honor;
+
+            Points = "Elosztható pontok: " + teamProfile.StatPoint;
+            PointIsVisible = teamProfile.StatPoint != 0;
 
             Atk = "ATK: " + teamProfile.Atk;
             Def = "DEF: " + teamProfile.Def;

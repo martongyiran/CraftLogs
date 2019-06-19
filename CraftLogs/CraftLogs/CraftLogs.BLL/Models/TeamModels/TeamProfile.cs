@@ -52,17 +52,17 @@ namespace CraftLogs.BLL.Models
             get { return CalculateXpForNextLevel(); }
         }
 
-        public int Atk { get; set; } = 0;
+        public int Atk { get; set; } = 1;
 
-        public int Def { get; set; } = 0;
+        public int Def { get; set; } = 1;
 
-        public int Stamina { get; set; } = 0;
+        public int Stamina { get; set; } = 1;
 
-        public int CritR { get; set; } = 0;
+        public int CritR { get; set; } = 1;
 
-        public int Dodge { get; set; } = 0;
+        public int Dodge { get; set; } = 1;
 
-        public int Hp { get { return Stamina * 5; } }
+        public int Hp { get { return (Stamina * 5) + 95; } }
 
 
         public string Image { get { return GetImage(); } }
