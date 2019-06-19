@@ -37,6 +37,7 @@ namespace CraftLogs.BLL.Models
         public int Honor { get; set; } = 0;
 
         public int AllExp { get; set; } = 1;
+
         public int Exp
         {
             get { return CalcualteExp(); }
@@ -61,9 +62,8 @@ namespace CraftLogs.BLL.Models
 
         public int Dodge { get; set; } = 0;
 
-        public int MaxHp { get { return Stamina * 5; } }
+        public int Hp { get { return Stamina * 5; } }
 
-        public int ActHp { get; set; } = 0;
 
         public string Image { get { return GetImage(); } }
 

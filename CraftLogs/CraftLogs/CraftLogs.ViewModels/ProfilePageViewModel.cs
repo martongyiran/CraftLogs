@@ -69,14 +69,6 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref image, value); }
         }
 
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { SetProperty(ref name, value); }
-        }
-
         private string lvl;
 
         public string Lvl
@@ -166,14 +158,14 @@ namespace CraftLogs.ViewModels
             }
 
             Image = teamProfile.Image;
-            Lvl = "Lvl." + teamProfile.Level;
-            Name = teamProfile.Name;
-            Hp = "HP: " + teamProfile.ActHp + "/" + teamProfile.MaxHp;
+            Lvl = "Lvl." + teamProfile.Level + " " + teamProfile.Cast;
             Exp = "EXP: " + teamProfile.AllExp + "/" + teamProfile.XpForNextLevel;
 
             Atk = "ATK: " + teamProfile.Atk;
             Def = "DEF: " + teamProfile.Def;
             Stamina = "STM: " + teamProfile.Stamina;
+
+            Hp = "HP: " + teamProfile.Hp;
             CritR = "CritR: " + teamProfile.CritR + "%";
             Dodge = "Dodge: " + teamProfile.Dodge + "%";
         }
