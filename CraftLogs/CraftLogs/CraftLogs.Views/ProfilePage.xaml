@@ -13,11 +13,11 @@
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
+            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1">
 
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -58,7 +58,7 @@
                     <Label TextColor="Black" FontSize="16" Text="{Binding Points}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding PointIsVisible}" Margin="15,0,0,0"/>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_stamina.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Stamina}" VerticalOptions="CenterAndExpand"/>
                         <Image  Source="@drawable/ic_plus_blue.png" 
                                 HeightRequest="40" 
@@ -75,7 +75,7 @@
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_attack.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Atk}" VerticalOptions="CenterAndExpand"/>
                         <Image  Source="@drawable/ic_plus_blue.png" 
                                 HeightRequest="40" 
@@ -92,7 +92,7 @@
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_def.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Def}" VerticalOptions="CenterAndExpand"/>
                         <Image  Source="@drawable/ic_plus_blue.png" 
                                 HeightRequest="40" 
@@ -109,23 +109,23 @@
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_hp.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Hp}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_critr.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding CritR}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" >
-                        <Image Source="@drawable/filler.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
+                        <Image Source="@drawable/ic_dodge.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Dodge}" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
 
                 </Grid>
             </ScrollView>
-            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="1">
+            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="0">
                 <Image  Source="@drawable/ic_bag_white.png" 
                     HeightRequest="40" 
                     WidthRequest="40" 

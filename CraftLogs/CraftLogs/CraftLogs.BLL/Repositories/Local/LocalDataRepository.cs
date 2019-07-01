@@ -173,11 +173,11 @@ namespace CraftLogs.BLL.Repositories.Local
 
         #region Teamprofile
 
-        public void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast)
+        public void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
             if (!dataService.IsFileExist(FileNames.TeamProfile))
             {
-                TeamProfile profile = new TeamProfile(name, house, cast);
+                TeamProfile profile = new TeamProfile(name, house, cast, image);
                 dataService.CreateFile(FileNames.TeamProfile);
                 SaveToFile(profile);
             }

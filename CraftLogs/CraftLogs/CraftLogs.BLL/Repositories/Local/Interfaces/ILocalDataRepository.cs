@@ -83,7 +83,7 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// <summary>
         /// Creates a TeamProfile file.
         /// </summary>
-        void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast);
+        void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image);
 
         /// <summary>
         /// Returns the TeamProfile.

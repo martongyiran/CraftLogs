@@ -23,6 +23,48 @@
                         SelectedItem="{Binding Cast, Mode=TwoWay}"
                         FontSize="16"
                         TextColor="{StaticResource ColorDark}"/>
+                
+                 <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Image
+                    x:Name="Image1"
+                    Source="{Binding Img1}" 
+                    HeightRequest="100" 
+                    WidthRequest="100" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CharacterSelect_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image  
+                    x:Name="Image2"
+                    Source="{Binding Img2}" 
+                    HeightRequest="100" 
+                    WidthRequest="100" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CharacterSelect_Tapped2"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image
+                    x:Name="Image3"
+                    Source="{Binding Img3}" 
+                    HeightRequest="100" 
+                    WidthRequest="100" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CharacterSelect_Tapped3"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
 
                     <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
             </StackLayout>

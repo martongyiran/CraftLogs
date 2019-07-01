@@ -175,6 +175,8 @@ namespace CraftLogs.Values
 
         public const string RegisterMissingName = "Kérlek írj be valamilyen nevet!";
 
+        public const string RegisterMissingImage = "Kérjük válassz hőst!";
+
         public const string TeamRegisterName = "Csapat neve:";
 
         public const string TeamHouse = "Ház választása:";

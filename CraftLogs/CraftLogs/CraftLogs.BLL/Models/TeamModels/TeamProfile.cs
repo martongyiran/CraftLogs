@@ -65,7 +65,7 @@ namespace CraftLogs.BLL.Models
         public int Hp { get { return (Stamina * 5) + 95; } }
 
 
-        public string Image { get { return GetImage(); } }
+        public string Image { get; set; } = "@drawable/filler.png";
 
         public int StatPoint
         {
@@ -74,94 +74,12 @@ namespace CraftLogs.BLL.Models
 
         public ObservableCollection<Item> Inventory = new ObservableCollection<Item>();
 
-        public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast)
+        public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
             Name = name;
             House = house;
             Cast = cast;
-        }
-
-        private string GetImage()
-        {
-            /*
-            switch (House)
-            {
-                case HouseEnum.House1:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House1[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House1[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House1[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                case HouseEnum.House2:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House2[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House2[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House2[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                case HouseEnum.House3:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House3[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House3[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House3[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                case HouseEnum.House4:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House4[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House4[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House4[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                case HouseEnum.House5:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House5[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House5[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House5[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                case HouseEnum.House6:
-                    switch (Cast)
-                    {
-                        case CharacterClassEnum.Mage:
-                            return ImageUrls.House6[0];
-                        case CharacterClassEnum.Rogue:
-                            return ImageUrls.House6[1];
-                        case CharacterClassEnum.Warrior:
-                            return ImageUrls.House6[2];
-                        default:
-                            return "@drawable/filler.png";
-                    }
-                default:
-                    return "@drawable/filler.png";
-            }*/
-            return "@drawable/filler.png";
+            Image = image;
         }
 
         private int CalculateLevel()
