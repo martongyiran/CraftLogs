@@ -18,6 +18,7 @@ using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace CraftLogs.BLL.Services
@@ -58,10 +59,10 @@ namespace CraftLogs.BLL.Services
             dataRepository.SaveToFile(logs);
         }
 
-        public void CreateQueustLog(int questId, QuestReward reward)
+        public void CreateQueustLog(QuestReward reward)
         {
             var logs = dataRepository.GetLogs();
-            string logText = questId + "\n" + reward.ToString();
+            string logText = reward.ToString();
             Log newLog = new Log(LogTypeEnum.Quest, logText);
             logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);

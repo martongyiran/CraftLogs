@@ -53,6 +53,7 @@
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Lvl}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Exp}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Label TextColor="Black" FontSize="16"  Text="{Binding Honor}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        <Label TextColor="Black" FontSize="16"  Text="{Binding Money}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                     </StackLayout>
 
                     <Label TextColor="Black" FontSize="16" Text="{Binding Points}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding PointIsVisible}" Margin="15,0,0,0"/>

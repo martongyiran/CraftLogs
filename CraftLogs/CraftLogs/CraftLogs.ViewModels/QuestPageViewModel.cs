@@ -225,10 +225,12 @@ namespace CraftLogs.ViewModels
                 if (res)
                 {
                     int usablePoints = Score;
-                    QuestReward reward = new QuestReward();
-                    reward.From = profile.QuestName;
-                    reward.Score = Score;
-                    reward.Honor = 1;
+                    QuestReward reward = new QuestReward
+                    {
+                        From = profile.QuestName,
+                        Score = Score,
+                        Honor = 1
+                    };
 
                     usablePoints -= 10;
 

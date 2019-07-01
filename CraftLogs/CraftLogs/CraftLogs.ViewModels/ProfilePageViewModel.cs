@@ -160,6 +160,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref honor, value); }
         }
 
+        private string money;
+
+        public string Money
+        {
+            get { return money; }
+            set { SetProperty(ref money, value); }
+        }
+
         private bool pointIsVisible;
 
         public bool PointIsVisible
@@ -191,8 +199,9 @@ namespace CraftLogs.ViewModels
 
             Image = teamProfile.Image;
             Lvl = "Lvl." + teamProfile.Level + " " + teamProfile.Cast;
-            Exp = "EXP: " + teamProfile.AllExp + "/" + teamProfile.XpForNextLevel;
+            Exp = "EXP: " + teamProfile.Exp + "/" + teamProfile.XpForNextLevel;
             Honor = "Honor: " + teamProfile.Honor;
+            Money = "Pénz: " + teamProfile.Money;
 
             Points = "Elosztható pontok: " + teamProfile.StatPoint;
             PointIsVisible = teamProfile.StatPoint > 0;

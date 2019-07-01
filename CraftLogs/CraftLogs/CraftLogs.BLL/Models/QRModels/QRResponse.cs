@@ -23,14 +23,14 @@ namespace CraftLogs.BLL.Models
     {
         public DateTime Created { get; private set; }
         public QRTypeEnum Type { get; set; }
-        public T AdditionalData { get; set; }
+        public string AdditionalData { get; set; }
 
         /// <summary>
         /// For serialization.
         /// </summary>
         /// <param name="type"></param>
         /// <param name="additionalData"></param>
-        public QRResponse(QRTypeEnum type, T additionalData)
+        public QRResponse(QRTypeEnum type, string additionalData)
         {
             Created = DateTime.Now;
             Type = type;
@@ -43,7 +43,7 @@ namespace CraftLogs.BLL.Models
         /// <param name="created"></param>
         /// <param name="type"></param>
         /// <param name="additionalData"></param>
-        public QRResponse(DateTime created, QRTypeEnum type, T additionalData)
+        public QRResponse(DateTime created, QRTypeEnum type, string additionalData)
         {
             Created = created;
             Type = type;
@@ -55,9 +55,9 @@ namespace CraftLogs.BLL.Models
     {
         public DateTime Created { get; private set; }
         public QRTypeEnum Type { get; set; }
-        public object AdditionalData { get; set; }
+        public string AdditionalData { get; set; }
 
-        public QRResponse(QRTypeEnum type, object additionalData)
+        public QRResponse(QRTypeEnum type, string additionalData)
         {
             Created = DateTime.Now;
             Type = type;

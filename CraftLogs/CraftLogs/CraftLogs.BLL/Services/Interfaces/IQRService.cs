@@ -23,5 +23,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         string CreateQR<T>(T data);
         
         QRResponse<T> CreateResponse<T>(object data);
+
+        QRResponse HandleQR(string scanResult);
     }
 }

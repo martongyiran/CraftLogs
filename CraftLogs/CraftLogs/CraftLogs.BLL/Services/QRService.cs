@@ -28,13 +28,13 @@ namespace CraftLogs.BLL.Services
         {
             if (typeof(QuestReward) == data.GetType())
             {
-                QRResponse<QuestReward> response = new QRResponse<QuestReward>(QRTypeEnum.Reward, data as QuestReward);
+                QRResponse<QuestReward> response = new QRResponse<QuestReward>(QRTypeEnum.Reward, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }
             else if (typeof(QuestProfileQR) == data.GetType())
             {
-                QRResponse<QuestProfileQR> response = new QRResponse<QuestProfileQR>(QRTypeEnum.QuestAvg, data as QuestProfileQR);
+                QRResponse<QuestProfileQR> response = new QRResponse<QuestProfileQR>(QRTypeEnum.QuestAvg, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }
@@ -47,7 +47,7 @@ namespace CraftLogs.BLL.Services
             throw new NotImplementedException();
         }
 
-        private QRResponse HandleQR(string scanResult)
+        public QRResponse HandleQR(string scanResult)
         {
             var response = JsonConvert.DeserializeObject<QRResponse>(scanResult);
 

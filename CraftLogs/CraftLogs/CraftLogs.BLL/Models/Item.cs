@@ -26,7 +26,7 @@ namespace CraftLogs.BLL.Models
         public ItemRarityEnum Rarity { get; set; }
         public ItemTypeEnum ItemType { get; set; }
         public CharacterClassEnum UsableFor { get; set; }
-        public string StatsForQR { get { return GetStatsForQR(); } }
+        public string StatsFromQR { get; set; }
 
         [JsonIgnore]
         public string Id { get; private set; }
@@ -72,15 +72,16 @@ namespace CraftLogs.BLL.Models
         /// <param name="rarity"></param>
         /// <param name="itemType"></param>
         /// <param name="usableFor"></param>
-        /// <param name="statsForQR"> atk,def,stamina,crit,dodge</param>
-        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsForQR)
+        /// <param name="statsFromQR"> atk,def,stamina,crit,dodge</param>
+        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsFromQR)
         {
             Id = GenerateId();
             Tier = tier;
             Rarity = rarity;
             ItemType = itemType;
             UsableFor = usableFor;
-            SetStats(statsForQR);
+            StatsFromQR = statsFromQR;
+            SetStats(statsFromQR);
         }
 
         #endregion
@@ -96,11 +97,6 @@ namespace CraftLogs.BLL.Models
         private string GetName()
         {
             return "Item" + Id;
-        }
-
-        private string GetStatsForQR()
-        {
-            return Atk + " " + Def + " " + Stamina + " " + CritR + " " + Dodge;
         }
 
         private int GetValue()
