@@ -7,7 +7,7 @@
              BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
 
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>

@@ -40,7 +40,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand RateCommand => rateCommand ?? (rateCommand = new DelegateCommand(async () => await RateAsync()));
+        public DelegateCommand RateCommand => rateCommand ?? (rateCommand = new DelegateCommand(async () => await RateAsync(), CanSubmit).ObservesProperty(()=>IsBusy));
 
         #endregion
 
@@ -84,6 +84,7 @@ namespace CraftLogs.ViewModels
 
         private async Task RateAsync()
         {
+            IsBusy = true;
             profile.AvgScore.Add(Rating);
             DataRepository.SaveToFile(profile);
             NavigationParameters param = new NavigationParameters();

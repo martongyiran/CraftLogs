@@ -16,14 +16,14 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private DelegateCommand saveCommand;
-
+        private DelegateCommand cancelCommand;
 
         #endregion
 
         #region Public
 
         public DelegateCommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(async () => await Save()));
-
+        public DelegateCommand CancelCommand => cancelCommand ?? (cancelCommand = new DelegateCommand(async () => await Cancel(), CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
 
@@ -125,6 +125,16 @@ namespace CraftLogs.ViewModels
 
         private void SelectHouse()
         {
+        }
+
+        private async Task Cancel()
+        {
+            IsBusy = true;
+
+            var settings = DataRepository.GetSettings();
+            settings.AppMode = AppModeEnum.None;
+            DataRepository.SaveToFile(settings);
+            await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
         }
 
         #endregion

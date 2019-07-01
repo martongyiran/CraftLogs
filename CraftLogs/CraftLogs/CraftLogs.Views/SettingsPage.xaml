@@ -5,6 +5,7 @@
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              BackgroundColor="{StaticResource BackgroundColorLight}"
+             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <views:BindableToolbarItem Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}" IsVisible="{Binding IsNpc}"/>

@@ -4,6 +4,7 @@
              x:Class="CraftLogs.Views.QRScannerPage"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              ScanResultCommand="{Binding GetResultCommand}"
+             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     
 </views:BaseScannerPage>

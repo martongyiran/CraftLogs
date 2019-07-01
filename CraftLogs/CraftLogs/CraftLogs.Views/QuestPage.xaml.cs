@@ -20,7 +20,8 @@ namespace CraftLogs.Views
             var view = sender as Image;
             await view.FadeTo(0.5, 100);
             await view.FadeTo(1.0, 100);
-            viewModel.NavigateToSettingsCommand.Execute();
+            if (viewModel.NavigateToSettingsCommand.CanExecute())
+                viewModel.NavigateToSettingsCommand.Execute();
         }
 
         private async void Start_Tapped(object sender, System.EventArgs e)

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              BackgroundColor="{StaticResource BackgroundColorLight}"
-             x:Class="CraftLogs.Views.SelectModePage">
+             x:Class="CraftLogs.Views.SelectModePage"
+             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
         <Label 
             HorizontalOptions="CenterAndExpand"

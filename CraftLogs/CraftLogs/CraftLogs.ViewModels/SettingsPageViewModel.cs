@@ -44,8 +44,8 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(async () => await SaveSettings()));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
-        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
-        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync()));
+        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync(), CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
         
@@ -144,6 +144,7 @@ namespace CraftLogs.ViewModels
 
         private void SetUp()
         {
+            IsBusy = true;
             settings = DataRepository.GetSettings();
 
             AvgVisibility = settings.AppMode == BLL.Enums.AppModeEnum.Quest;
@@ -154,10 +155,12 @@ namespace CraftLogs.ViewModels
             Craft2Start = settings.Craft2Start;
             Craft1MinPont = settings.Craft1MinPont;
             Craft2MinPont = settings.Craft2MinPont;
+            IsBusy = false;
         }
 
         private async Task SaveSettings()
         {
+            IsBusy = true;
             settings.CraftDay = CraftDay;
             settings.Craft1Start = Craft1Start;
             settings.Craft2Start = Craft2Start;
@@ -191,6 +194,7 @@ namespace CraftLogs.ViewModels
             var res = await DialogService.DisplayAlertAsync("", Texts.DeleteProfileQuestion, Texts.Yes, Texts.No);
             if (res)
             {
+                IsBusy = true;
                 DataRepository.ResetSettings();
                 SetUp();
                 DataRepository.DeleteQuestProfile();
@@ -201,6 +205,7 @@ namespace CraftLogs.ViewModels
 
         private async Task GetAvgAsync()
         {
+            IsBusy = true;
             var qrCode = qRService.CreateQR(new QuestProfileQR(DataRepository.GetQuestProfile()));
 
             NavigationParameters param = new NavigationParameters();

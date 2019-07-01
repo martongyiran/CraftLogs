@@ -58,7 +58,7 @@ namespace CraftLogs.ViewModels
         public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 #endif
 
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
+        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); },CanSubmit).ObservesProperty(()=>IsBusy));
 
         public DelegateCommand ScoreCommand => scoreCommand ?? (scoreCommand = new DelegateCommand(async () => await ScoreAsync()));
 

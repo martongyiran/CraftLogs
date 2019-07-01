@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
     <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  x:Class="CraftLogs.Views.QuestPage"
                  xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
                  BackgroundColor="{StaticResource BackgroundColorLight}"
+                 IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
                  Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="@drawable/ic_reloadWhite.png" Command="{Binding ReloadCommand}" />

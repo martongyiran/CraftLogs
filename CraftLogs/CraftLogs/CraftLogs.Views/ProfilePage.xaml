@@ -5,6 +5,7 @@
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              BackgroundColor="{StaticResource BackgroundColorLight}"
+             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <views:BindableToolbarItem Icon="@drawable/ic_cqr_white.png" Command="{Binding GetProfileQRCommand}" />

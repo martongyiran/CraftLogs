@@ -30,7 +30,8 @@ namespace CraftLogs.Views
             var view = sender as Image;
             await view.FadeTo(0.5, 100);
             await view.FadeTo(1.0, 100);
-            viewModel.NavigateToLogsCommand.Execute();
+            if (viewModel.NavigateToLogsCommand.CanExecute())
+                viewModel.NavigateToLogsCommand.Execute();
         }
 
         private async void ReadQR_Tapped(object sender, System.EventArgs e)
@@ -41,7 +42,8 @@ namespace CraftLogs.Views
             var view = sender as Image;
             await view.FadeTo(0.5, 100);
             await view.FadeTo(1.0, 100);
-            viewModel.NavigateToQRScannerPageCommand.Execute();
+            if (viewModel.NavigateToQRScannerPageCommand.CanExecute())
+                viewModel.NavigateToQRScannerPageCommand.Execute();
         }
 
         private async void Trade_Tapped(object sender, System.EventArgs e)
