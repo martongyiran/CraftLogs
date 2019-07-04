@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:CardView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="CraftLogs.Views.ItemControl" 
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views" 
+    x:Name="parent" 
+    VerticalOptions="FillAndExpand" 
+    HorizontalOptions="FillAndExpand" 
+    BackgroundColor="White" 
+    InputTransparent="True" 
+    Padding="10">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Image Grid.Column="0" Grid.Row="1" Source="{Binding BindedItem.Image}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+        <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalOptions="Start" HorizontalOptions="Start" HasShadow="True" WidthRequest="30" HeightRequest="30" Padding="0" CornerRadius="15" Margin="-15,-15,0,0">
+            <Frame.Triggers>
+                <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference parent}, Path=BindedItem.Rarity}" Value="Common">
+                    <Setter Property="BackgroundColor" Value="Silver" />
+                </DataTrigger>
+                <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference parent}, Path=BindedItem.Rarity}" Value="Rare">
+                    <Setter Property="BackgroundColor" Value="Green" />
+                </DataTrigger>
+                <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference parent}, Path=BindedItem.Rarity}" Value="Legendary">
+                    <Setter Property="BackgroundColor" Value="Orange" />
+                </DataTrigger>
+            </Frame.Triggers>
+            <Label Text="{Binding BindedItem.Tier}" BindingContext="{x:Reference parent}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" FontSize="15" />
+        </Frame>
+        <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Label Text="{Binding BindedItem.Atk}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+            <Label Text="{Binding BindedItem.Def}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+            <Label Text="{Binding BindedItem.Stamina}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+            <Label Text="{Binding BindedItem.CritR}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+            <Label Text="{Binding BindedItem.Dodge}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+        </StackLayout>
+        <Label Text="{Binding BindedItem.Name}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="1">
+            <Label Text="{Binding BindedItem.UsableFor}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+            <Label Text="{Binding BindedItem.ItemType}" BindingContext="{x:Reference parent}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" />
+        </StackLayout>
+    </Grid>
+</views:CardView>

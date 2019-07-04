@@ -182,6 +182,19 @@
     <AndroidResource Include="Resources\drawable\ic_dodge.png" />
     <AndroidResource Include="Resources\drawable\ic_hp.png" />
     <AndroidResource Include="Resources\drawable\ic_stamina.png" />
+    <AndroidResource Include="Resources\drawable\m_a.png" />
+    <AndroidResource Include="Resources\drawable\m_t.png" />
+    <AndroidResource Include="Resources\drawable\m_w_h.png" />
+    <AndroidResource Include="Resources\drawable\m_w_hh.png" />
+    <AndroidResource Include="Resources\drawable\r_a.png" />
+    <AndroidResource Include="Resources\drawable\r_t.png" />
+    <AndroidResource Include="Resources\drawable\r_w_h.png" />
+    <AndroidResource Include="Resources\drawable\r_w_hh.png" />
+    <AndroidResource Include="Resources\drawable\w_a.png" />
+    <AndroidResource Include="Resources\drawable\w_t.png" />
+    <AndroidResource Include="Resources\drawable\w_w_h.png" />
+    <AndroidResource Include="Resources\drawable\w_w_hh.png" />
+    <AndroidResource Include="Resources\drawable\w_w_s.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj">

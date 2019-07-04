@@ -96,7 +96,7 @@ namespace CraftLogs.BLL.Models
 
         private string GetName()
         {
-            return "Item" + Id;
+            return "Item" + Id.Substring(0,10);
         }
 
         private int GetValue()
@@ -126,7 +126,40 @@ namespace CraftLogs.BLL.Models
 
         private string GetImage()
         {
-            return string.Empty;
+            string res = "@drawable/";
+
+            switch (UsableFor)
+            {
+                case CharacterClassEnum.Mage:
+                    res += "m_";
+                    break;
+                case CharacterClassEnum.Rogue:
+                    res += "r_";
+                    break;
+                case CharacterClassEnum.Warrior:
+                    res += "w_";
+                    break;
+            }
+
+            switch (ItemType)
+            {
+                case ItemTypeEnum.Armor:
+                    res += "a";
+                    break;
+                case ItemTypeEnum.OneHand:
+                    res += "w_h";
+                    break;
+                case ItemTypeEnum.TwoHand:
+                    res += "w_hh";
+                    break;
+                case ItemTypeEnum.Trinket:
+                    res += "t";
+                    break;
+            }
+
+            res += ".png";
+
+            return res;
         }
 
         #endregion

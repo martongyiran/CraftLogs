@@ -176,6 +176,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref pointIsVisible, value); }
         }
 
+        private Item tempItem;
+
+        public Item TempItem
+        {
+            get { return tempItem; }
+            set { SetProperty(ref tempItem, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -213,6 +221,9 @@ namespace CraftLogs.ViewModels
             Hp = "HP: " + teamProfile.Hp;
             CritR = "CritR: " + teamProfile.CritR + "%";
             Dodge = "Dodge: " + teamProfile.Dodge + "%";
+
+            //For testing
+            TempItem = new Item(1, BLL.Enums.ItemRarityEnum.Rare, BLL.Enums.ItemTypeEnum.Armor, BLL.Enums.CharacterClassEnum.Mage, "0 1 2 3 4");
         }
 
         private async Task GetProfileQRAsync()
