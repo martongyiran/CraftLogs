@@ -169,6 +169,7 @@ namespace CraftLogs.ViewModels
                 profile.Inventory = AllItems;
                 DataRepository.SaveToFile(profile);
                 Init();
+
             }
             else
             {
