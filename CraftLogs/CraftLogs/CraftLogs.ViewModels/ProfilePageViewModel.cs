@@ -190,6 +190,46 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref tempItem, value); }
         }
 
+        private Item armorItem;
+
+        public Item ArmorItem
+        {
+            get { return armorItem; }
+            set { SetProperty(ref armorItem, value); }
+        }
+
+        private Item trinketItem1;
+
+        public Item TrinketItem1
+        {
+            get { return trinketItem1; }
+            set { SetProperty(ref trinketItem1, value); }
+        }
+
+        private Item trinketItem2;
+
+        public Item TrinketItem2
+        {
+            get { return trinketItem2; }
+            set { SetProperty(ref trinketItem2, value); }
+        }
+
+        private Item weaponItem1;
+
+        public Item WeaponItem1
+        {
+            get { return weaponItem1; }
+            set { SetProperty(ref weaponItem1, value); }
+        }
+
+        private Item weaponItem2;
+
+        public Item WeaponItem2
+        {
+            get { return weaponItem2; }
+            set { SetProperty(ref weaponItem2, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -228,8 +268,21 @@ namespace CraftLogs.ViewModels
             CritR = "CritR: " + teamProfile.CritR + "%";
             Dodge = "Dodge: " + teamProfile.Dodge + "%";
 
+            SetItems();
+        }
+
+        private void SetItems()
+        {
             //For testing
             TempItem = new Item(1, BLL.Enums.ItemRarityEnum.Rare, BLL.Enums.ItemTypeEnum.Armor, BLL.Enums.CharacterClassEnum.Mage, "4 2 5 0 6");
+
+            ArmorItem = TempItem;
+
+            TrinketItem1 = TempItem;
+            TrinketItem2 = TempItem;
+
+            WeaponItem1 = TempItem;
+            WeaponItem2 = TempItem;
         }
 
         //DEVTEST

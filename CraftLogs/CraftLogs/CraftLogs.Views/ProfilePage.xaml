@@ -83,12 +83,11 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0"/>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1"/>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0"/>
-                        <views:ItemControl BindedItem="{Binding TempItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1"/>
+                        <views:ItemControl BindedItem="{Binding WeaponItem1}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0"/>
+                        <views:ItemControl BindedItem="{Binding WeaponItem2}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1"/>
+                        <views:ItemControl BindedItem="{Binding TrinketItem1}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+                        <views:ItemControl BindedItem="{Binding TrinketItem2}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
+                        <views:ItemControl BindedItem="{Binding ArmorItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
                     </Grid>
                     
                 </Grid>

@@ -31,7 +31,7 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand SellTappedCommand => sellTappedCommand ?? (sellTappedCommand = new DelegateCommand(async () => await SellTapped()));
 
-        public DelegateCommand UseTappedCommand => useTappedCommand ?? (useTappedCommand = new DelegateCommand(UseTapped));
+        public DelegateCommand UseTappedCommand => useTappedCommand ?? (useTappedCommand = new DelegateCommand(async () => await UseTapped()));
 
         #endregion
 
@@ -149,24 +149,32 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private void UseTapped()
+        private async Task UseTapped()
         {
             var profile = DataRepository.GetTeamProfile();
-            foreach (var item in AllItems)
+            if(ActiveItem.UsableFor == profile.Cast)
             {
-                if (item.ItemType == ActiveItem.ItemType)
+                foreach (var item in AllItems)
                 {
-                    item.State = ItemStateEnum.Backpack;
-                }
+                    if (item.ItemType == ActiveItem.ItemType)
+                    {
+                        item.State = ItemStateEnum.Backpack;
+                    }
 
-                if (item.Id == ActiveItem.Id)
-                {
-                    item.State = ItemStateEnum.Equipped;
+                    if (item.Id == ActiveItem.Id)
+                    {
+                        item.State = ItemStateEnum.Equipped;
+                    }
                 }
+                profile.Inventory = AllItems;
+                DataRepository.SaveToFile(profile);
+                Init();
             }
-            profile.Inventory = AllItems;
-            DataRepository.SaveToFile(profile);
-            Init();
+            else
+            {
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantUse, Texts.Ok);
+            }
+
         }
 
         #endregion
