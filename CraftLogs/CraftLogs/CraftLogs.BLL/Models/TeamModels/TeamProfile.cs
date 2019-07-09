@@ -14,10 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System;
 using System.Collections.ObjectModel;
 using CraftLogs.BLL.Enums;
-using CraftLogs.Values;
 
 namespace CraftLogs.BLL.Models
 {
@@ -80,6 +78,14 @@ namespace CraftLogs.BLL.Models
             House = house;
             Cast = cast;
             Image = image;
+        }
+
+        public void Init()
+        {
+            foreach(var item in Inventory)
+            {
+                item.SetStats(item.StatsFromQR);
+            }
         }
 
         private int CalculateLevel()

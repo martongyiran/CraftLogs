@@ -21,6 +21,7 @@ namespace CraftLogs.BLL.Enums
         Armor,
         OneHand,
         TwoHand,
-        Trinket
+        Trinket,
+        All
     }
 }

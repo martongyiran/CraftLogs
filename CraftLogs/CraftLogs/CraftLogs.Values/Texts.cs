@@ -200,45 +200,16 @@ namespace CraftLogs.Values
         public const string RatingTitle = "Értékelés";
 
         #endregion
-        //Ezeket törölni kell majd valszeg a jövőben
 
-        #region Itemtypes
+        #region Inventory
 
-        public const string Head="sisakja";
-        public const string Chest = "páncélja";
-        public const string Boots = "csizmája";
-        public const string Trinket = "kiegészítője"; //ide majd randomgenerátor
+        public const string Sell = "Eladás";
 
-        #endregion
+        public const string Use = "Használ";
 
-        #region Stats
-
-        public const string Stamina = "állóképesség";
-        public const string Strength = "erő";
-        public const string Agility = "fürgeség";
-        public const string Intellect = "intelligencia";
+        public const string NoItems = "Üres...";
 
         #endregion
 
-        #region ItemSubTypes
-
-        public const string Dagger = "tőre";
-        public const string Sword = "kardja";
-        public const string Bow = "íja";
-        public const string Wand = "pálcája";
-        public const string Staff = "botja";
-        public const string Hammer = "pörölye";
-
-        #endregion
-
-        #region SetNames
-
-        public const string Set1 = "Aladár";
-        public const string Set2 = "Béla";
-        public const string Set3 = "Cecil";
-        public const string Set4 = "Dominik";
-        public const string Set5 = "Erik";
-
-        #endregion
     }
 }

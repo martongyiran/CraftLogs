@@ -185,7 +185,9 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public TeamProfile GetTeamProfile()
         {
-            return GetFile<TeamProfile>(FileNames.TeamProfile);
+            var profile = GetFile<TeamProfile>(FileNames.TeamProfile);
+            profile.Init();
+            return profile;
         }
 
         public bool IsTeamProfileExist()

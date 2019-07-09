@@ -16,6 +16,7 @@ limitations under the License.
 
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
@@ -30,10 +31,12 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private TeamProfile teamProfile;
+        private IItemGeneratorService itemGenerator; //TEMP
 
         private DelegateCommand navigateToLogsCommand;
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
+        private DelegateCommand navigateToInventoryPageCommand;
         private DelegateCommand getProfileQRCommand;
         private DelegateCommand<object> raiseStatCommand;
 
@@ -47,6 +50,8 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
+        public DelegateCommand NavigateToInventoryPageCommand => navigateToInventoryPageCommand ?? (navigateToInventoryPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.InventoryPage); }, CanSubmit).ObservesProperty(() => IsBusy));
+
         public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync(), CanSubmit).ObservesProperty(()=>IsBusy));
 
         public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
@@ -55,9 +60,10 @@ namespace CraftLogs.ViewModels
 
         #region Ctor
 
-        public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
+        public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService) : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.ProfilePage;
+            itemGenerator = itemGeneratorService; //TEMP
         }
 
         #endregion
@@ -223,13 +229,18 @@ namespace CraftLogs.ViewModels
             Dodge = "Dodge: " + teamProfile.Dodge + "%";
 
             //For testing
-            TempItem = new Item(1, BLL.Enums.ItemRarityEnum.Rare, BLL.Enums.ItemTypeEnum.Armor, BLL.Enums.CharacterClassEnum.Mage, "0 1 2 3 4");
+            TempItem = new Item(1, BLL.Enums.ItemRarityEnum.Rare, BLL.Enums.ItemTypeEnum.Armor, BLL.Enums.CharacterClassEnum.Mage, "4 2 5 0 6");
         }
 
+        //DEVTEST
         private async Task GetProfileQRAsync()
         {
             IsBusy = false;
-            await DialogService.DisplayAlertAsync("ok", "ok", "ok");
+            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
+            teamProfile.AllExp += 1;
+            DataRepository.SaveToFile(teamProfile);
+            Init();
+            await DialogService.DisplayAlertAsync("ok", "1 item added to inventory \n 1 exp added", "ok");
         }
 
         private void RaiseStat(object a)

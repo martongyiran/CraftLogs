@@ -114,16 +114,6 @@ namespace CraftLogs.BLL.Models
             }
         }
 
-        private void SetStats(string statsForQr)
-        {
-            var array = statsForQr.Split(null);
-            Atk = int.Parse(array[0]);
-            Def = int.Parse(array[1]);
-            Stamina = int.Parse(array[2]);
-            CritR = int.Parse(array[3]);
-            Dodge = int.Parse(array[4]);
-        }
-
         private string GetImage()
         {
             string res = "@drawable/";
@@ -176,6 +166,16 @@ namespace CraftLogs.BLL.Models
             res += string.Format("Értéke: {0} \n", Value);
             //TODO
             return res;
+        }
+
+        public void SetStats(string statsForQr)
+        {
+            var array = statsForQr.Split(null);
+            Atk = int.Parse(array[0]);
+            Def = int.Parse(array[1]);
+            Stamina = int.Parse(array[2]);
+            CritR = int.Parse(array[3]);
+            Dodge = int.Parse(array[4]);
         }
 
         #endregion

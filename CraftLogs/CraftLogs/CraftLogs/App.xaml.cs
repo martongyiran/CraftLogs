@@ -76,6 +76,7 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<QRHandlerPage, QRHandlerViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<RatingPage, RatingPageViewModel>();
+            containerRegistry.RegisterForNavigation<InventoryPage, InventoryPageViewModel>();
 
             RegisterServices(containerRegistry);
         }
