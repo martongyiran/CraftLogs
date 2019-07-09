@@ -34,7 +34,6 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public string Name { get { return GetName(); } }
 
-        [JsonIgnore]
         public ItemStateEnum State { get; set; } = 0;
 
         [JsonIgnore]

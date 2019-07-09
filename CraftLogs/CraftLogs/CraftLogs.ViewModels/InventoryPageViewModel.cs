@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
@@ -20,13 +21,17 @@ namespace CraftLogs.ViewModels
 
         private DelegateCommand sellTappedCommand;
 
+        private DelegateCommand useTappedCommand;
+
         #endregion
 
         #region Public
 
         public DelegateCommand<object> ItemTappedCommand => itemTappedCommand ?? (itemTappedCommand = new DelegateCommand<object>((a) => ItemTapped(a)));
 
-        public DelegateCommand SellTappedCommand => sellTappedCommand ?? (sellTappedCommand = new DelegateCommand(SellTapped));
+        public DelegateCommand SellTappedCommand => sellTappedCommand ?? (sellTappedCommand = new DelegateCommand(async () => await SellTapped()));
+
+        public DelegateCommand UseTappedCommand => useTappedCommand ?? (useTappedCommand = new DelegateCommand(UseTapped));
 
         #endregion
 
@@ -100,7 +105,7 @@ namespace CraftLogs.ViewModels
 
         private void Init()
         {
-            AllItems = DataRepository.GetTeamProfile().Inventory;
+            AllItems = new ObservableCollection<Item>( DataRepository.GetTeamProfile().Inventory);
             SelectedItem = ItemTypeEnum.All;
         }
 
@@ -123,23 +128,46 @@ namespace CraftLogs.ViewModels
             ActiveItem = o as Item;
         }
 
-        private void SellTapped()
+        private async Task SellTapped()
+        {
+            var response = await DialogService.DisplayAlertAsync(Texts.Sell, Texts.DialogSell, Texts.Yes, Texts.No);
+            if (response)
+            {
+                var profile = DataRepository.GetTeamProfile();
+                foreach (var item in AllItems.ToList())
+                {
+                    if (item.Id == ActiveItem.Id)
+                    {
+                        AllItems.Remove(item);
+                        profile.Money += item.Value;
+                    }
+                }
+
+                profile.Inventory = AllItems;
+                DataRepository.SaveToFile(profile);
+                Init();
+            }
+        }
+
+        private void UseTapped()
         {
             var profile = DataRepository.GetTeamProfile();
-            foreach(var item in AllItems.ToList())
+            foreach (var item in AllItems)
             {
-                if(item.Id == ActiveItem.Id)
+                if (item.ItemType == ActiveItem.ItemType)
                 {
-                    AllItems.Remove(item);
-                    profile.Money += item.Value;
+                    item.State = ItemStateEnum.Backpack;
+                }
+
+                if (item.Id == ActiveItem.Id)
+                {
+                    item.State = ItemStateEnum.Equipped;
                 }
             }
-
             profile.Inventory = AllItems;
             DataRepository.SaveToFile(profile);
             Init();
         }
-
 
         #endregion
 

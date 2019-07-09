@@ -205,6 +205,8 @@ namespace CraftLogs.Values
 
         public const string Sell = "Eladás";
 
+        public const string DialogSell = "Biztos, hogy el akarod adni ezt a tárgyat?";
+
         public const string Use = "Használ";
 
         public const string NoItems = "Üres...";

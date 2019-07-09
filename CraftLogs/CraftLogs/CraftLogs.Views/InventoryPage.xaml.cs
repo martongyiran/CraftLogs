@@ -30,6 +30,7 @@ namespace CraftLogs.Views
         {
             if (!(BindingContext is InventoryPageViewModel viewModel))
                 return;
+            viewModel.UseTappedCommand.Execute();
             popupView.IsVisible = false;
         }
 
