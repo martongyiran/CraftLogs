@@ -62,7 +62,7 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref selectedItems, value); }
         }
 
-        public List<ItemTypeEnum> PickerValues { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.OneHand, ItemTypeEnum.TwoHand, ItemTypeEnum.Trinket };
+        public List<ItemTypeEnum> PickerValues { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
 
         private ItemTypeEnum selectedItem;
 
@@ -105,13 +105,13 @@ namespace CraftLogs.ViewModels
 
         private void Init()
         {
-            AllItems = new ObservableCollection<Item>( DataRepository.GetTeamProfile().Inventory);
+            AllItems = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory);
             SelectedItem = ItemTypeEnum.All;
         }
 
         private void FilterList()
         {
-            if(SelectedItem == ItemTypeEnum.All)
+            if (SelectedItem == ItemTypeEnum.All)
             {
                 SelectedItems = new ObservableCollection<Item>(AllItems);
             }
@@ -152,7 +152,8 @@ namespace CraftLogs.ViewModels
         private async Task UseTapped()
         {
             var profile = DataRepository.GetTeamProfile();
-            if(ActiveItem.UsableFor == profile.Cast)
+
+            if (ActiveItem.UsableFor == profile.Cast)
             {
                 foreach (var item in AllItems)
                 {
@@ -166,16 +167,15 @@ namespace CraftLogs.ViewModels
                         item.State = ItemStateEnum.Equipped;
                     }
                 }
+
                 profile.Inventory = AllItems;
                 DataRepository.SaveToFile(profile);
                 Init();
-
             }
             else
             {
                 await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantUse, Texts.Ok);
             }
-
         }
 
         #endregion

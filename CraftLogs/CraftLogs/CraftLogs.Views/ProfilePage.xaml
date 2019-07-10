@@ -72,24 +72,37 @@
                         <Image Source="@drawable/ic_dodge.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
                         <Label TextColor="Black" FontSize="16" Text="{Binding Dodge}" VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    
                     <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15">
                         <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                        <views:ItemControl BindedItem="{Binding WeaponItem1}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0"/>
-                        <views:ItemControl BindedItem="{Binding WeaponItem2}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1"/>
-                        <views:ItemControl BindedItem="{Binding TrinketItem1}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
-                        <views:ItemControl BindedItem="{Binding TrinketItem2}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
-                        <views:ItemControl BindedItem="{Binding ArmorItem}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                            <Image Source="{Binding LHandItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding LHandItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <Image Source="{Binding RHandItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding RHandItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                            <Image Source="{Binding RingItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding RingItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <Image Source="{Binding NeckItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding NeckItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Image Source="{Binding ArmorItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding ArmorItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
                     </Grid>
-                    
                 </Grid>
             </ScrollView>
             <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="0">

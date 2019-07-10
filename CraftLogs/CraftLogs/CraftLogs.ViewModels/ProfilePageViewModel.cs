@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -21,6 +22,8 @@ using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -52,7 +55,7 @@ namespace CraftLogs.ViewModels
 
         public DelegateCommand NavigateToInventoryPageCommand => navigateToInventoryPageCommand ?? (navigateToInventoryPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.InventoryPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
-        public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync(), CanSubmit).ObservesProperty(()=>IsBusy));
+        public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync(), CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
 
@@ -182,52 +185,44 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref pointIsVisible, value); }
         }
 
-        private Item tempItem;
+        private Tuple<string,string> armorItem;
 
-        public Item TempItem
-        {
-            get { return tempItem; }
-            set { SetProperty(ref tempItem, value); }
-        }
-
-        private Item armorItem;
-
-        public Item ArmorItem
+        public Tuple<string, string> ArmorItem
         {
             get { return armorItem; }
             set { SetProperty(ref armorItem, value); }
         }
 
-        private Item trinketItem1;
+        private Tuple<string, string> ringItem;
 
-        public Item TrinketItem1
+        public Tuple<string, string> RingItem
         {
-            get { return trinketItem1; }
-            set { SetProperty(ref trinketItem1, value); }
+            get { return ringItem; }
+            set { SetProperty(ref ringItem, value); }
         }
 
-        private Item trinketItem2;
+        private Tuple<string, string> neckItem;
 
-        public Item TrinketItem2
+        public Tuple<string, string> NeckItem
         {
-            get { return trinketItem2; }
-            set { SetProperty(ref trinketItem2, value); }
+            get { return neckItem; }
+            set { SetProperty(ref neckItem, value); }
         }
 
-        private Item weaponItem1;
+        private Tuple<string, string> lHandItem;
 
-        public Item WeaponItem1
+        public Tuple<string, string> LHandItem
         {
-            get { return weaponItem1; }
-            set { SetProperty(ref weaponItem1, value); }
+            get { return lHandItem; }
+            set { SetProperty(ref lHandItem, value); }
         }
 
-        private Item weaponItem2;
+        private Tuple<string, string> rHandItem;
 
-        public Item WeaponItem2
+        public Tuple<string, string> RHandItem
         {
-            get { return weaponItem2; }
-            set { SetProperty(ref weaponItem2, value); }
+            get { return rHandItem; }
+            set { SetProperty(ref rHandItem, value); }
         }
 
         #endregion
@@ -248,6 +243,7 @@ namespace CraftLogs.ViewModels
         private void Init()
         {
             teamProfile = DataRepository.GetTeamProfile();
+            SetItems();
 
             Name = teamProfile.Name;
 
@@ -260,29 +256,53 @@ namespace CraftLogs.ViewModels
             Points = "Elosztható pontok: " + teamProfile.StatPoint;
             PointIsVisible = teamProfile.StatPoint > 0;
 
-            Atk = "ATK: " + teamProfile.Atk;
-            Def = "DEF: " + teamProfile.Def;
-            Stamina = "STM: " + teamProfile.Stamina;
+            var equippedItems = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped).ToList();
 
-            Hp = "HP: " + teamProfile.Hp;
-            CritR = "CritR: " + teamProfile.CritR + "%";
-            Dodge = "Dodge: " + teamProfile.Dodge + "%";
+            int batk = teamProfile.Atk;
+            int bdef = teamProfile.Def;
+            int bstamina = teamProfile.Stamina;
+            int bcr = teamProfile.CritR;
+            int bdodge = teamProfile.Dodge;
+            int bhp = teamProfile.Hp;
 
-            SetItems();
+            foreach(var item in equippedItems)
+            {
+                batk += item.Atk;
+                bdef += item.Def;
+                bstamina += item.Stamina;
+                bcr += item.CritR;
+                bdodge += item.Dodge;
+                bhp += (item.Stamina * 5);
+            }
+
+
+            Atk = "ATK: " + batk;
+            Def = "DEF: " + bdef;
+            Stamina = "STM: " + bstamina;
+
+            Hp = "HP: " + bhp;
+            CritR = "CritR: " + bcr + "%";
+            Dodge = "Dodge: " + bdodge + "%";
+
+
         }
 
         private void SetItems()
         {
-            //For testing
-            TempItem = new Item(1, BLL.Enums.ItemRarityEnum.Rare, BLL.Enums.ItemTypeEnum.Armor, BLL.Enums.CharacterClassEnum.Mage, "4 2 5 0 6");
+            var armor = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).ToList();
+            ArmorItem = new Tuple<string, string>(armor.Count != 0 ? armor[0].Image : "@drawable/filler.png", armor.Count != 0 ? armor[0].SimpleString : "Nincs páncél.");
 
-            ArmorItem = TempItem;
+            var ring = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).ToList();
+            RingItem = new Tuple<string, string>(ring.Count != 0 ? ring[0].Image : "@drawable/filler.png", ring.Count != 0 ? ring[0].SimpleString : "Nincs gyűrű.");
 
-            TrinketItem1 = TempItem;
-            TrinketItem2 = TempItem;
+            var neck = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).ToList();
+            NeckItem = new Tuple<string, string>(neck.Count != 0 ? neck[0].Image : "@drawable/filler.png", neck.Count != 0 ? neck[0].SimpleString : "Nincs nyaklánc.");
 
-            WeaponItem1 = TempItem;
-            WeaponItem2 = TempItem;
+            var lhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).ToList();
+            LHandItem = new Tuple<string, string>(lhand.Count != 0 ? lhand[0].Image : "@drawable/filler.png", lhand.Count != 0 ? lhand[0].SimpleString : "Nincs fegyver.");
+
+            var rhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).ToList();
+            RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/filler.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
         }
 
         //DEVTEST
@@ -290,15 +310,17 @@ namespace CraftLogs.ViewModels
         {
             IsBusy = false;
             teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
+            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
+            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
             teamProfile.AllExp += 1;
             DataRepository.SaveToFile(teamProfile);
             Init();
-            await DialogService.DisplayAlertAsync("ok", "1 item added to inventory \n 1 exp added", "ok");
+            await DialogService.DisplayAlertAsync("ok", "3 items added to inventory \n 1 exp added", "ok");
         }
 
         private void RaiseStat(object a)
         {
-            if(!IsBusy && teamProfile.StatPoint > 0)
+            if (!IsBusy && teamProfile.StatPoint > 0)
             {
                 IsBusy = true;
 
@@ -321,7 +343,7 @@ namespace CraftLogs.ViewModels
                 Init();
                 IsBusy = false;
             }
-            
+
         }
 
         #endregion

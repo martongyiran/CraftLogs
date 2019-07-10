@@ -94,8 +94,8 @@ namespace CraftLogs.ViewModels
 
                     foreach (var item in processedData?.Items)
                     {
-                        profile.Inventory.Add(new Item(item.Tier,item.Rarity,item.ItemType,item.UsableFor,item.StatsFromQR));
-                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR));
+                        profile.Inventory.Add(new Item(item.Tier,item.Rarity,item.ItemType,item.UsableFor,item.StatsFromQR, item.Name, item.Image));
+                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
                     }
 
                     processedData.Items = new ObservableCollection<Item>(temp);

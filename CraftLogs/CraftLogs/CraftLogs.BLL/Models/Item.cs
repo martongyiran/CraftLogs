@@ -31,8 +31,7 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public string Id { get; private set; }
 
-        [JsonIgnore]
-        public string Name { get { return GetName(); } }
+        public string Name { get; set; }
 
         public ItemStateEnum State { get; set; } = 0;
 
@@ -54,8 +53,13 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public int Value { get { return GetValue(); } }
 
+        public string Image { get; set; }
+
         [JsonIgnore]
-        public string Image { get { return GetImage(); } }
+        public string SimpleString { get { return GetSimpleString(); } }
+
+        [JsonIgnore]
+        public string InvString { get { return GetInvString(); } }
 
         #region Ctor
 
@@ -72,7 +76,7 @@ namespace CraftLogs.BLL.Models
         /// <param name="itemType"></param>
         /// <param name="usableFor"></param>
         /// <param name="statsFromQR"> atk,def,stamina,crit,dodge</param>
-        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsFromQR)
+        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsFromQR, string name, string img)
         {
             Id = GenerateId();
             Tier = tier;
@@ -80,6 +84,8 @@ namespace CraftLogs.BLL.Models
             ItemType = itemType;
             UsableFor = usableFor;
             StatsFromQR = statsFromQR;
+            Name = name;
+            Image = img;
             SetStats(statsFromQR);
         }
 
@@ -91,11 +97,6 @@ namespace CraftLogs.BLL.Models
         {
             var guid = Guid.NewGuid().ToString();
             return guid;
-        }
-
-        private string GetName()
-        {
-            return "Item" + Id.Substring(0,10);
         }
 
         private int GetValue()
@@ -113,40 +114,62 @@ namespace CraftLogs.BLL.Models
             }
         }
 
-        private string GetImage()
+        private string GetSimpleString()
         {
-            string res = "@drawable/";
-
-            switch (UsableFor)
+            string res = string.Format("{0} \n", Name);
+            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
+            res += string.Format("{0} \n", ItemType);
+            if (Atk != 0)
             {
-                case CharacterClassEnum.Mage:
-                    res += "m_";
-                    break;
-                case CharacterClassEnum.Rogue:
-                    res += "r_";
-                    break;
-                case CharacterClassEnum.Warrior:
-                    res += "w_";
-                    break;
+                res += string.Format("{0} ATK ", Atk);
+            }
+            if (Def != 0)
+            {
+                res += string.Format("{0} DEF ", Def);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("{0} STM ", Stamina);
+            }
+            if (CritR != 0)
+            {
+                res += string.Format("{0} CR ", CritR);
+            }
+            if (Dodge != 0)
+            {
+                res += string.Format("{0} DDG ", Dodge);
             }
 
-            switch (ItemType)
-            {
-                case ItemTypeEnum.Armor:
-                    res += "a";
-                    break;
-                case ItemTypeEnum.OneHand:
-                    res += "w_h";
-                    break;
-                case ItemTypeEnum.TwoHand:
-                    res += "w_hh";
-                    break;
-                case ItemTypeEnum.Trinket:
-                    res += "t";
-                    break;
-            }
+            return res;
+        }
 
-            res += ".png";
+        private string GetInvString()
+        {
+            string res = string.Format("{0} \n", Name);
+            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
+            res += string.Format("{0} \n", UsableFor);
+            res += string.Format("{0} \n", ItemType);
+            res += string.Format("{0} \n", State);
+            if (Atk != 0)
+            {
+                res += string.Format("{0} ATK ", Atk);
+            }
+            if (Def != 0)
+            {
+                res += string.Format("{0} DEF ", Def);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("{0} STM ", Stamina);
+            }
+            if (CritR != 0)
+            {
+                res += string.Format("{0} CR ", CritR);
+            }
+            if (Dodge != 0)
+            {
+                res += string.Format("{0} DDG ", Dodge);
+            }
 
             return res;
         }

@@ -182,19 +182,18 @@
     <AndroidResource Include="Resources\drawable\ic_dodge.png" />
     <AndroidResource Include="Resources\drawable\ic_hp.png" />
     <AndroidResource Include="Resources\drawable\ic_stamina.png" />
-    <AndroidResource Include="Resources\drawable\m_a.png" />
-    <AndroidResource Include="Resources\drawable\m_t.png" />
-    <AndroidResource Include="Resources\drawable\m_w_h.png" />
-    <AndroidResource Include="Resources\drawable\m_w_hh.png" />
-    <AndroidResource Include="Resources\drawable\r_a.png" />
-    <AndroidResource Include="Resources\drawable\r_t.png" />
-    <AndroidResource Include="Resources\drawable\r_w_h.png" />
-    <AndroidResource Include="Resources\drawable\r_w_hh.png" />
-    <AndroidResource Include="Resources\drawable\w_a.png" />
-    <AndroidResource Include="Resources\drawable\w_t.png" />
-    <AndroidResource Include="Resources\drawable\w_w_h.png" />
-    <AndroidResource Include="Resources\drawable\w_w_hh.png" />
-    <AndroidResource Include="Resources\drawable\w_w_s.png" />
+    <AndroidResource Include="Resources\drawable\mage_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\mage_weapon_1.png" />
+    <AndroidResource Include="Resources\drawable\neck_1.png" />
+    <AndroidResource Include="Resources\drawable\neck_2.png" />
+    <AndroidResource Include="Resources\drawable\neck_3.png" />
+    <AndroidResource Include="Resources\drawable\ring_1.png" />
+    <AndroidResource Include="Resources\drawable\ring_2.png" />
+    <AndroidResource Include="Resources\drawable\ring_3.png" />
+    <AndroidResource Include="Resources\drawable\rogue_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\rogue_weapon_1.png" />
+    <AndroidResource Include="Resources\drawable\warrior_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\warrior_weapon_1.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj">

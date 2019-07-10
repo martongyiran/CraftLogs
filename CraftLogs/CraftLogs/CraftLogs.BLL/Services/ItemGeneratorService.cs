@@ -18,6 +18,7 @@ using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace CraftLogs.BLL.Services
 {
@@ -44,9 +45,12 @@ namespace CraftLogs.BLL.Services
             ItemRarityEnum itemRarity = GetRarity();
             ItemTypeEnum itemType = GetItemType();
             CharacterClassEnum usableFor = GetClass();
+            var nameandimage = GetNameAndImage(usableFor, itemType);
+            string name = nameandimage.Item1;
+            string img = nameandimage.Item2;
             string statsForQr = GetStats(GetStatPool(tier, itemRarity), itemType);
 
-            return new Item(tier, itemRarity, itemType, usableFor, statsForQr);
+            return new Item(tier, itemRarity, itemType, usableFor, statsForQr, name, img);
         }
 
         public Item GetSpecificItem(int tier, ItemTypeEnum itemType)
@@ -54,8 +58,58 @@ namespace CraftLogs.BLL.Services
             ItemRarityEnum itemRarity = GetRarity();
             CharacterClassEnum usableFor = GetClass();
             string statsForQr = GetStats(GetStatPool(tier, itemRarity), itemType);
-            return new Item(tier, itemRarity, itemType, usableFor, statsForQr);
+            var nameandimage = GetNameAndImage(usableFor, itemType);
+            string name = nameandimage.Item1;
+            string img = nameandimage.Item2;
+            return new Item(tier, itemRarity, itemType, usableFor, statsForQr, name, img);
         }
+
+        private Tuple<string, string> GetNameAndImage(CharacterClassEnum usableFor, ItemTypeEnum itemType)
+        {
+            if (usableFor == CharacterClassEnum.Mage && itemType == ItemTypeEnum.Armor)
+            {
+                int rnd = random.Next(0, MageArmors.Count - 1);
+                return MageArmors[rnd];
+            }
+            else if (usableFor == CharacterClassEnum.Mage && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
+            {
+                int rnd = random.Next(0, MageWeapons.Count - 1);
+                return MageWeapons[rnd];
+            }
+            else if (usableFor == CharacterClassEnum.Rogue && itemType == ItemTypeEnum.Armor)
+            {
+                int rnd = random.Next(0, RogueArmors.Count - 1);
+                return RogueArmors[rnd];
+            }
+            else if (usableFor == CharacterClassEnum.Rogue && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
+            {
+                int rnd = random.Next(0, RogueWeapons.Count - 1);
+                return RogueWeapons[rnd];
+            }
+            else if (usableFor == CharacterClassEnum.Warrior && itemType == ItemTypeEnum.Armor)
+            {
+                int rnd = random.Next(0, WarriorArmors.Count - 1);
+                return WarriorArmors[rnd];
+            }
+            else if (usableFor == CharacterClassEnum.Warrior && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
+            {
+                int rnd = random.Next(0, WarriorWeapons.Count - 1);
+                return WarriorWeapons[rnd];
+            }
+            else if (itemType == ItemTypeEnum.Ring)
+            {
+                int rnd = random.Next(0, Rings.Count - 1);
+                return Rings[rnd];
+            }
+            else if (itemType == ItemTypeEnum.Neck)
+            {
+                int rnd = random.Next(0, Necks.Count - 1);
+                return Necks[rnd];
+            }
+
+            return new Tuple<string, string>("","");
+        }
+
 
         private string GetStats(int statPool, ItemTypeEnum itemType)
         {
@@ -63,52 +117,17 @@ namespace CraftLogs.BLL.Services
             {
                 case ItemTypeEnum.Armor:
                     return GetArmorStats(statPool);
-                case ItemTypeEnum.OneHand:
+                case ItemTypeEnum.LHand:
                     return GetOHWeaponStats(statPool / 2);
-                case ItemTypeEnum.Trinket:
+                case ItemTypeEnum.RHand:
+                    return GetOHWeaponStats(statPool / 2);
+                case ItemTypeEnum.Neck:
                     return GetTrinketStats(statPool);
-                case ItemTypeEnum.TwoHand:
-                    return GetTHWeaponStats(statPool);
+                case ItemTypeEnum.Ring:
+                    return GetTrinketStats(statPool);
                 default:
                     return string.Empty;
             }
-        }
-
-        private string GetTHWeaponStats(int statPool)
-        {
-            int stamina = 0;
-            int crit = 0;
-            int dodge = 0;
-            int atk = (int)(statPool * 0.3);
-            statPool -= atk;
-
-            while (statPool != 0)
-            {
-                int rnd = random.Next(1, 5);
-
-                switch (rnd)
-                {
-                    case 1:
-                        stamina++;
-                        statPool--;
-                        break;
-                    case 2:
-                        crit++;
-                        statPool--;
-                        break;
-                    case 3:
-                        dodge++;
-                        statPool--;
-                        break;
-                    case 4:
-                        atk++;
-                        statPool--;
-                        break;
-                }
-            }
-
-            return atk + " " + "0" + " " + stamina + " " + crit + " " + dodge;
-            //atk,def,stamina,crit,dodge
         }
 
         private string GetTrinketStats(int statPool)
@@ -154,82 +173,39 @@ namespace CraftLogs.BLL.Services
 
         private string GetOHWeaponStats(int statPool)
         {
-            int shld = random.Next(0, 1);
-            bool isShield = shld == 0;
+            int stamina = 0;
+            int crit = 0;
+            int dodge = 0;
+            int atk = (int)(statPool * 0.15);
+            statPool -= atk;
 
-            if (isShield)
+            while (statPool != 0)
             {
-                int stamina = 0;
-                int crit = 0;
-                int dodge = 0;
-                int def = (int)(statPool * 0.15);
-                statPool -= def;
+                int rnd = random.Next(1, 5);
 
-                while (statPool != 0)
+                switch (rnd)
                 {
-                    int rnd = random.Next(1, 5);
-
-                    switch (rnd)
-                    {
-                        case 1:
-                            stamina++;
-                            statPool--;
-                            break;
-                        case 2:
-                            crit++;
-                            statPool--;
-                            break;
-                        case 3:
-                            dodge++;
-                            statPool--;
-                            break;
-                        case 4:
-                            def++;
-                            statPool--;
-                            break;
-                    }
+                    case 1:
+                        stamina++;
+                        statPool--;
+                        break;
+                    case 2:
+                        crit++;
+                        statPool--;
+                        break;
+                    case 3:
+                        dodge++;
+                        statPool--;
+                        break;
+                    case 4:
+                        atk++;
+                        statPool--;
+                        break;
                 }
-
-                return "0 " + def + " " + stamina + " " + crit + " " + dodge;
-                //atk,def,stamina,crit,dodge
-            }
-            else
-            {
-                int stamina = 0;
-                int crit = 0;
-                int dodge = 0;
-                int atk = (int)(statPool * 0.15);
-                statPool -= atk;
-
-                while (statPool != 0)
-                {
-                    int rnd = random.Next(1, 5);
-
-                    switch (rnd)
-                    {
-                        case 1:
-                            stamina++;
-                            statPool--;
-                            break;
-                        case 2:
-                            crit++;
-                            statPool--;
-                            break;
-                        case 3:
-                            dodge++;
-                            statPool--;
-                            break;
-                        case 4:
-                            atk++;
-                            statPool--;
-                            break;
-                    }
-                }
-
-                return atk + " " + "0" + " " + stamina + " " + crit + " " + dodge;
-                //atk,def,stamina,crit,dodge
             }
 
+            return atk + " " + "0" + " " + stamina + " " + crit + " " + dodge;
+            //atk,def,stamina,crit,dodge
         }
 
         private string GetArmorStats(int statPool)
@@ -293,17 +269,19 @@ namespace CraftLogs.BLL.Services
 
         private ItemTypeEnum GetItemType()
         {
-            int type = random.Next(1, 5);
+            int type = random.Next(1, 6);
             switch (type)
             {
                 case 1:
                     return ItemTypeEnum.Armor;
                 case 2:
-                    return ItemTypeEnum.OneHand;
+                    return ItemTypeEnum.LHand;
                 case 3:
-                    return ItemTypeEnum.Trinket;
+                    return ItemTypeEnum.RHand;
                 case 4:
-                    return ItemTypeEnum.TwoHand;
+                    return ItemTypeEnum.Neck;
+                case 5:
+                    return ItemTypeEnum.Ring;
                 default:
                     throw new Exception("ItemGeneratorService.cs/GetItemType: invalid random integer.");
             }
@@ -341,5 +319,48 @@ namespace CraftLogs.BLL.Services
             return statPool;
         }
 
+        private readonly List<Tuple<string, string>> MageArmors = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Fireworm Robes","@drawable/mage_armor_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> RogueArmors = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Armor of the Fang","@drawable/rogue_armor_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> WarriorArmors = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Breastplate of Valor","@drawable/warrior_armor_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> MageWeapons = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Firebelcher","@drawable/mage_weapon_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> RogueWeapons = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Scout's Blade","@drawable/rogue_weapon_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> WarriorWeapons = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Annihilator","@drawable/warrior_weapon_1.png")
+        };
+
+        private readonly List<Tuple<string, string>> Rings = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Advisor's Ring","@drawable/ring_1.png"),
+        new Tuple<string,string>("Ring of Defense","@drawable/ring_2.png"),
+        new Tuple<string,string>("Black Pearl Ring","@drawable/ring_3.png")
+        };
+
+        private readonly List<Tuple<string, string>> Necks = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Scout's Medallion","@drawable/neck_1.png"),
+        new Tuple<string,string>("Brilliant Necklace","@drawable/neck_2.png"),
+        new Tuple<string,string>("Amulet of the Moon","@drawable/neck_3.png")
+        };
     }
 }

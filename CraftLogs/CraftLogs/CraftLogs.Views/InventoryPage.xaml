@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="CraftLogs.Views.InventoryPage" 
-             Title="{Binding Title}" 
-             BackgroundColor="{StaticResource BackgroundColorLight}" 
-             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" 
-             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CraftLogs.Views.InventoryPage" Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColorLight}" xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views">
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-            <Picker Grid.Row="0" HeightRequest="30" ItemsSource="{Binding PickerValues}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" FontSize="16" TextColor="White" BackgroundColor="{StaticResource ColorPrimary}"/>
-            <ListView ItemsSource="{Binding SelectedItems}"
-                      BackgroundColor="Transparent" 
-                      SeparatorVisibility="None" 
-                      HasUnevenRows="True" 
-                      SelectionMode="None" 
-                      IsRefreshing="{Binding IsBusy}"
-                      Grid.Row="1"
-                      CachingStrategy="RecycleElement"
-                      ItemTapped="Handle_ItemTapped">
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Picker Grid.Row="0" HeightRequest="30" ItemsSource="{Binding PickerValues}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" FontSize="16" TextColor="White" BackgroundColor="{StaticResource ColorPrimary}" />
+            <ListView ItemsSource="{Binding SelectedItems}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="1" CachingStrategy="RecycleElement" ItemTapped="Handle_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                              <views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
+                            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" Padding="1">
+                                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Image}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" Grid.Column="0" />
+                                    <Label Text="{Binding InvString}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+                                </Grid>
+                            </ContentView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <ContentView Grid.Row="0" Grid.RowSpan="2" x:Name="popupView" BackgroundColor="#F2FFFFFF" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="False">
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                    <Button Text="{x:Static values:Texts.Use}" Font="20" TextColor="Black" Clicked="Use_Clicked" Style="{StaticResource WhiteButton}"/>
-                    <Button Text="{x:Static values:Texts.Sell}" Font="20" TextColor="Black" Clicked="Sell_Clicked" Style="{StaticResource WhiteButton}"/>
-                    <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="Handle_Clicked" Style="{StaticResource WhiteButton}"/>
+                    <Button Text="{x:Static values:Texts.Use}" Font="20" TextColor="Black" Clicked="Use_Clicked" Style="{StaticResource WhiteButton}" />
+                    <Button Text="{x:Static values:Texts.Sell}" Font="20" TextColor="Black" Clicked="Sell_Clicked" Style="{StaticResource WhiteButton}" />
+                    <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="Handle_Clicked" Style="{StaticResource WhiteButton}" />
                 </StackLayout>
-        </ContentView>
-            <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding NoItem}" FontSize="16" TextColor="Black" Text="{x:Static values:Texts.NoItems}"/>
+            </ContentView>
+            <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding NoItem}" FontSize="16" TextColor="Black" Text="{x:Static values:Texts.NoItems}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
