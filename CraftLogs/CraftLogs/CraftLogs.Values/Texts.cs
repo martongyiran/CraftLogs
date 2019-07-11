@@ -217,5 +217,11 @@ namespace CraftLogs.Values
 
         #endregion
 
+        #region QRHandler
+
+        public const string QuestRewardTitle = "Loot";
+
+        #endregion
+
     }
 }

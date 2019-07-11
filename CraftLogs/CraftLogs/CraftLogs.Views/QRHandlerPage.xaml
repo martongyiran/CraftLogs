@@ -2,14 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.QRHandlerPage"
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+             BackgroundColor="{StaticResource BackgroundColorLight}"
              IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Response}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" 
-                TextColor="Black"/>
+            <views:QuestRewardEndView IsVisible="{Binding RewardIsVisible}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

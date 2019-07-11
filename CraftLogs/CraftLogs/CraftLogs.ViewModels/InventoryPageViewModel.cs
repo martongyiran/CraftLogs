@@ -157,14 +157,14 @@ namespace CraftLogs.ViewModels
             {
                 foreach (var item in AllItems)
                 {
-                    if (item.ItemType == ActiveItem.ItemType)
-                    {
-                        item.State = ItemStateEnum.Backpack;
-                    }
-
                     if (item.Id == ActiveItem.Id)
                     {
-                        item.State = ItemStateEnum.Equipped;
+                        item.State = ActiveItem.State == ItemStateEnum.Backpack ? ItemStateEnum.Equipped : ItemStateEnum.Backpack;
+                    }
+
+                    if (item.ItemType == ActiveItem.ItemType && item.Id != ActiveItem.Id)
+                    {
+                        item.State = ItemStateEnum.Backpack;
                     }
                 }
 

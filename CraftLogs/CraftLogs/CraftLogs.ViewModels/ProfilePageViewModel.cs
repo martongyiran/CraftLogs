@@ -275,6 +275,8 @@ namespace CraftLogs.ViewModels
                 bhp += (item.Stamina * 5);
             }
 
+            bcr = bcr >= 60 ? 60 : bcr;
+            bdodge = bdodge >= 60 ? 60 : bdodge;
 
             Atk = "ATK: " + batk;
             Def = "DEF: " + bdef;

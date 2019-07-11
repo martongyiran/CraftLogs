@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
+using CraftLogs.Values;
 using Newtonsoft.Json;
 using Prism.Navigation;
 using Prism.Services;
@@ -30,18 +31,43 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private string response;
         private IQRService qRService;
         private ILoggerService loggerService;
 
         #endregion
 
-        #region Public
+        #region Properties
+
+        private string response;
 
         public string Response
         {
             get { return response; }
             set { SetProperty(ref response, value); }
+        }
+
+        private bool rewardIsVisible = false;
+
+        public bool RewardIsVisible
+        {
+            get { return rewardIsVisible; }
+            set { SetProperty(ref rewardIsVisible, value); }
+        }
+
+        private string rewardText;
+
+        public string RewardText
+        {
+            get { return rewardText; }
+            set { SetProperty(ref rewardText, value); }
+        }
+
+        private ObservableCollection<Item> rewards = new ObservableCollection<Item>();
+
+        public ObservableCollection<Item> Rewards
+        {
+            get { return rewards; }
+            set { SetProperty(ref rewards, value); }
         }
 
         #endregion
@@ -67,21 +93,25 @@ namespace CraftLogs.ViewModels
 
             var lul = parameters["res"] as string;
             Response = lul ?? "none";
-            HandleQR(lul);
+            if(Response != "none")
+            {
+                HandleQR(lul);
+            }
         }
 
         #endregion
 
         #region Functions
 
-        private void HandleQR(string response)
+        private void HandleQR(string rspns)
         {
             try
             {
-                var data = qRService.HandleQR(response);
+                var data = qRService.HandleQR(rspns);
 
                 if (data.Type == BLL.Enums.QRTypeEnum.Reward)
                 {
+                    Title = Texts.QuestRewardTitle;
                     QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.AdditionalData);
                     //TODO UI
                     var profile = DataRepository.GetTeamProfile();
@@ -89,6 +119,8 @@ namespace CraftLogs.ViewModels
                     profile.Honor += processedData.Honor;
                     profile.Money += processedData.Money;
                     profile.Score += processedData.Score;
+
+                    RewardText = "+1 EXP \n+" + processedData.Honor + " Honor \n+" + processedData.Money + " pénz";
 
                     List<Item> temp = new List<Item>();
 
@@ -99,8 +131,10 @@ namespace CraftLogs.ViewModels
                     }
 
                     processedData.Items = new ObservableCollection<Item>(temp);
+                    Rewards = new ObservableCollection<Item>(temp);
                     DataRepository.SaveToFile(profile);
                     loggerService.CreateQueustLog(processedData);
+                    RewardIsVisible = true;
                 }
             }
             catch(Exception e)
