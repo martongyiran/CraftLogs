@@ -24,6 +24,14 @@ namespace CraftLogs.Views.Converters
                 }
                 return true;
             }
+            else if(value is int)
+            {
+                if((int)value == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
             else
             {
                 throw new NotImplementedException();

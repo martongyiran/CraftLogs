@@ -39,5 +39,17 @@ namespace CraftLogs.BLL.Models
         {
 
         }
+
+        public override string ToString()
+        {
+            string outp = From + "\n" + "+" + Money + " $, " + Honor + " honor, 1 Exp \n";
+
+            foreach(var item in Items)
+            {
+                outp += "\n" + item.ToString();
+            }
+
+            return outp; 
+        }
     }
 }

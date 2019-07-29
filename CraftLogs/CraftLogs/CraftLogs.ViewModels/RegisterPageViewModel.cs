@@ -1,8 +1,11 @@
-﻿using CraftLogs.BLL.Repositories.Local.Interfaces;
+﻿using CraftLogs.BLL.Enums;
+using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -13,12 +16,16 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private DelegateCommand saveCommand;
+        private DelegateCommand cancelCommand;
+        private DelegateCommand<object> selectCommand;
 
         #endregion
 
         #region Public
 
         public DelegateCommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(async () => await Save()));
+        public DelegateCommand CancelCommand => cancelCommand ?? (cancelCommand = new DelegateCommand(async () => await Cancel(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand<object> SelectCommand => selectCommand ?? (selectCommand = new DelegateCommand<object>( (a) => Select(a)));
 
         #endregion
 
@@ -41,6 +48,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref isQuest, value); }
         }
 
+        private bool isTeam;
+
+        public bool IsTeam
+        {
+            get { return isTeam; }
+            set { SetProperty(ref isTeam, value); }
+        }
+
         private string name;
 
         public string Name
@@ -48,6 +63,56 @@ namespace CraftLogs.ViewModels
             get { return name; }
             set { SetProperty(ref name, value); }
         }
+
+        public List<HouseEnum> Houses { get; set; } = new List<HouseEnum> { HouseEnum.House1, HouseEnum.House2, HouseEnum.House3, HouseEnum.House4, HouseEnum.House5, HouseEnum.House6 };
+
+        private HouseEnum house;
+
+        public HouseEnum House
+        {
+            get { return house; }
+            set { SetProperty(ref house, value); SetHousePrefix(); SetImages(); }
+        }
+
+        public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
+
+        private CharacterClassEnum cast;
+
+        public CharacterClassEnum Cast
+        {
+            get { return cast; }
+            set { SetProperty(ref cast, value); SetCastPrefix(); SetImages(); }
+        }
+
+        private string img1;
+
+        public string Img1
+        {
+            get { return img1; }
+            set { SetProperty(ref img1, value); }
+        }
+
+        private string img2;
+
+        public string Img2
+        {
+            get { return img2; }
+            set { SetProperty(ref img2, value); }
+        }
+
+        private string img3;
+
+        public string Img3
+        {
+            get { return img3; }
+            set { SetProperty(ref img3, value); }
+        }
+
+        private string housePrefix;
+
+        private string castPrefix;
+
+        private string selectedImage = null;
 
         #endregion
 
@@ -60,6 +125,8 @@ namespace CraftLogs.ViewModels
             var mode = parameters["mode"] as string;
 
             IsQuest = mode == "quest" ? true : false;
+
+            IsTeam = mode == "team" ? true : false;
         }
 
         #endregion
@@ -78,6 +145,15 @@ namespace CraftLogs.ViewModels
                 }
                 else if (sure && !IsQuest)
                 {
+                    if (!string.IsNullOrEmpty(selectedImage))
+                    {
+                        DataRepository.CreateTeamProfile(Name, House, Cast, selectedImage);
+                        await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    }
+                    else
+                    {
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.RegisterMissingImage, Texts.Ok);
+                    }
 
                 }
             }
@@ -87,8 +163,86 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        #endregion
+        private async Task Cancel()
+        {
+            IsBusy = true;
 
+            var settings = DataRepository.GetSettings();
+            settings.AppMode = AppModeEnum.None;
+            DataRepository.SaveToFile(settings);
+            await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
+        }
+
+        private void SetHousePrefix()
+        {
+            switch (House)
+            {
+                case HouseEnum.House1:
+                    housePrefix = "h1_";
+                    break;
+                case HouseEnum.House2:
+                    housePrefix = "h2_";
+                    break;
+                case HouseEnum.House3:
+                    housePrefix = "h3_";
+                    break;
+                case HouseEnum.House4:
+                    housePrefix = "h4_";
+                    break;
+                case HouseEnum.House5:
+                    housePrefix = "h5_";
+                    break;
+                case HouseEnum.House6:
+                    housePrefix = "h6_";
+                    break;
+            }
+        }
+
+        private void SetCastPrefix()
+        {
+            switch (Cast)
+            {
+                case CharacterClassEnum.Mage:
+                    castPrefix = "mage";
+                    break;
+                case CharacterClassEnum.Warrior:
+                    castPrefix = "warrior";
+                    break;
+                case CharacterClassEnum.Rogue:
+                    castPrefix = "rogue";
+                    break;
+            }
+        }
+
+        private string GetImgUrl(string num)
+        {
+            return "@drawable/" + housePrefix + castPrefix + num + ".png";
+        }
+
+        private void SetImages()
+        {
+            Img1 = GetImgUrl("1");
+            Img2 = GetImgUrl("2");
+            Img3 = GetImgUrl("3");
+        }
+
+        private void Select(object a)
+        {
+            switch ((int)a)
+            {
+                case 1:
+                    selectedImage = Img1;
+                    break;
+                case 2:
+                    selectedImage = Img2;
+                    break;
+                case 3:
+                    selectedImage = Img3;
+                    break;
+            }
+        }
+
+        #endregion
 
     }
 }

@@ -37,7 +37,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand NavigateToHomeCommand => navigateToHomeCommand ?? (navigateToHomeCommand = new DelegateCommand(async () => await SmartNavigation()));
+        public DelegateCommand NavigateToHomeCommand => navigateToHomeCommand ?? (navigateToHomeCommand = new DelegateCommand(async () => { IsBusy = true; await SmartNavigation(); }, CanSubmit).ObservesProperty(()=>IsBusy));
 
         public string QrCode
         {
@@ -76,6 +76,10 @@ namespace CraftLogs.ViewModels
             if(settings.AppMode == BLL.Enums.AppModeEnum.Quest)
             {
                 await NavigateToWithoutHistory(NavigationLinks.QuestPage);
+            } 
+            else if (settings.AppMode == BLL.Enums.AppModeEnum.Team)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
             }
             await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }

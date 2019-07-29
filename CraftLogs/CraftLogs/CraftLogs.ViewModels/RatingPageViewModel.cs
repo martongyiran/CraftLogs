@@ -1,10 +1,27 @@
-﻿using CraftLogs.BLL.Models;
+﻿/*
+Copyright 2018 Gyirán Márton Áron
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. 
+*/
+
+using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -23,7 +40,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand RateCommand => rateCommand ?? (rateCommand = new DelegateCommand(async () => await RateAsync()));
+        public DelegateCommand RateCommand => rateCommand ?? (rateCommand = new DelegateCommand(async () => await RateAsync(), CanSubmit).ObservesProperty(()=>IsBusy));
 
         #endregion
 
@@ -51,9 +68,9 @@ namespace CraftLogs.ViewModels
 
         #region Properties
 
-        public List<int> Numbers { get; set; } = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        public List<int> Numbers { get; set; } = Enumerable.Range(1, 10).ToList();
 
-        private int rating = 4;
+        private int rating = 5;
 
         public int Rating
         {
@@ -67,7 +84,8 @@ namespace CraftLogs.ViewModels
 
         private async Task RateAsync()
         {
-            profile.AvgScore.Add(Rating + 1);
+            IsBusy = true;
+            profile.AvgScore.Add(Rating);
             DataRepository.SaveToFile(profile);
             NavigationParameters param = new NavigationParameters();
             param.Add("code", qrCode);

@@ -10,5 +10,6 @@ namespace CraftLogs.Views
         {
             InitializeComponent();
         }
+        
     }
 }

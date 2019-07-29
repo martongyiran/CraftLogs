@@ -40,11 +40,11 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team)));
-        public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest)));
-        public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop)));
-        public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena)));
-        public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq)));
+        public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team), CanSubmit).ObservesProperty(()=> IsBusy));
+        public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq), CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
 
@@ -91,6 +91,7 @@ namespace CraftLogs.ViewModels
 
         private async Task SetMode(AppModeEnum appMode)
         {
+            IsBusy = true;
             settings.AppMode = appMode;
             DataRepository.SaveToFile(settings);
             NavigationParameters param = new NavigationParameters();
@@ -101,11 +102,11 @@ namespace CraftLogs.ViewModels
                     break;
                 case AppModeEnum.Team:
                     param.Add("mode", "team");
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
                     break;
                 case AppModeEnum.Quest:
                     param.Add("mode", "quest");
-                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
                     break;
                 case AppModeEnum.Shop:
                     await NavigateToWithoutHistory(NavigationLinks.MainPage);

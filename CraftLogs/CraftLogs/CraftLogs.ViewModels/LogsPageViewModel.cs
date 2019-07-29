@@ -77,10 +77,9 @@ namespace CraftLogs.ViewModels
 
         #region Overrides
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            await CreateMock(); //for testing
             SetUp();
         }
 
@@ -117,33 +116,7 @@ namespace CraftLogs.ViewModels
 
             IsBusy = false;
         }
-
-        private async Task CreateMock()
-        {
-            IsBusy = true;
-            ObservableCollection<Item> items = new ObservableCollection<Item>();
-            items.Add(new Item(1, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Warrior, "0 4 2 0 0"));
-            items.Add(new Item(2, ItemRarityEnum.Rare, ItemTypeEnum.TwoHand, CharacterClassEnum.Mage, "5 0 0 3 0"));
-            items.Add(new Item(3, ItemRarityEnum.Legendary, ItemTypeEnum.Trinket, CharacterClassEnum.Rogue, "5 5 5 5 5"));
-
-            for (int i = 0; i < 5; i++)
-            {
-                loggerService.CreateArenaLog("első log");
-                await Task.Delay(500);
-                loggerService.CreateBuyLog(7, new System.Collections.Generic.List<Item>());
-                await Task.Delay(500);
-                loggerService.CreateQueustLog(6, new QuestReward("Mocsári veszedelem", 40, 100, 2, items));
-                await Task.Delay(500);
-                loggerService.CreateSellLog(new Item());
-                await Task.Delay(500);
-                loggerService.CreateSystemLog("fasz");
-                await Task.Delay(500);
-                loggerService.CreateTradeLog("picspat");
-                await Task.Delay(500);
-            }
-            IsBusy = false;
-        }
-
+        
         #endregion
     }
 }

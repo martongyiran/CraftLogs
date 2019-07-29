@@ -7,7 +7,7 @@
              BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
 
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
@@ -15,12 +15,7 @@
         
         <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
             <StackLayout>
-                <Button Text="QR_GEN" Command="{Binding NavigateToQRPageCommand}" Style="{StaticResource WhiteButton}" />
-                <Button Text="QR_READ" Command="{Binding NavigateToQRScannerPageCommand}" Style="{StaticResource WhiteButton}" />
-                <BoxView HeightRequest="1" BackgroundColor="Gray"/>
-
                 <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
-                <views:TeamMenuView IsVisible="{Binding TeamMenuVisibility}" />
                 <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}" />
                 <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}" />
             </StackLayout>

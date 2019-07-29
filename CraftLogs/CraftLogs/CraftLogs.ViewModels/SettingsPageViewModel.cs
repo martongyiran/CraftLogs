@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
@@ -40,15 +42,13 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(SaveSettings));
+        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(async () => await SaveSettings()));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
-        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync()));
-        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync()));
+        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync(), CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
-
-
-
+        
         #region Ctor
 
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
@@ -61,6 +61,16 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Properties
+
+        public List<int> Days { get; set; } = Enumerable.Range(1, 2).ToList();
+
+        public List<int> C1Starts { get; set; } = Enumerable.Range(8, 12).ToList();
+
+        public List<int> C2Starts { get; set; } = Enumerable.Range(8, 12).ToList();
+
+        public List<int> C1PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
+
+        public List<int> C2PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
 
         private int craftDay;
 
@@ -110,6 +120,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref avgVisibility, value); }
         }
 
+        private bool isNpc;
+
+        public bool IsNpc
+        {
+            get { return isNpc; }
+            set { SetProperty(ref isNpc, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -126,19 +144,23 @@ namespace CraftLogs.ViewModels
 
         private void SetUp()
         {
+            IsBusy = true;
             settings = DataRepository.GetSettings();
 
             AvgVisibility = settings.AppMode == BLL.Enums.AppModeEnum.Quest;
+            IsNpc = settings.AppMode != BLL.Enums.AppModeEnum.Team;
 
             CraftDay = settings.CraftDay;
             Craft1Start = settings.Craft1Start;
             Craft2Start = settings.Craft2Start;
             Craft1MinPont = settings.Craft1MinPont;
             Craft2MinPont = settings.Craft2MinPont;
+            IsBusy = false;
         }
 
-        private void SaveSettings()
+        private async Task SaveSettings()
         {
+            IsBusy = true;
             settings.CraftDay = CraftDay;
             settings.Craft1Start = Craft1Start;
             settings.Craft2Start = Craft2Start;
@@ -146,7 +168,12 @@ namespace CraftLogs.ViewModels
             settings.Craft2MinPont = Craft2MinPont;
 
             DataRepository.SaveToFile(settings);
-            DialogService.DisplayAlertAsync("", Texts.SuccessfulSaving, Texts.Ok);
+
+            if (settings.AppMode == BLL.Enums.AppModeEnum.Quest)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
+            }
+            await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
         private async Task ResetSettingsAsync()
@@ -167,22 +194,25 @@ namespace CraftLogs.ViewModels
             var res = await DialogService.DisplayAlertAsync("", Texts.DeleteProfileQuestion, Texts.Yes, Texts.No);
             if (res)
             {
+                IsBusy = true;
                 DataRepository.ResetSettings();
                 SetUp();
                 DataRepository.DeleteQuestProfile();
+                DataRepository.DeleteTeamProfile();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }
 
         private async Task GetAvgAsync()
         {
+            IsBusy = true;
             var qrCode = qRService.CreateQR(new QuestProfileQR(DataRepository.GetQuestProfile()));
 
             NavigationParameters param = new NavigationParameters();
             param.Add("code", qrCode);
             await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
         }
-
+        
         #endregion
 
 

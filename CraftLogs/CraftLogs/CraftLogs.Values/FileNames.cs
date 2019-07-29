@@ -21,6 +21,7 @@ namespace CraftLogs.Values
         public const string Settings = "Settings.json";
         public const string Logs = "Logs.json";
         public const string QuestProfile = "QuestProfile.json";
+        public const string TeamProfile = "TeamProfile.json";
         public const string FileAssembly = "CraftLogs.BLL.MockData.{0}";
     }
 }

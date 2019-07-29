@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System.Collections.Generic;
+
 namespace CraftLogs.Values
 {
     public static class Texts
@@ -95,22 +97,22 @@ namespace CraftLogs.Values
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft1Start = "Craft 1 kezdete (óra 0-24) ";
+        public const string Craft1Start = "Craft 1 kezdete (óra 0-24): ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft2Start = "Craft 2 kezdete (óra 0-24) ";
+        public const string Craft2Start = "Craft 2 kezdete (óra 0-24): ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft1MinPont = "Craft 1 Minimum Pont ";
+        public const string Craft1MinPont = "Craft 1 Minimum Pont: ";
 
         /// <summary>
         /// SettingsPage list text.
         /// </summary>
-        public const string Craft2MinPont = "Craft 2 Minimum Pont ";
+        public const string Craft2MinPont = "Craft 2 Minimum Pont: ";
 
         /// <summary>
         /// SettingsPage: save settings text.
@@ -175,6 +177,14 @@ namespace CraftLogs.Values
 
         public const string RegisterMissingName = "Kérlek írj be valamilyen nevet!";
 
+        public const string RegisterMissingImage = "Kérjük válassz hőst!";
+
+        public const string TeamRegisterName = "Csapat neve:";
+
+        public const string TeamHouse = "Ház választása:";
+
+        public const string TeamClass = "Kaszt választása:";
+
         #endregion
 
         #region Quest
@@ -192,45 +202,26 @@ namespace CraftLogs.Values
         public const string RatingTitle = "Értékelés";
 
         #endregion
-        //Ezeket törölni kell majd valszeg a jövőben
 
-        #region Itemtypes
+        #region Inventory
 
-        public const string Head="sisakja";
-        public const string Chest = "páncélja";
-        public const string Boots = "csizmája";
-        public const string Trinket = "kiegészítője"; //ide majd randomgenerátor
+        public const string Sell = "Eladás";
 
-        #endregion
+        public const string DialogSell = "Biztos, hogy el akarod adni ezt a tárgyat?";
 
-        #region Stats
+        public const string CantUse = "Ezt a tárgyat nem használhatod!";
 
-        public const string Stamina = "állóképesség";
-        public const string Strength = "erő";
-        public const string Agility = "fürgeség";
-        public const string Intellect = "intelligencia";
+        public const string Use = "Használ";
+
+        public const string NoItems = "Üres...";
 
         #endregion
 
-        #region ItemSubTypes
+        #region QRHandler
 
-        public const string Dagger = "tőre";
-        public const string Sword = "kardja";
-        public const string Bow = "íja";
-        public const string Wand = "pálcája";
-        public const string Staff = "botja";
-        public const string Hammer = "pörölye";
+        public const string QuestRewardTitle = "Loot";
 
         #endregion
 
-        #region SetNames
-
-        public const string Set1 = "Aladár";
-        public const string Set2 = "Béla";
-        public const string Set3 = "Cecil";
-        public const string Set4 = "Dominik";
-        public const string Set5 = "Erik";
-
-        #endregion
     }
 }

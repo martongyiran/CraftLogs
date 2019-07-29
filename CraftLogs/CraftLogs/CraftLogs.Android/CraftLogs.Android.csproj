@@ -26,15 +26,11 @@
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>
-    </AndroidSigningKeyStore>
-    <AndroidSigningStorePass>
-    </AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>
-    </AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>
-    </AndroidSigningKeyPass>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>alias.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>123456</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>alias</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EnableProguard>true</EnableProguard>
   </PropertyGroup>
@@ -122,6 +118,78 @@
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\h1_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h1_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h1_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h1_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h1_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h1_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h1_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h1_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h1_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\h2_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h2_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h2_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h2_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h2_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h2_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h2_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h2_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h2_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\h3_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h3_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h3_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h3_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h3_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h3_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h3_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h3_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h3_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\h4_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h4_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h4_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h4_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h4_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h4_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h4_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h4_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h4_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\h5_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h5_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h5_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h5_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h5_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h5_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h5_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h5_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h5_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\h6_mage1.png" />
+    <AndroidResource Include="Resources\drawable\h6_mage2.png" />
+    <AndroidResource Include="Resources\drawable\h6_mage3.png" />
+    <AndroidResource Include="Resources\drawable\h6_rogue1.png" />
+    <AndroidResource Include="Resources\drawable\h6_rogue2.png" />
+    <AndroidResource Include="Resources\drawable\h6_rogue3.png" />
+    <AndroidResource Include="Resources\drawable\h6_warrior1.png" />
+    <AndroidResource Include="Resources\drawable\h6_warrior2.png" />
+    <AndroidResource Include="Resources\drawable\h6_warrior3.png" />
+    <AndroidResource Include="Resources\drawable\ic_attack.png" />
+    <AndroidResource Include="Resources\drawable\ic_critr.png" />
+    <AndroidResource Include="Resources\drawable\ic_def.png" />
+    <AndroidResource Include="Resources\drawable\ic_dodge.png" />
+    <AndroidResource Include="Resources\drawable\ic_hp.png" />
+    <AndroidResource Include="Resources\drawable\ic_stamina.png" />
+    <AndroidResource Include="Resources\drawable\mage_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\mage_weapon_1.png" />
+    <AndroidResource Include="Resources\drawable\neck_1.png" />
+    <AndroidResource Include="Resources\drawable\neck_2.png" />
+    <AndroidResource Include="Resources\drawable\neck_3.png" />
+    <AndroidResource Include="Resources\drawable\ring_1.png" />
+    <AndroidResource Include="Resources\drawable\ring_2.png" />
+    <AndroidResource Include="Resources\drawable\ring_3.png" />
+    <AndroidResource Include="Resources\drawable\rogue_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\rogue_weapon_1.png" />
+    <AndroidResource Include="Resources\drawable\warrior_armor_1.png" />
+    <AndroidResource Include="Resources\drawable\warrior_weapon_1.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj">
@@ -129,7 +197,7 @@
       <Name>CraftLogs.Views</Name>
     </ProjectReference>
     <ProjectReference Include="..\CraftLogs\CraftLogs.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{A60B6B3C-5FAC-4A96-9D22-ADE9562C5B8C}</Project>
       <Name>CraftLogs</Name>
     </ProjectReference>
   </ItemGroup>
@@ -147,6 +215,45 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_reloadWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\filler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_bag_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_cqr_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logs_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_rqr_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_settings_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_trade_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_cqr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_bag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_rqr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_trade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_plus_blue.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

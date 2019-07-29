@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -41,6 +40,7 @@ namespace CraftLogs.ViewModels
         private Settings settings;
         private QuestProfile profile;
         private IQRService qRService;
+        private IItemGeneratorService itemGeneratorService;
         private DateTime date;
         private int minPoint;
         private int maxPoint;
@@ -58,23 +58,24 @@ namespace CraftLogs.ViewModels
         public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 #endif
 
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => await NavigateTo(NavigationLinks.SettingsPage)));
+        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); },CanSubmit).ObservesProperty(()=>IsBusy));
 
         public DelegateCommand ScoreCommand => scoreCommand ?? (scoreCommand = new DelegateCommand(async () => await ScoreAsync()));
 
         public DelegateCommand StartCommand => startCommand ?? (startCommand = new DelegateCommand(Start));
 
-        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; }));
+        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; Init(); }));
         
         #endregion
 
         #region Ctor
 
-        public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, IItemGeneratorService itemgeneratorService) : base(navigationService, dataRepository, dialogService)
         {
             qRService = qrService;
+            itemGeneratorService = itemgeneratorService;
         }
-
+        
         #endregion
 
         #region Overrides
@@ -224,32 +225,34 @@ namespace CraftLogs.ViewModels
                 if (res)
                 {
                     int usablePoints = Score;
-                    QuestReward reward = new QuestReward();
-                    reward.From = profile.QuestName;
-                    reward.Score = Score;
-                    reward.Honor = 1;
+                    QuestReward reward = new QuestReward
+                    {
+                        From = profile.QuestName,
+                        Score = Score,
+                        Honor = 1
+                    };
 
                     usablePoints -= 10;
 
                     if (usablePoints >= 30)
                     {
-                        reward.Items.Add(RandomItem(3));
-                        reward.Items.Add(RandomItem(3));
-                        reward.Items.Add(RandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
                         usablePoints -= 30;
                     }
                     else if (usablePoints >= 15)
                     {
-                        reward.Items.Add(RandomItem(2));
-                        reward.Items.Add(RandomItem(2));
-                        reward.Items.Add(RandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
                         usablePoints -= 15;
                     }
                     else if (usablePoints >= 5)
                     {
-                        reward.Items.Add(RandomItem(1));
-                        reward.Items.Add(RandomItem(1));
-                        reward.Items.Add(RandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
                         usablePoints -= 5;
                     }
 
@@ -269,23 +272,6 @@ namespace CraftLogs.ViewModels
 
         }
         
-        //TEMP: waiting for item generator service
-        private Item RandomItem(int tier)
-        {
-            switch (tier)
-            {
-                case 1:
-                    return new Item(1, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                case 2:
-                    return new Item(2, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                case 3:
-                    return new Item(3, ItemRarityEnum.Common, ItemTypeEnum.Armor, CharacterClassEnum.Mage, "1 1 1 1 1");
-                default:
-                    return null;
-            }
-
-        }
-
         #endregion
     }
 }

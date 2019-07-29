@@ -24,7 +24,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <summary> 
         /// Create a QuestLog type log entry.
         /// </summary>
-        void CreateQueustLog(int questId, QuestReward reward);
+        void CreateQueustLog(QuestReward reward);
 
         /// <summary> 
         /// Create a BuyLog type log entry.

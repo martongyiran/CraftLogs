@@ -5,55 +5,65 @@
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              BackgroundColor="{StaticResource BackgroundColorLight}"
+             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="{x:Static values:Texts.SaveSettings}" Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}" />
+        <views:BindableToolbarItem Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}" IsVisible="{Binding IsNpc}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
 
         <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="5">
             <views:CardView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" InputTransparent="True" Padding="10">
-                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsNpc}">
+                        <Label Text="{x:Static values:Texts.CraftDay}" TextColor="Black" FontSize="16" />
+                        <Picker
+                        x:Name="dayPicker"
+                        ItemsSource="{Binding Days}"
+                        SelectedItem="{Binding CraftDay, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
 
 
-                    <Label Text="{x:Static values:Texts.CraftDay}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
-                    <Entry x:Name="craftDayEntry" Text="{Binding CraftDay, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="0"/>
+                        <Label Text="{x:Static values:Texts.Craft1Start}" TextColor="Black" FontSize="16" />
+                        <Picker
+                        x:Name="c1startPicker"
+                        ItemsSource="{Binding C1Starts}"
+                        SelectedItem="{Binding Craft1Start, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
 
+                        <Label Text="{x:Static values:Texts.Craft2Start}" TextColor="Black" FontSize="16" />
+                        <Picker
+                        x:Name="c2startPicker"
+                        ItemsSource="{Binding C2Starts}"
+                        SelectedItem="{Binding Craft2Start, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
 
-                    <Label Text="{x:Static values:Texts.Craft1Start}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="1"/>
-                    <Entry x:Name="craft1start" Text="{Binding Craft1Start, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="1"/>
+                        <Label Text="{x:Static values:Texts.Craft1MinPont}" TextColor="Black" FontSize="16" />
+                        <Picker
+                        x:Name="c1pointPicker"
+                        ItemsSource="{Binding C1PointRange}"
+                        SelectedItem="{Binding Craft1MinPont, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
 
+                        <Label Text="{x:Static values:Texts.Craft2MinPont}" TextColor="Black" FontSize="16" />
+                        <Picker
+                        x:Name="c2pointPicker"
+                        ItemsSource="{Binding C2PointRange}"
+                        SelectedItem="{Binding Craft2MinPont, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
+                    </StackLayout>
 
-                    <Label Text="{x:Static values:Texts.Craft2Start}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="2"/>
-                    <Entry x:Name="craft2start" Text="{Binding Craft2Start, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="2"/>
+                    <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}" IsVisible="{Binding IsNpc}"/>
+                    <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
+                    <Button Text="{x:Static values:Texts.GetAvgText}" Style="{StaticResource WhiteButton}" Command="{Binding GetAvgCommand}" IsVisible="{Binding AvgVisibility}"/>
 
-
-                    <Label Text="{x:Static values:Texts.Craft1MinPont}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="3"/>
-                    <Entry x:Name="craft1MinPont" Text="{Binding Craft1MinPont, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="3"/>
-
-
-                    <Label Text="{x:Static values:Texts.Craft2MinPont}" VerticalOptions="Center" TextColor="Black" FontSize="16" HorizontalOptions="Start" Grid.Column="0" Grid.Row="4"/>
-                    <Entry x:Name="craft2MinPont" Text="{Binding Craft2MinPont, Mode=TwoWay}" Style="{StaticResource SettingsEntry}" Grid.Column="1" Grid.Row="4"/>
-
-                    <Button Grid.Row="5" Grid.ColumnSpan="2" Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}"/>
-                    <Button Grid.Row="6" Grid.ColumnSpan="2" Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
-                    <Button Grid.Row="7" Grid.ColumnSpan="2" Text="{x:Static values:Texts.GetAvgText}" Style="{StaticResource WhiteButton}" Command="{Binding GetAvgCommand}"/>
-
-                </Grid>
+                </StackLayout>
             </views:CardView>
         </ScrollView>
 

@@ -26,15 +26,13 @@ namespace CraftLogs.BLL.Models
         public ItemRarityEnum Rarity { get; set; }
         public ItemTypeEnum ItemType { get; set; }
         public CharacterClassEnum UsableFor { get; set; }
-        public string StatsForQR { get { return GetStatsForQR(); } }
+        public string StatsFromQR { get; set; }
 
         [JsonIgnore]
         public string Id { get; private set; }
 
-        [JsonIgnore]
         public string Name { get; set; }
 
-        [JsonIgnore]
         public ItemStateEnum State { get; set; } = 0;
 
         [JsonIgnore]
@@ -44,7 +42,7 @@ namespace CraftLogs.BLL.Models
         public int Def { get; set; } = 0;
 
         [JsonIgnore]
-        public int Hp { get; set; } = 0;
+        public int Stamina { get; set; } = 0;
 
         [JsonIgnore]
         public int CritR { get; set; } = 0;
@@ -52,9 +50,16 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public int Dodge { get; set; } = 0;
 
-
         [JsonIgnore]
         public int Value { get { return GetValue(); } }
+
+        public string Image { get; set; }
+
+        [JsonIgnore]
+        public string SimpleString { get { return GetSimpleString(); } }
+
+        [JsonIgnore]
+        public string InvString { get { return GetInvString(); } }
 
         #region Ctor
 
@@ -70,15 +75,18 @@ namespace CraftLogs.BLL.Models
         /// <param name="rarity"></param>
         /// <param name="itemType"></param>
         /// <param name="usableFor"></param>
-        /// <param name="statsForQR"> atk,def,hp,crit,dodge</param>
-        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsForQR)
+        /// <param name="statsFromQR"> atk,def,stamina,crit,dodge</param>
+        public Item(int tier, ItemRarityEnum rarity, ItemTypeEnum itemType, CharacterClassEnum usableFor, string statsFromQR, string name, string img)
         {
             Id = GenerateId();
             Tier = tier;
             Rarity = rarity;
             ItemType = itemType;
             UsableFor = usableFor;
-            SetStats(statsForQR);
+            StatsFromQR = statsFromQR;
+            Name = name;
+            Image = img;
+            SetStats(statsFromQR);
         }
 
         #endregion
@@ -91,24 +99,79 @@ namespace CraftLogs.BLL.Models
             return guid;
         }
 
-        private string GetStatsForQR()
-        {
-            return Atk + " " + Def + " " + Hp + " " + CritR + " " + Dodge;
-        }
-
         private int GetValue()
         {
-            return Tier * 15;
+            switch (Tier)
+            {
+                case 1:
+                    return 16;
+                case 2:
+                    return 50;
+                case 3:
+                    return 100;
+                default:
+                    return 0;
+            }
         }
 
-        private void SetStats(string statsForQr)
+        private string GetSimpleString()
         {
-            var array = statsForQr.Split(null);
-            Atk = int.Parse(array[0]);
-            Def = int.Parse(array[1]);
-            Hp = int.Parse(array[2]);
-            CritR = int.Parse(array[3]);
-            Dodge = int.Parse(array[4]);
+            string res = string.Format("{0} \n", Name);
+            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
+            res += string.Format("{0} \n", ItemType);
+            if (Atk != 0)
+            {
+                res += string.Format("{0} ATK ", Atk);
+            }
+            if (Def != 0)
+            {
+                res += string.Format("{0} DEF ", Def);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("{0} STM ", Stamina);
+            }
+            if (CritR != 0)
+            {
+                res += string.Format("{0} CR ", CritR);
+            }
+            if (Dodge != 0)
+            {
+                res += string.Format("{0} DDG ", Dodge);
+            }
+
+            return res;
+        }
+
+        private string GetInvString()
+        {
+            string res = string.Format("{0} \n", Name);
+            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
+            res += string.Format("{0} \n", UsableFor);
+            res += string.Format("{0} \n", ItemType);
+            res += string.Format("{0} \n", State);
+            if (Atk != 0)
+            {
+                res += string.Format("{0} ATK ", Atk);
+            }
+            if (Def != 0)
+            {
+                res += string.Format("{0} DEF ", Def);
+            }
+            if (Stamina != 0)
+            {
+                res += string.Format("{0} STM ", Stamina);
+            }
+            if (CritR != 0)
+            {
+                res += string.Format("{0} CR ", CritR);
+            }
+            if (Dodge != 0)
+            {
+                res += string.Format("{0} DDG ", Dodge);
+            }
+
+            return res;
         }
 
         #endregion
@@ -118,8 +181,23 @@ namespace CraftLogs.BLL.Models
         public override string ToString()
         {
             string res = string.Format("Neve: {0} \n", Name);
+            res += string.Format("Ritkaság: Tier {0}, {1}\n", Tier, Rarity);
+            res += string.Format("Típusa: {0} \n", ItemType);
+            res += string.Format("Kaszt: {0} \n", UsableFor);
+            res += string.Format("Statok:\n{0} ATK\n{1} DEF\n{2} STM\n{3} CR\n{4} DDG\n", Atk, Def, Stamina, CritR, Dodge);
+            res += string.Format("Értéke: {0} \n", Value);
             //TODO
             return res;
+        }
+
+        public void SetStats(string statsForQr)
+        {
+            var array = statsForQr.Split(null);
+            Atk = int.Parse(array[0]);
+            Def = int.Parse(array[1]);
+            Stamina = int.Parse(array[2]);
+            CritR = int.Parse(array[3]);
+            Dodge = int.Parse(array[4]);
         }
 
         #endregion

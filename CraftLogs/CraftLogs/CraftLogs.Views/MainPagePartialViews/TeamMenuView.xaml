@@ -5,8 +5,7 @@
              x:Class="CraftLogs.Views.TeamMenuView">
   <ContentView.Content>
       <StackLayout>
-            <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
-            <Button Text="{x:Static values:Texts.ProfilePage}" Command="{Binding NavigateToProfileCommand}" Style="{StaticResource WhiteButton}" />
+            <Button Text="-QR olvasás-"  Style="{StaticResource WhiteButton}" Command="{Binding NavigateToQRScannerPageCommand}"/>
             <Button Text="{x:Static values:Texts.InventoryPage}"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
             <Button Text="{x:Static values:Texts.LogsPage}" Command="{Binding NavigateToLogsCommand}" Style="{StaticResource WhiteButton}" />
             <Button Text="{x:Static values:Texts.TradePage}"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>

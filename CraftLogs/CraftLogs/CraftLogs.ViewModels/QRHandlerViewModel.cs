@@ -14,7 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.BLL.Services.Interfaces;
+using CraftLogs.Values;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -24,11 +31,14 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private string response;
+        private IQRService qRService;
+        private ILoggerService loggerService;
 
         #endregion
 
-        #region Public
+        #region Properties
+
+        private string response;
 
         public string Response
         {
@@ -36,15 +46,41 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref response, value); }
         }
 
+        private bool rewardIsVisible = false;
+
+        public bool RewardIsVisible
+        {
+            get { return rewardIsVisible; }
+            set { SetProperty(ref rewardIsVisible, value); }
+        }
+
+        private string rewardText;
+
+        public string RewardText
+        {
+            get { return rewardText; }
+            set { SetProperty(ref rewardText, value); }
+        }
+
+        private ObservableCollection<Item> rewards = new ObservableCollection<Item>();
+
+        public ObservableCollection<Item> Rewards
+        {
+            get { return rewards; }
+            set { SetProperty(ref rewards, value); }
+        }
+
         #endregion
 
 
         #region Ctor
 
-        public QRHandlerViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public QRHandlerViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, ILoggerService loggerservice)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = "QR Handler Page";
+            qRService = qrService;
+            loggerService = loggerservice;
         }
 
         #endregion
@@ -56,7 +92,56 @@ namespace CraftLogs.ViewModels
             base.OnNavigatingTo(parameters);
 
             var lul = parameters["res"] as string;
-            Response = lul != null ? lul : "none";
+            Response = lul ?? "none";
+            if(Response != "none")
+            {
+                HandleQR(lul);
+            }
+        }
+
+        #endregion
+
+        #region Functions
+
+        private void HandleQR(string rspns)
+        {
+            try
+            {
+                var data = qRService.HandleQR(rspns);
+
+                if (data.Type == BLL.Enums.QRTypeEnum.Reward)
+                {
+                    Title = Texts.QuestRewardTitle;
+                    QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.AdditionalData);
+                    //TODO UI
+                    var profile = DataRepository.GetTeamProfile();
+                    profile.AllExp += 1;
+                    profile.Honor += processedData.Honor;
+                    profile.Money += processedData.Money;
+                    profile.Score += processedData.Score;
+
+                    RewardText = "+1 EXP \n+" + processedData.Honor + " Honor \n+" + processedData.Money + " pénz";
+
+                    List<Item> temp = new List<Item>();
+
+                    foreach (var item in processedData?.Items)
+                    {
+                        profile.Inventory.Add(new Item(item.Tier,item.Rarity,item.ItemType,item.UsableFor,item.StatsFromQR, item.Name, item.Image));
+                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                    }
+
+                    processedData.Items = new ObservableCollection<Item>(temp);
+                    Rewards = new ObservableCollection<Item>(temp);
+                    DataRepository.SaveToFile(profile);
+                    loggerService.CreateQueustLog(processedData);
+                    RewardIsVisible = true;
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("------------" + e.ToString());
+            }
+
         }
 
         #endregion

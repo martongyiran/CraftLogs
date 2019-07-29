@@ -38,4 +38,7 @@
     <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\TeamModels\" />
+  </ItemGroup>
 </Project>
