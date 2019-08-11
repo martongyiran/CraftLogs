@@ -44,8 +44,6 @@ namespace CraftLogs.ViewModels
 
         private AppModeEnum mode;
         private bool hqMenuVisibility = false;
-        private bool shopMenuVisibility = false;
-        private bool arenaMenuVisibility = false;
 
         private NavigationParameters param = new NavigationParameters();
 
@@ -78,18 +76,6 @@ namespace CraftLogs.ViewModels
         {
             get { return hqMenuVisibility; }
             set { SetProperty(ref hqMenuVisibility, value); }
-        }
-        
-        public bool ShopMenuVisibility
-        {
-            get { return shopMenuVisibility; }
-            set { SetProperty(ref shopMenuVisibility, value); }
-        }
-
-        public bool ArenaMenuVisibility
-        {
-            get { return arenaMenuVisibility; }
-            set { SetProperty(ref arenaMenuVisibility, value); }
         }
 
         #endregion
@@ -147,6 +133,10 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
             }
+            else if (settings.AppMode == AppModeEnum.Shop)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ShopPage);
+            }
 
             Mode = settings.AppMode;
             SetUpVisibility();
@@ -173,10 +163,8 @@ namespace CraftLogs.ViewModels
                     HqMenuVisibility = false;
                     break;
                 case AppModeEnum.Shop:
-                    ShopMenuVisibility = true;
                     break;
                 case AppModeEnum.Arena:
-                    ArenaMenuVisibility = true;
                     break;
                 case AppModeEnum.Hq:
                     HqMenuVisibility = true;
@@ -189,8 +177,6 @@ namespace CraftLogs.ViewModels
         private void SetMenuVisibility(bool value)
         {
             HqMenuVisibility = value;
-            ShopMenuVisibility = value;
-            ArenaMenuVisibility = value;
         }
 
         //for testing

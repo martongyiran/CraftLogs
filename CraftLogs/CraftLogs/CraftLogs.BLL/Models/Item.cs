@@ -145,7 +145,8 @@ namespace CraftLogs.BLL.Models
 
         private string GetInvString()
         {
-            string res = string.Format("{0} \n", Name);
+            string res = string.Format("{0}$ \n", Value);
+            res += string.Format("{0} \n", Name);
             res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
             res += string.Format("{0} \n", UsableFor);
             res += string.Format("{0} \n", ItemType);

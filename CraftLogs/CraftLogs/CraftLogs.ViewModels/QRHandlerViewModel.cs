@@ -136,6 +136,38 @@ namespace CraftLogs.ViewModels
                     loggerService.CreateQueustLog(processedData);
                     RewardIsVisible = true;
                 }
+                else if(data.Type == BLL.Enums.QRTypeEnum.ShopList)
+                {
+                    Title = Texts.ShopListOkTitle;
+                    ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.AdditionalData);
+                    var profile = DataRepository.GetTeamProfile();
+                    if(profile.Money >= processedData.Money)
+                    {
+                        profile.Money -= processedData.Money;
+
+                        RewardText = "-" + processedData.Money + "$";
+
+                        List<Item> temp = new List<Item>();
+
+                        foreach (var item in processedData?.Items)
+                        {
+                            profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                            temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                        }
+
+                        processedData.Items = new ObservableCollection<Item>(temp);
+                        Rewards = new ObservableCollection<Item>(temp);
+                        DataRepository.SaveToFile(profile);
+                        loggerService.CreateBuyLog(processedData);
+                    }
+                    else
+                    {
+                        Title = Texts.ShopListNotOkTitle;
+                        RewardText = Texts.NotEnoughMoney;
+                    }
+                    
+                    RewardIsVisible = true;
+                }
             }
             catch(Exception e)
             {

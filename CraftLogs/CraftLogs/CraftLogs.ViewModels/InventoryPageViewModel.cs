@@ -62,14 +62,34 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref selectedItems, value); }
         }
 
-        public List<ItemTypeEnum> PickerValues { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
+        public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
 
-        private ItemTypeEnum selectedItem;
+        private ItemTypeEnum selectedItemType;
 
-        public ItemTypeEnum SelectedItem
+        public ItemTypeEnum SelectedItemType
         {
-            get { return selectedItem; }
-            set { SetProperty(ref selectedItem, value); FilterList(); }
+            get { return selectedItemType; }
+            set { SetProperty(ref selectedItemType, value); FilterList(); }
+        }
+
+        public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
+
+        private CharacterClassEnum selectedItemClass;
+
+        public CharacterClassEnum SelectedItemClass
+        {
+            get { return selectedItemClass; }
+            set { SetProperty(ref selectedItemClass, value); FilterList(); }
+        }
+
+        public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
+
+        private int selectedItemTier;
+
+        public int SelectedItemTier
+        {
+            get { return selectedItemTier; }
+            set { SetProperty(ref selectedItemTier, value); FilterList(); }
         }
 
         private Item activeItem;
@@ -97,6 +117,9 @@ namespace CraftLogs.ViewModels
             base.OnNavigatedTo(parameters);
 
             Init();
+            SelectedItemType = ItemTypeEnum.All;
+            SelectedItemClass = DataRepository.GetTeamProfile().Cast;
+            SelectedItemTier = 1;
         }
 
         #endregion
@@ -106,19 +129,23 @@ namespace CraftLogs.ViewModels
         private void Init()
         {
             AllItems = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory);
-            SelectedItem = ItemTypeEnum.All;
+            FilterList();
         }
 
         private void FilterList()
         {
-            if (SelectedItem == ItemTypeEnum.All)
+            if (SelectedItemType == ItemTypeEnum.All)
             {
                 SelectedItems = new ObservableCollection<Item>(AllItems);
             }
             else
             {
-                SelectedItems = new ObservableCollection<Item>(AllItems.Where((arg) => arg.ItemType == SelectedItem).ToList());
+                SelectedItems = new ObservableCollection<Item>(AllItems.Where((arg) => arg.ItemType == SelectedItemType).ToList());
             }
+
+            SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.UsableFor == SelectedItemClass).ToList());
+
+            SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.Tier == SelectedItemTier).ToList());
 
             NoItem = SelectedItems.Count == 0;
         }

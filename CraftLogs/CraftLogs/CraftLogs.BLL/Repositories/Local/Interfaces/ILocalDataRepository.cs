@@ -101,6 +101,28 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes TeamProfile file.
         /// </summary>
         void DeleteTeamProfile();
+
+        /// <summary>
+        /// Creates a ShopProfile file.
+        /// </summary>
+        void CreateShopProfile();
+
+        /// <summary>
+        /// Returns the ShopProfile.
+        /// </summary>
+        /// <returns></returns>
+        ShopProfile GetShopProfile();
+
+        /// <summary>
+        /// Checks if ShopProfile exist.
+        /// </summary>
+        /// <returns></returns>
+        bool IsShopProfileExist();
+
+        /// <summary>
+        /// Deletes ShopProfile file.
+        /// </summary>
+        void DeleteShopProfile();
         //TODO: Profile, Inventory, Items?? etc.
     }
 }

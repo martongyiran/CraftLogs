@@ -109,7 +109,7 @@ namespace CraftLogs.ViewModels
                     await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
                     break;
                 case AppModeEnum.Shop:
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    await NavigateToWithoutHistory(NavigationLinks.ShopPage);
                     break;
                 case AppModeEnum.Arena:
                     await NavigateToWithoutHistory(NavigationLinks.MainPage);

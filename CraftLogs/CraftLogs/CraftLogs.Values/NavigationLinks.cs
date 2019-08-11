@@ -30,5 +30,6 @@ namespace CraftLogs.Values
         public const string RegisterPage = "RegisterPage";
         public const string RatingPage = "RatingPage";
         public const string InventoryPage = "InventoryPage";
+        public const string ShopPage = "ShopPage";
     }
 }

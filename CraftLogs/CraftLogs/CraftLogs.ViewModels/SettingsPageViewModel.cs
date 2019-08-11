@@ -199,6 +199,7 @@ namespace CraftLogs.ViewModels
                 SetUp();
                 DataRepository.DeleteQuestProfile();
                 DataRepository.DeleteTeamProfile();
+                DataRepository.DeleteShopProfile();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }

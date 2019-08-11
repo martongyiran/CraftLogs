@@ -54,7 +54,18 @@
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="Margin" Value="5" />
             </Style>
-            
+
+            <Style x:Key="SmallWhiteButton"  TargetType="Button">
+                <Setter Property="BorderColor" Value="LightGray" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 

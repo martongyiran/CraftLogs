@@ -16,8 +16,6 @@
         <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
             <StackLayout>
                 <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
-                <views:ShopMenuView IsVisible="{Binding ShopMenuVisibility}" />
-                <views:ArenaMenuView IsVisible="{Binding ArenaMenuVisibility}" />
             </StackLayout>
         </ScrollView>
 

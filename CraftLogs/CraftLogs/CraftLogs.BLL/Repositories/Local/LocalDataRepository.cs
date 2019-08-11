@@ -86,6 +86,10 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.TeamProfile;
             }
+            else if (typeof(ShopProfile) == data.GetType())
+            {
+                fileName = FileNames.ShopProfile;
+            }
             else
             {
                 throw new NotImplementedException("Can't save " + data.GetType().ToString() + "type objects to file.");
@@ -202,6 +206,40 @@ namespace CraftLogs.BLL.Repositories.Local
                 DeleteFile(FileNames.TeamProfile);
             }
         }
+
+        #region Shop
+
+        public void CreateShopProfile()
+        {
+            if (!dataService.IsFileExist(FileNames.ShopProfile))
+            {
+                ShopProfile profile = new ShopProfile();
+                dataService.CreateFile(FileNames.ShopProfile);
+                SaveToFile(profile);
+            }
+        }
+
+        public ShopProfile GetShopProfile()
+        {
+            var profile = GetFile<ShopProfile>(FileNames.ShopProfile);
+            profile.Init();
+            return profile;
+        }
+
+        public bool IsShopProfileExist()
+        {
+            return dataService.IsFileExist(FileNames.ShopProfile);
+        }
+
+        public void DeleteShopProfile()
+        {
+            if (dataService.IsFileExist(FileNames.ShopProfile))
+            {
+                DeleteFile(FileNames.ShopProfile);
+            }
+        }
+
+        #endregion
 
         #endregion
 

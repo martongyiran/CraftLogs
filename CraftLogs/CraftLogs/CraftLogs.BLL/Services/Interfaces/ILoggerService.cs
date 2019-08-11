@@ -29,7 +29,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <summary> 
         /// Create a BuyLog type log entry.
         /// </summary>
-        void CreateBuyLog(int value, List<Item> items);
+        void CreateBuyLog(ShopResponse shopList);
 
         /// <summary> 
         /// Create a SellLog type log entry.

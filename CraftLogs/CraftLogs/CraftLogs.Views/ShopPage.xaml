@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CraftLogs.Views.ShopPage"
+             BackgroundColor="{StaticResource BackgroundColorLight}" 
+             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}"/>
+        <views:BindableToolbarItem Icon="@drawable/ic_reloadWhite.png" Command="{Binding RefreshCommand}"/>
+        <views:BindableToolbarItem Icon="@drawable/ic_shop_white.png" Clicked="BindableToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <StackLayout x:Name="pickers" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" VerticalOptions="CenterAndExpand" IsVisible="True">
+                <Picker ItemsSource="{Binding Picker1Values}" SelectedItem="{Binding SelectedItemType, Mode=TwoWay}" FontSize="16" TextColor="White" BackgroundColor="{StaticResource ColorPrimary}" HorizontalOptions="FillAndExpand"/>
+                <Picker ItemsSource="{Binding Picker2Values}" SelectedItem="{Binding SelectedItemClass, Mode=TwoWay}" FontSize="16" TextColor="White" BackgroundColor="{StaticResource ColorPrimary}" HorizontalOptions="FillAndExpand"/>
+                <Picker ItemsSource="{Binding Picker3Values}" SelectedItem="{Binding SelectedItemTier, Mode=TwoWay}" FontSize="16" TextColor="White" BackgroundColor="{StaticResource ColorPrimary}" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <ListView x:Name="shop" ItemsSource="{Binding SelectedItems}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="1" CachingStrategy="RecycleElement" ItemTapped="Handle_ItemTapped" IsVisible="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
+                            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" Padding="1">
+                                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Image}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" Grid.Column="0" />
+                                    <Label Text="{Binding InvString}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+                                </Grid>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ContentView Grid.Row="0" Grid.RowSpan="2" x:Name="popupView" BackgroundColor="#F2FFFFFF" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="False">
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Button Text="{x:Static values:Texts.Buy}" Font="20" TextColor="Black" Clicked="Buy_Clicked" Style="{StaticResource WhiteButton}" />
+                    <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="Handle_Clicked" Style="{StaticResource WhiteButton}" />
+                </StackLayout>
+            </ContentView>
+
+            <StackLayout Grid.Row="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Text="{Binding NextRefresh}" FontSize="15" TextColor="Black" Margin="5"/>
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding CartValue}" FontSize="16" TextColor="Black" Margin="5" />
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
+            </StackLayout>
+            
+            <StackLayout x:Name="cartMenu" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" VerticalOptions="CenterAndExpand" IsVisible="False">
+                <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="BindableToolbarItem_Clicked" Style="{StaticResource SmallWhiteButton}" />
+                <Button Text="{x:Static values:Texts.EmptyCart}" Font="20" TextColor="Black" Clicked="EmptyButton_Clicked" Style="{StaticResource SmallWhiteButton}" />
+                <Button Text="{x:Static values:Texts.Checkout}" Font="20" TextColor="Black" Clicked="CheckOutButton_Clicked" Style="{StaticResource SmallWhiteButton}" />
+            </StackLayout>
+            <ListView x:Name="cartList" ItemsSource="{Binding ShoppingCart}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="1" CachingStrategy="RecycleElement" IsVisible="False" ItemTapped="CartList_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
+                            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" Padding="1">
+                                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Image}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" Grid.Column="0" />
+                                    <Label Text="{Binding InvString}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+                                </Grid>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

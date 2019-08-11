@@ -38,6 +38,12 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
+            else if (typeof(ShopResponse) == data.GetType())
+            {
+                QRResponse<ShopResponse> response = new QRResponse<ShopResponse>(QRTypeEnum.ShopList, JsonConvert.SerializeObject(data));
+
+                return JsonConvert.SerializeObject(response);
+            }
 
             return "";
         }

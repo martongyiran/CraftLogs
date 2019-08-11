@@ -46,14 +46,10 @@ namespace CraftLogs.BLL.Services
             dataRepository.SaveToFile(logs);
         }
 
-        public void CreateBuyLog(int value, List<Item> items)
+        public void CreateBuyLog(ShopResponse shopList)
         {
             var logs = dataRepository.GetLogs();
-            string logText = value +"\n";
-            foreach(var item in items)
-            {
-                logText += item.ToString() + "\n";
-            }
+            string logText = shopList.ToString();
             Log newLog = new Log(LogTypeEnum.Buy, logText);
             logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);

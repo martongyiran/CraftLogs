@@ -221,6 +221,28 @@ namespace CraftLogs.Values
 
         public const string QuestRewardTitle = "Loot";
 
+        public const string ShopListOkTitle = "Sikeres vásárlás!";
+
+        public const string ShopListNotOkTitle = "Sikertelen vásárlás!";
+
+        public const string NotEnoughMoney = "Nem volt elég pénzed a vásárlásra... Én szóltam előre, hogy nézd meg van e elég. uwu";
+
+        #endregion
+
+        #region Shop
+
+        public const string ShopPageTitle = "Tesco";
+
+        public const string Buy = "Kosárba";
+
+        public const string Checkout = "Vásárlás";
+
+        public const string EmptyCart = "Kosár ürítés";
+
+        public const string CheckoutQuestion = "Megveszed az alábbi tárgyakat? Ellenőrizd, hogy van e elég pénzed!";
+
+        public const string ItemLimit = "Maximum 5 tárgyat vehetsz egyszerre!";
+
         #endregion
 
     }
