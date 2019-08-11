@@ -62,7 +62,7 @@
                     <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}" IsVisible="{Binding IsNpc}"/>
                     <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
                     <Button Text="{x:Static values:Texts.GetAvgText}" Style="{StaticResource WhiteButton}" Command="{Binding GetAvgCommand}" IsVisible="{Binding AvgVisibility}"/>
-
+                    <!--<Button Text="TÁMOGA$$!!!" Style="{StaticResource WhiteButton}" Command="{Binding SupportCommand}" BackgroundColor="{StaticResource ColorDark}" TextColor="White"/>-->
                 </StackLayout>
             </views:CardView>
         </ScrollView>

@@ -4064,26 +4064,26 @@ namespace CraftLogs.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020168
-			public const int avd_hide_password_1 = 2130837864;
+			// aapt resource value: 0x7f0201d7
+			public const int avd_hide_password_1 = 2130837975;
 			
-			// aapt resource value: 0x7f020169
-			public const int avd_hide_password_2 = 2130837865;
+			// aapt resource value: 0x7f0201d8
+			public const int avd_hide_password_2 = 2130837976;
 			
-			// aapt resource value: 0x7f02016a
-			public const int avd_hide_password_3 = 2130837866;
+			// aapt resource value: 0x7f0201d9
+			public const int avd_hide_password_3 = 2130837977;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f02016b
-			public const int avd_show_password_1 = 2130837867;
+			// aapt resource value: 0x7f0201da
+			public const int avd_show_password_1 = 2130837978;
 			
-			// aapt resource value: 0x7f02016c
-			public const int avd_show_password_2 = 2130837868;
+			// aapt resource value: 0x7f0201db
+			public const int avd_show_password_2 = 2130837979;
 			
-			// aapt resource value: 0x7f02016d
-			public const int avd_show_password_3 = 2130837869;
+			// aapt resource value: 0x7f0201dc
+			public const int avd_show_password_3 = 2130837980;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -4776,139 +4776,472 @@ namespace CraftLogs.Droid
 			public const int mage_armor_1 = 2130837818;
 			
 			// aapt resource value: 0x7f02013b
-			public const int mage_weapon_1 = 2130837819;
+			public const int mage_armor_10 = 2130837819;
 			
 			// aapt resource value: 0x7f02013c
-			public const int mr_button_connected_dark = 2130837820;
+			public const int mage_armor_11 = 2130837820;
 			
 			// aapt resource value: 0x7f02013d
-			public const int mr_button_connected_light = 2130837821;
+			public const int mage_armor_12 = 2130837821;
 			
 			// aapt resource value: 0x7f02013e
-			public const int mr_button_connecting_dark = 2130837822;
+			public const int mage_armor_13 = 2130837822;
 			
 			// aapt resource value: 0x7f02013f
-			public const int mr_button_connecting_light = 2130837823;
+			public const int mage_armor_14 = 2130837823;
 			
 			// aapt resource value: 0x7f020140
-			public const int mr_button_dark = 2130837824;
+			public const int mage_armor_15 = 2130837824;
 			
 			// aapt resource value: 0x7f020141
-			public const int mr_button_light = 2130837825;
+			public const int mage_armor_2 = 2130837825;
 			
 			// aapt resource value: 0x7f020142
-			public const int mr_dialog_close_dark = 2130837826;
+			public const int mage_armor_3 = 2130837826;
 			
 			// aapt resource value: 0x7f020143
-			public const int mr_dialog_close_light = 2130837827;
+			public const int mage_armor_4 = 2130837827;
 			
 			// aapt resource value: 0x7f020144
-			public const int mr_dialog_material_background_dark = 2130837828;
+			public const int mage_armor_5 = 2130837828;
 			
 			// aapt resource value: 0x7f020145
-			public const int mr_dialog_material_background_light = 2130837829;
+			public const int mage_armor_6 = 2130837829;
 			
 			// aapt resource value: 0x7f020146
-			public const int mr_group_collapse = 2130837830;
+			public const int mage_armor_7 = 2130837830;
 			
 			// aapt resource value: 0x7f020147
-			public const int mr_group_expand = 2130837831;
+			public const int mage_armor_8 = 2130837831;
 			
 			// aapt resource value: 0x7f020148
-			public const int mr_media_pause_dark = 2130837832;
+			public const int mage_armor_9 = 2130837832;
 			
 			// aapt resource value: 0x7f020149
-			public const int mr_media_pause_light = 2130837833;
+			public const int mage_weapon_1 = 2130837833;
 			
 			// aapt resource value: 0x7f02014a
-			public const int mr_media_play_dark = 2130837834;
+			public const int mage_weapon_10 = 2130837834;
 			
 			// aapt resource value: 0x7f02014b
-			public const int mr_media_play_light = 2130837835;
+			public const int mage_weapon_11 = 2130837835;
 			
 			// aapt resource value: 0x7f02014c
-			public const int mr_media_stop_dark = 2130837836;
+			public const int mage_weapon_12 = 2130837836;
 			
 			// aapt resource value: 0x7f02014d
-			public const int mr_media_stop_light = 2130837837;
+			public const int mage_weapon_13 = 2130837837;
 			
 			// aapt resource value: 0x7f02014e
-			public const int mr_vol_type_audiotrack_dark = 2130837838;
+			public const int mage_weapon_14 = 2130837838;
 			
 			// aapt resource value: 0x7f02014f
-			public const int mr_vol_type_audiotrack_light = 2130837839;
+			public const int mage_weapon_15 = 2130837839;
 			
 			// aapt resource value: 0x7f020150
-			public const int navigation_empty_icon = 2130837840;
+			public const int mage_weapon_2 = 2130837840;
 			
 			// aapt resource value: 0x7f020151
-			public const int neck_1 = 2130837841;
+			public const int mage_weapon_3 = 2130837841;
 			
 			// aapt resource value: 0x7f020152
-			public const int neck_2 = 2130837842;
+			public const int mage_weapon_4 = 2130837842;
 			
 			// aapt resource value: 0x7f020153
-			public const int neck_3 = 2130837843;
+			public const int mage_weapon_5 = 2130837843;
 			
 			// aapt resource value: 0x7f020154
-			public const int notification_action_background = 2130837844;
+			public const int mage_weapon_6 = 2130837844;
 			
 			// aapt resource value: 0x7f020155
-			public const int notification_bg = 2130837845;
+			public const int mage_weapon_7 = 2130837845;
 			
 			// aapt resource value: 0x7f020156
-			public const int notification_bg_low = 2130837846;
+			public const int mage_weapon_8 = 2130837846;
 			
 			// aapt resource value: 0x7f020157
-			public const int notification_bg_low_normal = 2130837847;
+			public const int mage_weapon_9 = 2130837847;
 			
 			// aapt resource value: 0x7f020158
-			public const int notification_bg_low_pressed = 2130837848;
+			public const int mr_button_connected_dark = 2130837848;
 			
 			// aapt resource value: 0x7f020159
-			public const int notification_bg_normal = 2130837849;
+			public const int mr_button_connected_light = 2130837849;
 			
 			// aapt resource value: 0x7f02015a
-			public const int notification_bg_normal_pressed = 2130837850;
+			public const int mr_button_connecting_dark = 2130837850;
 			
 			// aapt resource value: 0x7f02015b
-			public const int notification_icon_background = 2130837851;
-			
-			// aapt resource value: 0x7f020166
-			public const int notification_template_icon_bg = 2130837862;
-			
-			// aapt resource value: 0x7f020167
-			public const int notification_template_icon_low_bg = 2130837863;
+			public const int mr_button_connecting_light = 2130837851;
 			
 			// aapt resource value: 0x7f02015c
-			public const int notification_tile_bg = 2130837852;
+			public const int mr_button_dark = 2130837852;
 			
 			// aapt resource value: 0x7f02015d
-			public const int notify_panel_notification_icon_bg = 2130837853;
+			public const int mr_button_light = 2130837853;
 			
 			// aapt resource value: 0x7f02015e
-			public const int ring_1 = 2130837854;
+			public const int mr_dialog_close_dark = 2130837854;
 			
 			// aapt resource value: 0x7f02015f
-			public const int ring_2 = 2130837855;
+			public const int mr_dialog_close_light = 2130837855;
 			
 			// aapt resource value: 0x7f020160
-			public const int ring_3 = 2130837856;
+			public const int mr_dialog_material_background_dark = 2130837856;
 			
 			// aapt resource value: 0x7f020161
-			public const int rogue_armor_1 = 2130837857;
+			public const int mr_dialog_material_background_light = 2130837857;
 			
 			// aapt resource value: 0x7f020162
-			public const int rogue_weapon_1 = 2130837858;
+			public const int mr_group_collapse = 2130837858;
 			
 			// aapt resource value: 0x7f020163
-			public const int splashScreen = 2130837859;
+			public const int mr_group_expand = 2130837859;
 			
 			// aapt resource value: 0x7f020164
-			public const int warrior_armor_1 = 2130837860;
+			public const int mr_media_pause_dark = 2130837860;
 			
 			// aapt resource value: 0x7f020165
-			public const int warrior_weapon_1 = 2130837861;
+			public const int mr_media_pause_light = 2130837861;
+			
+			// aapt resource value: 0x7f020166
+			public const int mr_media_play_dark = 2130837862;
+			
+			// aapt resource value: 0x7f020167
+			public const int mr_media_play_light = 2130837863;
+			
+			// aapt resource value: 0x7f020168
+			public const int mr_media_stop_dark = 2130837864;
+			
+			// aapt resource value: 0x7f020169
+			public const int mr_media_stop_light = 2130837865;
+			
+			// aapt resource value: 0x7f02016a
+			public const int mr_vol_type_audiotrack_dark = 2130837866;
+			
+			// aapt resource value: 0x7f02016b
+			public const int mr_vol_type_audiotrack_light = 2130837867;
+			
+			// aapt resource value: 0x7f02016c
+			public const int navigation_empty_icon = 2130837868;
+			
+			// aapt resource value: 0x7f02016d
+			public const int neck_1 = 2130837869;
+			
+			// aapt resource value: 0x7f02016e
+			public const int neck_10 = 2130837870;
+			
+			// aapt resource value: 0x7f02016f
+			public const int neck_11 = 2130837871;
+			
+			// aapt resource value: 0x7f020170
+			public const int neck_12 = 2130837872;
+			
+			// aapt resource value: 0x7f020171
+			public const int neck_13 = 2130837873;
+			
+			// aapt resource value: 0x7f020172
+			public const int neck_14 = 2130837874;
+			
+			// aapt resource value: 0x7f020173
+			public const int neck_15 = 2130837875;
+			
+			// aapt resource value: 0x7f020174
+			public const int neck_16 = 2130837876;
+			
+			// aapt resource value: 0x7f020175
+			public const int neck_17 = 2130837877;
+			
+			// aapt resource value: 0x7f020176
+			public const int neck_18 = 2130837878;
+			
+			// aapt resource value: 0x7f020177
+			public const int neck_2 = 2130837879;
+			
+			// aapt resource value: 0x7f020178
+			public const int neck_3 = 2130837880;
+			
+			// aapt resource value: 0x7f020179
+			public const int neck_4 = 2130837881;
+			
+			// aapt resource value: 0x7f02017a
+			public const int neck_5 = 2130837882;
+			
+			// aapt resource value: 0x7f02017b
+			public const int neck_6 = 2130837883;
+			
+			// aapt resource value: 0x7f02017c
+			public const int neck_7 = 2130837884;
+			
+			// aapt resource value: 0x7f02017d
+			public const int neck_8 = 2130837885;
+			
+			// aapt resource value: 0x7f02017e
+			public const int neck_9 = 2130837886;
+			
+			// aapt resource value: 0x7f02017f
+			public const int notification_action_background = 2130837887;
+			
+			// aapt resource value: 0x7f020180
+			public const int notification_bg = 2130837888;
+			
+			// aapt resource value: 0x7f020181
+			public const int notification_bg_low = 2130837889;
+			
+			// aapt resource value: 0x7f020182
+			public const int notification_bg_low_normal = 2130837890;
+			
+			// aapt resource value: 0x7f020183
+			public const int notification_bg_low_pressed = 2130837891;
+			
+			// aapt resource value: 0x7f020184
+			public const int notification_bg_normal = 2130837892;
+			
+			// aapt resource value: 0x7f020185
+			public const int notification_bg_normal_pressed = 2130837893;
+			
+			// aapt resource value: 0x7f020186
+			public const int notification_icon_background = 2130837894;
+			
+			// aapt resource value: 0x7f0201d5
+			public const int notification_template_icon_bg = 2130837973;
+			
+			// aapt resource value: 0x7f0201d6
+			public const int notification_template_icon_low_bg = 2130837974;
+			
+			// aapt resource value: 0x7f020187
+			public const int notification_tile_bg = 2130837895;
+			
+			// aapt resource value: 0x7f020188
+			public const int notify_panel_notification_icon_bg = 2130837896;
+			
+			// aapt resource value: 0x7f020189
+			public const int ring_1 = 2130837897;
+			
+			// aapt resource value: 0x7f02018a
+			public const int ring_10 = 2130837898;
+			
+			// aapt resource value: 0x7f02018b
+			public const int ring_11 = 2130837899;
+			
+			// aapt resource value: 0x7f02018c
+			public const int ring_12 = 2130837900;
+			
+			// aapt resource value: 0x7f02018d
+			public const int ring_13 = 2130837901;
+			
+			// aapt resource value: 0x7f02018e
+			public const int ring_14 = 2130837902;
+			
+			// aapt resource value: 0x7f02018f
+			public const int ring_15 = 2130837903;
+			
+			// aapt resource value: 0x7f020190
+			public const int ring_2 = 2130837904;
+			
+			// aapt resource value: 0x7f020191
+			public const int ring_3 = 2130837905;
+			
+			// aapt resource value: 0x7f020192
+			public const int ring_4 = 2130837906;
+			
+			// aapt resource value: 0x7f020193
+			public const int ring_5 = 2130837907;
+			
+			// aapt resource value: 0x7f020194
+			public const int ring_6 = 2130837908;
+			
+			// aapt resource value: 0x7f020195
+			public const int ring_7 = 2130837909;
+			
+			// aapt resource value: 0x7f020196
+			public const int ring_8 = 2130837910;
+			
+			// aapt resource value: 0x7f020197
+			public const int ring_9 = 2130837911;
+			
+			// aapt resource value: 0x7f020198
+			public const int rogue_armor_1 = 2130837912;
+			
+			// aapt resource value: 0x7f020199
+			public const int rogue_armor_10 = 2130837913;
+			
+			// aapt resource value: 0x7f02019a
+			public const int rogue_armor_11 = 2130837914;
+			
+			// aapt resource value: 0x7f02019b
+			public const int rogue_armor_12 = 2130837915;
+			
+			// aapt resource value: 0x7f02019c
+			public const int rogue_armor_13 = 2130837916;
+			
+			// aapt resource value: 0x7f02019d
+			public const int rogue_armor_14 = 2130837917;
+			
+			// aapt resource value: 0x7f02019e
+			public const int rogue_armor_15 = 2130837918;
+			
+			// aapt resource value: 0x7f02019f
+			public const int rogue_armor_2 = 2130837919;
+			
+			// aapt resource value: 0x7f0201a0
+			public const int rogue_armor_3 = 2130837920;
+			
+			// aapt resource value: 0x7f0201a1
+			public const int rogue_armor_4 = 2130837921;
+			
+			// aapt resource value: 0x7f0201a2
+			public const int rogue_armor_5 = 2130837922;
+			
+			// aapt resource value: 0x7f0201a3
+			public const int rogue_armor_6 = 2130837923;
+			
+			// aapt resource value: 0x7f0201a4
+			public const int rogue_armor_7 = 2130837924;
+			
+			// aapt resource value: 0x7f0201a5
+			public const int rogue_armor_8 = 2130837925;
+			
+			// aapt resource value: 0x7f0201a6
+			public const int rogue_armor_9 = 2130837926;
+			
+			// aapt resource value: 0x7f0201a7
+			public const int rogue_weapon_1 = 2130837927;
+			
+			// aapt resource value: 0x7f0201a8
+			public const int rogue_weapon_10 = 2130837928;
+			
+			// aapt resource value: 0x7f0201a9
+			public const int rogue_weapon_11 = 2130837929;
+			
+			// aapt resource value: 0x7f0201aa
+			public const int rogue_weapon_12 = 2130837930;
+			
+			// aapt resource value: 0x7f0201ab
+			public const int rogue_weapon_13 = 2130837931;
+			
+			// aapt resource value: 0x7f0201ac
+			public const int rogue_weapon_14 = 2130837932;
+			
+			// aapt resource value: 0x7f0201ad
+			public const int rogue_weapon_15 = 2130837933;
+			
+			// aapt resource value: 0x7f0201ae
+			public const int rogue_weapon_2 = 2130837934;
+			
+			// aapt resource value: 0x7f0201af
+			public const int rogue_weapon_3 = 2130837935;
+			
+			// aapt resource value: 0x7f0201b0
+			public const int rogue_weapon_4 = 2130837936;
+			
+			// aapt resource value: 0x7f0201b1
+			public const int rogue_weapon_5 = 2130837937;
+			
+			// aapt resource value: 0x7f0201b2
+			public const int rogue_weapon_6 = 2130837938;
+			
+			// aapt resource value: 0x7f0201b3
+			public const int rogue_weapon_7 = 2130837939;
+			
+			// aapt resource value: 0x7f0201b4
+			public const int rogue_weapon_8 = 2130837940;
+			
+			// aapt resource value: 0x7f0201b5
+			public const int rogue_weapon_9 = 2130837941;
+			
+			// aapt resource value: 0x7f0201b6
+			public const int splashScreen = 2130837942;
+			
+			// aapt resource value: 0x7f0201b7
+			public const int warrior_armor_1 = 2130837943;
+			
+			// aapt resource value: 0x7f0201b8
+			public const int warrior_armor_10 = 2130837944;
+			
+			// aapt resource value: 0x7f0201b9
+			public const int warrior_armor_11 = 2130837945;
+			
+			// aapt resource value: 0x7f0201ba
+			public const int warrior_armor_12 = 2130837946;
+			
+			// aapt resource value: 0x7f0201bb
+			public const int warrior_armor_13 = 2130837947;
+			
+			// aapt resource value: 0x7f0201bc
+			public const int warrior_armor_14 = 2130837948;
+			
+			// aapt resource value: 0x7f0201bd
+			public const int warrior_armor_15 = 2130837949;
+			
+			// aapt resource value: 0x7f0201be
+			public const int warrior_armor_2 = 2130837950;
+			
+			// aapt resource value: 0x7f0201bf
+			public const int warrior_armor_3 = 2130837951;
+			
+			// aapt resource value: 0x7f0201c0
+			public const int warrior_armor_4 = 2130837952;
+			
+			// aapt resource value: 0x7f0201c1
+			public const int warrior_armor_5 = 2130837953;
+			
+			// aapt resource value: 0x7f0201c2
+			public const int warrior_armor_6 = 2130837954;
+			
+			// aapt resource value: 0x7f0201c3
+			public const int warrior_armor_7 = 2130837955;
+			
+			// aapt resource value: 0x7f0201c4
+			public const int warrior_armor_8 = 2130837956;
+			
+			// aapt resource value: 0x7f0201c5
+			public const int warrior_armor_9 = 2130837957;
+			
+			// aapt resource value: 0x7f0201c6
+			public const int warrior_weapon_1 = 2130837958;
+			
+			// aapt resource value: 0x7f0201c7
+			public const int warrior_weapon_10 = 2130837959;
+			
+			// aapt resource value: 0x7f0201c8
+			public const int warrior_weapon_11 = 2130837960;
+			
+			// aapt resource value: 0x7f0201c9
+			public const int warrior_weapon_12 = 2130837961;
+			
+			// aapt resource value: 0x7f0201ca
+			public const int warrior_weapon_13 = 2130837962;
+			
+			// aapt resource value: 0x7f0201cb
+			public const int warrior_weapon_14 = 2130837963;
+			
+			// aapt resource value: 0x7f0201cc
+			public const int warrior_weapon_15 = 2130837964;
+			
+			// aapt resource value: 0x7f0201cd
+			public const int warrior_weapon_2 = 2130837965;
+			
+			// aapt resource value: 0x7f0201ce
+			public const int warrior_weapon_3 = 2130837966;
+			
+			// aapt resource value: 0x7f0201cf
+			public const int warrior_weapon_4 = 2130837967;
+			
+			// aapt resource value: 0x7f0201d0
+			public const int warrior_weapon_5 = 2130837968;
+			
+			// aapt resource value: 0x7f0201d1
+			public const int warrior_weapon_6 = 2130837969;
+			
+			// aapt resource value: 0x7f0201d2
+			public const int warrior_weapon_7 = 2130837970;
+			
+			// aapt resource value: 0x7f0201d3
+			public const int warrior_weapon_8 = 2130837971;
+			
+			// aapt resource value: 0x7f0201d4
+			public const int warrior_weapon_9 = 2130837972;
 			
 			static Drawable()
 			{

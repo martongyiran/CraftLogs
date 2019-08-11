@@ -24,6 +24,7 @@ using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+//using Xamarin.Essentials;
 
 namespace CraftLogs.ViewModels
 {
@@ -37,6 +38,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand resetSettingsCommand;
         private DelegateCommand deleteProfileCommand;
         private DelegateCommand getAvgCommand;
+        private DelegateCommand supportCommand;
 
         #endregion
 
@@ -46,9 +48,10 @@ namespace CraftLogs.ViewModels
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
         public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand SupportCommand => supportCommand ?? (supportCommand = new DelegateCommand(async () => await GoToSupport(), CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
-        
+
         #region Ctor
 
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
@@ -213,7 +216,15 @@ namespace CraftLogs.ViewModels
             param.Add("code", qrCode);
             await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
         }
-        
+
+        private async Task GoToSupport()
+        {
+            IsBusy = true;
+            
+            //await Browser.OpenAsync("https://www.paypal.me/CHlGGA");
+            IsBusy = false;
+        }
+
         #endregion
 
 
