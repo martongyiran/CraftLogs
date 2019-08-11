@@ -7,9 +7,9 @@
              xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}"/>
-        <views:BindableToolbarItem Icon="@drawable/ic_reloadWhite.png" Command="{Binding RefreshCommand}"/>
-        <views:BindableToolbarItem Icon="@drawable/ic_shop_white.png" Clicked="BindableToolbarItem_Clicked"/>
+        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" x:Name="settingsIcon"/>
+        <views:BindableToolbarItem Icon="@drawable/ic_reloadWhite.png" Command="{Binding RefreshCommand}" x:Name="reloadIcon"/>
+        <views:BindableToolbarItem Icon="@drawable/ic_shop_white.png" Clicked="BindableToolbarItem_Clicked" x:Name="buyitIcon"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

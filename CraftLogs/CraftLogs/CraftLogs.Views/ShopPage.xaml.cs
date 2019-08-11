@@ -14,6 +14,9 @@ namespace CraftLogs.Views
 
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
+            settingsIcon.IsVisible = !settingsIcon.IsVisible;
+            reloadIcon.IsVisible = !reloadIcon.IsVisible;
+            buyitIcon.IsVisible = !buyitIcon.IsVisible;
             popupView.IsVisible = true;
             if (!(BindingContext is ShopPageViewModel viewModel))
                 return;
@@ -28,11 +31,17 @@ namespace CraftLogs.Views
                 return;
 
             viewModel.BuyTappedCommand.Execute();
+            settingsIcon.IsVisible = !settingsIcon.IsVisible;
+            reloadIcon.IsVisible = !reloadIcon.IsVisible;
+            buyitIcon.IsVisible = !buyitIcon.IsVisible;
             popupView.IsVisible = false;
         }
 
         private void Handle_Clicked(object sender, System.EventArgs e)
         {
+            settingsIcon.IsVisible = !settingsIcon.IsVisible;
+            reloadIcon.IsVisible = !reloadIcon.IsVisible;
+            buyitIcon.IsVisible = !buyitIcon.IsVisible;
             popupView.IsVisible = false;
         }
 
@@ -42,6 +51,9 @@ namespace CraftLogs.Views
             shop.IsVisible = !shop.IsVisible;
             cartMenu.IsVisible = !cartMenu.IsVisible;
             cartList.IsVisible = !cartList.IsVisible;
+            settingsIcon.IsVisible = !settingsIcon.IsVisible;
+            reloadIcon.IsVisible = !reloadIcon.IsVisible;
+            buyitIcon.IsVisible = !buyitIcon.IsVisible;
         }
 
         private void CartList_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -61,6 +73,9 @@ namespace CraftLogs.Views
             shop.IsVisible = !shop.IsVisible;
             cartMenu.IsVisible = !cartMenu.IsVisible;
             cartList.IsVisible = !cartList.IsVisible;
+            settingsIcon.IsVisible = !settingsIcon.IsVisible;
+            reloadIcon.IsVisible = !reloadIcon.IsVisible;
+            buyitIcon.IsVisible = !buyitIcon.IsVisible;
 
             viewModel.EmptyTappedCommand.Execute();
         }

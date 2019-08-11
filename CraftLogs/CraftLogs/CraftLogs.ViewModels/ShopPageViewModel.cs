@@ -257,11 +257,13 @@ namespace CraftLogs.ViewModels
             SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.Tier == SelectedItemTier).ToList());
 
             NoItem = SelectedItems.Count == 0;
+            IsBusy = false;
         }
 
         private void ItemTapped(object o)
         {
             ActiveItem = o as Item;
+            IsBusy = false;
         }
 
         private void RemoveItemTapped(object o)
@@ -313,6 +315,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
+                IsBusy = false;
                 await DialogService.DisplayAlertAsync("", Texts.ItemLimit, Texts.Ok);
             }
             
@@ -351,6 +354,7 @@ namespace CraftLogs.ViewModels
                 await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 IsBusy = false;
             }
+            IsBusy = false;
         }
 
         #endregion
