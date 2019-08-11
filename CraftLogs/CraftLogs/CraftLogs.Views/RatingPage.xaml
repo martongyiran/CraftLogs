@@ -9,7 +9,7 @@
                  Title="{Binding Title}">
         <ContentPage.Content>
             <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="10">
-
+            <Label Text="{x:Static values:Texts.RatingText}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="20" Margin="0,0,0,20"/>
             <views:CardView VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="5" HeightRequest="150">
                 <views:CardView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>

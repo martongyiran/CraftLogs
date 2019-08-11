@@ -201,6 +201,8 @@ namespace CraftLogs.Values
 
         public const string RatingTitle = "Értékelés";
 
+        public const string RatingText = "A csapat értékelje az állomást az alapján, hogy mennyire tetszett nekik:";
+
         #endregion
 
         #region Inventory
