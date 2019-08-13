@@ -44,15 +44,22 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
+            else if (typeof(CombatUnit) == data.GetType())
+            {
+                QRResponse<CombatUnit> response = new QRResponse<CombatUnit>(QRTypeEnum.ProfileForArena, JsonConvert.SerializeObject(data));
+
+                return JsonConvert.SerializeObject(response);
+            }
+            else if (typeof(ArenaResponse) == data.GetType())
+            {
+                QRResponse<ArenaResponse> response = new QRResponse<ArenaResponse>(QRTypeEnum.ProfileForArena, JsonConvert.SerializeObject(data));
+
+                return JsonConvert.SerializeObject(response);
+            }
 
             return "";
         }
-        //TODO
-        public QRResponse<T> CreateResponse<T>(object data)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public QRResponse HandleQR(string scanResult)
         {
             var response = JsonConvert.DeserializeObject<QRResponse>(scanResult);

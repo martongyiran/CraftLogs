@@ -137,6 +137,10 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.ShopPage);
             }
+            else if (settings.AppMode == AppModeEnum.Arena)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
+            }
 
             Mode = settings.AppMode;
             SetUpVisibility();

@@ -90,9 +90,13 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.ShopProfile;
             }
+            else if (typeof(ArenaProfile) == data.GetType())
+            {
+                fileName = FileNames.ArenaProfile;
+            }
             else
             {
-                throw new NotImplementedException("Can't save " + data.GetType().ToString() + "type objects to file.");
+                throw new NotImplementedException("Can't save " + data.GetType().ToString() + " type objects to file.");
             }
             var json = JsonConvert.SerializeObject(data);
             dataService.WriteAllText(fileName, json);
@@ -207,6 +211,8 @@ namespace CraftLogs.BLL.Repositories.Local
             }
         }
 
+        #endregion
+
         #region Shop
 
         public void CreateShopProfile()
@@ -240,6 +246,40 @@ namespace CraftLogs.BLL.Repositories.Local
         }
 
         #endregion
+
+        #region Arena
+
+        public void CreateArenaProfile()
+        {
+            if (!dataService.IsFileExist(FileNames.ArenaProfile))
+            {
+                ArenaProfile profile = new ArenaProfile();
+                CombatUnit defaultUnit = new CombatUnit("xXxZug69ZugxXx", 6, 5, 5, 5, 165);
+                defaultUnit.CombatScore = 1;
+                profile.CombatUnits.Add(defaultUnit);
+                dataService.CreateFile(FileNames.ArenaProfile);
+                SaveToFile(profile);
+            }
+        }
+
+        public ArenaProfile GetArenaProfile()
+        {
+            var profile = GetFile<ArenaProfile>(FileNames.ArenaProfile);
+            return profile;
+        }
+
+        public bool IsArenaProfileExist()
+        {
+            return dataService.IsFileExist(FileNames.ArenaProfile);
+        }
+
+        public void DeleteArenaProfile()
+        {
+            if (dataService.IsFileExist(FileNames.ArenaProfile))
+            {
+                DeleteFile(FileNames.ArenaProfile);
+            }
+        }
 
         #endregion
 

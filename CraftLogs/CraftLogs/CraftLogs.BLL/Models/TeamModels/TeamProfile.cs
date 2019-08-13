@@ -79,14 +79,8 @@ namespace CraftLogs.BLL.Models
             Cast = cast;
             Image = image;
         }
-
-        public void Init()
-        {
-            foreach(var item in Inventory)
-            {
-                item.SetStats(item.StatsFromQR);
-            }
-        }
+        
+        #region Private functions
 
         private int CalculateLevel()
         {
@@ -161,5 +155,20 @@ namespace CraftLogs.BLL.Models
         {
             return AllExp - Atk - Def - Stamina - CritR - Dodge + 5;
         }
+
+        #endregion
+
+        #region Public functions
+
+        public void Init()
+        {
+            foreach (var item in Inventory)
+            {
+                item.SetStats(item.StatsFromQR);
+            }
+        }
+        
+        #endregion
+
     }
 }

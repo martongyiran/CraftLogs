@@ -23,6 +23,7 @@ namespace CraftLogs.BLL.Enums
         ProfileForArena,
         ShopList,
         Trade,
-        QuestAvg
+        QuestAvg,
+        ArenaResult
     }
 }

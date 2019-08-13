@@ -85,6 +85,10 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.ShopPage);
             }
+            else if (settings.AppMode == BLL.Enums.AppModeEnum.Arena)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
+            }
             await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 

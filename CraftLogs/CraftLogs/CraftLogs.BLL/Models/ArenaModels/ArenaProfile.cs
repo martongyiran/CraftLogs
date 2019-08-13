@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2018 Gyirán Márton Áron
+Copyright 2019 Gyirán Márton Áron
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,16 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-namespace CraftLogs.Values
+using System.Collections.ObjectModel;
+
+namespace CraftLogs.BLL.Models
 {
-    public static class FileNames
+    public class ArenaProfile
     {
-        public const string Settings = "Settings.json";
-        public const string Logs = "Logs.json";
-        public const string QuestProfile = "QuestProfile.json";
-        public const string TeamProfile = "TeamProfile.json";
-        public const string ShopProfile = "ShopProfile.json";
-        public const string ArenaProfile = "ArenaProfile.json";
-        public const string FileAssembly = "CraftLogs.BLL.MockData.{0}";
+
+        public ObservableCollection<CombatUnit> CombatUnits = new ObservableCollection<CombatUnit>();
+
+        public ArenaProfile()
+        {
+
+        }
+
     }
 }

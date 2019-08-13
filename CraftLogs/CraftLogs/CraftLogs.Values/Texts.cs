@@ -229,6 +229,10 @@ namespace CraftLogs.Values
 
         public const string NotEnoughMoney = "Nem volt elég pénzed a vásárlásra... Én szóltam előre, hogy nézd meg van e elég. uwu";
 
+        public const string HandlerErrorTitle = "QR hiba!";
+
+        public const string HandlerErrorText = "Ismeretlen QR típus!";
+
         #endregion
 
         #region Shop
@@ -244,6 +248,16 @@ namespace CraftLogs.Values
         public const string CheckoutQuestion = "Megveszed az alábbi tárgyakat? Ellenőrizd, hogy van e elég pénzed!";
 
         public const string ItemLimit = "Maximum 5 tárgyat vehetsz egyszerre!";
+
+        #endregion
+
+        #region Arena
+
+        public const string ArenaTitle = "Aréna";
+
+        public const string ArenaTeamDetails = "Csapat adatai";
+
+        public const string ArenaScanned = "A csapat adatai sikeresen beolvasva!";
 
         #endregion
 

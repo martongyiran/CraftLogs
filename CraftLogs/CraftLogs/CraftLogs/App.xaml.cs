@@ -78,6 +78,7 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<RatingPage, RatingPageViewModel>();
             containerRegistry.RegisterForNavigation<InventoryPage, InventoryPageViewModel>();
             containerRegistry.RegisterForNavigation<ShopPage, ShopPageViewModel>();
+            containerRegistry.RegisterForNavigation<ArenaPage, ArenaPageViewModel>();
 
             RegisterServices(containerRegistry);
         }
@@ -89,6 +90,7 @@ namespace CraftLogs
             containerRegistry.Register<ILoggerService, LoggerService>();
             containerRegistry.Register<IQRService, QRService>();
             containerRegistry.Register<IItemGeneratorService, ItemGeneratorService>();
+            containerRegistry.Register<ICombatService, CombatService>();
         }
     }
 }

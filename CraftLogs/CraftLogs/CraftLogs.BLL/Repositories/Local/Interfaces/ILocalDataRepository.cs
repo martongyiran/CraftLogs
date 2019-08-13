@@ -123,6 +123,28 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes ShopProfile file.
         /// </summary>
         void DeleteShopProfile();
-        //TODO: Profile, Inventory, Items?? etc.
+
+        /// <summary>
+        /// Creates a ArenaProfile file.
+        /// </summary>
+        void CreateArenaProfile();
+
+        /// <summary>
+        /// Returns the ArenaProfile.
+        /// </summary>
+        /// <returns></returns>
+        ArenaProfile GetArenaProfile();
+
+        /// <summary>
+        /// Checks if ArenaProfile exist.
+        /// </summary>
+        /// <returns></returns>
+        bool IsArenaProfileExist();
+
+        /// <summary>
+        /// Deletes ArenaProfile file.
+        /// </summary>
+        void DeleteArenaProfile();
+
     }
 }

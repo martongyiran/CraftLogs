@@ -179,15 +179,9 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatedTo(parameters);
             IsBusy = true;
-
-            if (!DataRepository.IsShopProfileExist())
-            {
-                DataRepository.CreateShopProfile();
-            }
-
-            shopProfile = DataRepository.GetShopProfile();
-            settings = DataRepository.GetSettings();
+           
             Refresh();
+
             IsBusy = false;
         }
 
@@ -197,6 +191,10 @@ namespace CraftLogs.ViewModels
 
         private void Refresh()
         {
+            DataRepository.CreateShopProfile();
+            shopProfile = DataRepository.GetShopProfile();
+            settings = DataRepository.GetSettings();
+
             SelectedItemType = ItemTypeEnum.All;
             SelectedItemClass = CharacterClassEnum.Mage;
             SelectedItemTier = 2;

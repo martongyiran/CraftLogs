@@ -24,6 +24,7 @@ namespace CraftLogs.BLL.Models
     public class ShopResponse
     {
         public int Money { get; set; }
+
         public ObservableCollection<Item> Items = new ObservableCollection<Item>();
 
         public ShopResponse()

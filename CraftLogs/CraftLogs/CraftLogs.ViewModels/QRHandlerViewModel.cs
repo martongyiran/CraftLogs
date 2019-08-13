@@ -33,6 +33,7 @@ namespace CraftLogs.ViewModels
 
         private IQRService qRService;
         private ILoggerService loggerService;
+        private Settings settings;
 
         #endregion
 
@@ -91,6 +92,8 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatingTo(parameters);
 
+            settings = DataRepository.GetSettings();
+
             var lul = parameters["res"] as string;
             Response = lul ?? "none";
             if(Response != "none")
@@ -134,7 +137,6 @@ namespace CraftLogs.ViewModels
                     Rewards = new ObservableCollection<Item>(temp);
                     DataRepository.SaveToFile(profile);
                     loggerService.CreateQueustLog(processedData);
-                    RewardIsVisible = true;
                 }
                 else if(data.Type == BLL.Enums.QRTypeEnum.ShopList)
                 {
@@ -165,9 +167,24 @@ namespace CraftLogs.ViewModels
                         Title = Texts.ShopListNotOkTitle;
                         RewardText = Texts.NotEnoughMoney;
                     }
-                    
-                    RewardIsVisible = true;
                 }
+                else if (data.Type == BLL.Enums.QRTypeEnum.ProfileForArena && settings.AppMode == BLL.Enums.AppModeEnum.Arena)
+                {
+                    Title = Texts.ArenaTeamDetails;
+                    CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.AdditionalData);
+                    var profile = DataRepository.GetArenaProfile();
+
+                    profile.CombatUnits.Add(processedData);
+                    DataRepository.SaveToFile(profile);
+
+                    RewardText = Texts.ArenaScanned;
+                }
+                else
+                {
+                    Title = Texts.HandlerErrorTitle;
+                    RewardText = Texts.HandlerErrorText;
+                }
+                RewardIsVisible = true;
             }
             catch(Exception e)
             {

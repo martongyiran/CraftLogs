@@ -32,9 +32,11 @@ namespace CraftLogs.ViewModels
     {
 
         #region Private
+        
+        private IQRService qRService;
 
         private TeamProfile teamProfile;
-        private IItemGeneratorService itemGenerator; //TEMP
+        private CombatUnit combatUnit;
 
         private DelegateCommand navigateToLogsCommand;
         private DelegateCommand navigateToSettingsCommand;
@@ -42,7 +44,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToInventoryPageCommand;
         private DelegateCommand getProfileQRCommand;
         private DelegateCommand<object> raiseStatCommand;
-
+        
         #endregion
 
         #region Public
@@ -63,10 +65,10 @@ namespace CraftLogs.ViewModels
 
         #region Ctor
 
-        public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService) : base(navigationService, dataRepository, dialogService)
+        public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
         {
+            qRService = qrService;
             Title = Texts.ProfilePage;
-            itemGenerator = itemGeneratorService; //TEMP
         }
 
         #endregion
@@ -286,7 +288,7 @@ namespace CraftLogs.ViewModels
             CritR = "CritR: " + bcr + "%";
             Dodge = "Dodge: " + bdodge + "%";
 
-
+            combatUnit = new CombatUnit(teamProfile.Name, batk, bdef, bcr, bdodge, bhp, teamProfile.House.ToString(), teamProfile.Image);
         }
 
         private void SetItems()
@@ -306,18 +308,16 @@ namespace CraftLogs.ViewModels
             var rhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).ToList();
             RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/filler.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
         }
-
-        //DEVTEST
+        
         private async Task GetProfileQRAsync()
         {
             IsBusy = false;
-            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
-            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
-            teamProfile.Inventory.Add(itemGenerator.GetRandomItem(1));
-            teamProfile.AllExp += 1;
-            DataRepository.SaveToFile(teamProfile);
-            Init();
-            await DialogService.DisplayAlertAsync("ok", "3 items added to inventory \n 1 exp added", "ok");
+            
+            var qrCode = qRService.CreateQR(combatUnit);
+            NavigationParameters param = new NavigationParameters();
+            param.Add("code", qrCode);
+            
+            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
 
         private void RaiseStat(object a)
@@ -347,7 +347,7 @@ namespace CraftLogs.ViewModels
             }
 
         }
-
+        
         #endregion
     }
 }
