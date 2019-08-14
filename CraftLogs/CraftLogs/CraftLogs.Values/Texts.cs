@@ -259,6 +259,12 @@ namespace CraftLogs.Values
 
         public const string ArenaScanned = "A csapat adatai sikeresen beolvasva!";
 
+        public const string Oupsie = "Oupsie";
+
+        public const string CantFight = "Saját magad / a házadból más csapatokat nem támadhatod meg!";
+
+        public const string Sadface = ":(";
+
         #endregion
 
     }

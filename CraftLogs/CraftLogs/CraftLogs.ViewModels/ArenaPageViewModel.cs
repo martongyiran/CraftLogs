@@ -134,6 +134,13 @@ namespace CraftLogs.ViewModels
 
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 }
+                else
+                {
+                    arenaProfile.Attacker = null;
+
+                    DataRepository.SaveToFile(arenaProfile);
+                    await DialogService.DisplayAlertAsync(Texts.Oupsie, Texts.CantFight, Texts.Sadface);
+                }
             }
             
             IsBusy = false;
