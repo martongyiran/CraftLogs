@@ -33,6 +33,8 @@ namespace CraftLogs.BLL.Services
         private CombatUnit Player2;
         int def1;
         int def2;
+        int hp1;
+        int hp2;
 
         public CombatService(ILocalDataRepository datarepository)
         {
@@ -54,14 +56,18 @@ namespace CraftLogs.BLL.Services
             Player1 = leader;
             Player2 = attacker;
 
+            hp1 = Player1.Hp;
+            hp2 = Player2.Hp;
+
             def1 = (int)(Player1.Def * 0.33);
             def2 = (int)(Player2.Def * 0.33);
 
             int round = 1;
 
-            resp.CombatLog.Add(Player1.Name + " vs. " + Player2.Name);
-            resp.CombatLog.Add("Kör | Sebzés | Hp");
-            while (Player1.Hp >= 0 && Player2.Hp >= 0)
+            resp.CombatLog = Player1.Name + " vs. " + Player2.Name + "\n";
+            resp.CombatLog += "Kör | Sebzés | Hp\n";
+            resp.CombatLog += "0. | 0 - 0 | "+ hp1 + " - " + hp2 + "\n";
+            while (hp1 >= 0 && hp2 >= 0)
             {
                 
                 var player1hit = Hit(Player1, def2);
@@ -73,27 +79,27 @@ namespace CraftLogs.BLL.Services
                 player1hit = IsCrit(Player1) ? player1hit * 2 : player1hit;
                 player2hit = IsCrit(Player2) ? player2hit * 2 : player2hit;
 
-                Player1.Hp -= player2hit;
-                Player2.Hp -= player1hit;
+                hp1 -= player2hit;
+                hp2 -= player1hit;
 
-                string log = round + ". | " + player1hit + " - " + player2hit + " | " + Player1.Hp + " - " + Player2.Hp;
-                resp.CombatLog.Add(log);
+                string log = round + ". | " + player1hit + " - " + player2hit + " | " + hp1 + " - " + hp2 + "\n";
+                resp.CombatLog += log;
                 //System.Diagnostics.Debug.WriteLine("----- "+ log);
 
                 round++;
             }
 
-            if(Player1.Hp >= 0)
+            if(hp1 >= 0)
             {
                 resp.IsWin = false;
                 //System.Diagnostics.Debug.WriteLine("----- Leader win.");
-                resp.CombatLog.Add("----- "+Player1.Name+" a győztes.");
+                resp.CombatLog += "----- "+Player1.Name+" a győztes.";
             }
-            else if(Player2.Hp >= 0)
+            else if(hp2 >= 0)
             {
                 resp.IsWin = true;
                // System.Diagnostics.Debug.WriteLine("----- Attacker win.");
-                resp.CombatLog.Add("----- "+Player2.Name+" a győztes.");
+                resp.CombatLog += "----- "+Player2.Name+" a győztes.";
             }
 
             resp.Money = SetMoney(leader.Hp, Player1.Hp);

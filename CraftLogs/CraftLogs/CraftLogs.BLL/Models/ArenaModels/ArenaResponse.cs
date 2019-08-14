@@ -26,7 +26,7 @@ namespace CraftLogs.BLL.Models
         public int Money { get; set; }
 
         [JsonIgnore]
-        public List<string> CombatLog = new List<string>();
+        public string CombatLog { get; set; }
 
     }
 }

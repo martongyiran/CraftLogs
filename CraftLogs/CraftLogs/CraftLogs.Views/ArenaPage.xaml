@@ -50,15 +50,10 @@
 
             </Grid>
 
-            <ListView ItemsSource="{Binding Logs}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" CachingStrategy="RecycleElement" Margin="0,0,0,15">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding .}" FontSize="15" TextColor="Black" FontAttributes="Italic" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,15,0"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                       <Label Text="{Binding Logs}" FontSize="15" TextColor="Black" FontAttributes="Italic" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,15,0"/>
+            </ScrollView>
+                        
             <Label VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
         </StackLayout>
             

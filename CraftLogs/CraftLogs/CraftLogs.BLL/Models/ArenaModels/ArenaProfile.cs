@@ -26,6 +26,6 @@ namespace CraftLogs.BLL.Models
 
         public CombatUnit Attacker { get; set; } = null;
 
-        public List<string> LastLog = new List<string>();
+        public string LastLog { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace CraftLogs.ViewModels
 
         private ArenaProfile arenaProfile;
         private Settings settings;
-        private CombatUnit player2;
+        private CombatUnit challenger;
 
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
@@ -74,9 +74,9 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref firstUnit, value); }
         }
 
-        private ObservableCollection<string> logs = new ObservableCollection<string>();
+        private string logs;
 
-        public ObservableCollection<string> Logs
+        public string Logs
         {
             get { return logs; }
             set { SetProperty(ref logs, value); }
@@ -107,18 +107,18 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             FirstUnit = arenaProfile.Leader;
-            Logs = new ObservableCollection<string>(arenaProfile.LastLog);
+            Logs = arenaProfile.LastLog;
             if(arenaProfile.Attacker != null)
             {
-                player2 = arenaProfile?.Attacker;
+                challenger = arenaProfile?.Attacker;
 
-                if (combatService.CanFight(FirstUnit, player2))
+                if (combatService.CanFight(FirstUnit, challenger))
                 {
-                    ArenaResponse details = combatService.Fight(FirstUnit, player2);
+                    ArenaResponse details = combatService.Fight(FirstUnit, challenger);
 
                     if (details.IsWin)
                     {
-                        arenaProfile.Leader = player2;
+                        arenaProfile.Leader = challenger;
                     }
 
                     arenaProfile.Attacker = null;
