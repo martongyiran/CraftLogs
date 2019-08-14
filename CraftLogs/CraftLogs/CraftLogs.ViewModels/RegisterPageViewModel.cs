@@ -148,6 +148,7 @@ namespace CraftLogs.ViewModels
                     if (!string.IsNullOrEmpty(selectedImage))
                     {
                         DataRepository.CreateTeamProfile(Name, House, Cast, selectedImage);
+                        DataRepository.CreateLogs();
                         await NavigateToWithoutHistory(NavigationLinks.MainPage);
                     }
                     else

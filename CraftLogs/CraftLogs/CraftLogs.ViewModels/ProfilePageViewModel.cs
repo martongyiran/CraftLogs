@@ -23,6 +23,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +38,7 @@ namespace CraftLogs.ViewModels
 
         private TeamProfile teamProfile;
         private CombatUnit combatUnit;
+        private ObservableCollection<Log> logs;
 
         private DelegateCommand navigateToLogsCommand;
         private DelegateCommand navigateToSettingsCommand;
@@ -312,12 +314,58 @@ namespace CraftLogs.ViewModels
         private async Task GetProfileQRAsync()
         {
             IsBusy = false;
-            
-            var qrCode = qRService.CreateQR(combatUnit);
-            NavigationParameters param = new NavigationParameters();
-            param.Add("code", qrCode);
-            
-            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+
+#if DEV
+
+            var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+            if (res)
+            {
+                var qrCode = qRService.CreateQR(combatUnit);
+                NavigationParameters param = new NavigationParameters();
+                param.Add("code", qrCode);
+
+                await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+            }
+
+#else
+
+            logs = DataRepository.GetLogs();
+
+            if(logs.Count == 0)
+            {
+                var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+                if (res)
+                {
+                    var qrCode = qRService.CreateQR(combatUnit);
+                    NavigationParameters param = new NavigationParameters();
+                    param.Add("code", qrCode);
+
+                    await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+                }
+            }
+            else
+            {
+                var arenas = logs.First(x => x.LogType == LogTypeEnum.Arena);
+                if (arenas.Date.AddMinutes(10) > DateTime.Now)
+                {
+                    await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantFightYet + arenas.Date.AddMinutes(15), Texts.Sadface);
+                }
+                else
+                {
+                    var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+                    if (res)
+                    {
+                        var qrCode = qRService.CreateQR(combatUnit);
+                        NavigationParameters param = new NavigationParameters();
+                        param.Add("code", qrCode);
+
+                        await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+                    }
+                }
+            }
+
+#endif
+
         }
 
         private void RaiseStat(object a)
@@ -348,6 +396,6 @@ namespace CraftLogs.ViewModels
 
         }
         
-        #endregion
+#endregion
     }
 }

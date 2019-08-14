@@ -11,8 +11,8 @@
         <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
-            <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Margin="5,10,5,10">
+        <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="5,10,5,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="30" />
@@ -28,25 +28,25 @@
                 </Grid.RowDefinitions>
 
                 <Image Source="{Binding FirstUnit.Image}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="150" WidthRequest="150" 
-                       Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"/>
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Margin="5,0,0,5"/>
 
-                <Label Text="{Binding FirstUnit.Name}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4"
+                <Label Text="{Binding FirstUnit.Name}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"
                                            FontSize="35" TextColor="Black"/>
 
                 <Image Source="@drawable/ic_hp.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand"  Grid.Column="1" Grid.Row="1"/>
-                <Label TextColor="Black" FontSize="16" Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="1"/>
+                <Label TextColor="Black" FontSize="14" Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="1"/>
 
                 <Image Source="@drawable/ic_attack.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="2"/>
-                <Label TextColor="Black" FontSize="16" Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="2"/>
+                <Label TextColor="Black" FontSize="14" Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="2"/>
 
                 <Image Source="@drawable/ic_def.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" Grid.Column="1" Grid.Row="3"/>
-                <Label TextColor="Black" FontSize="16" Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="3"/>
+                <Label TextColor="Black" FontSize="14" Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}" VerticalOptions="CenterAndExpand" Grid.Column="2" Grid.Row="3"/>
 
                 <Image Source="@drawable/ic_critr.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" Grid.Column="3" Grid.Row="1"/>
-                <Label TextColor="Black" FontSize="16" Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}" VerticalOptions="CenterAndExpand" Grid.Column="4" Grid.Row="1"/>
+                <Label TextColor="Black" FontSize="14" Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}" VerticalOptions="CenterAndExpand" Grid.Column="4" Grid.Row="1"/>
 
                 <Image Source="@drawable/ic_dodge.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" Grid.Column="3" Grid.Row="2"/>
-                <Label TextColor="Black" FontSize="16" Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}" VerticalOptions="CenterAndExpand" Grid.Column="4" Grid.Row="2"/>
+                <Label TextColor="Black" FontSize="14" Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}" VerticalOptions="CenterAndExpand" Grid.Column="4" Grid.Row="2"/>
 
             </Grid>
 

@@ -44,7 +44,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <summary> 
         /// Create a ArenaLog type log entry.
         /// </summary>
-        void CreateArenaLog(string enemyTeam);
+        void CreateArenaLog(ArenaResponse enemyTeam);
 
         /// <summary> 
         /// Create a SystemLog type log entry.

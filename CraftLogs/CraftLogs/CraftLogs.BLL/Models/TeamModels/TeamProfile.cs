@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System;
 using System.Collections.ObjectModel;
 using CraftLogs.BLL.Enums;
 
@@ -61,7 +62,6 @@ namespace CraftLogs.BLL.Models
         public int Dodge { get; set; } = 1;
 
         public int Hp { get { return (Stamina * 5) + 95; } }
-
 
         public string Image { get; set; } = "@drawable/filler.png";
 

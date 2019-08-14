@@ -154,8 +154,6 @@ namespace CraftLogs.ViewModels
         private void SetUpFileSystem()
         {
             DataRepository.CreateSettings();
-            DataRepository.DeleteFile(FileNames.Logs); //I create a lot of test logs in LogsPageViewModel, so it's necessary to clear it at every start. It's only for testing.
-            DataRepository.CreateLogs();
         }
 
         private void SetUpVisibility()

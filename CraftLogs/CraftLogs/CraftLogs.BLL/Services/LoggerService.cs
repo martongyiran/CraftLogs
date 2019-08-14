@@ -28,6 +28,7 @@ namespace CraftLogs.BLL.Services
         #region Ctor
 
         private readonly ILocalDataRepository dataRepository;
+
         public LoggerService(ILocalDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
@@ -37,10 +38,10 @@ namespace CraftLogs.BLL.Services
 
         #region Public
 
-        public void CreateArenaLog(string enemyTeam)
+        public void CreateArenaLog(ArenaResponse enemyTeam)
         {
             var logs = dataRepository.GetLogs();
-            string logText = enemyTeam;
+            string logText = enemyTeam.GetResoult();
             Log newLog = new Log(LogTypeEnum.Arena, logText);
             logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);

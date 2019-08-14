@@ -63,6 +63,8 @@ namespace CraftLogs.BLL.Services
             def2 = (int)(Player2.Def * 0.33);
 
             int round = 1;
+            int allDmg1 = 0;
+            int allDmg2 = 0;
 
             resp.CombatLog = Player1.Name + " vs. " + Player2.Name + "\n";
             resp.CombatLog += "Kör | Sebzés | Hp\n";
@@ -82,12 +84,17 @@ namespace CraftLogs.BLL.Services
                 hp1 -= player2hit;
                 hp2 -= player1hit;
 
+                allDmg1 += player1hit;
+                allDmg2 += player2hit;
+
                 string log = round + ". | " + player1hit + " - " + player2hit + " | " + hp1 + " - " + hp2 + "\n";
                 resp.CombatLog += log;
                 //System.Diagnostics.Debug.WriteLine("----- "+ log);
 
                 round++;
             }
+
+            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round),2) + " - " + Math.Round((allDmg2 / (double)round),2) + "\n";
 
             if(hp1 >= 0)
             {
@@ -198,7 +205,7 @@ namespace CraftLogs.BLL.Services
                 }
             }
 
-            return (int)((enemyRemainingHp / (double)originalHp) * maxPoint);
+            return ((int)((enemyRemainingHp / (double)originalHp) * maxPoint) - 10) * 10;
         }
 
     }

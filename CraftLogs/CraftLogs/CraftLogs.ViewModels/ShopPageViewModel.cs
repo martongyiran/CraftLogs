@@ -334,24 +334,33 @@ namespace CraftLogs.ViewModels
 
         private async Task CheckOut()
         {
-            var response = await DialogService.DisplayAlertAsync(Texts.Checkout, Texts.CheckoutQuestion, Texts.Checkout, Texts.Cancel);
-            if (response)
+            if(ShoppingCart.Count != 0)
             {
-                int allValue = 0;
-                foreach (var item in ShoppingCart)
+                var response = await DialogService.DisplayAlertAsync(Texts.Checkout, Texts.CheckoutQuestion, Texts.Checkout, Texts.Cancel);
+                if (response)
                 {
-                    allValue += item.Value;
-                }
-                ShopResponse shopResponse = new ShopResponse(allValue, ShoppingCart);
-                var qrCode = qRService.CreateQR(shopResponse);
-                NavigationParameters param = new NavigationParameters();
-                param.Add("code", qrCode);
+                    int allValue = 0;
+                    foreach (var item in ShoppingCart)
+                    {
+                        allValue += item.Value;
+                    }
+                    ShopResponse shopResponse = new ShopResponse(allValue, ShoppingCart);
+                    var qrCode = qRService.CreateQR(shopResponse);
+                    NavigationParameters param = new NavigationParameters();
+                    param.Add("code", qrCode);
 
-                shopProfile.ItemStock = Items;
-                DataRepository.SaveToFile(shopProfile);
-                await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-                IsBusy = false;
+                    shopProfile.ItemStock = Items;
+                    DataRepository.SaveToFile(shopProfile);
+                    await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+                    IsBusy = false;
+                }
             }
+            else
+            {
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
+            }
+
+            
             IsBusy = false;
         }
 

@@ -179,6 +179,27 @@ namespace CraftLogs.ViewModels
 
                     RewardText = Texts.ArenaScanned;
                 }
+                else if (data.Type == BLL.Enums.QRTypeEnum.ArenaResult)
+                {
+                    ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.AdditionalData);
+                    var profile = DataRepository.GetTeamProfile();
+
+                    profile.AllExp += 1;
+                    profile.Honor += 1;
+                    profile.Money += processedData.Money;
+                    DataRepository.SaveToFile(profile);
+
+                    if (processedData.IsWin)
+                    {
+                        Title = Texts.ArenaWin;
+                    }
+                    else
+                    {
+                        Title = Texts.ArenaLose;
+                    }
+                    RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
+                    loggerService.CreateArenaLog(processedData);
+                }
                 else
                 {
                     Title = Texts.HandlerErrorTitle;

@@ -52,7 +52,7 @@ namespace CraftLogs.BLL.Services
             }
             else if (typeof(ArenaResponse) == data.GetType())
             {
-                QRResponse<ArenaResponse> response = new QRResponse<ArenaResponse>(QRTypeEnum.ProfileForArena, JsonConvert.SerializeObject(data));
+                QRResponse<ArenaResponse> response = new QRResponse<ArenaResponse>(QRTypeEnum.ArenaResult, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }

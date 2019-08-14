@@ -28,5 +28,9 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public string CombatLog { get; set; }
 
+        public string GetResoult()
+        {
+            return IsWin ? "Nyertél az arénában!\nA jutalmad: 1 EXP, 1 Honor és " + Money + " pénz." : "Vesztettél az arénában, de szereztél 1 EXP-et, 1 Honort és " + Money + " pénzt.";
+        }
     }
 }

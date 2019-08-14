@@ -249,6 +249,8 @@ namespace CraftLogs.Values
 
         public const string ItemLimit = "Maximum 5 tárgyat vehetsz egyszerre!";
 
+        public const string YourCartIsEmpty = "Üres a kosarad, kérlek vegyél valamit!";
+
         #endregion
 
         #region Arena
@@ -264,6 +266,14 @@ namespace CraftLogs.Values
         public const string CantFight = "Saját magad / a házadból más csapatokat nem támadhatod meg!";
 
         public const string Sadface = ":(";
+
+        public const string ArenaWin = "Nyertél az arénában!";
+
+        public const string ArenaLose = "Vesztettél az arénában!";
+
+        public const string FightQuestion = "Biztos, hogy harcolsz az arénában?";
+
+        public const string CantFightYet = "Még pihenned kell az előző harc után! Legközelebb ekkor vonulhatsz csatába: ";
 
         #endregion
 
