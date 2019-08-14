@@ -203,6 +203,7 @@ namespace CraftLogs.ViewModels
                 DataRepository.DeleteQuestProfile();
                 DataRepository.DeleteTeamProfile();
                 DataRepository.DeleteShopProfile();
+                DataRepository.DeleteArenaProfile();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }

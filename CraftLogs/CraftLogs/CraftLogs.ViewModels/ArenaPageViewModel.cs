@@ -23,7 +23,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -67,14 +66,6 @@ namespace CraftLogs.ViewModels
 
         #region Properties
 
-        private ObservableCollection<CombatUnit> units = new ObservableCollection<CombatUnit>();
-
-        public ObservableCollection<CombatUnit> Units
-        {
-            get { return units; }
-            set { SetProperty(ref units, value); }
-        }
-
         private CombatUnit firstUnit;
 
         public CombatUnit FirstUnit
@@ -83,15 +74,23 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref firstUnit, value); }
         }
 
+        private ObservableCollection<string> logs = new ObservableCollection<string>();
+
+        public ObservableCollection<string> Logs
+        {
+            get { return logs; }
+            set { SetProperty(ref logs, value); }
+        }
+
         #endregion
 
         #region Overrides
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedTo(parameters);
 
-            Init();
+            await Init();
 
             IsBusy = false;
         }
@@ -106,35 +105,25 @@ namespace CraftLogs.ViewModels
             DataRepository.CreateArenaProfile();
             arenaProfile = DataRepository.GetArenaProfile();
             settings = DataRepository.GetSettings();
-            var a = new CombatUnit("Zugzug1", 6, 5, 5, 5, 165);
-            a.CombatScore = 500;
-            arenaProfile.CombatUnits.Add(a);
 
-            var b = new CombatUnit("Zugzug2", 6, 5, 5, 5, 165);
-            b.CombatScore = 250;
-            arenaProfile.CombatUnits.Add(b);
-
-            Units = new ObservableCollection<CombatUnit>(arenaProfile.CombatUnits.OrderByDescending(x => x.CombatScore).ToList());
-
-            for (int i = 0; i < Units.Count; i++)
+            FirstUnit = arenaProfile.Leader;
+            Logs = new ObservableCollection<string>(arenaProfile.LastLog);
+            if(arenaProfile.Attacker != null)
             {
-                Units[i].Placement = i + 1;
-            }
+                player2 = arenaProfile?.Attacker;
 
-            FirstUnit = Units[0];
-            Units.Remove(FirstUnit);
-
-            var zeroScore = Units.Where(x => x.CombatScore == 0).ToList();
-
-            if(zeroScore.Count != 0)
-            {
-                player2 = zeroScore[0];
-                Units.Remove(player2);
-
-                if(combatService.CanFight(FirstUnit, player2))
+                if (combatService.CanFight(FirstUnit, player2))
                 {
                     ArenaResponse details = combatService.Fight(FirstUnit, player2);
-                    arenaProfile.CombatUnits.Add(details.UpdatedProfile);
+
+                    if (details.IsWin)
+                    {
+                        arenaProfile.Leader = player2;
+                    }
+
+                    arenaProfile.Attacker = null;
+                    arenaProfile.LastLog = details.CombatLog;
+
                     DataRepository.SaveToFile(arenaProfile);
 
                     var qrCode = qRService.CreateQR(details);
@@ -143,9 +132,10 @@ namespace CraftLogs.ViewModels
 
                     IsBusy = false;
 
-                    await NavigateTo(NavigationLinks.QRPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 }
             }
+            
             IsBusy = false;
         }
 

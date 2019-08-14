@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Models
@@ -21,12 +22,10 @@ namespace CraftLogs.BLL.Models
     public class ArenaProfile
     {
 
-        public ObservableCollection<CombatUnit> CombatUnits = new ObservableCollection<CombatUnit>();
+        public CombatUnit Leader { get; set; }
 
-        public ArenaProfile()
-        {
+        public CombatUnit Attacker { get; set; } = null;
 
-        }
-
+        public List<string> LastLog = new List<string>();
     }
 }

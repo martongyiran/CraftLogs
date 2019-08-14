@@ -255,8 +255,7 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 ArenaProfile profile = new ArenaProfile();
                 CombatUnit defaultUnit = new CombatUnit("xXxZug69ZugxXx", 6, 5, 5, 5, 165);
-                defaultUnit.CombatScore = 1;
-                profile.CombatUnits.Add(defaultUnit);
+                profile.Leader = defaultUnit;
                 dataService.CreateFile(FileNames.ArenaProfile);
                 SaveToFile(profile);
             }

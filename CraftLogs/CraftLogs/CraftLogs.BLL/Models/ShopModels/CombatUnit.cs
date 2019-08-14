@@ -22,7 +22,6 @@ namespace CraftLogs.BLL.Models
 {
     public class CombatUnit
     {
-        public int Placement { get; set; } = 0;
 
         public string Name { get; set; }
 
@@ -38,8 +37,6 @@ namespace CraftLogs.BLL.Models
         public int Hp { get; set; }
 
         public string Image { get; set; } 
-
-        public int CombatScore { get; set; } = 0;
 
         public string House { get; set; }
 

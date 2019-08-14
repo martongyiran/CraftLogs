@@ -14,9 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace CraftLogs.BLL.Models
 {
@@ -24,20 +23,10 @@ namespace CraftLogs.BLL.Models
     {
         public bool IsWin { get; set; }
 
-        public int CombatScore { get; set; }
-
-        public int EnemyCombatScore { get; set; }
-
         public int Money { get; set; }
 
-        public Dictionary<int, Tuple<int, int>> Rounds = new Dictionary<int, Tuple<int, int>>();
-
         [JsonIgnore]
-        public CombatUnit UpdatedProfile { get; set; }
-        
-        public ArenaResponse()
-        {
+        public List<string> CombatLog = new List<string>();
 
-        }
     }
 }

@@ -88,7 +88,7 @@ namespace CraftLogs.ViewModels
 
         #region Overrides
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override  void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
 
@@ -174,7 +174,7 @@ namespace CraftLogs.ViewModels
                     CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.AdditionalData);
                     var profile = DataRepository.GetArenaProfile();
 
-                    profile.CombatUnits.Add(processedData);
+                    profile.Attacker = processedData;
                     DataRepository.SaveToFile(profile);
 
                     RewardText = Texts.ArenaScanned;
