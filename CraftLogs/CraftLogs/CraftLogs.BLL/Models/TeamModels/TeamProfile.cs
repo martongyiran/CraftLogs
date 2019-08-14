@@ -72,6 +72,12 @@ namespace CraftLogs.BLL.Models
 
         public ObservableCollection<Item> Inventory = new ObservableCollection<Item>();
 
+        public Guid TradeNumber { get; set; }
+
+        public TradeStatusEnum TradeStatus { get; set; } = TradeStatusEnum.Finished;
+
+        public ObservableCollection<Item> TradeBag = new ObservableCollection<Item>();
+
         public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
             Name = name;

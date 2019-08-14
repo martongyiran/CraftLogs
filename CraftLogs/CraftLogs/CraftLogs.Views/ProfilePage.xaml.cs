@@ -56,6 +56,8 @@ namespace CraftLogs.Views
             var view = sender as Image;
             await view.FadeTo(0.5, 100);
             await view.FadeTo(1.0, 100);
+            if (viewModel.StartTradeCommand.CanExecute())
+                viewModel.StartTradeCommand.Execute();
         }
 
         private async void Settings_Tapped(object sender, System.EventArgs e)

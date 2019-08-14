@@ -233,6 +233,12 @@ namespace CraftLogs.Values
 
         public const string HandlerErrorText = "Ismeretlen QR típus!";
 
+        public const string ArenaWin = "Nyertél az arénában!";
+
+        public const string ArenaLose = "Vesztettél az arénában!";
+
+        public const string TradeHandlerIP = "A csere oldalon folytathatod a kereskedelmet.";
+
         #endregion
 
         #region Shop
@@ -266,14 +272,16 @@ namespace CraftLogs.Values
         public const string CantFight = "Saját magad / a házadból más csapatokat nem támadhatod meg!";
 
         public const string Sadface = ":(";
+        
+        #endregion
 
-        public const string ArenaWin = "Nyertél az arénában!";
-
-        public const string ArenaLose = "Vesztettél az arénában!";
+        #region Profile
 
         public const string FightQuestion = "Biztos, hogy harcolsz az arénában?";
 
         public const string CantFightYet = "Még pihenned kell az előző harc után! Legközelebb ekkor vonulhatsz csatába: ";
+
+        public const string TradeIP = "Van már egy folyamatban lévő cseréd!";
 
         #endregion
 

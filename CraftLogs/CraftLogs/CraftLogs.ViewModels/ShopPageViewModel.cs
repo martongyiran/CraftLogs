@@ -195,6 +195,12 @@ namespace CraftLogs.ViewModels
             shopProfile = DataRepository.GetShopProfile();
             settings = DataRepository.GetSettings();
 
+            if(settings.AppMode == AppModeEnum.None)
+            {
+                settings.AppMode = AppModeEnum.Shop;
+                DataRepository.SaveToFile(settings);
+            }
+
             SelectedItemType = ItemTypeEnum.All;
             SelectedItemClass = CharacterClassEnum.Mage;
             SelectedItemTier = 2;

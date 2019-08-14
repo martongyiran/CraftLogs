@@ -56,6 +56,12 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
+            else if (typeof(StartTradeQR) == data.GetType())
+            {
+                QRResponse<StartTradeQR> response = new QRResponse<StartTradeQR>(QRTypeEnum.TradeStarted, JsonConvert.SerializeObject(data));
+
+                return JsonConvert.SerializeObject(response);
+            }
 
             return "";
         }

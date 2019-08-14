@@ -40,7 +40,7 @@ namespace CraftLogs.BLL.Models
 
         public override string ToString()
         {
-            string outp = Money + " $ \n";
+            string outp = "-" + Money + " $ \n";
 
             foreach (var item in Items)
             {

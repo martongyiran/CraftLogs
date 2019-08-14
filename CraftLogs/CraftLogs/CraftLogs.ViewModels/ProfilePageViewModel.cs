@@ -45,6 +45,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand navigateToQRScannerPageCommand;
         private DelegateCommand navigateToInventoryPageCommand;
         private DelegateCommand getProfileQRCommand;
+        private DelegateCommand startTradeCommand;
         private DelegateCommand<object> raiseStatCommand;
         
         #endregion
@@ -60,6 +61,8 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToInventoryPageCommand => navigateToInventoryPageCommand ?? (navigateToInventoryPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.InventoryPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+
+        public DelegateCommand StartTradeCommand => startTradeCommand ?? (startTradeCommand = new DelegateCommand(async () => await StartTradeAsync(), CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
 
@@ -229,6 +232,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref rHandItem, value); }
         }
 
+        private string tradeIcon;
+
+        public string TradeIcon
+        {
+            get { return tradeIcon; }
+            set { SetProperty(ref tradeIcon, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -248,6 +259,8 @@ namespace CraftLogs.ViewModels
         {
             teamProfile = DataRepository.GetTeamProfile();
             SetItems();
+
+            TradeIcon = teamProfile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
 
             Name = teamProfile.Name;
 
@@ -313,7 +326,6 @@ namespace CraftLogs.ViewModels
         
         private async Task GetProfileQRAsync()
         {
-            IsBusy = false;
 
 #if DEV
 
@@ -366,6 +378,24 @@ namespace CraftLogs.ViewModels
 
 #endif
 
+        }
+
+        private async Task StartTradeAsync()
+        {
+            if(teamProfile.TradeStatus == TradeStatusEnum.Finished)
+            {
+                StartTradeQR startTradeQR = new StartTradeQR();
+
+                var qrCode = qRService.CreateQR(startTradeQR);
+                NavigationParameters param = new NavigationParameters();
+                param.Add("code", qrCode);
+
+                await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+            }
+            else
+            {
+                await NavigateTo(NavigationLinks.TradePage);
+            }
         }
 
         private void RaiseStat(object a)

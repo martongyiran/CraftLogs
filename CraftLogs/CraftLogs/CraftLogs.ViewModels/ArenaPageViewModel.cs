@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -105,6 +106,12 @@ namespace CraftLogs.ViewModels
             DataRepository.CreateArenaProfile();
             arenaProfile = DataRepository.GetArenaProfile();
             settings = DataRepository.GetSettings();
+
+            if (settings.AppMode == AppModeEnum.None)
+            {
+                settings.AppMode = AppModeEnum.Arena;
+                DataRepository.SaveToFile(settings);
+            }
 
             FirstUnit = arenaProfile.Leader;
             Logs = arenaProfile.LastLog;

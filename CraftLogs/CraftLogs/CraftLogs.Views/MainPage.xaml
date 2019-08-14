@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              x:Class="CraftLogs.Views.MainPage"
              BackgroundColor="{StaticResource BackgroundColorLight}"
              Title="{Binding Title}">
@@ -15,12 +14,12 @@
         
         <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
             <StackLayout>
-                <views:HQMenuView IsVisible="{Binding HqMenuVisibility}" />
+                <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+                <Button Text="Godmode"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
+                <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
             </StackLayout>
         </ScrollView>
 
         <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
-
-        <Button Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Text="CLEAR_MODE" FontSize="15" TextColor="Red" Margin="5" IsVisible="{Binding IsDevMode}" Command="{Binding ClearModeCommand}"/>
     </Grid>
 </ContentPage>

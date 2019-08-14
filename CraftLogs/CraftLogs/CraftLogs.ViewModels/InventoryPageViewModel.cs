@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
@@ -32,6 +33,8 @@ namespace CraftLogs.ViewModels
     {
 
         #region Private
+
+        private ILoggerService logger;
 
         private DelegateCommand<object> itemTappedCommand;
 
@@ -53,9 +56,10 @@ namespace CraftLogs.ViewModels
 
         #region ctor
 
-        public InventoryPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
+        public InventoryPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, ILoggerService loggerService) : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.InventoryPage;
+            logger = loggerService;
         }
 
         #endregion
@@ -187,6 +191,7 @@ namespace CraftLogs.ViewModels
                 }
 
                 profile.Inventory = AllItems;
+                logger.CreateSellLog(ActiveItem);
                 DataRepository.SaveToFile(profile);
                 Init();
             }

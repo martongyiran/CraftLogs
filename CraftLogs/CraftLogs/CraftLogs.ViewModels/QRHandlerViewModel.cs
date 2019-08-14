@@ -17,6 +17,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -88,9 +89,9 @@ namespace CraftLogs.ViewModels
 
         #region Overrides
 
-        public override  void OnNavigatingTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedTo(parameters);
 
             settings = DataRepository.GetSettings();
 
@@ -106,11 +107,13 @@ namespace CraftLogs.ViewModels
 
         #region Functions
 
-        private void HandleQR(string rspns)
+        private async Task HandleQR(string rspns)
         {
             try
             {
                 var data = qRService.HandleQR(rspns);
+
+                IsBusy = true;
 
                 if (data.Type == BLL.Enums.QRTypeEnum.Reward)
                 {
@@ -178,6 +181,8 @@ namespace CraftLogs.ViewModels
                     DataRepository.SaveToFile(profile);
 
                     RewardText = Texts.ArenaScanned;
+
+                    await NavigateBack();
                 }
                 else if (data.Type == BLL.Enums.QRTypeEnum.ArenaResult)
                 {
@@ -200,12 +205,35 @@ namespace CraftLogs.ViewModels
                     RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
                     loggerService.CreateArenaLog(processedData);
                 }
+                else if (data.Type == BLL.Enums.QRTypeEnum.TradeStarted)
+                {
+                    var profile = DataRepository.GetTeamProfile();
+                    StartTradeQR processedData = JsonConvert.DeserializeObject<StartTradeQR>(data.AdditionalData);
+
+                    Title = Texts.TradePage;
+
+                    if (profile.TradeStatus == BLL.Enums.TradeStatusEnum.Finished)
+                    {
+                        profile.TradeStatus = BLL.Enums.TradeStatusEnum.Inprogress;
+                        profile.TradeNumber = processedData.TradeNumber;
+
+                        DataRepository.SaveToFile(profile);
+                        RewardText = Texts.TradeHandlerIP;
+                        await NavigateToWithoutHistory(NavigationLinks.TradePage);
+                    }
+                    else
+                    {
+                        RewardText = Texts.TradeIP;
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                    }
+                }
                 else
                 {
                     Title = Texts.HandlerErrorTitle;
                     RewardText = Texts.HandlerErrorText;
                 }
                 RewardIsVisible = true;
+                IsBusy = false;
             }
             catch(Exception e)
             {

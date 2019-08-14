@@ -68,7 +68,7 @@ namespace CraftLogs.BLL.Services
         public void CreateSellLog(Item item)
         {
             var logs = dataRepository.GetLogs();
-            string logText = item.ToString();
+            string logText = "+" + item.Value + " $\n\n" + item.ToString();
             Log newLog = new Log(LogTypeEnum.Sell, logText);
             logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);

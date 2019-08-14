@@ -121,7 +121,7 @@
                         <TapGestureRecognizer Tapped="ReadQR_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="@drawable/ic_trade_white.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image Source="{Binding TradeIcon}" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Trade_Tapped" />
                     </Image.GestureRecognizers>

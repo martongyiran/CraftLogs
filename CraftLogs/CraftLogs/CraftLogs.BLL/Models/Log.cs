@@ -31,5 +31,38 @@ namespace CraftLogs.BLL.Models
         public DateTime Date { get; set; }
         public string Text { get; set; }
         public LogTypeEnum LogType { get; set; }
+
+        public override string ToString()
+        {
+            string outp = "";
+            outp += ">>> " + Date.ToString() + "\n";
+            switch (LogType)
+            {
+                case LogTypeEnum.Arena:
+                    outp += ">>> Aréna\n\n";
+                    break;
+                case LogTypeEnum.Buy:
+                    outp += ">>> Vásárlás\n\n";
+                    break;
+                case LogTypeEnum.Quest:
+                    outp += ">>> Állomás\n\n";
+                    break;
+                case LogTypeEnum.Sell:
+                    outp += ">>> Eladás\n\n";
+                    break;
+                case LogTypeEnum.System:
+                    outp += ">>> Rendszerüzenet\n\n";
+                    break;
+                case LogTypeEnum.Trade:
+                    outp += ">>> Csere\n\n";
+                    break;
+            }
+
+            outp += Text + "\n\n";
+
+            return outp;
+        }
+
+
     }
 }

@@ -68,42 +68,42 @@ namespace CraftLogs.BLL.Services
         {
             if (usableFor == CharacterClassEnum.Mage && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, MageArmors.Count - 1);
+                int rnd = random.Next(0, MageArmors.Count);
                 return MageArmors[rnd];
             }
             else if (usableFor == CharacterClassEnum.Mage && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, MageWeapons.Count - 1);
+                int rnd = random.Next(0, MageWeapons.Count);
                 return MageWeapons[rnd];
             }
             else if (usableFor == CharacterClassEnum.Rogue && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, RogueArmors.Count - 1);
+                int rnd = random.Next(0, RogueArmors.Count);
                 return RogueArmors[rnd];
             }
             else if (usableFor == CharacterClassEnum.Rogue && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, RogueWeapons.Count - 1);
+                int rnd = random.Next(0, RogueWeapons.Count);
                 return RogueWeapons[rnd];
             }
             else if (usableFor == CharacterClassEnum.Warrior && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, WarriorArmors.Count - 1);
+                int rnd = random.Next(0, WarriorArmors.Count);
                 return WarriorArmors[rnd];
             }
             else if (usableFor == CharacterClassEnum.Warrior && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, WarriorWeapons.Count - 1);
+                int rnd = random.Next(0, WarriorWeapons.Count);
                 return WarriorWeapons[rnd];
             }
             else if (itemType == ItemTypeEnum.Ring)
             {
-                int rnd = random.Next(0, Rings.Count - 1);
+                int rnd = random.Next(0, Rings.Count);
                 return Rings[rnd];
             }
             else if (itemType == ItemTypeEnum.Neck)
             {
-                int rnd = random.Next(0, Necks.Count - 1);
+                int rnd = random.Next(0, Necks.Count);
                 return Necks[rnd];
             }
 
@@ -392,7 +392,8 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Jég botja","@drawable/mage_weapon_12.png"),
         new Tuple<string,string>("Havas büntető","@drawable/mage_weapon_13.png"),
         new Tuple<string,string>("Fényes élmény","@drawable/mage_weapon_14.png"),
-        new Tuple<string,string>("Idézés tollas botja","@drawable/mage_weapon_15.png")
+        new Tuple<string,string>("Idézés tollas botja","@drawable/mage_weapon_15.png"),
+        new Tuple<string,string>("Orosz varázspálca","@drawable/mage_weapon_16.png")
         };
 
         private readonly List<Tuple<string, string>> RogueWeapons = new List<Tuple<string, string>>()

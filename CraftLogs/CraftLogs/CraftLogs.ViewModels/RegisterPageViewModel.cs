@@ -1,4 +1,5 @@
 ﻿using CraftLogs.BLL.Enums;
+using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
@@ -14,6 +15,8 @@ namespace CraftLogs.ViewModels
     {
 
         #region Private
+
+        private Settings settings;
 
         private DelegateCommand saveCommand;
         private DelegateCommand cancelCommand;
@@ -127,6 +130,8 @@ namespace CraftLogs.ViewModels
             IsQuest = mode == "quest" ? true : false;
 
             IsTeam = mode == "team" ? true : false;
+
+            settings = DataRepository.GetSettings();
         }
 
         #endregion
@@ -140,16 +145,20 @@ namespace CraftLogs.ViewModels
                 bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.RegisterNameSave, Texts.Save, Texts.Cancel);
                 if (sure && IsQuest)
                 {
+                    settings.AppMode = AppModeEnum.Quest;
+                    DataRepository.SaveToFile(settings);
                     DataRepository.CreateQuestProfile(Name);
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    await NavigateToWithoutHistory(NavigationLinks.QuestPage);
                 }
                 else if (sure && !IsQuest)
                 {
                     if (!string.IsNullOrEmpty(selectedImage))
                     {
+                        settings.AppMode = AppModeEnum.Team;
+                        DataRepository.SaveToFile(settings);
                         DataRepository.CreateTeamProfile(Name, House, Cast, selectedImage);
                         DataRepository.CreateLogs();
-                        await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                        await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
                     }
                     else
                     {

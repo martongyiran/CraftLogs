@@ -92,8 +92,6 @@ namespace CraftLogs.ViewModels
         private async Task SetMode(AppModeEnum appMode)
         {
             IsBusy = true;
-            settings.AppMode = appMode;
-            DataRepository.SaveToFile(settings);
             NavigationParameters param = new NavigationParameters();
 
             switch (appMode)
@@ -102,11 +100,11 @@ namespace CraftLogs.ViewModels
                     break;
                 case AppModeEnum.Team:
                     param.Add("mode", "team");
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
                     break;
                 case AppModeEnum.Quest:
                     param.Add("mode", "quest");
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
                     break;
                 case AppModeEnum.Shop:
                     await NavigateToWithoutHistory(NavigationLinks.ShopPage);

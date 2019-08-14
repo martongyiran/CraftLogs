@@ -22,7 +22,6 @@ using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Enums;
-using System.Threading.Tasks;
 using CraftLogs.BLL.Services.Interfaces;
 
 namespace CraftLogs.ViewModels
@@ -37,7 +36,6 @@ namespace CraftLogs.ViewModels
 
         private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQuestCommand;
-        private DelegateCommand clearModeCommand;
         //test
         private DelegateCommand navigateToQRPageCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
@@ -57,8 +55,6 @@ namespace CraftLogs.ViewModels
         public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QuestPage); }, CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRPage); }, CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-
-        public DelegateCommand ClearModeCommand => clearModeCommand ?? (clearModeCommand = new DelegateCommand(async () => await ClearMode()));
 
         public AppModeEnum Mode
         {
@@ -113,21 +109,9 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
             }
-            else if (settings.AppMode == AppModeEnum.Quest && !DataRepository.IsQuestProfileExist())
-            {
-                NavigationParameters mode = new NavigationParameters();
-                mode.Add("mode", "quest");
-                await NavigateToWithoutHistory(NavigationLinks.RegisterPage, mode);
-            }
             else if (settings.AppMode == AppModeEnum.Quest)
             {
                 await NavigateToWithoutHistory(NavigationLinks.QuestPage);
-            }
-            else if (settings.AppMode == AppModeEnum.Team && !DataRepository.IsTeamProfileExist())
-            {
-                NavigationParameters mode = new NavigationParameters();
-                mode.Add("mode", "team");
-                await NavigateToWithoutHistory(NavigationLinks.RegisterPage, mode);
             }
             else if (settings.AppMode == AppModeEnum.Team)
             {
@@ -180,17 +164,7 @@ namespace CraftLogs.ViewModels
         {
             HqMenuVisibility = value;
         }
-
-        //for testing
-        private async Task ClearMode()
-        {
-            settings.AppMode = AppModeEnum.None;
-            DataRepository.SaveToFile(settings);
-            DataRepository.DeleteQuestProfile();
-            DataRepository.DeleteTeamProfile();
-            await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
-        }
-
+        
         #endregion
     }
 }

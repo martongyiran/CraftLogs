@@ -79,6 +79,7 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<InventoryPage, InventoryPageViewModel>();
             containerRegistry.RegisterForNavigation<ShopPage, ShopPageViewModel>();
             containerRegistry.RegisterForNavigation<ArenaPage, ArenaPageViewModel>();
+            containerRegistry.RegisterForNavigation<TradePage, TradePageViewModel>();
 
             RegisterServices(containerRegistry);
         }

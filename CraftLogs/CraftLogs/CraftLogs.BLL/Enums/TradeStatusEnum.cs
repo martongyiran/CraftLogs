@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2018 Gyirán Márton Áron
+Copyright 2019 Gyirán Márton Áron
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,16 +16,10 @@ limitations under the License.
 
 namespace CraftLogs.BLL.Enums
 {
-    public enum QRTypeEnum
+    public enum TradeStatusEnum
     {
-        Reward,
-        ProfileForSpectator,
-        ProfileForArena,
-        ShopList,
-        TradeStarted,
-        QuestAvg,
-        ArenaResult,
-        TradeIP,
-        TradeFinished
+        Started,
+        Inprogress,
+        Finished
     }
 }

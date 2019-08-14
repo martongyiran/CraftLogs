@@ -32,7 +32,6 @@
                     WidthRequest="100" 
                     HorizontalOptions="CenterAndExpand" 
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="{StaticResource ColorPrimary}"
                     FlowDirection="LeftToRight">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CharacterSelect_Tapped"/>
@@ -45,7 +44,6 @@
                     WidthRequest="100" 
                     HorizontalOptions="CenterAndExpand" 
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="{StaticResource ColorPrimary}"
                     FlowDirection="LeftToRight">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CharacterSelect_Tapped2"/>
@@ -58,7 +56,6 @@
                     WidthRequest="100" 
                     HorizontalOptions="CenterAndExpand" 
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="{StaticResource ColorPrimary}"
                     FlowDirection="LeftToRight">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CharacterSelect_Tapped3"/>

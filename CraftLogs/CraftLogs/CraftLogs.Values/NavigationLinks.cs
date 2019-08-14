@@ -32,5 +32,6 @@ namespace CraftLogs.Values
         public const string InventoryPage = "InventoryPage";
         public const string ShopPage = "ShopPage";
         public const string ArenaPage = "ArenaPage";
+        public const string TradePage = "TradePage";
     }
 }
