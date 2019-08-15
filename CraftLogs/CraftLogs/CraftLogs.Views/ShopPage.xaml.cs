@@ -47,13 +47,22 @@ namespace CraftLogs.Views
 
         private void BindableToolbarItem_Clicked(object sender, System.EventArgs e)
         {
-            pickers.IsVisible = !pickers.IsVisible;
-            shop.IsVisible = !shop.IsVisible;
-            cartMenu.IsVisible = !cartMenu.IsVisible;
-            cartList.IsVisible = !cartList.IsVisible;
-            settingsIcon.IsVisible = !settingsIcon.IsVisible;
-            reloadIcon.IsVisible = !reloadIcon.IsVisible;
-            buyitIcon.IsVisible = !buyitIcon.IsVisible;
+            if (!(BindingContext is ShopPageViewModel viewModel))
+                return;
+            if(viewModel.ShoppingCart.Count != 0)
+            {
+                pickers.IsVisible = !pickers.IsVisible;
+                shop.IsVisible = !shop.IsVisible;
+                cartMenu.IsVisible = !cartMenu.IsVisible;
+                cartList.IsVisible = !cartList.IsVisible;
+                settingsIcon.IsVisible = !settingsIcon.IsVisible;
+                reloadIcon.IsVisible = !reloadIcon.IsVisible;
+                buyitIcon.IsVisible = !buyitIcon.IsVisible;
+            }
+            else
+            {
+                viewModel.DispalyCartIsEmptyCommand.Execute();
+            }
         }
 
         private void CartList_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -62,6 +71,17 @@ namespace CraftLogs.Views
                 return;
 
             viewModel.RemoveItemTappedCommand.Execute(e.Item);
+
+            if (viewModel.ShoppingCart.Count == 0)
+            {
+                pickers.IsVisible = !pickers.IsVisible;
+                shop.IsVisible = !shop.IsVisible;
+                cartMenu.IsVisible = !cartMenu.IsVisible;
+                cartList.IsVisible = !cartList.IsVisible;
+                settingsIcon.IsVisible = !settingsIcon.IsVisible;
+                reloadIcon.IsVisible = !reloadIcon.IsVisible;
+                buyitIcon.IsVisible = !buyitIcon.IsVisible;
+            }
         }
 
         private void EmptyButton_Clicked(object sender, System.EventArgs e)

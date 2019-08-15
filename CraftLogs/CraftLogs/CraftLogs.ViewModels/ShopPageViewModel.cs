@@ -48,6 +48,7 @@ namespace CraftLogs.ViewModels
         private DelegateCommand buyTappedCommand;
         private DelegateCommand emptyTappedCommand;
         private DelegateCommand checkOutTappedCommand;
+        private DelegateCommand dispalyCartIsEmptyCommand;
 
         #endregion
 
@@ -66,6 +67,8 @@ namespace CraftLogs.ViewModels
         public DelegateCommand EmptyTappedCommand => emptyTappedCommand ?? (emptyTappedCommand = new DelegateCommand(() => { IsBusy = true; Empty(); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand CheckOutTappedCommand => checkOutTappedCommand ?? (checkOutTappedCommand = new DelegateCommand(async () => { IsBusy = true; await CheckOut(); }, CanSubmit).ObservesProperty(() => IsBusy));
+
+        public DelegateCommand DispalyCartIsEmptyCommand => dispalyCartIsEmptyCommand ?? (dispalyCartIsEmptyCommand = new DelegateCommand(async () => { IsBusy = true; await DispalyCartIsEmpty(); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         #endregion
 
@@ -364,6 +367,13 @@ namespace CraftLogs.ViewModels
             }
 
             
+            IsBusy = false;
+        }
+
+        private async Task DispalyCartIsEmpty()
+        {
+            await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
+
             IsBusy = false;
         }
 
