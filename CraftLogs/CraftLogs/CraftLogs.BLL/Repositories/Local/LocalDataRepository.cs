@@ -145,6 +145,14 @@ namespace CraftLogs.BLL.Repositories.Local
             return GetFile<ObservableCollection<Log>>(FileNames.Logs);
         }
 
+        public void DeleteLogs()
+        {
+            if (dataService.IsFileExist(FileNames.Logs))
+            {
+                DeleteFile(FileNames.Logs);
+            }
+        }
+
         #endregion
 
         #region QuestProfile

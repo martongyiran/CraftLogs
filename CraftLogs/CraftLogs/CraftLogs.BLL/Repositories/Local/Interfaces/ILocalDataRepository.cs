@@ -59,6 +59,11 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         ObservableCollection<Log> GetLogs();
 
         /// <summary>
+        /// Deletes Logs file.
+        /// </summary>
+        void DeleteLogs();
+
+        /// <summary>
         /// Creates a QuestProfile file.
         /// </summary>
         void CreateQuestProfile(string name);

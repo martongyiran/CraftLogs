@@ -63,7 +63,7 @@
                     <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
                     <Button Text="{x:Static values:Texts.GetAvgText}" Style="{StaticResource WhiteButton}" Command="{Binding GetAvgCommand}" IsVisible="{Binding AvgVisibility}"/>
                     <Button Text="{x:Static values:Texts.Support}" Style="{StaticResource WhiteButton}" Clicked="On_Support_Clicked"/>
-
+                    <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
                 </StackLayout>
             </views:CardView>
         </ScrollView>
