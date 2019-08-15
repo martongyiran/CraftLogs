@@ -45,6 +45,7 @@ namespace CraftLogs.Values
         public const string Save = "Mentés";
         public const string Cancel = "Mégse";
         public const string Error = "Hiba";
+        public const string Support = "Támogatás";
 
         #endregion
 

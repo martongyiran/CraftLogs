@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CraftLogs.Views
@@ -10,6 +11,11 @@ namespace CraftLogs.Views
         {
             InitializeComponent();
         }
-        
+
+        private void On_Support_Clicked(object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri("https://paypal.me/CHlGGA"));
+        }
+
     }
 }
