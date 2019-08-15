@@ -30,9 +30,12 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private ObservableCollection<Log> logs;
+        private int numberOfVisibleLogs = 20;
+        private ObservableCollection<Log> filteredLogsList;
+        private bool footerIsVisible;
         private bool headerIsVisible;
+        private DelegateCommand loadLogsCommand;
         private readonly ILoggerService loggerService;
-        private string text;
 
         #endregion
 
@@ -44,12 +47,21 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref headerIsVisible, value); }
         }
 
-        public string Text
+        public ObservableCollection<Log> FilteredLogsList
         {
-            get { return text; }
-            set { SetProperty(ref text, value); }
+            get { return filteredLogsList; }
+            set { SetProperty(ref filteredLogsList, value); }
         }
-        
+
+        public bool FooterIsVisible
+        {
+            get { return footerIsVisible; }
+            set { SetProperty(ref footerIsVisible, value); }
+        }
+
+        public DelegateCommand LoadLogsCommand => loadLogsCommand ?? (loadLogsCommand = new DelegateCommand(LoadLogs));
+
+
         #endregion
 
         #region Ctor
@@ -85,11 +97,23 @@ namespace CraftLogs.ViewModels
             IsBusy = true;
 
             HeaderIsVisible = logs.Count == 0;
-            
-            foreach(var log in logs)
+
+            if (logs.Count > numberOfVisibleLogs)
             {
-                Text += log.ToString() + "\n\n\n";
+                FilteredLogsList = new ObservableCollection<Log>();
+                for (int i = 0; i < numberOfVisibleLogs; i++)
+                {
+                    FilteredLogsList.Add(logs[i]);
+                }
+                numberOfVisibleLogs += 20;
+                FooterIsVisible = true;
             }
+            else
+            {
+                FooterIsVisible = false;
+                FilteredLogsList = logs;
+            }
+
 
             IsBusy = false;
         }

@@ -16,7 +16,6 @@ limitations under the License.
 
 using Prism.Commands;
 using Prism.Navigation;
-using Plugin.VersionTracking;
 using CraftLogs.Values;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
@@ -48,8 +47,6 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Public
-
-        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 
         public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QuestPage); }, CanSubmit).ObservesProperty(() => IsBusy));

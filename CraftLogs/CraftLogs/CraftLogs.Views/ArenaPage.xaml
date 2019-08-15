@@ -50,7 +50,7 @@
 
             </Grid>
 
-            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
                        <Label Text="{Binding Logs}" FontSize="15" TextColor="Black" FontAttributes="Italic" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,15,0"/>
             </ScrollView>
                         

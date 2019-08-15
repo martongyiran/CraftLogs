@@ -8,6 +8,7 @@
                  Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="@drawable/ic_reloadWhite.png" Command="{Binding ReloadCommand}" />
+        <ToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -62,20 +63,7 @@
                     </Image.GestureRecognizers>
                 </Image>
 
-                <Image Grid.Row="2" 
-                       Source="@drawable/ic_settings.png" 
-                       HeightRequest="60" 
-                       WidthRequest="60" 
-                       HorizontalOptions="EndAndExpand" 
-                       VerticalOptions="CenterAndExpand" 
-                       Margin="0,0,20,0" 
-                       BackgroundColor="{StaticResource BackgroundColorLight}"
-                       FlowDirection="LeftToRight">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Settings_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
+                <Label Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
 
 
             </Grid>

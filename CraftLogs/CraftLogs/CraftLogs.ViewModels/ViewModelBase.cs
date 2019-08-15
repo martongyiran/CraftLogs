@@ -16,6 +16,8 @@ limitations under the License.
 
 using System.Threading.Tasks;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.Values;
+using Plugin.VersionTracking;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
@@ -49,6 +51,14 @@ namespace CraftLogs.ViewModels
         {
             return !IsBusy;
         }
+
+#if DEV
+        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion) + " DEV"; } }
+#elif STG
+        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion) + " STG"; } }
+#elif PRD
+        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
+#endif
 
         #endregion
 
