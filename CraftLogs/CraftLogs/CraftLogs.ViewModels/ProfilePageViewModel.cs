@@ -359,7 +359,7 @@ namespace CraftLogs.ViewModels
             {
                 var arenas = logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
 
-                if (arenas != null && arenas.Date.AddMinutes(10) > DateTime.Now)
+                if (arenas != null && arenas.Date.AddMinutes(15) > DateTime.Now)
                 {
                     await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantFightYet + arenas.Date.AddMinutes(15), Texts.Sadface);
                 }
