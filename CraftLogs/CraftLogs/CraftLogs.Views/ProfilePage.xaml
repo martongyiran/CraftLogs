@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CraftLogs.Views.ProfilePage" xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views" BackgroundColor="{StaticResource BackgroundColorLight}" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem Icon="@drawable/ic_cqr_white.png" Command="{Binding GetProfileQRCommand}" />
+        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -126,9 +126,9 @@
                         <TapGestureRecognizer Tapped="Trade_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="@drawable/ic_settings_white.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image Source="{Binding ArenaIcon}" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Settings_Tapped" />
+                        <TapGestureRecognizer Tapped="Arena_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2018 Gyirán Márton Áron
+Copyright 2019 Gyirán Márton Áron
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,21 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-namespace CraftLogs.BLL.Enums
+using System;
+using System.Collections.ObjectModel;
+
+namespace CraftLogs.BLL.Models
 {
-    public enum QRTypeEnum
+    public class TradeGetAndGive
     {
-        Reward,
-        ProfileForSpectator,
-        ProfileForArena,
-        ShopList,
-        QuestAvg,
-        ArenaResult,
-        TradeGive,
-        TradeGetAndGive,
-        TradeGiveAndGet,
-        TradeFirstOk,
-        TradeSecondOk,
-        Finishedd
+        public Guid TradeNumber { get; set; }
+
+        public TradeReward Reward = new TradeReward();
+
+        public TradeGetAndGive(Guid tradeNumber)
+        {
+            TradeNumber = tradeNumber;
+        }
     }
 }

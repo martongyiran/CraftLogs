@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
@@ -115,7 +116,7 @@ namespace CraftLogs.ViewModels
 
                 IsBusy = true;
 
-                if (data.Type == BLL.Enums.QRTypeEnum.Reward)
+                if (data.Type == QRTypeEnum.Reward)
                 {
                     Title = Texts.QuestRewardTitle;
                     QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.AdditionalData);
@@ -141,7 +142,7 @@ namespace CraftLogs.ViewModels
                     DataRepository.SaveToFile(profile);
                     loggerService.CreateQueustLog(processedData);
                 }
-                else if(data.Type == BLL.Enums.QRTypeEnum.ShopList)
+                else if(data.Type == QRTypeEnum.ShopList)
                 {
                     Title = Texts.ShopListOkTitle;
                     ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.AdditionalData);
@@ -171,7 +172,7 @@ namespace CraftLogs.ViewModels
                         RewardText = Texts.NotEnoughMoney;
                     }
                 }
-                else if (data.Type == BLL.Enums.QRTypeEnum.ProfileForArena && settings.AppMode == BLL.Enums.AppModeEnum.Arena)
+                else if (data.Type == QRTypeEnum.ProfileForArena && settings.AppMode == AppModeEnum.Arena)
                 {
                     Title = Texts.ArenaTeamDetails;
                     CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.AdditionalData);
@@ -184,7 +185,7 @@ namespace CraftLogs.ViewModels
 
                     await NavigateBack();
                 }
-                else if (data.Type == BLL.Enums.QRTypeEnum.ArenaResult)
+                else if (data.Type == QRTypeEnum.ArenaResult)
                 {
                     ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.AdditionalData);
                     var profile = DataRepository.GetTeamProfile();
@@ -205,21 +206,66 @@ namespace CraftLogs.ViewModels
                     RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
                     loggerService.CreateArenaLog(processedData);
                 }
-                else if (data.Type == BLL.Enums.QRTypeEnum.TradeStarted)
+                else if (data.Type == QRTypeEnum.TradeGive)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    StartTradeQR processedData = JsonConvert.DeserializeObject<StartTradeQR>(data.AdditionalData);
+                    TradeGive processedData = JsonConvert.DeserializeObject<TradeGive>(data.AdditionalData);
 
                     Title = Texts.TradePage;
 
-                    if (profile.TradeStatus == BLL.Enums.TradeStatusEnum.Finished)
+                    if (profile.TradeStatus == TradeStatusEnum.Finished)
                     {
-                        profile.TradeStatus = BLL.Enums.TradeStatusEnum.Inprogress;
+                        profile.TradeStatus = TradeStatusEnum.TradeGetAndGive;
                         profile.TradeNumber = processedData.TradeNumber;
+                        profile.TradeIn = processedData.Reward;
 
                         DataRepository.SaveToFile(profile);
                         RewardText = Texts.TradeHandlerIP;
                         await NavigateToWithoutHistory(NavigationLinks.TradePage);
+                    }
+                    else
+                    {
+                        RewardText = Texts.TradeIP;
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                    }
+                }
+                else if (data.Type == QRTypeEnum.TradeGetAndGive)
+                {
+                    var profile = DataRepository.GetTeamProfile();
+                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.AdditionalData);
+
+                    Title = Texts.TradePage;
+
+                    if (profile.TradeStatus == TradeStatusEnum.TradeGive && profile.TradeNumber == processedData.TradeNumber)
+                    {
+                        profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
+                        profile.TradeIn = processedData.Reward;
+
+                        DataRepository.SaveToFile(profile);
+                        RewardText = Texts.TradeHandlerIP;
+                        await NavigateToWithoutHistory(NavigationLinks.TradePage); //Process & QR?
+                    }
+                    else
+                    {
+                        RewardText = Texts.TradeIP;
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                    }
+                }
+                else if (data.Type == QRTypeEnum.TradeGiveAndGet)
+                {
+                    var profile = DataRepository.GetTeamProfile();
+                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.AdditionalData);
+
+                    Title = Texts.TradePage;
+
+                    if (profile.TradeStatus == TradeStatusEnum.TradeGive && profile.TradeNumber == processedData.TradeNumber)
+                    {
+                        profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
+                        profile.TradeIn.ItemsToTrade = processedData.Reward.ItemsToTrade;
+
+                        DataRepository.SaveToFile(profile);
+                        RewardText = Texts.TradeHandlerIP;
+                        await NavigateToWithoutHistory(NavigationLinks.TradePage); //Process & QR?
                     }
                     else
                     {

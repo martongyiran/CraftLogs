@@ -191,6 +191,14 @@
     <AndroidResource Include="Resources\drawable\rogue_weapon_1.png" />
     <AndroidResource Include="Resources\drawable\warrior_armor_1.png" />
     <AndroidResource Include="Resources\drawable\warrior_weapon_1.png" />
+    <AndroidResource Include="Resources\drawable\ic_arena_white.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_arena_whiteIP.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Views\CraftLogs.Views.csproj">

@@ -76,7 +76,9 @@ namespace CraftLogs.BLL.Models
 
         public TradeStatusEnum TradeStatus { get; set; } = TradeStatusEnum.Finished;
 
-        public ObservableCollection<Item> TradeBag = new ObservableCollection<Item>();
+        public TradeReward TradeOut = new TradeReward();
+
+        public TradeReward TradeIn = new TradeReward();
 
         public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
@@ -169,6 +171,16 @@ namespace CraftLogs.BLL.Models
         public void Init()
         {
             foreach (var item in Inventory)
+            {
+                item.SetStats(item.StatsFromQR);
+            }
+
+            foreach (var item in TradeIn.ItemsToTrade)
+            {
+                item.SetStats(item.StatsFromQR);
+            }
+
+            foreach (var item in TradeOut.ItemsToTrade)
             {
                 item.SetStats(item.StatsFromQR);
             }

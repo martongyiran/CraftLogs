@@ -240,6 +240,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref tradeIcon, value); }
         }
 
+        private string arenaIcon;
+
+        public string ArenaIcon
+        {
+            get { return arenaIcon; }
+            set { SetProperty(ref arenaIcon, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -261,6 +269,8 @@ namespace CraftLogs.ViewModels
             SetItems();
 
             TradeIcon = teamProfile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
+
+            ArenaIcon = GetArenaIcon();
 
             Name = teamProfile.Name;
 
@@ -383,19 +393,13 @@ namespace CraftLogs.ViewModels
 
         private async Task StartTradeAsync()
         {
-            if(teamProfile.TradeStatus == TradeStatusEnum.Finished)
-            {
-                StartTradeQR startTradeQR = new StartTradeQR();
-
-                var qrCode = qRService.CreateQR(startTradeQR);
-                NavigationParameters param = new NavigationParameters();
-                param.Add("code", qrCode);
-
-                await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-            }
-            else
+            if(teamProfile.TradeStatus == TradeStatusEnum.Finished || teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
             {
                 await NavigateTo(NavigationLinks.TradePage);
+            }
+            else if(teamProfile.TradeStatus == TradeStatusEnum.TradeGive || teamProfile.TradeStatus == TradeStatusEnum.TradeGiveAndGet)
+            {
+                await NavigateTo(NavigationLinks.QRScannerPage );
             }
         }
 
@@ -425,6 +429,18 @@ namespace CraftLogs.ViewModels
                 IsBusy = false;
             }
 
+        }
+
+        private string GetArenaIcon()
+        {
+            logs = DataRepository.GetLogs();
+            var arenas = logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
+
+            if (arenas != null && arenas.Date.AddMinutes(15) > DateTime.Now)
+            {
+                return "@drawable/ic_arena_whiteIP.png";
+            }
+            return "@drawable/ic_arena_white.png";
         }
         
 #endregion

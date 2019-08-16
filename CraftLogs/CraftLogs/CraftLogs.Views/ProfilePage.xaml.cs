@@ -60,7 +60,7 @@ namespace CraftLogs.Views
                 viewModel.StartTradeCommand.Execute();
         }
 
-        private async void Settings_Tapped(object sender, System.EventArgs e)
+        private async void Arena_Tapped(object sender, System.EventArgs e)
         {
             if (!(BindingContext is ProfilePageViewModel viewModel))
                 return;
@@ -68,8 +68,8 @@ namespace CraftLogs.Views
             var view = sender as Image;
             await view.FadeTo(0.5, 100);
             await view.FadeTo(1.0, 100);
-            if (viewModel.NavigateToSettingsCommand.CanExecute())
-                viewModel.NavigateToSettingsCommand.Execute();
+            if (viewModel.GetProfileQRCommand.CanExecute())
+                viewModel.GetProfileQRCommand.Execute();
         }
 
         private async void Plus_Tapped1(object sender, System.EventArgs e)

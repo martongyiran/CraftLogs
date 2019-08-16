@@ -56,9 +56,9 @@
             </StackLayout>
             
             <StackLayout x:Name="cartMenu" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" VerticalOptions="CenterAndExpand" IsVisible="False">
-                <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="BindableToolbarItem_Clicked" Style="{StaticResource SmallWhiteButton}" />
-                <Button Text="{x:Static values:Texts.EmptyCart}" Font="20" TextColor="Black" Clicked="EmptyButton_Clicked" Style="{StaticResource SmallWhiteButton}" />
-                <Button Text="{x:Static values:Texts.Checkout}" Font="20" TextColor="Black" Clicked="CheckOutButton_Clicked" Style="{StaticResource SmallWhiteButton}" />
+                <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="BindableToolbarItem_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="{x:Static values:Texts.EmptyCart}" Font="20" TextColor="Black" Clicked="EmptyButton_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="{x:Static values:Texts.Checkout}" Font="20" TextColor="Black" Clicked="CheckOutButton_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
             <ListView x:Name="cartList" ItemsSource="{Binding ShoppingCart}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="1" CachingStrategy="RecycleElement" IsVisible="False" ItemTapped="CartList_ItemTapped">
                 <ListView.ItemTemplate>

@@ -14,20 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using CraftLogs.BLL.Enums;
 using System;
 
 namespace CraftLogs.BLL.Models
 {
-    public class StartTradeQR
+    public class TradeGive
     {
-        public Guid TradeNumber { get; set; }
+        public Guid TradeNumber { get; set; } 
 
-        public TradeStatusEnum TradeStatus { get; set; } = TradeStatusEnum.Started;
+        public TradeReward Reward = new TradeReward();
 
-        public StartTradeQR()
+        public TradeGive()
         {
-            TradeNumber =  Guid.NewGuid();
+            TradeNumber = Guid.NewGuid();
         }
     }
 }
