@@ -67,11 +67,11 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref name, value); }
         }
 
-        public List<HouseEnum> Houses { get; set; } = new List<HouseEnum> { HouseEnum.House1, HouseEnum.House2, HouseEnum.House3, HouseEnum.House4, HouseEnum.House5, HouseEnum.House6 };
+        public List<string> Houses { get; set; } = new List<string> { Texts.House1, Texts.House2, Texts.House3, Texts.House4, Texts.House5, Texts.House6 };
 
-        private HouseEnum house;
+        private string house;
 
-        public HouseEnum House
+        public string House
         {
             get { return house; }
             set { SetProperty(ref house, value); SetHousePrefix(); SetImages(); }
@@ -141,7 +141,7 @@ namespace CraftLogs.ViewModels
                 {
                         settings.AppMode = AppModeEnum.Team;
                         DataRepository.SaveToFile(settings);
-                        DataRepository.CreateTeamProfile(Name, House, Cast, selectedImage);
+                        DataRepository.CreateTeamProfile(Name, NameToEnum(House), Cast, selectedImage);
                         DataRepository.CreateLogs();
                         await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
                 }
@@ -164,7 +164,7 @@ namespace CraftLogs.ViewModels
 
         private void SetHousePrefix()
         {
-            switch (House)
+            switch (NameToEnum(House))
             {
                 case HouseEnum.House1:
                     housePrefix = "h1_";
@@ -184,6 +184,27 @@ namespace CraftLogs.ViewModels
                 case HouseEnum.House6:
                     housePrefix = "h6_";
                     break;
+            }
+        }
+
+        private HouseEnum NameToEnum(string name)
+        {
+            switch (name)
+            {
+                case Texts.House1:
+                    return HouseEnum.House1;
+                case Texts.House2:
+                    return HouseEnum.House2;
+                case Texts.House3:
+                    return HouseEnum.House3;
+                case Texts.House4:
+                    return HouseEnum.House4;
+                case Texts.House5:
+                    return HouseEnum.House5;
+                case Texts.House6:
+                    return HouseEnum.House6;
+                default:
+                    return HouseEnum.House1;
             }
         }
 
