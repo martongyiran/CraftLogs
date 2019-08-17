@@ -22,7 +22,7 @@ namespace CraftLogs.BLL.Models
     public class QRResponse<T>
     {
         public QRTypeEnum Type { get; set; }
-        public string AdditionalData { get; set; }
+        public string D { get; set; }
 
         /// <summary>
         /// For serialization.
@@ -32,7 +32,7 @@ namespace CraftLogs.BLL.Models
         public QRResponse(QRTypeEnum type, string additionalData)
         {
             Type = type;
-            AdditionalData = additionalData;
+            D = additionalData;
         }
 
     }
@@ -40,12 +40,12 @@ namespace CraftLogs.BLL.Models
     public class QRResponse
     {
         public QRTypeEnum Type { get; set; }
-        public string AdditionalData { get; set; }
+        public string D { get; set; }
 
         public QRResponse(QRTypeEnum type, string additionalData)
         {
             Type = type;
-            AdditionalData = additionalData;
+            D = additionalData;
         }
     }
 }

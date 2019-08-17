@@ -20,11 +20,13 @@ using Android.OS;
 namespace CraftLogs.Droid
 {
 #if DEV
-    [Activity(Label = "cl dev", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "cl dev", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true, Icon = "@drawable/icon")]
 #elif STG
-    [Activity(Label = "cl stg", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "cl stg", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true, Icon = "@drawable/icon")]
 #elif PRD
-    [Activity(Label = "CraftLogs", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "CraftLogs", Theme = "@style/Theme.Splash", MainLauncher = true, NoHistory = true, Icon = "@drawable/icon")]
+#elif SPC
+    [Activity(Label = "CraftLogs S", Theme = "@style/Theme.SplashS", MainLauncher = true, NoHistory = true, Icon = "@drawable/icons")]
 #endif
     public class SplashActivity : Activity
     {

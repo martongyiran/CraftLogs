@@ -318,7 +318,21 @@ namespace CraftLogs.ViewModels
             int bdodge = teamProfile.Dodge;
             int bhp = teamProfile.Hp;
 
-            profileQr = new ProfileQr(teamProfile.Name, teamProfile.Atk, teamProfile.Def, teamProfile.CritR, teamProfile.Dodge, teamProfile.Score);
+            profileQr = new ProfileQr();
+            profileQr.i = teamProfile.Atk;
+            profileQr.b = teamProfile.Cast;
+            profileQr.l = teamProfile.CritR;
+            profileQr.j = teamProfile.Def;
+            profileQr.m = teamProfile.Dodge;
+            profileQr.f = teamProfile.Exp;
+            profileQr.d = teamProfile.Honor;
+            profileQr.n = teamProfile.Image;
+            profileQr.g = teamProfile.Level;
+            profileQr.c = teamProfile.Money;
+            profileQr.a = teamProfile.Name;
+            profileQr.e = teamProfile.Score;
+            profileQr.k = teamProfile.Stamina;
+            profileQr.h = teamProfile.XpForNextLevel;
 
             foreach (var item in equippedItems)
             {
@@ -328,7 +342,7 @@ namespace CraftLogs.ViewModels
                 bcr += item.CritR;
                 bdodge += item.Dodge;
                 bhp += (item.Stamina * teamProfile.HpValue);
-                profileQr.Equipped.Add(item);
+                profileQr.o.Add(item);
             }
 
             bcr = bcr >= 60 ? 60 : bcr;

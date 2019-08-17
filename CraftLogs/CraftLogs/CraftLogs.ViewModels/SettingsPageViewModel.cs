@@ -170,8 +170,15 @@ namespace CraftLogs.ViewModels
             settings.Craft2MinPont = Craft2MinPont;
 
             DataRepository.SaveToFile(settings);
-
-            await NavigateToWithoutHistory(NavigationLinks.MainPage);
+            if (IsNpc)
+            {
+                await DialogService.DisplayAlertAsync("", "Sikeres mentés.", "Cool");
+            }
+            else
+            {
+                await NavigateToWithoutHistory(NavigationLinks.MainPage);
+            }
+            
         }
 
         private async Task ResetSettingsAsync()

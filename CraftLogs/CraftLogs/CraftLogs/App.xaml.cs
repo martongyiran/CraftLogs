@@ -59,6 +59,8 @@ namespace CraftLogs
             AppCenter.Start("android=e0308c93-f3e1-4366-8a1c-95535e7309ad;", typeof(Analytics), typeof(Crashes));
 #elif PRD
             AppCenter.Start("android=74a73c15-e833-43a6-b3e8-d95c2b3e6ec2;", typeof(Analytics), typeof(Crashes));
+#elif SPC
+            AppCenter.Start("android=00784e00-e701-4ac5-be1d-656353b63fcb;", typeof(Analytics), typeof(Crashes));
 #endif
         }
 
@@ -80,6 +82,7 @@ namespace CraftLogs
             containerRegistry.RegisterForNavigation<ArenaPage, ArenaPageViewModel>();
             containerRegistry.RegisterForNavigation<TradePage, TradePageViewModel>();
             containerRegistry.RegisterForNavigation<HqPage, HqPageViewModel>();
+            containerRegistry.RegisterForNavigation<SpectatorPage, SpectatorPageViewModel>();
 
             RegisterServices(containerRegistry);
         }

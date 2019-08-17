@@ -137,7 +137,7 @@ namespace CraftLogs.ViewModels
                 if (data.Type == QRTypeEnum.Reward && settings.AppMode != AppModeEnum.Spectator)
                 {
                     Title = Texts.QuestRewardTitle;
-                    QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.AdditionalData);
+                    QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.D);
 
                     var profile = DataRepository.GetTeamProfile();
                     profile.AllExp += 1;
@@ -151,8 +151,8 @@ namespace CraftLogs.ViewModels
 
                     foreach (var item in processedData?.Items)
                     {
-                        profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
-                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                        profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
+                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
                     }
 
                     processedData.Items = new ObservableCollection<Item>(temp);
@@ -164,7 +164,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.ShopList && settings.AppMode != AppModeEnum.Spectator)
                 {
                     Title = Texts.ShopListOkTitle;
-                    ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.AdditionalData);
+                    ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.D);
                     var profile = DataRepository.GetTeamProfile();
                     if (profile.Money >= processedData.Money)
                     {
@@ -176,8 +176,8 @@ namespace CraftLogs.ViewModels
 
                         foreach (var item in processedData?.Items)
                         {
-                            profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
-                            temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                            profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
+                            temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
                         }
 
                         processedData.Items = new ObservableCollection<Item>(temp);
@@ -194,7 +194,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.ProfileForArena && settings.AppMode == AppModeEnum.Arena)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.AdditionalData);
+                    CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.D);
                     var profile = DataRepository.GetArenaProfile();
 
                     profile.Attacker = processedData;
@@ -206,7 +206,7 @@ namespace CraftLogs.ViewModels
                 }
                 else if (data.Type == QRTypeEnum.ArenaResult && settings.AppMode != AppModeEnum.Spectator)
                 {
-                    ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.AdditionalData);
+                    ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.D);
                     var profile = DataRepository.GetTeamProfile();
 
                     profile.AllExp += 1;
@@ -229,7 +229,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeGive && settings.AppMode != AppModeEnum.Spectator)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeGive processedData = JsonConvert.DeserializeObject<TradeGive>(data.AdditionalData);
+                    TradeGive processedData = JsonConvert.DeserializeObject<TradeGive>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -253,7 +253,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeGetAndGive && settings.AppMode != AppModeEnum.Spectator)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.AdditionalData);
+                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -286,7 +286,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeFirstOk && settings.AppMode != AppModeEnum.Spectator)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeFirstOk processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.AdditionalData);
+                    TradeFirstOk processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -325,7 +325,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeSecondOk && settings.AppMode != AppModeEnum.Spectator)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeSecondOk processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.AdditionalData);
+                    TradeSecondOk processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -354,24 +354,29 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Hq)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.AdditionalData);
+                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
 
                     var profile = DataRepository.GetHqProfile();
-                    profile.Scores.Add(new Tuple<string, int>(processedData.Name, processedData.Score));
+                    profile.Scores.Add(new Tuple<string, int>(processedData.a, processedData.e));
                     DataRepository.SaveToFile(profile);
                     RewardText = Texts.ArenaScanned;
                 }
                 else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Spectator)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.AdditionalData);
+                    RewardText = Texts.ArenaScanned;
+                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
 
-                    //TODO
+                    var profile = DataRepository.GetSpectatorProfile();
+
+                    profile = processedData;
+
+                    DataRepository.SaveToFile(profile);
                 }
                 else if (data.Type == QRTypeEnum.HqReward && settings.AppMode != AppModeEnum.Spectator)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    HqReward processedData = JsonConvert.DeserializeObject<HqReward>(data.AdditionalData);
+                    HqReward processedData = JsonConvert.DeserializeObject<HqReward>(data.D);
 
                     var profile = DataRepository.GetTeamProfile();
                     profile.AllExp += processedData.Exp;
@@ -380,8 +385,8 @@ namespace CraftLogs.ViewModels
                     List<Item> temp = new List<Item>();
                     foreach (var item in processedData?.RewardItems)
                     {
-                        profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
-                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                        profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
+                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
                     }
 
                     DataRepository.SaveToFile(profile);

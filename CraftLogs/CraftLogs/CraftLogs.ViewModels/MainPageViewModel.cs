@@ -71,8 +71,11 @@ namespace CraftLogs.ViewModels
             base.OnNavigatedTo(parameters);
             IsBusy = true;
             SetUpFileSystem();
-
             settings = DataRepository.GetSettings();
+#if SPC
+            settings.AppMode = AppModeEnum.Spectator;
+            DataRepository.SaveToFile(settings);
+#endif
 
             if (settings.AppMode == AppModeEnum.None)
             {
@@ -93,6 +96,10 @@ namespace CraftLogs.ViewModels
             else if (settings.AppMode == AppModeEnum.Hq)
             {
                 await NavigateToWithoutHistory(NavigationLinks.HqPage);
+            }
+            else if (settings.AppMode == AppModeEnum.Spectator)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.SpectatorPage);
             }
 
             IsBusy = false;

@@ -22,32 +22,113 @@ namespace CraftLogs.BLL.Models
 {
     public class ProfileQr
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string a { get; set; } = "none"; 
 
-        public int Score { get; set; }
+        /// <summary>
+        /// Cast
+        /// </summary>
+        public CharacterClassEnum b { get; set; } 
 
-        public int Atk { get; set; }
+        /// <summary>
+        /// Money
+        /// </summary>
+        public int c { get; set; } 
 
-        public int Def { get; set; }
+        /// <summary>
+        /// Honor
+        /// </summary>
+        public int d { get; set; } 
 
+        /// <summary>
+        /// Score
+        /// </summary>
+        public int e { get; set; }
 
-        public int CritR { get; set; }
+        /// <summary>
+        /// Exp
+        /// </summary>
+        public int f { get; set; }
 
-        public int Dodge { get; set; }
+        /// <summary>
+        /// Level
+        /// </summary>
+        public int g { get; set; }
+
+        /// <summary>
+        /// XpForNextLevel
+        /// </summary>
+        public int h { get; set; }
+
+        /// <summary>
+        /// Atk
+        /// </summary>
+        public int i { get; set; }
+
+        /// <summary>
+        /// Def
+        /// </summary>
+        public int j { get; set; }
+
+        /// <summary>
+        /// Stamina
+        /// </summary>
+        public int k { get; set; }
+
+        /// <summary>
+        /// CritR
+        /// </summary>
+        public int l { get; set; }
+
+        /// <summary>
+        /// Dodge
+        /// </summary>
+        public int m { get; set; }
+
+        /// <summary>
+        /// Image
+        /// </summary>
+        public string n { get; set; }
+
+        /// <summary>
+        /// Equipped
+        /// </summary>
+        public ObservableCollection<Item> o = new ObservableCollection<Item>();
 
         [JsonIgnore]
-        public string Image { get; set; }
-        
-        public ObservableCollection<Item> Equipped = new ObservableCollection<Item>();
+        public int Hp { get { return (k * HpValue) + 95; } }
 
-        public ProfileQr(string name, int atk, int def, int critR, int dodge, int score)
+        [JsonIgnore]
+        public int HpValue { get { return GetHpValue(); } }
+        
+        public ProfileQr()
         {
-            Name = name;
-            Atk = atk;
-            Def = def;
-            CritR = critR;
-            Dodge = dodge;
-            Score = score;
+
         }
+
+        private int GetHpValue()
+        {
+            switch (b)
+            {
+                case CharacterClassEnum.Warrior:
+                    return 6;
+                case CharacterClassEnum.Mage:
+                    return 4;
+                default:
+                    return 5;
+            }
+        }
+
+        public void Init()
+        {
+            foreach (var item in o)
+            {
+                item.SetStats(item.StatsFromQR);
+            }
+            
+        }
+
     }
 }
