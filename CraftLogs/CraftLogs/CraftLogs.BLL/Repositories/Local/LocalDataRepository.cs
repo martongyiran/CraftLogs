@@ -90,6 +90,10 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.ArenaProfile;
             }
+            else if (typeof(HqProfile) == data.GetType())
+            {
+                fileName = FileNames.HqProfile;
+            }
             else
             {
                 throw new NotImplementedException("Can't save " + data.GetType().ToString() + " type objects to file.");

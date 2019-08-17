@@ -49,6 +49,6 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <summary> 
         /// Create a SystemLog type log entry.
         /// </summary>
-        void CreateSystemLog(string logText);
+        void CreateSystemLog(HqReward logText);
     }
 }

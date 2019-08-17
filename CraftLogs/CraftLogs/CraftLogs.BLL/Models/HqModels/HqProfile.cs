@@ -22,11 +22,6 @@ namespace CraftLogs.BLL.Models
     public class HqProfile
     {
         public ObservableCollection<Tuple<string, int>> Scores = new ObservableCollection<Tuple<string, int>>();
-
-        public HqProfile()
-        {
-            
-        }
     }
 }
 

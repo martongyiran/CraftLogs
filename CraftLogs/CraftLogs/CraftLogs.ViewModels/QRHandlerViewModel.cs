@@ -212,6 +212,7 @@ namespace CraftLogs.ViewModels
                     profile.AllExp += 1;
                     profile.Honor += 1;
                     profile.Money += processedData.Money;
+                    profile.Score += (int)(processedData.Money / 10);
                     DataRepository.SaveToFile(profile);
 
                     if (processedData.IsWin)
@@ -354,8 +355,11 @@ namespace CraftLogs.ViewModels
                 {
                     Title = Texts.ArenaTeamDetails;
                     ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.AdditionalData);
-                    
-                    //TODO
+
+                    var profile = DataRepository.GetHqProfile();
+                    profile.Scores.Add(new Tuple<string, int>(processedData.Name, processedData.Score));
+                    DataRepository.SaveToFile(profile);
+                    RewardText = Texts.ArenaScanned;
                 }
                 else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Spectator)
                 {
@@ -363,6 +367,30 @@ namespace CraftLogs.ViewModels
                     ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.AdditionalData);
 
                     //TODO
+                }
+                else if (data.Type == QRTypeEnum.HqReward && settings.AppMode != AppModeEnum.Spectator)
+                {
+                    Title = Texts.ArenaTeamDetails;
+                    HqReward processedData = JsonConvert.DeserializeObject<HqReward>(data.AdditionalData);
+
+                    var profile = DataRepository.GetTeamProfile();
+                    profile.AllExp += processedData.Exp;
+                    profile.Honor += processedData.Honor;
+                    profile.Money += processedData.Money;
+                    List<Item> temp = new List<Item>();
+                    foreach (var item in processedData?.RewardItems)
+                    {
+                        profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                        temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Name, item.Image));
+                    }
+
+                    DataRepository.SaveToFile(profile);
+                    RewardText = processedData.Exp+" EXP \n" + processedData.Honor + " Honor \n" + processedData.Money + " pénz";
+                   
+                    processedData.RewardItems = new ObservableCollection<Item>(temp);
+                    Rewards = new ObservableCollection<Item>(temp);
+                    loggerService.CreateSystemLog(processedData);
+
                 }
                 else
                 {

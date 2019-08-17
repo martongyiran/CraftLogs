@@ -2,12 +2,35 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftLogs.Views.HqPage"
+             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
              Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout>
+                <Entry Text="{Binding Exp, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Exp" Keyboard="Numeric"/>
+                <Entry Text="{Binding Honor, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Honor" Keyboard="Numeric"/>
+                <Entry Text="{Binding Money, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Money" Keyboard="Numeric"/>
+                <Button Text="AD" Style="{StaticResource WhiteButton}" Command="{Binding GiveCommand}" />
+                <BoxView HeightRequest="1" BackgroundColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                <Button VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="SCAN" FontSize="15" TextColor="Black" Command="{Binding NavigateToQRScannerPageCommand}"/>
+                <ListView ItemsSource="{Binding Teams}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" CachingStrategy="RecycleElement">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                    <Label VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" FontSize="15" TextColor="Black" Margin="15,0,15,0" Text="{Binding Item1}"/>
+                                    <Label VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" FontSize="15" TextColor="Black" Margin="15,0,15,0" Text="{Binding Item2}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
+       
     </ContentPage.Content>
 </ContentPage>

@@ -28,6 +28,7 @@ namespace CraftLogs.BLL.Enums
         TradeGiveAndGet,
         TradeFirstOk,
         TradeSecondOk,
-        Finishedd
+        Finishedd,
+        HqReward
     }
 }

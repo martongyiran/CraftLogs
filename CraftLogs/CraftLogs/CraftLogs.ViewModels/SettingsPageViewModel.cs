@@ -30,8 +30,7 @@ namespace CraftLogs.ViewModels
     public class SettingsPageViewModel : ViewModelBase
     {
         #region Private
-
-        private IQRService qRService;
+        
         private Settings settings;
         private DelegateCommand saveSettingsCommand;
         private DelegateCommand resetSettingsCommand;
@@ -199,6 +198,7 @@ namespace CraftLogs.ViewModels
                 DataRepository.DeleteTeamProfile();
                 DataRepository.DeleteShopProfile();
                 DataRepository.DeleteArenaProfile();
+                DataRepository.DeleteHqProfile();
                 DataRepository.DeleteLogs();
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }

@@ -74,10 +74,10 @@ namespace CraftLogs.BLL.Services
             dataRepository.SaveToFile(logs);
         }
 
-        public void CreateSystemLog(string logText)
+        public void CreateSystemLog(HqReward logText)
         {
             var logs = dataRepository.GetLogs();
-            string newLogText = logText;
+            string newLogText = logText.ToString();
             Log newLog = new Log(LogTypeEnum.System, newLogText);
             logs.Insert(0, newLog);
             dataRepository.SaveToFile(logs);
