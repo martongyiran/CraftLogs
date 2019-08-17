@@ -13,6 +13,10 @@
                 <Entry Text="{Binding Exp, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Exp" Keyboard="Numeric"/>
                 <Entry Text="{Binding Honor, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Honor" Keyboard="Numeric"/>
                 <Entry Text="{Binding Money, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Money" Keyboard="Numeric"/>
+                <Picker ItemsSource="{Binding Legendaries}"
+                        SelectedItem="{Binding Lego, Mode=TwoWay}"
+                        FontSize="16"
+                        TextColor="{StaticResource ColorDark}"/>
                 <Button Text="AD" Style="{StaticResource WhiteButton}" Command="{Binding GiveCommand}" />
                 <BoxView HeightRequest="1" BackgroundColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
                 <Button VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="SCAN" FontSize="15" TextColor="Black" Command="{Binding NavigateToQRScannerPageCommand}"/>

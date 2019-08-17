@@ -17,12 +17,14 @@ limitations under the License.
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
+using CraftLogs.BLL.Services;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -94,7 +96,17 @@ namespace CraftLogs.ViewModels
             get { return money; }
             set { SetProperty(ref money, value); }
         }
-        
+
+        public List<LegendaryEnum> Legendaries { get; set; } = new List<LegendaryEnum>() { LegendaryEnum.None, LegendaryEnum.Baetylus, LegendaryEnum.Brisingamen, LegendaryEnum.Mjolnir };
+
+        private LegendaryEnum lego = LegendaryEnum.None;
+
+        public LegendaryEnum Lego
+        {
+            get { return lego; }
+            set { SetProperty(ref lego, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -140,7 +152,10 @@ namespace CraftLogs.ViewModels
         private async Task Give()
         {
             HqReward hqReward = new HqReward(Exp, Honor, Money);
-
+            if(Lego != LegendaryEnum.None)
+            {
+                hqReward.RewardItems.Add(itemGenerator.GetLegendary(Lego));
+            }
             var qrCode = qRService.CreateQR(hqReward);
             NavigationParameters param = new NavigationParameters();
             param.Add("code", qrCode);

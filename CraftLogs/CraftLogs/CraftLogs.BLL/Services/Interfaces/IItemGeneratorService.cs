@@ -35,5 +35,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <param name="itemType"></param>
         /// <returns>A brand new item.</returns>
         Item GetSpecificItem(int tier, ItemTypeEnum itemType);
+
+        Item GetLegendary(LegendaryEnum legendary);
     }
 }

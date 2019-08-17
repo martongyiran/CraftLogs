@@ -474,5 +474,55 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Ruszki vörös uralomköve","@drawable/neck_17.png"),
         new Tuple<string,string>("Kuni aranyos uralomköve","@drawable/neck_18.png")
         };
+
+        public Item GetLegendary(LegendaryEnum legendary)
+        {
+            
+            if(legendary == LegendaryEnum.Baetylus)
+            {
+                ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
+                ItemTypeEnum itemType = ItemTypeEnum.Ring;
+                CharacterClassEnum usableFor = CharacterClassEnum.Rogue;
+                string name = "Baetylus";
+                string img = "@drawable/baetylus.png";
+                string statsForQr = "15 15 60 15 15";
+
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr, name, img);
+            }
+            else if(legendary == LegendaryEnum.Brisingamen)
+            {
+                ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
+                ItemTypeEnum itemType = ItemTypeEnum.Neck;
+                CharacterClassEnum usableFor = CharacterClassEnum.Mage;
+                string name = "Brísingamen";
+                string img = "@drawable/brisingamen.png";
+                string statsForQr = "30 30 30 15 15";
+
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr, name, img);
+            }
+            else if(legendary == LegendaryEnum.Mjolnir)
+            {
+                ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
+                ItemTypeEnum itemType = ItemTypeEnum.RHand;
+                CharacterClassEnum usableFor = CharacterClassEnum.Warrior;
+                string name = "MJÖLNIR";
+                string img = "@drawable/mjolnir.png";
+                string statsForQr = "30 15 0 0 15";
+
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr, name, img);
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    public enum LegendaryEnum
+    {
+        None,
+        Mjolnir,
+        Baetylus,
+        Brisingamen
     }
 }
