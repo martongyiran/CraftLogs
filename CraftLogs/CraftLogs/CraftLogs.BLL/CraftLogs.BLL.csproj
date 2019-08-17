@@ -37,7 +37,4 @@
   <ItemGroup>
     <ProjectReference Include="..\CraftLogs.Values\CraftLogs.Values.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\TradeModels\" />
-  </ItemGroup>
 </Project>

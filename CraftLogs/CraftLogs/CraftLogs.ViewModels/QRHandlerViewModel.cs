@@ -240,10 +240,17 @@ namespace CraftLogs.ViewModels
                     {
                         profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
                         profile.TradeIn = processedData.Reward;
-
+                        
                         DataRepository.SaveToFile(profile);
                         RewardText = Texts.TradeHandlerIP;
-                        await NavigateToWithoutHistory(NavigationLinks.TradePage); //Process & QR?
+
+                        TradeFirstOk tradeResponse = new TradeFirstOk(profile.TradeNumber);
+
+                        var qrCode = qRService.CreateQR(tradeResponse);
+                        NavigationParameters param = new NavigationParameters();
+                        param.Add("code", qrCode);
+
+                        await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
                     else
                     {
@@ -251,21 +258,64 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.TradeGiveAndGet)
+                else if (data.Type == QRTypeEnum.TradeFirstOk)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.AdditionalData);
+                    TradeFirstOk processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.AdditionalData);
 
                     Title = Texts.TradePage;
 
-                    if (profile.TradeStatus == TradeStatusEnum.TradeGive && profile.TradeNumber == processedData.TradeNumber)
+                    if (profile.TradeStatus == TradeStatusEnum.TradeGiveAndGet && profile.TradeNumber == processedData.TradeNumber)
                     {
-                        profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
-                        profile.TradeIn.ItemsToTrade = processedData.Reward.ItemsToTrade;
+                        profile.TradeStatus = TradeStatusEnum.Finished;
 
+                        profile.Money += profile.TradeIn.Money;
+
+                        foreach(var item in profile.TradeIn.ItemsToTrade)
+                        {
+                            profile.Inventory.Add(item);
+                        }
+
+                        loggerService.CreateTradeLog("asd");
                         DataRepository.SaveToFile(profile);
                         RewardText = Texts.TradeHandlerIP;
-                        await NavigateToWithoutHistory(NavigationLinks.TradePage); //Process & QR?
+
+                        TradeSecondOk tradeResponse = new TradeSecondOk(profile.TradeNumber);
+
+                        var qrCode = qRService.CreateQR(tradeResponse);
+                        NavigationParameters param = new NavigationParameters();
+                        param.Add("code", qrCode);
+
+                        await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+                    }
+                    else
+                    {
+                        RewardText = Texts.TradeIP;
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                    }
+                }
+                else if (data.Type == QRTypeEnum.TradeSecondOk)
+                {
+                    var profile = DataRepository.GetTeamProfile();
+                    TradeSecondOk processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.AdditionalData);
+
+                    Title = Texts.TradePage;
+
+                    if (profile.TradeStatus == TradeStatusEnum.TradeFirstOk && profile.TradeNumber == processedData.TradeNumber)
+                    {
+                        profile.TradeStatus = TradeStatusEnum.Finished;
+
+                        profile.Money += profile.TradeIn.Money;
+
+                        foreach (var item in profile.TradeIn.ItemsToTrade)
+                        {
+                            profile.Inventory.Add(item);
+                        }
+
+                        DataRepository.SaveToFile(profile);
+                        RewardText = "Sikeres csere!";
+
+                        loggerService.CreateTradeLog("asd");
                     }
                     else
                     {

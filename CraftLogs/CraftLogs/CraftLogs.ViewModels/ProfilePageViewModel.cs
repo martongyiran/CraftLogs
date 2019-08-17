@@ -397,7 +397,7 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateTo(NavigationLinks.TradePage);
             }
-            else if(teamProfile.TradeStatus == TradeStatusEnum.TradeGive || teamProfile.TradeStatus == TradeStatusEnum.TradeGiveAndGet)
+            else if(teamProfile.TradeStatus == TradeStatusEnum.TradeGive || teamProfile.TradeStatus == TradeStatusEnum.TradeGiveAndGet || teamProfile.TradeStatus == TradeStatusEnum.TradeFirstOk || teamProfile.TradeStatus == TradeStatusEnum.TradeSecondOk)
             {
                 await NavigateTo(NavigationLinks.QRScannerPage );
             }

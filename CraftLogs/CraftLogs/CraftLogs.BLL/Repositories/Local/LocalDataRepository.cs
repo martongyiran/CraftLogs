@@ -262,7 +262,7 @@ namespace CraftLogs.BLL.Repositories.Local
             if (!dataService.IsFileExist(FileNames.ArenaProfile))
             {
                 ArenaProfile profile = new ArenaProfile();
-                CombatUnit defaultUnit = new CombatUnit("xXxZug69ZugxXx", 6, 5, 5, 5, 165);
+                CombatUnit defaultUnit = new CombatUnit("Thex", 6, 5, 5, 5, 165);
                 profile.Leader = defaultUnit;
                 dataService.CreateFile(FileNames.ArenaProfile);
                 SaveToFile(profile);
