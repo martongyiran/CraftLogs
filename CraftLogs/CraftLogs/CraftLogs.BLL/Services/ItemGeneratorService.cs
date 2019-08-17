@@ -314,7 +314,7 @@ namespace CraftLogs.BLL.Services
             return statPool;
         }
 
-        public readonly List<Tuple<string, string>> MageArmors = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> MageArmors = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Bordó kimonó","@drawable/mage_armor_1.png"),
         new Tuple<string,string>("Zöld tunika","@drawable/mage_armor_2.png"),
@@ -333,7 +333,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Szörmés kabát","@drawable/mage_armor_15.png")
         };
 
-        public readonly List<Tuple<string, string>> RogueArmors = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> RogueArmors = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Lila bőrvért","@drawable/rogue_armor_1.png"),
         new Tuple<string,string>("Arany bőrvért","@drawable/rogue_armor_2.png"),
@@ -352,7 +352,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Téli bunda","@drawable/rogue_armor_15.png")
         };
 
-        public readonly List<Tuple<string, string>> WarriorArmors = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> WarriorArmors = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Aranyozott mellvért","@drawable/warrior_armor_1.png"),
         new Tuple<string,string>("Előkelő páncél","@drawable/warrior_armor_2.png"),
@@ -371,7 +371,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Lila harcivért","@drawable/warrior_armor_15.png")
         };
 
-        public readonly List<Tuple<string, string>> MageWeapons = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> MageWeapons = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Tüzes élmény","@drawable/mage_weapon_1.png"),
         new Tuple<string,string>("Jeges élmény","@drawable/mage_weapon_2.png"),
@@ -391,7 +391,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Orosz varázspálca","@drawable/mage_weapon_16.png")
         };
 
-        public readonly List<Tuple<string, string>> RogueWeapons = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> RogueWeapons = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Veszélyes bökő","@drawable/rogue_weapon_1.png"),
         new Tuple<string,string>("Hegyes bökő","@drawable/rogue_weapon_2.png"),
@@ -410,7 +410,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Görbe kékség","@drawable/rogue_weapon_15.png")
         };
 
-        public readonly List<Tuple<string, string>> WarriorWeapons = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> WarriorWeapons = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Megmunkált balta","@drawable/warrior_weapon_1.png"),
         new Tuple<string,string>("Pattintott kőbalta","@drawable/warrior_weapon_2.png"),
@@ -429,7 +429,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Fűrészes balta","@drawable/warrior_weapon_15.png")
         };
 
-        public readonly List<Tuple<string, string>> Rings = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> Rings = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Prométeusz tüzes munkája","@drawable/ring_1.png"),
         new Tuple<string,string>("Klári jeges áldása","@drawable/ring_2.png"),
@@ -448,7 +448,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Thor markolatgombja","@drawable/ring_15.png")
         };
 
-        public readonly List<Tuple<string, string>> Necks = new List<Tuple<string, string>>()
+        private readonly List<Tuple<string, string>> Necks = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Zseton türkiz nyakéke","@drawable/neck_1.png"),
         new Tuple<string,string>("Chili smaragdos nyaklánca","@drawable/neck_2.png"),
@@ -470,6 +470,13 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Kuni aranyos uralomköve","@drawable/neck_18.png")
         };
 
+        private readonly List<Tuple<string, string>> Legends = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Baetylus","@drawable/baetylus.png"),
+        new Tuple<string,string>("Brísingamen","@drawable/brisingamen.png"),
+        new Tuple<string,string>("MJÖLNIR","@drawable/mjolnir.png")
+        };
+
         public Item GetLegendary(LegendaryEnum legendary)
         {
             
@@ -478,33 +485,27 @@ namespace CraftLogs.BLL.Services
                 ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
                 ItemTypeEnum itemType = ItemTypeEnum.Ring;
                 CharacterClassEnum usableFor = CharacterClassEnum.Rogue;
-                string name = "Baetylus";
-                string img = "@drawable/baetylus.png";
                 string statsForQr = "15 15 60 15 15";
 
-                return new Item(3, itemRarity, itemType, usableFor, statsForQr);
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr,0);
             }
             else if(legendary == LegendaryEnum.Brisingamen)
             {
                 ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
                 ItemTypeEnum itemType = ItemTypeEnum.Neck;
                 CharacterClassEnum usableFor = CharacterClassEnum.Mage;
-                string name = "Brísingamen";
-                string img = "@drawable/brisingamen.png";
                 string statsForQr = "30 30 30 15 15";
 
-                return new Item(3, itemRarity, itemType, usableFor, statsForQr);
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr,1);
             }
             else if(legendary == LegendaryEnum.Mjolnir)
             {
                 ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
                 ItemTypeEnum itemType = ItemTypeEnum.RHand;
                 CharacterClassEnum usableFor = CharacterClassEnum.Warrior;
-                string name = "MJÖLNIR";
-                string img = "@drawable/mjolnir.png";
                 string statsForQr = "30 15 0 0 15";
 
-                return new Item(3, itemRarity, itemType, usableFor, statsForQr);
+                return new Item(3, itemRarity, itemType, usableFor, statsForQr,2);
             }
             else
             {

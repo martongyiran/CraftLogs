@@ -180,7 +180,19 @@ namespace CraftLogs.BLL.Models
 
         private string GetName()
         {
-            if (UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
+            if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
+            {
+                return Legends[Ad].Item1;
+            }
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Neck)
+            {
+                return Legends[Ad].Item1;
+            }
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.RHand)
+            {
+                return Legends[Ad].Item1;
+            }
+            else if(UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
             {
                 return MageArmors[Ad].Item1;
             }
@@ -217,7 +229,19 @@ namespace CraftLogs.BLL.Models
 
         private string GetImage()
         {
-            if (UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
+            if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
+            {
+                return Legends[Ad].Item2;
+            }
+            else if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Neck)
+            {
+                return Legends[Ad].Item2;
+            }
+            else if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.RHand)
+            {
+                return Legends[Ad].Item2;
+            }
+            else if (UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
             {
                 return MageArmors[Ad].Item2;
             }
@@ -277,6 +301,13 @@ namespace CraftLogs.BLL.Models
             CritR = int.Parse(array[3]);
             Dodge = int.Parse(array[4]);
         }
+
+        private readonly List<Tuple<string, string>> Legends = new List<Tuple<string, string>>()
+        {
+        new Tuple<string,string>("Baetylus","@drawable/baetylus.png"),
+        new Tuple<string,string>("Brísingamen","@drawable/brisingamen.png"),
+        new Tuple<string,string>("MJÖLNIR","@drawable/mjolnir.png")
+        };
 
         private readonly List<Tuple<string, string>> MageArmors = new List<Tuple<string, string>>()
         {
