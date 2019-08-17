@@ -30,10 +30,9 @@ namespace CraftLogs.ViewModels
         #region Private
 
         private DelegateCommand setModeToTeamCommand;
-        private DelegateCommand setModeToQuestCommand;
         private DelegateCommand setModeToShopCommand;
         private DelegateCommand setModeToArenaCommand;
-        private DelegateCommand setModeToHqCommand; //for dev menu
+        private DelegateCommand setModeToHqCommand; 
         private Settings settings;
 
         #endregion
@@ -41,7 +40,6 @@ namespace CraftLogs.ViewModels
         #region Public
 
         public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team), CanSubmit).ObservesProperty(()=> IsBusy));
-        public DelegateCommand SetModeToQuestCommand => setModeToQuestCommand ?? (setModeToQuestCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Quest), CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop), CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena), CanSubmit).ObservesProperty(() => IsBusy));
         public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq), CanSubmit).ObservesProperty(() => IsBusy));
@@ -92,19 +90,13 @@ namespace CraftLogs.ViewModels
         private async Task SetMode(AppModeEnum appMode)
         {
             IsBusy = true;
-            NavigationParameters param = new NavigationParameters();
 
             switch (appMode)
             {
                 case AppModeEnum.None:
                     break;
                 case AppModeEnum.Team:
-                    param.Add("mode", "team");
-                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
-                    break;
-                case AppModeEnum.Quest:
-                    param.Add("mode", "quest");
-                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage, param);
+                    await NavigateToWithoutHistory(NavigationLinks.RegisterPage);
                     break;
                 case AppModeEnum.Shop:
                     await NavigateToWithoutHistory(NavigationLinks.ShopPage);
@@ -113,7 +105,7 @@ namespace CraftLogs.ViewModels
                     await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
                     break;
                 case AppModeEnum.Hq:
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    await NavigateToWithoutHistory(NavigationLinks.HqPage);
                     break;
                 default:
                     break;

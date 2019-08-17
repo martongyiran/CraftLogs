@@ -32,12 +32,6 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
-            else if (typeof(QuestProfileQR) == data.GetType())
-            {
-                QRResponse<QuestProfileQR> response = new QRResponse<QuestProfileQR>(QRTypeEnum.QuestAvg, JsonConvert.SerializeObject(data));
-
-                return JsonConvert.SerializeObject(response);
-            }
             else if (typeof(ShopResponse) == data.GetType())
             {
                 QRResponse<ShopResponse> response = new QRResponse<ShopResponse>(QRTypeEnum.ShopList, JsonConvert.SerializeObject(data));
@@ -77,6 +71,12 @@ namespace CraftLogs.BLL.Services
             else if (typeof(TradeSecondOk) == data.GetType())
             {
                 QRResponse<TradeSecondOk> response = new QRResponse<TradeSecondOk>(QRTypeEnum.TradeSecondOk, JsonConvert.SerializeObject(data));
+
+                return JsonConvert.SerializeObject(response);
+            }
+            else if (typeof(ProfileQr) == data.GetType())
+            {
+                QRResponse<ProfileQr> response = new QRResponse<ProfileQr>(QRTypeEnum.ProfileForSpectator, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }

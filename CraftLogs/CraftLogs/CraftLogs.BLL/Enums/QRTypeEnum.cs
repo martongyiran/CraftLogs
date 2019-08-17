@@ -22,7 +22,6 @@ namespace CraftLogs.BLL.Enums
         ProfileForSpectator,
         ProfileForArena,
         ShopList,
-        QuestAvg,
         ArenaResult,
         TradeGive,
         TradeGetAndGive,

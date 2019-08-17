@@ -74,11 +74,7 @@ namespace CraftLogs.ViewModels
 
         private async Task SmartNavigation()
         {
-            if(settings.AppMode == BLL.Enums.AppModeEnum.Quest)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
-            } 
-            else if (settings.AppMode == BLL.Enums.AppModeEnum.Team)
+            if (settings.AppMode == BLL.Enums.AppModeEnum.Team)
             {
                 await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
             }

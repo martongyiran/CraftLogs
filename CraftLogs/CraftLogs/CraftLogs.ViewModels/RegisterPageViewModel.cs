@@ -125,12 +125,6 @@ namespace CraftLogs.ViewModels
         {
             base.OnNavigatingTo(parameters);
 
-            var mode = parameters["mode"] as string;
-
-            IsQuest = mode == "quest" ? true : false;
-
-            IsTeam = mode == "team" ? true : false;
-
             settings = DataRepository.GetSettings();
         }
 
@@ -140,36 +134,21 @@ namespace CraftLogs.ViewModels
 
         private async Task Save()
         {
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name))
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrEmpty(selectedImage))
             {
                 bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.RegisterNameSave, Texts.Save, Texts.Cancel);
-                if (sure && IsQuest)
+                if (sure )
                 {
-                    settings.AppMode = AppModeEnum.Quest;
-                    DataRepository.SaveToFile(settings);
-                    DataRepository.CreateQuestProfile(Name);
-                    await NavigateToWithoutHistory(NavigationLinks.QuestPage);
-                }
-                else if (sure && !IsQuest)
-                {
-                    if (!string.IsNullOrEmpty(selectedImage))
-                    {
                         settings.AppMode = AppModeEnum.Team;
                         DataRepository.SaveToFile(settings);
                         DataRepository.CreateTeamProfile(Name, House, Cast, selectedImage);
                         DataRepository.CreateLogs();
                         await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
-                    }
-                    else
-                    {
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.RegisterMissingImage, Texts.Ok);
-                    }
-
                 }
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.RegisterMissingName, Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.RegisterMissing, Texts.Ok);
             }
         }
 

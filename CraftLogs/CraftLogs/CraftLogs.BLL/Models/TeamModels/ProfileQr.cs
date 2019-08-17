@@ -14,43 +14,40 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using CraftLogs.BLL.Enums;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Models
 {
-    public class CombatUnit
+    public class ProfileQr
     {
-
         public string Name { get; set; }
 
-        public int Atk { get; set; } = 1;
+        public int Score { get; set; }
 
-        public int Def { get; set; } = 1;
+        public int Atk { get; set; }
+
+        public int Def { get; set; }
+
+
+        public int CritR { get; set; }
+
+        public int Dodge { get; set; }
+
+        [JsonIgnore]
+        public string Image { get; set; }
         
+        public ObservableCollection<Item> Equipped = new ObservableCollection<Item>();
 
-        public int CritR { get; set; } = 1;
-
-        public int Dodge { get; set; } = 1;
-
-        public int Hp { get; set; }
-
-        public string Image { get; set; } 
-
-        public string House { get; set; }
-
-        public CombatUnit(string name, int atk, int def, int critR, int dodge, int hp, string house = "none", string image = "@drawable/peon.png")
+        public ProfileQr(string name, int atk, int def, int critR, int dodge, int score)
         {
             Name = name;
             Atk = atk;
             Def = def;
             CritR = critR;
             Dodge = dodge;
-            Hp = hp;
-            House = house;
-            Image = image;
+            Score = score;
         }
-
     }
 }

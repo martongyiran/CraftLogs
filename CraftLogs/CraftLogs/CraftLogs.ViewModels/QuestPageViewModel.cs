@@ -31,13 +31,11 @@ namespace CraftLogs.ViewModels
 
         #region Private
 
-        private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand scoreCommand;
         private DelegateCommand startCommand;
         private DelegateCommand reloadCommand;
 
         private Settings settings;
-        private QuestProfile profile;
         private IQRService qRService;
         private IItemGeneratorService itemGeneratorService;
         private DateTime date;
@@ -48,8 +46,6 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Public
-
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); },CanSubmit).ObservesProperty(()=>IsBusy));
 
         public DelegateCommand ScoreCommand => scoreCommand ?? (scoreCommand = new DelegateCommand(async () => await ScoreAsync()));
 
@@ -65,6 +61,7 @@ namespace CraftLogs.ViewModels
         {
             qRService = qrService;
             itemGeneratorService = itemgeneratorService;
+            Title = Texts.QuestPage;
         }
         
         #endregion
@@ -76,6 +73,14 @@ namespace CraftLogs.ViewModels
             base.OnNavigatingTo(parameters);
 
             Init();
+        }
+
+        public override async Task ToSettings()
+        {
+            NavigationParameters param = new NavigationParameters();
+            param.Add("mode", "npc");
+
+            await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
         #endregion
@@ -106,14 +111,20 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref readyToScore, value); }
         }
 
+        private string from;
+
+        public string From
+        {
+            get { return from; }
+            set { SetProperty(ref from, value); }
+        }
+
         #endregion
 
         #region Private functions
 
         private void Init()
         {
-            profile = DataRepository.GetQuestProfile();
-            Title = string.Concat(Texts.QuestPage, " - ", profile.QuestName);
             settings = DataRepository.GetSettings();
         }
 
@@ -210,7 +221,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ScoreAsync()
         {
-            if (Score != 0)
+            if (Score != 0 && !string.IsNullOrEmpty(From) && !string.IsNullOrWhiteSpace(From))
             {
                 var res = await DialogService.DisplayAlertAsync(Texts.Result, string.Format(Texts.ResultDialog, Score), Texts.Yes, Texts.No);
                 if (res)
@@ -218,7 +229,7 @@ namespace CraftLogs.ViewModels
                     int usablePoints = Score;
                     QuestReward reward = new QuestReward
                     {
-                        From = profile.QuestName,
+                        From = this.From,
                         Score = Score,
                         Honor = 1
                     };
@@ -252,8 +263,8 @@ namespace CraftLogs.ViewModels
                     var qrCode = qRService.CreateQR(reward);
 
                     NavigationParameters param = new NavigationParameters();
-                    param.Add("code", qrCode);
-                    await NavigateToWithoutHistory(NavigationLinks.RatingPage, param);
+                    param.Add("res", qrCode);
+                    await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, param);
                 }
             }
             else

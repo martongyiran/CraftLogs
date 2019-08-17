@@ -24,6 +24,7 @@ namespace CraftLogs.BLL.Models
         public int Score { get; set; }
         public int Money { get; set; }
         public int Honor { get; set; }
+
         public ObservableCollection<Item> Items = new ObservableCollection<Item>();
 
         public QuestReward(string from, int score, int money, int honor, ObservableCollection<Item> items)
@@ -42,7 +43,7 @@ namespace CraftLogs.BLL.Models
 
         public override string ToString()
         {
-            string outp = From + "\n" + "+" + Money + " $, " + Honor + " honor, 1 Exp \n";
+            string outp = "Állomás: " + From + "\n" + "+" + Money + " $, " + Honor + " honor, 1 Exp \n";
 
             foreach(var item in Items)
             {

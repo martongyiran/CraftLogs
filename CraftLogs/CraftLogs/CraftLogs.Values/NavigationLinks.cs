@@ -28,10 +28,10 @@ namespace CraftLogs.Values
         public const string QRScannerPage = "QRScannerPage";
         public const string QRHandlerPage = "QRHandlerPage";
         public const string RegisterPage = "RegisterPage";
-        public const string RatingPage = "RatingPage";
         public const string InventoryPage = "InventoryPage";
         public const string ShopPage = "ShopPage";
         public const string ArenaPage = "ArenaPage";
         public const string TradePage = "TradePage";
+        public const string HqPage = "HqPage";
     }
 }

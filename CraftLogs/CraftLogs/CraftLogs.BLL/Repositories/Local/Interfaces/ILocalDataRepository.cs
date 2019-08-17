@@ -62,29 +62,7 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes Logs file.
         /// </summary>
         void DeleteLogs();
-
-        /// <summary>
-        /// Creates a QuestProfile file.
-        /// </summary>
-        void CreateQuestProfile(string name);
-
-        /// <summary>
-        /// Returns the QuestProfile.
-        /// </summary>
-        /// <returns></returns>
-        QuestProfile GetQuestProfile();
-
-        /// <summary>
-        /// Checks if QuestProfile exist.
-        /// </summary>
-        /// <returns></returns>
-        bool IsQuestProfileExist();
-
-        /// <summary>
-        /// Deletes QuestProfile file.
-        /// </summary>
-        void DeleteQuestProfile();
-
+        
         /// <summary>
         /// Creates a TeamProfile file.
         /// </summary>
@@ -150,6 +128,28 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes ArenaProfile file.
         /// </summary>
         void DeleteArenaProfile();
+
+        /// <summary>
+        /// Creates a HqProfile file.
+        /// </summary>
+        void CreateHqProfile();
+
+        /// <summary>
+        /// Returns the HqProfile.
+        /// </summary>
+        /// <returns></returns>
+        HqProfile GetHqProfile();
+
+        /// <summary>
+        /// Checks if HqProfile exist.
+        /// </summary>
+        /// <returns></returns>
+        bool IsHqProfileExist();
+
+        /// <summary>
+        /// Deletes HqProfile file.
+        /// </summary>
+        void DeleteHqProfile();
 
     }
 }

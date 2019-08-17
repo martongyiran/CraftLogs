@@ -37,14 +37,11 @@ namespace CraftLogs.ViewModels
         private Settings settings;
         private CombatUnit challenger;
 
-        private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
 
         #endregion
 
         #region Public
-
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
@@ -90,6 +87,14 @@ namespace CraftLogs.ViewModels
             await Init();
 
             IsBusy = false;
+        }
+
+        public override async Task ToSettings()
+        {
+            NavigationParameters param = new NavigationParameters();
+            param.Add("mode", "npc");
+
+            await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
         #endregion

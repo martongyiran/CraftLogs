@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Plugin.VersionTracking;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
@@ -31,9 +32,13 @@ namespace CraftLogs.ViewModels
         private string title;
         private bool isBusy = false;
 
+        private DelegateCommand navigateToSettingsCommand;
+
         #endregion
 
         #region Public
+
+        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { await ToSettings(); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public string Title
         {
@@ -100,6 +105,10 @@ namespace CraftLogs.ViewModels
         public virtual void Destroy()
         {
 
+        }
+
+        public virtual async Task ToSettings()
+        {
         }
 
         #endregion

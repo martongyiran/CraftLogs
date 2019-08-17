@@ -176,9 +176,7 @@ namespace CraftLogs.Values
 
         public const string RegisterNameSave = "Biztos, hogy elmented ezt a nevet? A későbbiekben nem módosíthatod!";
 
-        public const string RegisterMissingName = "Kérlek írj be valamilyen nevet!";
-
-        public const string RegisterMissingImage = "Kérjük válassz hőst!";
+        public const string RegisterMissing = "Kérlek írj be valamilyen nevet és válassz hőst!";
 
         public const string TeamRegisterName = "Csapat neve:";
 

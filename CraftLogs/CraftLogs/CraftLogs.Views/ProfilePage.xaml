@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CraftLogs.Views.ProfilePage" xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views" BackgroundColor="{StaticResource BackgroundColorLight}" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" Title="{Binding Title}">
     <ContentPage.ToolbarItems>
+        <views:BindableToolbarItem Icon="@drawable/ic_prfile_white.png" Command="{Binding ShowProfileCommand}" />
         <views:BindableToolbarItem Icon="@drawable/ic_info_white.png" Command="{Binding ShowInfoCommand}" />
         <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>

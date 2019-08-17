@@ -41,7 +41,6 @@ namespace CraftLogs.ViewModels
         private IItemGeneratorService itemGenerator;
         private IQRService qRService;
 
-        private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand refreshCommand;
         private DelegateCommand<object> itemTappedCommand;
         private DelegateCommand<object> removeItemTappedCommand;
@@ -53,8 +52,6 @@ namespace CraftLogs.ViewModels
         #endregion
 
         #region Public
-
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand RefreshCommand => refreshCommand ?? (refreshCommand = new DelegateCommand(() => { IsBusy = true; Refresh(); }, CanSubmit).ObservesProperty(() => IsBusy));
 
@@ -183,6 +180,14 @@ namespace CraftLogs.ViewModels
             Refresh();
 
             IsBusy = false;
+        }
+
+        public override async Task ToSettings()
+        {
+            NavigationParameters param = new NavigationParameters();
+            param.Add("mode", "npc");
+
+            await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
         #endregion

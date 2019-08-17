@@ -24,7 +24,6 @@ using CraftLogs.Values;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
-//using Xamarin.Essentials;
 
 namespace CraftLogs.ViewModels
 {
@@ -37,7 +36,8 @@ namespace CraftLogs.ViewModels
         private DelegateCommand saveSettingsCommand;
         private DelegateCommand resetSettingsCommand;
         private DelegateCommand deleteProfileCommand;
-        private DelegateCommand getAvgCommand;
+        private DelegateCommand toQuestCommand;
+        
 
         #endregion
 
@@ -46,7 +46,8 @@ namespace CraftLogs.ViewModels
         public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(async () => await SaveSettings()));
         public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
         public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand GetAvgCommand => getAvgCommand ?? (getAvgCommand = new DelegateCommand(async () => await GetAvgAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelegateCommand ToQuestCommand => toQuestCommand ?? (toQuestCommand = new DelegateCommand(async () => await ToQuest(), CanSubmit).ObservesProperty(() => IsBusy));
+
 
         #endregion
 
@@ -55,7 +56,6 @@ namespace CraftLogs.ViewModels
         public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
-            qRService = qrService;
             Title = Texts.SettingsPage;
         }
 
@@ -112,21 +112,21 @@ namespace CraftLogs.ViewModels
             get { return craft2MinPont; }
             set { SetProperty(ref craft2MinPont, value); }
         }
-
-        private bool avgVisibility;
-
-        public bool AvgVisibility
-        {
-            get { return avgVisibility; }
-            set { SetProperty(ref avgVisibility, value); }
-        }
-
+        
         private bool isNpc;
 
         public bool IsNpc
         {
             get { return isNpc; }
             set { SetProperty(ref isNpc, value); }
+        }
+
+        private string pw;
+
+        public string Pw
+        {
+            get { return pw; }
+            set { SetProperty(ref pw, value); }
         }
 
         #endregion
@@ -136,6 +136,11 @@ namespace CraftLogs.ViewModels
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
+
+            var lul = parameters["mode"] as string;
+
+            IsNpc = lul == "npc";
+
             SetUp();
         }
 
@@ -147,9 +152,6 @@ namespace CraftLogs.ViewModels
         {
             IsBusy = true;
             settings = DataRepository.GetSettings();
-
-            AvgVisibility = settings.AppMode == BLL.Enums.AppModeEnum.Quest;
-            IsNpc = settings.AppMode != BLL.Enums.AppModeEnum.Team;
 
             CraftDay = settings.CraftDay;
             Craft1Start = settings.Craft1Start;
@@ -170,10 +172,6 @@ namespace CraftLogs.ViewModels
 
             DataRepository.SaveToFile(settings);
 
-            if (settings.AppMode == BLL.Enums.AppModeEnum.Quest)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
-            }
             await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
@@ -198,7 +196,6 @@ namespace CraftLogs.ViewModels
                 IsBusy = true;
                 DataRepository.ResetSettings();
                 SetUp();
-                DataRepository.DeleteQuestProfile();
                 DataRepository.DeleteTeamProfile();
                 DataRepository.DeleteShopProfile();
                 DataRepository.DeleteArenaProfile();
@@ -206,17 +203,19 @@ namespace CraftLogs.ViewModels
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }
-
-        private async Task GetAvgAsync()
-        {
-            IsBusy = true;
-            var qrCode = qRService.CreateQR(new QuestProfileQR(DataRepository.GetQuestProfile()));
-
-            NavigationParameters param = new NavigationParameters();
-            param.Add("code", qrCode);
-            await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
-        }
         
+        private async Task ToQuest()
+        {
+            if(Pw == "kukimuki")
+            {
+                await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
+            }
+            else
+            {
+                await DialogService.DisplayAlertAsync(Texts.Error, "Hibás jelszó!", Texts.No);
+            }
+        }
+
         #endregion
 
 

@@ -15,7 +15,6 @@
             TextColor="Black" 
             Margin="5,0,5,5"/>
         <Button Text="{x:Static values:Texts.TeamMode}" Command="{Binding SetModeToTeamCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.QuestMode}" Command="{Binding SetModeToQuestCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.ShopMode}" Command="{Binding SetModeToShopCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.ArenaMode}" Command="{Binding SetModeToArenaCommand}" Style="{StaticResource WhiteButton}"/>
         <Button Text="{x:Static values:Texts.HqMode}" Command="{Binding SetModeToHqCommand}" Style="{StaticResource WhiteButton}" IsEnabled="{Binding IsDev}"/>

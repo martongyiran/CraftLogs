@@ -61,8 +61,10 @@
 
                     <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}" IsVisible="{Binding IsNpc}"/>
                     <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
-                    <Button Text="{x:Static values:Texts.GetAvgText}" Style="{StaticResource WhiteButton}" Command="{Binding GetAvgCommand}" IsVisible="{Binding AvgVisibility}"/>
                     <Button Text="{x:Static values:Texts.Support}" Style="{StaticResource WhiteButton}" Clicked="On_Support_Clicked"/>
+                    <Entry Text="{Binding Pw, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" IsPassword="True" Placeholder="Állomás jelszó" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
+                    <Button Text="Állomás" Style="{StaticResource WhiteButton}" Command="{Binding ToQuestCommand}" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
+
                     <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
                 </StackLayout>
             </views:CardView>

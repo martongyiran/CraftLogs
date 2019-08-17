@@ -7,8 +7,29 @@
              IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <views:QuestRewardEndView IsVisible="{Binding RewardIsVisible}"/>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <views:CardView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="16" Text="{Binding RewardText}"/>
+            </views:CardView>
+            <ListView ItemsSource="{Binding Rewards}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" Padding="1">
+                                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Image}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" Grid.Column="0" />
+                                    <Label Text="{Binding InvString}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+                                </Grid>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Köszi" Style="{StaticResource WhiteButton}" Command="{Binding NavigateToProfilePageCommand}" IsVisible="{Binding IsQuestReward}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

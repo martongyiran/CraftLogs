@@ -38,10 +38,10 @@ namespace CraftLogs.ViewModels
 
         private TeamProfile teamProfile;
         private CombatUnit combatUnit;
+        private ProfileQr profileQr;
         private ObservableCollection<Log> logs;
 
         private DelegateCommand navigateToLogsCommand;
-        private DelegateCommand navigateToSettingsCommand;
         private DelegateCommand navigateToQRScannerPageCommand;
         private DelegateCommand navigateToInventoryPageCommand;
         private DelegateCommand getProfileQRCommand;
@@ -49,14 +49,13 @@ namespace CraftLogs.ViewModels
         private DelegateCommand<object> raiseStatCommand;
         private DelegateCommand lastTradeQRCommand;
         private DelegateCommand showInfoCommand;
+        private DelegateCommand showProfileCommand;
 
         #endregion
 
         #region Public
 
         public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.LogsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
 
@@ -71,6 +70,9 @@ namespace CraftLogs.ViewModels
         public DelegateCommand LastTradeQRCommand => lastTradeQRCommand ?? (lastTradeQRCommand = new DelegateCommand(async () => { IsBusy = true; await ToLastTradeQR(); }, CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand ShowInfoCommand => showInfoCommand ?? (showInfoCommand = new DelegateCommand(async () => { await ShowInfo(); }));
+
+        public DelegateCommand ShowProfileCommand => showProfileCommand ?? (showProfileCommand = new DelegateCommand(async () => await ShowProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+
 
         #endregion
 
@@ -273,6 +275,14 @@ namespace CraftLogs.ViewModels
             Init();
         }
 
+        public override async Task ToSettings()
+        {
+            NavigationParameters param = new NavigationParameters();
+            param.Add("mode", "team");
+
+            await NavigateTo(NavigationLinks.SettingsPage, param);
+        }
+
         #endregion
 
         #region Private functions
@@ -308,7 +318,9 @@ namespace CraftLogs.ViewModels
             int bdodge = teamProfile.Dodge;
             int bhp = teamProfile.Hp;
 
-            foreach(var item in equippedItems)
+            profileQr = new ProfileQr(teamProfile.Name, teamProfile.Atk, teamProfile.Def, teamProfile.CritR, teamProfile.Dodge, teamProfile.Score);
+
+            foreach (var item in equippedItems)
             {
                 batk += item.Atk;
                 bdef += item.Def;
@@ -316,6 +328,7 @@ namespace CraftLogs.ViewModels
                 bcr += item.CritR;
                 bdodge += item.Dodge;
                 bhp += (item.Stamina * teamProfile.HpValue);
+                profileQr.Equipped.Add(item);
             }
 
             bcr = bcr >= 60 ? 60 : bcr;
@@ -349,7 +362,17 @@ namespace CraftLogs.ViewModels
             var rhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).ToList();
             RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/weapon.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
         }
-        
+
+        private async Task ShowProfileAsync()
+        {
+            var qrCode = qRService.CreateQR(profileQr);
+            NavigationParameters param = new NavigationParameters();
+            param.Add("code", qrCode);
+
+            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+        }
+
+
         private async Task GetProfileQRAsync()
         {
 

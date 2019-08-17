@@ -78,10 +78,6 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.Logs;
             }
-            else if (typeof(QuestProfile) == data.GetType())
-            {
-                fileName = FileNames.QuestProfile;
-            }
             else if (typeof(TeamProfile) == data.GetType())
             {
                 fileName = FileNames.TeamProfile;
@@ -154,39 +150,7 @@ namespace CraftLogs.BLL.Repositories.Local
         }
 
         #endregion
-
-        #region QuestProfile
-
-        public void CreateQuestProfile(string name)
-        {
-            if (!dataService.IsFileExist(FileNames.QuestProfile))
-            {
-                QuestProfile profile = new QuestProfile(name);
-                dataService.CreateFile(FileNames.QuestProfile);
-                SaveToFile(profile);
-            }
-        }
-
-        public QuestProfile GetQuestProfile()
-        {
-            return GetFile<QuestProfile>(FileNames.QuestProfile);
-        }
-
-        public bool IsQuestProfileExist()
-        {
-            return dataService.IsFileExist(FileNames.QuestProfile);
-        }
-
-        public void DeleteQuestProfile()
-        {
-            if (dataService.IsFileExist(FileNames.QuestProfile))
-            {
-                DeleteFile(FileNames.QuestProfile);
-            }
-        }
-
-        #endregion
-
+        
         #region Teamprofile
 
         public void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
@@ -285,6 +249,39 @@ namespace CraftLogs.BLL.Repositories.Local
             if (dataService.IsFileExist(FileNames.ArenaProfile))
             {
                 DeleteFile(FileNames.ArenaProfile);
+            }
+        }
+
+        #endregion
+
+        #region HQ
+
+        public void CreateHqProfile()
+        {
+            if (!dataService.IsFileExist(FileNames.HqProfile))
+            {
+                HqProfile profile = new HqProfile();
+                dataService.CreateFile(FileNames.HqProfile);
+                SaveToFile(profile);
+            }
+        }
+
+        public HqProfile GetHqProfile()
+        {
+            var profile = GetFile<HqProfile>(FileNames.HqProfile);
+            return profile;
+        }
+
+        public bool IsHqProfileExist()
+        {
+            return dataService.IsFileExist(FileNames.HqProfile);
+        }
+
+        public void DeleteHqProfile()
+        {
+            if (dataService.IsFileExist(FileNames.HqProfile))
+            {
+                DeleteFile(FileNames.HqProfile);
             }
         }
 

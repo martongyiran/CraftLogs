@@ -20,7 +20,7 @@ namespace CraftLogs.Values
     {
         public const string Settings = "Settings.json";
         public const string Logs = "Logs.json";
-        public const string QuestProfile = "QuestProfile.json";
+        public const string HqProfile = "HqProfile.json";
         public const string TeamProfile = "TeamProfile.json";
         public const string ShopProfile = "ShopProfile.json";
         public const string ArenaProfile = "ArenaProfile.json";

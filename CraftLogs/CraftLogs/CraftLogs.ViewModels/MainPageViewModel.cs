@@ -32,43 +32,15 @@ namespace CraftLogs.ViewModels
         private Settings settings;
 
         private bool isDevMode = false;
-
-        private DelegateCommand navigateToSettingsCommand;
-        private DelegateCommand navigateToQuestCommand;
-        //test
-        private DelegateCommand navigateToQRPageCommand;
-        private DelegateCommand navigateToQRScannerPageCommand;
-
-        private AppModeEnum mode;
-        private bool hqMenuVisibility = false;
-
-        private NavigationParameters param = new NavigationParameters();
-
+        
         #endregion
 
         #region Public
-
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.SettingsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand NavigateToQuestCommand => navigateToQuestCommand ?? (navigateToQuestCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QuestPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand NavigateToQRPageCommand => navigateToQRPageCommand ?? (navigateToQRPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-
-        public AppModeEnum Mode
-        {
-            get { return mode; }
-            set { SetProperty(ref mode, value); }
-        }
 
         public bool IsDevMode
         {
             get { return isDevMode; }
             set { SetProperty(ref isDevMode, value); }
-        }
-
-        public bool HqMenuVisibility
-        {
-            get { return hqMenuVisibility; }
-            set { SetProperty(ref hqMenuVisibility, value); }
         }
 
         #endregion
@@ -106,10 +78,6 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
             }
-            else if (settings.AppMode == AppModeEnum.Quest)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.QuestPage);
-            }
             else if (settings.AppMode == AppModeEnum.Team)
             {
                 await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
@@ -122,9 +90,11 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
             }
+            else if (settings.AppMode == AppModeEnum.Hq)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.HqPage);
+            }
 
-            Mode = settings.AppMode;
-            SetUpVisibility();
             IsBusy = false;
         }
 
@@ -136,32 +106,6 @@ namespace CraftLogs.ViewModels
         {
             DataRepository.CreateSettings();
         }
-
-        private void SetUpVisibility()
-        {
-            SetMenuVisibility(false);
-            switch (Mode)
-            {
-                case AppModeEnum.None:
-                    HqMenuVisibility = false;
-                    break;
-                case AppModeEnum.Shop:
-                    break;
-                case AppModeEnum.Arena:
-                    break;
-                case AppModeEnum.Hq:
-                    HqMenuVisibility = true;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void SetMenuVisibility(bool value)
-        {
-            HqMenuVisibility = value;
-        }
-        
         #endregion
     }
 }
