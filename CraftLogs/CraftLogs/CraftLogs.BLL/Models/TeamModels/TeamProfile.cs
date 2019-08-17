@@ -57,11 +57,11 @@ namespace CraftLogs.BLL.Models
 
         public int Stamina { get; set; } = 1;
 
-        public int CritR { get; set; } = 1;
+        public int CritR { get { return GetCrit(); } }
 
-        public int Dodge { get; set; } = 1;
+        public int Dodge { get { return GetDodge(); } }
 
-        public int Hp { get { return (Stamina * 5) + 95; } }
+        public int Hp { get { return (Stamina * HpValue) + 95; } }
 
         public string Image { get; set; } = "@drawable/filler.png";
 
@@ -80,12 +80,20 @@ namespace CraftLogs.BLL.Models
 
         public TradeReward TradeIn = new TradeReward();
 
+        public string TradeWith { get; set; }
+
+        public string TradeLastQR { get; set; }
+
+        public int HpValue { get { return GetHpValue(); } }
+
         public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
             Name = name;
             House = house;
             Cast = cast;
             Image = image;
+            Atk = Cast == CharacterClassEnum.Mage ? 3 : 1;
+            Def = Cast == CharacterClassEnum.Warrior ? 3 : 1;
         }
         
         #region Private functions
@@ -161,7 +169,31 @@ namespace CraftLogs.BLL.Models
 
         private int GetStatPoint()
         {
-            return AllExp - Atk - Def - Stamina - CritR - Dodge + 5;
+            var norm = Cast == CharacterClassEnum.Rogue ? 9 : 7;
+            return AllExp - Atk - Def - Stamina - CritR - Dodge + norm;
+        }
+
+        private int GetHpValue()
+        {
+            switch (Cast)
+            {
+                case CharacterClassEnum.Warrior:
+                    return 6;
+                case CharacterClassEnum.Mage:
+                    return 4;
+                default:
+                    return 5;
+            }
+        }
+
+        private int GetCrit()
+        {
+            return Cast == CharacterClassEnum.Rogue ? 3 : 1;
+        }
+
+        private int GetDodge()
+        {
+            return Cast == CharacterClassEnum.Rogue ? 3 : 1;
         }
 
         #endregion

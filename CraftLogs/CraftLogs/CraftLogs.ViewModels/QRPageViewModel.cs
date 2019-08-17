@@ -65,6 +65,7 @@ namespace CraftLogs.ViewModels
             settings = DataRepository.GetSettings();
 
             QrCode = parameters["code"] as string;
+            System.Diagnostics.Debug.WriteLine(QrCode);
         }
 
         #endregion

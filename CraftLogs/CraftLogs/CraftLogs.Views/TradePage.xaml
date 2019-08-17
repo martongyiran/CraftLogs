@@ -47,14 +47,14 @@
             </ListView>
 
             <StackLayout x:Name="cartMenu" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" VerticalOptions="CenterAndExpand" IsVisible="False">
-                <Button Text="{x:Static values:Texts.Cancel}" Font="20" TextColor="Black" Clicked="BindableToolbarItem_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
-                <Button Text="{x:Static values:Texts.EmptyCart}" Font="20" TextColor="Black" Clicked="EmptyButton_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
-                <Button Text="Csere" Font="20" TextColor="Black" Clicked="TradeButton_Clicked" Style="{StaticResource SmallWhiteButton}" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="{x:Static values:Texts.Cancel}" Font="15" TextColor="Black" Clicked="BindableToolbarItem_Clicked" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="{x:Static values:Texts.EmptyCart}" Font="15" TextColor="Black" Clicked="EmptyButton_Clicked" HorizontalOptions="CenterAndExpand"/>
+                <Button Text="Csere" Font="15" TextColor="Black" Clicked="TradeButton_Clicked"  HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
             <ListView x:Name="cartList" ItemsSource="{Binding TradeGiveCart}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="1" CachingStrategy="RecycleElement" IsVisible="False" ItemTapped="TradeList_ItemTapped">
                 <ListView.Header>
                     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}">
-                        <Label Text="Ezeket adom" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" />
+                        <Label Text="Ezeket adom:" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" />
                         <Entry Text="{Binding Money, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" Placeholder="Ennyi pénzt adok" Keyboard="Numeric" />
                     </StackLayout>
                 </ListView.Header>
@@ -79,7 +79,7 @@
             <ListView x:Name="getList" ItemsSource="{Binding TradeGetCart}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" Grid.Row="0" Grid.RowSpan="2" CachingStrategy="RecycleElement" IsVisible="False">
                 <ListView.Header>
                     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}">
-                        <Label Text="Ezeket kapom" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" />
+                        <Label Text="Ezeket kapom: " TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="20" />
                         <Label Text="{Binding BindingContext.IncMoney, Source={x:Reference view}}" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" FontSize="20" Margin="10,0,0,0"/>
                     </StackLayout>
                 </ListView.Header>

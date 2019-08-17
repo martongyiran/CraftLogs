@@ -299,6 +299,7 @@ namespace CraftLogs.ViewModels
                         TradeGive tradeResponse = new TradeGive();
                         tradeResponse.Reward.ItemsToTrade = TradeGiveCart;
                         tradeResponse.Reward.Money = Money;
+                        tradeResponse.Name = teamProfile.Name;
 
                         teamProfile.TradeStatus = TradeStatusEnum.TradeGive;
                         teamProfile.Inventory = Items;
@@ -310,6 +311,8 @@ namespace CraftLogs.ViewModels
                         var qrCode = qRService.CreateQR(tradeResponse);
                         NavigationParameters param = new NavigationParameters();
                         param.Add("code", qrCode);
+
+                        teamProfile.TradeLastQR = qrCode;
 
                         DataRepository.SaveToFile(teamProfile);
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
@@ -328,6 +331,7 @@ namespace CraftLogs.ViewModels
                         TradeGetAndGive tradeResponse = new TradeGetAndGive(teamProfile.TradeNumber);
                         tradeResponse.Reward.ItemsToTrade = TradeGiveCart;
                         tradeResponse.Reward.Money = Money;
+                        tradeResponse.Name = teamProfile.Name;
 
                         teamProfile.TradeStatus = TradeStatusEnum.TradeGiveAndGet;
                         teamProfile.Inventory = Items;
@@ -338,6 +342,8 @@ namespace CraftLogs.ViewModels
                         var qrCode = qRService.CreateQR(tradeResponse);
                         NavigationParameters param = new NavigationParameters();
                         param.Add("code", qrCode);
+
+                        teamProfile.TradeLastQR = qrCode;
 
                         DataRepository.SaveToFile(teamProfile);
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);

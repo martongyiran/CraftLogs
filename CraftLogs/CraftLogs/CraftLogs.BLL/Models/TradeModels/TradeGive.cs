@@ -20,6 +20,8 @@ namespace CraftLogs.BLL.Models
 {
     public class TradeGive
     {
+        public string Name { get; set; }
+
         public Guid TradeNumber { get; set; } 
 
         public TradeReward Reward = new TradeReward();

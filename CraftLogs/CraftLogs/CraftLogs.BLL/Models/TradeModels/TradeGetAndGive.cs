@@ -15,12 +15,13 @@ limitations under the License.
 */
 
 using System;
-using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Models
 {
     public class TradeGetAndGive
     {
+        public string Name { get; set; }
+
         public Guid TradeNumber { get; set; }
 
         public TradeReward Reward = new TradeReward();

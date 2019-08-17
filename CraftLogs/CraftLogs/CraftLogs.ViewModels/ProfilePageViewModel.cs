@@ -47,7 +47,9 @@ namespace CraftLogs.ViewModels
         private DelegateCommand getProfileQRCommand;
         private DelegateCommand startTradeCommand;
         private DelegateCommand<object> raiseStatCommand;
-        
+        private DelegateCommand lastTradeQRCommand;
+        private DelegateCommand showInfoCommand;
+
         #endregion
 
         #region Public
@@ -65,6 +67,10 @@ namespace CraftLogs.ViewModels
         public DelegateCommand StartTradeCommand => startTradeCommand ?? (startTradeCommand = new DelegateCommand(async () => await StartTradeAsync(), CanSubmit).ObservesProperty(() => IsBusy));
 
         public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
+
+        public DelegateCommand LastTradeQRCommand => lastTradeQRCommand ?? (lastTradeQRCommand = new DelegateCommand(async () => { IsBusy = true; await ToLastTradeQR(); }, CanSubmit).ObservesProperty(() => IsBusy));
+
+        public DelegateCommand ShowInfoCommand => showInfoCommand ?? (showInfoCommand = new DelegateCommand(async () => { await ShowInfo(); }));
 
         #endregion
 
@@ -248,6 +254,14 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref arenaIcon, value); }
         }
 
+        private bool lastQRIsVisible;
+
+        public bool LastQRIsVisible
+        {
+            get { return lastQRIsVisible; }
+            set { SetProperty(ref lastQRIsVisible, value); }
+        }
+
         #endregion
 
         #region Overrides
@@ -271,6 +285,8 @@ namespace CraftLogs.ViewModels
             TradeIcon = teamProfile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
 
             ArenaIcon = GetArenaIcon();
+
+            LastQRIsVisible = !string.IsNullOrEmpty(teamProfile.TradeLastQR);
 
             Name = teamProfile.Name;
 
@@ -299,7 +315,7 @@ namespace CraftLogs.ViewModels
                 bstamina += item.Stamina;
                 bcr += item.CritR;
                 bdodge += item.Dodge;
-                bhp += (item.Stamina * 5);
+                bhp += (item.Stamina * teamProfile.HpValue);
             }
 
             bcr = bcr >= 60 ? 60 : bcr;
@@ -319,19 +335,19 @@ namespace CraftLogs.ViewModels
         private void SetItems()
         {
             var armor = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).ToList();
-            ArmorItem = new Tuple<string, string>(armor.Count != 0 ? armor[0].Image : "@drawable/filler.png", armor.Count != 0 ? armor[0].SimpleString : "Nincs páncél.");
+            ArmorItem = new Tuple<string, string>(armor.Count != 0 ? armor[0].Image : "@drawable/chest.png", armor.Count != 0 ? armor[0].SimpleString : "Nincs páncél.");
 
             var ring = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).ToList();
-            RingItem = new Tuple<string, string>(ring.Count != 0 ? ring[0].Image : "@drawable/filler.png", ring.Count != 0 ? ring[0].SimpleString : "Nincs gyűrű.");
+            RingItem = new Tuple<string, string>(ring.Count != 0 ? ring[0].Image : "@drawable/ring.png", ring.Count != 0 ? ring[0].SimpleString : "Nincs gyűrű.");
 
             var neck = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).ToList();
-            NeckItem = new Tuple<string, string>(neck.Count != 0 ? neck[0].Image : "@drawable/filler.png", neck.Count != 0 ? neck[0].SimpleString : "Nincs nyaklánc.");
+            NeckItem = new Tuple<string, string>(neck.Count != 0 ? neck[0].Image : "@drawable/neck.png", neck.Count != 0 ? neck[0].SimpleString : "Nincs nyaklánc.");
 
             var lhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).ToList();
-            LHandItem = new Tuple<string, string>(lhand.Count != 0 ? lhand[0].Image : "@drawable/filler.png", lhand.Count != 0 ? lhand[0].SimpleString : "Nincs fegyver.");
+            LHandItem = new Tuple<string, string>(lhand.Count != 0 ? lhand[0].Image : "@drawable/weapon.png", lhand.Count != 0 ? lhand[0].SimpleString : "Nincs fegyver.");
 
             var rhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).ToList();
-            RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/filler.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
+            RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/weapon.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
         }
         
         private async Task GetProfileQRAsync()
@@ -442,7 +458,20 @@ namespace CraftLogs.ViewModels
             }
             return "@drawable/ic_arena_white.png";
         }
-        
+
+        private async Task ToLastTradeQR()
+        {
+            var qrCode = teamProfile.TradeLastQR;
+            NavigationParameters param = new NavigationParameters();
+            param.Add("code", qrCode);
+            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+        }
+
+        private async Task ShowInfo()
+        {
+            await DialogService.DisplayAlertAsync("Info","Egy stamina == "+teamProfile.HpValue+" HP\nEgy Def 0.33%-al csökkenti a bekapott sebzést.\nCrit Rate és Dodge maximum 60% lehet.\nA Crit Rate a kritikus ütés esélye, ami duplán sebez.\nA Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.\n 1 ATK == random.Next(0,3) sebzés.","Cool");
+        }
+
 #endregion
     }
 }

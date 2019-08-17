@@ -68,10 +68,10 @@ namespace CraftLogs.BLL.Services
 
             resp.CombatLog = Player1.Name + " vs. " + Player2.Name + "\n";
             resp.CombatLog += "Kör | Sebzés | Hp\n";
-            resp.CombatLog += "0. | 0 - 0 | "+ hp1 + " - " + hp2 + "\n";
+            resp.CombatLog += "0. | 0 - 0 | " + hp1 + " - " + hp2 + "\n";
             while (hp1 >= 0 && hp2 >= 0)
             {
-                
+
                 var player1hit = Hit(Player1, def2);
                 var player2hit = Hit(Player2, def1);
 
@@ -94,22 +94,22 @@ namespace CraftLogs.BLL.Services
                 round++;
             }
 
-            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round),2) + " - " + Math.Round((allDmg2 / (double)round),2) + "\n";
+            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round), 2) + " - " + Math.Round((allDmg2 / (double)round), 2) + "\n";
 
-            if(hp1 >= 0)
+            if (hp1 >= 0)
             {
                 resp.IsWin = false;
                 //System.Diagnostics.Debug.WriteLine("----- Leader win.");
-                resp.CombatLog += "----- "+Player1.Name+" a győztes.";
+                resp.CombatLog += "----- " + Player1.Name + " a győztes.";
             }
-            else if(hp2 >= 0)
+            else if (hp2 >= 0)
             {
                 resp.IsWin = true;
-               // System.Diagnostics.Debug.WriteLine("----- Attacker win.");
-                resp.CombatLog += "----- "+Player2.Name+" a győztes.";
+                // System.Diagnostics.Debug.WriteLine("----- Attacker win.");
+                resp.CombatLog += "----- " + Player2.Name + " a győztes.";
             }
 
-            resp.Money = SetMoney(leader.Hp, Player1.Hp);
+            resp.Money = SetMoney(leader.Hp, hp1);
 
             return resp;
 
@@ -117,7 +117,12 @@ namespace CraftLogs.BLL.Services
 
         private int Hit(CombatUnit player, int enemyDef)
         {
-            return (int)(player.Atk * (100-enemyDef)/100.0);
+            var hit = 0;
+            for(int i = 0; i < player.Atk; i++)
+            {
+                hit += random.Next(0, 3);
+            }
+            return (int)(hit * (100 - enemyDef) / 100.0);
         }
 
         private bool IsCrit(CombatUnit player)
@@ -138,7 +143,11 @@ namespace CraftLogs.BLL.Services
         {
             int minPoint;
             int maxPoint;
+            enemyRemainingHp = enemyRemainingHp < 0 ? 0 : enemyRemainingHp;
             var actHour = date.Hour;
+#if DEV
+            maxPoint = 50;
+#else
             if (settings.CraftDay == 1)
             {
                 if (actHour == settings.Craft1Start)
@@ -203,9 +212,14 @@ namespace CraftLogs.BLL.Services
                 {
                     maxPoint = 0;
                 }
-            }
 
-            return ((int)((enemyRemainingHp / (double)originalHp) * maxPoint) - 10) * 10;
+        }
+#endif
+            var a = (1.0 - (enemyRemainingHp / (double)originalHp)) * maxPoint;
+            var b = a > 10 ? a - 10 : a;
+            var c = b * 10;
+
+            return (int)c;
         }
 
     }

@@ -101,6 +101,7 @@ namespace CraftLogs.ViewModels
             if(Response != "none")
             {
                 HandleQR(lul);
+                System.Diagnostics.Debug.WriteLine(lul);
             }
         }
 
@@ -218,6 +219,7 @@ namespace CraftLogs.ViewModels
                         profile.TradeStatus = TradeStatusEnum.TradeGetAndGive;
                         profile.TradeNumber = processedData.TradeNumber;
                         profile.TradeIn = processedData.Reward;
+                        profile.TradeWith = processedData.Name;
 
                         DataRepository.SaveToFile(profile);
                         RewardText = Texts.TradeHandlerIP;
@@ -226,7 +228,7 @@ namespace CraftLogs.ViewModels
                     else
                     {
                         RewardText = Texts.TradeIP;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
                 else if (data.Type == QRTypeEnum.TradeGetAndGive)
@@ -240,8 +242,8 @@ namespace CraftLogs.ViewModels
                     {
                         profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
                         profile.TradeIn = processedData.Reward;
+                        profile.TradeWith = processedData.Name;
                         
-                        DataRepository.SaveToFile(profile);
                         RewardText = Texts.TradeHandlerIP;
 
                         TradeFirstOk tradeResponse = new TradeFirstOk(profile.TradeNumber);
@@ -250,12 +252,16 @@ namespace CraftLogs.ViewModels
                         NavigationParameters param = new NavigationParameters();
                         param.Add("code", qrCode);
 
+                        profile.TradeLastQR = qrCode;
+
+                        DataRepository.SaveToFile(profile);
+
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
                     else
                     {
                         RewardText = Texts.TradeIP;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
                 else if (data.Type == QRTypeEnum.TradeFirstOk)
@@ -275,9 +281,7 @@ namespace CraftLogs.ViewModels
                         {
                             profile.Inventory.Add(item);
                         }
-
-                        loggerService.CreateTradeLog("asd");
-                        DataRepository.SaveToFile(profile);
+                        
                         RewardText = Texts.TradeHandlerIP;
 
                         TradeSecondOk tradeResponse = new TradeSecondOk(profile.TradeNumber);
@@ -286,12 +290,17 @@ namespace CraftLogs.ViewModels
                         NavigationParameters param = new NavigationParameters();
                         param.Add("code", qrCode);
 
+                        profile.TradeLastQR = qrCode;
+
+                        DataRepository.SaveToFile(profile);
+                        loggerService.CreateTradeLog(profile);
+
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
                     else
                     {
                         RewardText = Texts.TradeIP;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
                 else if (data.Type == QRTypeEnum.TradeSecondOk)
@@ -315,12 +324,12 @@ namespace CraftLogs.ViewModels
                         DataRepository.SaveToFile(profile);
                         RewardText = "Sikeres csere!";
 
-                        loggerService.CreateTradeLog("asd");
+                        loggerService.CreateTradeLog(profile);
                     }
                     else
                     {
                         RewardText = Texts.TradeIP;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP, Texts.Ok);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
                 else

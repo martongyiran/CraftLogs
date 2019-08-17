@@ -64,6 +64,12 @@
             </StackLayout>
 
                     <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
+                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
+                       Text="Mage: 1 Stamina == 4 HP. 2-vel több ATK-al kezd." Margin="10,0,10,0"/>
+                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
+                       Text="Warrior: 1 Stamina == 6 HP. 2-vel több DEF-el kezd." Margin="10,0,10,0"/>
+                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
+                       Text="Rogue: 1 Stamina == 5 HP. 2-vel több Dodge-al és Crit Rate-el kezd." Margin="10,0,10,0"/>
             </StackLayout>
         </ScrollView>
     </ContentView.Content>

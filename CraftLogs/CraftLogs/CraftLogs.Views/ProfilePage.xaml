@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CraftLogs.Views.ProfilePage" xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views" BackgroundColor="{StaticResource BackgroundColorLight}" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" Title="{Binding Title}">
     <ContentPage.ToolbarItems>
+        <views:BindableToolbarItem Icon="@drawable/ic_info_white.png" Command="{Binding ShowInfoCommand}" />
         <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -19,6 +20,7 @@
                         <RowDefinition Height="40" />
                         <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -103,6 +105,7 @@
                             <Label Text="{Binding ArmorItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
                         </StackLayout>
                     </Grid>
+                    <Button Grid.Row="7" Text="Utolsó csere QR" Command="{Binding LastTradeQRCommand}" IsVisible="{Binding LastQRIsVisible}" HeightRequest="40" FontSize="15" TextColor="Black"/>
                 </Grid>
             </ScrollView>
             <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="0">
