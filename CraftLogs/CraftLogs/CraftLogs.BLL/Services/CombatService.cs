@@ -94,7 +94,7 @@ namespace CraftLogs.BLL.Services
                 round++;
             }
 
-            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round), 2) + " - " + Math.Round((allDmg2 / (double)round), 2) + "\n";
+            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round-1), 2) + " - " + Math.Round((allDmg2 / (double)round-1), 2) + "\n";
 
             if (hp1 >= 0)
             {
