@@ -484,7 +484,7 @@ namespace CraftLogs.BLL.Services
             {
                 ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
                 ItemTypeEnum itemType = ItemTypeEnum.Ring;
-                CharacterClassEnum usableFor = CharacterClassEnum.Rogue;
+                CharacterClassEnum usableFor = CharacterClassEnum.Mage;
                 string statsForQr = "15 15 60 15 15";
 
                 return new Item(3, itemRarity, itemType, usableFor, statsForQr,0);
@@ -493,7 +493,7 @@ namespace CraftLogs.BLL.Services
             {
                 ItemRarityEnum itemRarity = ItemRarityEnum.Legendary;
                 ItemTypeEnum itemType = ItemTypeEnum.Neck;
-                CharacterClassEnum usableFor = CharacterClassEnum.Mage;
+                CharacterClassEnum usableFor = CharacterClassEnum.Rogue;
                 string statsForQr = "30 30 30 15 15";
 
                 return new Item(3, itemRarity, itemType, usableFor, statsForQr,1);
