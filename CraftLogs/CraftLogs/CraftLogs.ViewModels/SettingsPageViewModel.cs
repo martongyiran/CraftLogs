@@ -213,7 +213,7 @@ namespace CraftLogs.ViewModels
         
         private async Task ToQuest()
         {
-            if(Pw == "kukimuki")
+            if(Pw == "123467")
             {
                 await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
             }
