@@ -89,8 +89,13 @@
                         <Label Text="{Binding ArmorItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                 </Grid>
-                <Button Text="DONÁT" Clicked="On_Support_Clicked" Grid.Row="7" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="5" FontSize="15" TextColor="Blue" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Button Text="DONÁT" Clicked="On_Support_Clicked" Grid.Row="7" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="5" FontSize="15" TextColor="Blue" Grid.Column="0" />
+                <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="Version: 1.0.1" FontSize="15" TextColor="Black" Margin="5" Grid.Row="7" Grid.Column="1" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Image x:Name="csiga" Source="@drawable/csiga.png" IsVisible="False" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="0" Grid.RowSpan="8" Grid.ColumnSpan="2"/>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

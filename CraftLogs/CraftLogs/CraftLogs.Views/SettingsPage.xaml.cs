@@ -17,5 +17,13 @@ namespace CraftLogs.Views
             Device.OpenUri(new Uri("https://paypal.me/CHlGGA"));
         }
 
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await csiga.TranslateTo(0, 500, 0);
+            csiga.IsVisible = true;
+            await csiga.TranslateTo(0, 0, 1000, Easing.Linear);
+            await csiga.TranslateTo(0, 500, 700, Easing.Linear);
+            csiga.IsVisible = false;
+        }
     }
 }

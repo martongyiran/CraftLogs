@@ -13,6 +13,7 @@
     <ContentPage.Content>
 
         <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="5">
+            <Grid>
             <views:CardView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" InputTransparent="True" Padding="10">
                 <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
 
@@ -65,9 +66,15 @@
                     <Entry Text="{Binding Pw, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" IsPassword="True" Placeholder="Állomás jelszó" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
                     <Button Text="Állomás" Style="{StaticResource WhiteButton}" Command="{Binding ToQuestCommand}" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
 
-                    <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
-                </StackLayout>
+                        <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
             </views:CardView>
+                <Image x:Name="csiga" Source="@drawable/csiga.png" IsVisible="False" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" />
+            </Grid>
         </ScrollView>
 
     </ContentPage.Content>
