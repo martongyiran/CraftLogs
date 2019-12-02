@@ -20,6 +20,7 @@ namespace CraftLogs.BLL.Enums
     {
         Reward,
         ProfileForArena,
+        ProfileForSpectator,
         ShopList,
         ArenaResult,
         TradeGive,

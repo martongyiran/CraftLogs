@@ -351,6 +351,16 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
+                else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Hq)
+                {
+                    Title = Texts.ArenaTeamDetails;
+                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
+
+                    var profile = DataRepository.GetHqProfile();
+                    profile.Scores.Add(new Tuple<string, int>(processedData.a, processedData.e));
+                    DataRepository.SaveToFile(profile);
+                    RewardText = Texts.ArenaScanned;
+                }
                 else if (data.Type == QRTypeEnum.HqReward)
                 {
                     Title = Texts.ArenaTeamDetails;
@@ -368,8 +378,8 @@ namespace CraftLogs.ViewModels
                     }
 
                     DataRepository.SaveToFile(profile);
-                    RewardText = processedData.Exp+" EXP \n" + processedData.Honor + " Honor \n" + processedData.Money + " pénz";
-                   
+                    RewardText = processedData.Exp + " EXP \n" + processedData.Honor + " Honor \n" + processedData.Money + " pénz";
+
                     processedData.RewardItems = new ObservableCollection<Item>(temp);
                     Rewards = new ObservableCollection<Item>(temp);
                     loggerService.CreateSystemLog(processedData);
