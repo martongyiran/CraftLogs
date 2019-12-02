@@ -19,7 +19,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Threading.Tasks;
@@ -37,13 +36,11 @@ namespace CraftLogs.ViewModels
         private Settings settings;
         private CombatUnit challenger;
 
-        private DelegateCommand navigateToQRScannerPageCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
 
         #endregion
 

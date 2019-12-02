@@ -17,7 +17,6 @@ limitations under the License.
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Threading.Tasks;
@@ -28,8 +27,6 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private DelegateCommand navigateToHomeCommand;
-
         private string qrCode;
         private Settings settings;
 
@@ -37,7 +34,7 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand NavigateToHomeCommand => navigateToHomeCommand ?? (navigateToHomeCommand = new DelegateCommand(async () => { IsBusy = true; await SmartNavigation(); }, CanSubmit).ObservesProperty(()=>IsBusy));
+        public DelayCommand NavigateToHomeCommand => new DelayCommand(async () => await SmartNavigation());
 
         public string QrCode
         {

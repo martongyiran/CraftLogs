@@ -20,7 +20,6 @@ using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -40,15 +39,13 @@ namespace CraftLogs.ViewModels
 
         private IItemGeneratorService itemGenerator;
         private IQRService qRService;
-        private DelegateCommand navigateToQRScannerPageCommand;
-        private DelegateCommand giveCommand;
 
         #endregion
 
         #region Public
 
-        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand GiveCommand => giveCommand ?? (giveCommand = new DelegateCommand(async () => { IsBusy = true; await Give(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToQRScannerPageCommand =>  new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        public DelayCommand GiveCommand => new DelayCommand(async () => await Give());
 
         #endregion
 

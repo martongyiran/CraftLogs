@@ -18,7 +18,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.ObjectModel;
@@ -34,7 +33,6 @@ namespace CraftLogs.ViewModels
         private ObservableCollection<Log> filteredLogsList;
         private bool footerIsVisible;
         private bool headerIsVisible;
-        private DelegateCommand loadLogsCommand;
         private readonly ILoggerService loggerService;
 
         #endregion
@@ -59,7 +57,7 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref footerIsVisible, value); }
         }
 
-        public DelegateCommand LoadLogsCommand => loadLogsCommand ?? (loadLogsCommand = new DelegateCommand(LoadLogs));
+        public DelayCommand LoadLogsCommand => new DelayCommand(LoadLogs);
 
 
         #endregion

@@ -1,18 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CraftLogs.Views.ProfilePage" xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values" xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views" BackgroundColor="{StaticResource BackgroundColorLight}" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" Title="{Binding Title}">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CraftLogs.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColorLight}"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem Icon="@drawable/ic_prfile_white.png" Command="{Binding ShowProfileCommand}" />
-        <views:BindableToolbarItem Icon="@drawable/ic_info_white.png" Command="{Binding ShowInfoCommand}" />
-        <views:BindableToolbarItem Icon="@drawable/ic_settings_white.png" Command="{Binding NavigateToSettingsCommand}" />
+        <views:BindableToolbarItem
+            Command="{Binding ShowProfileCommand}"
+            Icon="@drawable/ic_prfile_white.png" />
+        <views:BindableToolbarItem
+            Command="{Binding ShowInfoCommand}"
+            Icon="@drawable/ic_info_white.png" />
+        <views:BindableToolbarItem
+            Command="{Binding NavigateToSettingsCommand}"
+            Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1">
-                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ScrollView
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand">
+                <Grid
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100" />
                         <RowDefinition Height="40" />
@@ -27,55 +48,217 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Image}" HeightRequest="100" WidthRequest="100" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" FlowDirection="LeftToRight" Margin="15,15,0,0" />
-                    <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,15,0,0">
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Name}" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Lvl}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Exp}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Honor}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Money}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                    <Image
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="15,15,0,0"
+                        FlowDirection="LeftToRight"
+                        HeightRequest="100"
+                        HorizontalOptions="StartAndExpand"
+                        Source="{Binding Image}"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="100" />
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Margin="0,15,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Vertical"
+                        VerticalOptions="StartAndExpand">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding Name}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding Lvl}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding Exp}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding Honor}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding Money}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    <Label TextColor="Black" FontSize="16" Text="{Binding Points}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding PointIsVisible}" Margin="15,0,0,0" />
-                    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/ic_stamina.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Stamina}" VerticalOptions="CenterAndExpand" />
-                        <Image Source="@drawable/ic_plus_blue.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}" FlowDirection="LeftToRight" IsVisible="{Binding PointIsVisible}">
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="15,0,0,0"
+                        FontSize="16"
+                        IsVisible="{Binding PointIsVisible}"
+                        Text="{Binding Points}"
+                        TextColor="Black" />
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="15,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_stamina.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding Stamina}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Image
+                            BackgroundColor="{StaticResource BackgroundColorLight}"
+                            FlowDirection="LeftToRight"
+                            HeightRequest="40"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding PointIsVisible}"
+                            Source="@drawable/ic_plus_blue.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Plus_Tapped1" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/ic_attack.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Atk}" VerticalOptions="CenterAndExpand" />
-                        <Image Source="@drawable/ic_plus_blue.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}" FlowDirection="LeftToRight" IsVisible="{Binding PointIsVisible}">
+                    <StackLayout
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="15,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_attack.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding Atk}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Image
+                            BackgroundColor="{StaticResource BackgroundColorLight}"
+                            FlowDirection="LeftToRight"
+                            HeightRequest="40"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding PointIsVisible}"
+                            Source="@drawable/ic_plus_blue.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Plus_Tapped2" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="15,0,0,0">
-                        <Image Source="@drawable/ic_def.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Def}" VerticalOptions="CenterAndExpand" />
-                        <Image Source="@drawable/ic_plus_blue.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource BackgroundColorLight}" FlowDirection="LeftToRight" IsVisible="{Binding PointIsVisible}">
+                    <StackLayout
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Margin="15,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_def.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding Def}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                        <Image
+                            BackgroundColor="{StaticResource BackgroundColorLight}"
+                            FlowDirection="LeftToRight"
+                            HeightRequest="40"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding PointIsVisible}"
+                            Source="@drawable/ic_plus_blue.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Plus_Tapped3" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
-                        <Image Source="@drawable/ic_hp.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Hp}" VerticalOptions="CenterAndExpand" />
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_hp.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding Hp}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="4" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
-                        <Image Source="@drawable/ic_critr.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding CritR}" VerticalOptions="CenterAndExpand" />
+                    <StackLayout
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_critr.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding CritR}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="5" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
-                        <Image Source="@drawable/ic_dodge.png" HeightRequest="30" WidthRequest="30" VerticalOptions="CenterAndExpand" />
-                        <Label TextColor="Black" FontSize="16" Text="{Binding Dodge}" VerticalOptions="CenterAndExpand" />
+                    <StackLayout
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        HorizontalOptions="StartAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            HeightRequest="30"
+                            Source="@drawable/ic_dodge.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                        <Label
+                            FontSize="16"
+                            Text="{Binding Dodge}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15">
+                    <Grid
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="15"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -85,58 +268,182 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                            <Image Source="{Binding LHandItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
-                            <Label Text="{Binding LHandItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding LHandItem.Item1}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="50" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding LHandItem.Item2}"
+                                VerticalOptions="CenterAndExpand" />
                         </StackLayout>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                            <Image Source="{Binding RHandItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
-                            <Label Text="{Binding RHandItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding RHandItem.Item1}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="50" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding RHandItem.Item2}"
+                                VerticalOptions="CenterAndExpand" />
                         </StackLayout>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                            <Image Source="{Binding RingItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
-                            <Label Text="{Binding RingItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        <StackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding RingItem.Item1}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="50" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding RingItem.Item2}"
+                                VerticalOptions="CenterAndExpand" />
                         </StackLayout>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                            <Image Source="{Binding NeckItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
-                            <Label Text="{Binding NeckItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        <StackLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding NeckItem.Item1}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="50" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding NeckItem.Item2}"
+                                VerticalOptions="CenterAndExpand" />
                         </StackLayout>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                            <Image Source="{Binding ArmorItem.Item1}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" />
-                            <Label Text="{Binding ArmorItem.Item2}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        <StackLayout
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding ArmorItem.Item1}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="50" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding ArmorItem.Item2}"
+                                VerticalOptions="CenterAndExpand" />
                         </StackLayout>
                     </Grid>
-                    <Button Grid.Row="7" Text="Utolsó csere QR" Command="{Binding LastTradeQRCommand}" IsVisible="{Binding LastQRIsVisible}" HeightRequest="40" FontSize="15" TextColor="Black"/>
+                    <Button
+                        Grid.Row="7"
+                        Command="{Binding LastTradeQRCommand}"
+                        FontSize="15"
+                        HeightRequest="40"
+                        IsVisible="{Binding LastQRIsVisible}"
+                        Text="Utolsó csere QR"
+                        TextColor="Black" />
                 </Grid>
             </ScrollView>
-            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ColorPrimary}" Grid.Row="0">
-                <Image Source="@drawable/ic_bag_white.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+            <StackLayout
+                Grid.Row="0"
+                BackgroundColor="{StaticResource ColorPrimary}"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand">
+                <Image
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight"
+                    HeightRequest="40"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="@drawable/ic_bag_white.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Inventory_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="@drawable/ic_logs_white.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight"
+                    HeightRequest="40"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="@drawable/ic_logs_white.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Logs_Tapped" />
+                        <TapGestureRecognizer Command="{Binding NavigateToLogsCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="@drawable/ic_rqr_white.png" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight"
+                    HeightRequest="40"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="@drawable/ic_rqr_white.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ReadQR_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="{Binding TradeIcon}" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight"
+                    HeightRequest="40"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="{Binding TradeIcon}"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Trade_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="{Binding ArenaIcon}" HeightRequest="40" WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{StaticResource ColorPrimary}" FlowDirection="LeftToRight">
+                <Image
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    FlowDirection="LeftToRight"
+                    HeightRequest="40"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="{Binding ArenaIcon}"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Arena_Tapped" />
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>
-            <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="0" Color="{StaticResource ColorPrimary}" IsRunning="True" IsVisible="{Binding IsBusy}" />
+            <ActivityIndicator
+                Grid.Row="0"
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="True"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand"
+                Color="{StaticResource ColorPrimary}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

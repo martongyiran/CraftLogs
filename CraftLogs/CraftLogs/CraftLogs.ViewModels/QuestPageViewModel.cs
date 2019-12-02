@@ -18,7 +18,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -30,10 +29,6 @@ namespace CraftLogs.ViewModels
     {
 
         #region Private
-
-        private DelegateCommand scoreCommand;
-        private DelegateCommand startCommand;
-        private DelegateCommand reloadCommand;
 
         private Settings settings;
         private IQRService qRService;
@@ -47,11 +42,11 @@ namespace CraftLogs.ViewModels
 
         #region Public
 
-        public DelegateCommand ScoreCommand => scoreCommand ?? (scoreCommand = new DelegateCommand(async () => await ScoreAsync()));
+        public DelayCommand ScoreCommand => new DelayCommand(async () => await ScoreAsync());
 
-        public DelegateCommand StartCommand => startCommand ?? (startCommand = new DelegateCommand(Start));
+        public DelayCommand StartCommand => new DelayCommand(Start);
 
-        public DelegateCommand ReloadCommand => reloadCommand ?? (reloadCommand = new DelegateCommand( () => { ReadyToScore = false; Init(); }));
+        public DelayCommand ReloadCommand => new DelayCommand( () => { ReadyToScore = false; Init(); });
         
         #endregion
 

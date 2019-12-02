@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Plugin.VersionTracking;
-using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
@@ -32,13 +31,11 @@ namespace CraftLogs.ViewModels
         private string title;
         private bool isBusy = false;
 
-        private DelegateCommand navigateToSettingsCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new DelegateCommand(async () => { await ToSettings(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToSettingsCommand => new DelayCommand(async () => await ToSettings());
 
         public string Title
         {
@@ -50,11 +47,6 @@ namespace CraftLogs.ViewModels
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
-        }
-
-        public bool CanSubmit()
-        {
-            return !IsBusy;
         }
 
 #if DEV

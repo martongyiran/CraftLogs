@@ -19,7 +19,6 @@ using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -29,20 +28,16 @@ namespace CraftLogs.ViewModels
     {
         #region Private
 
-        private DelegateCommand setModeToTeamCommand;
-        private DelegateCommand setModeToShopCommand;
-        private DelegateCommand setModeToArenaCommand;
-        private DelegateCommand setModeToHqCommand; 
         private Settings settings;
 
         #endregion
 
         #region Public
 
-        public DelegateCommand SetModeToTeamCommand => setModeToTeamCommand ?? (setModeToTeamCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Team), CanSubmit).ObservesProperty(()=> IsBusy));
-        public DelegateCommand SetModeToShopCommand => setModeToShopCommand ?? (setModeToShopCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Shop), CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand SetModeToArenaCommand => setModeToArenaCommand ?? (setModeToArenaCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Arena), CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand SetModeToHqCommand => setModeToHqCommand ?? (setModeToHqCommand = new DelegateCommand(async () => await SetMode(AppModeEnum.Hq), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand SetModeToTeamCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Team));
+        public DelayCommand SetModeToShopCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Shop));
+        public DelayCommand SetModeToArenaCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Arena));
+        public DelayCommand SetModeToHqCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Hq));
 
         #endregion
 

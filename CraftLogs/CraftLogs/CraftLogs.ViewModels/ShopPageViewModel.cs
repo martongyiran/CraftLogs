@@ -19,7 +19,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -41,31 +40,23 @@ namespace CraftLogs.ViewModels
         private IItemGeneratorService itemGenerator;
         private IQRService qRService;
 
-        private DelegateCommand refreshCommand;
-        private DelegateCommand<object> itemTappedCommand;
-        private DelegateCommand<object> removeItemTappedCommand;
-        private DelegateCommand buyTappedCommand;
-        private DelegateCommand emptyTappedCommand;
-        private DelegateCommand checkOutTappedCommand;
-        private DelegateCommand dispalyCartIsEmptyCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand RefreshCommand => refreshCommand ?? (refreshCommand = new DelegateCommand(() => { IsBusy = true; Refresh(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand RefreshCommand => new DelayCommand(Refresh);
 
-        public DelegateCommand<object> ItemTappedCommand => itemTappedCommand ?? (itemTappedCommand = new DelegateCommand<object>((a) => ItemTapped(a)));
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
 
-        public DelegateCommand<object> RemoveItemTappedCommand => removeItemTappedCommand ?? (removeItemTappedCommand = new DelegateCommand<object>((a) => RemoveItemTapped(a)));
+        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
 
-        public DelegateCommand BuyTappedCommand => buyTappedCommand ?? (buyTappedCommand = new DelegateCommand(() => { IsBusy = true; Buy(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand BuyTappedCommand => new DelayCommand(async () => await Buy());
 
-        public DelegateCommand EmptyTappedCommand => emptyTappedCommand ?? (emptyTappedCommand = new DelegateCommand(() => { IsBusy = true; Empty(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
 
-        public DelegateCommand CheckOutTappedCommand => checkOutTappedCommand ?? (checkOutTappedCommand = new DelegateCommand(async () => { IsBusy = true; await CheckOut(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
 
-        public DelegateCommand DispalyCartIsEmptyCommand => dispalyCartIsEmptyCommand ?? (dispalyCartIsEmptyCommand = new DelegateCommand(async () => { IsBusy = true; await DispalyCartIsEmpty(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand DispalyCartIsEmptyCommand => new DelayCommand(async () => await DispalyCartIsEmpty());
 
         #endregion
 

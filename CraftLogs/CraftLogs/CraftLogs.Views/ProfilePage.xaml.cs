@@ -24,18 +24,6 @@ namespace CraftLogs.Views
                 viewModel.NavigateToInventoryPageCommand.Execute();
         }
 
-        private async void Logs_Tapped(object sender, System.EventArgs e)
-        {
-            if (!(BindingContext is ProfilePageViewModel viewModel))
-                return;
-
-            var view = sender as Image;
-            await view.FadeTo(0.5, 100);
-            await view.FadeTo(1.0, 100);
-            if (viewModel.NavigateToLogsCommand.CanExecute())
-                viewModel.NavigateToLogsCommand.Execute();
-        }
-
         private async void ReadQR_Tapped(object sender, System.EventArgs e)
         {
             if (!(BindingContext is ProfilePageViewModel viewModel))

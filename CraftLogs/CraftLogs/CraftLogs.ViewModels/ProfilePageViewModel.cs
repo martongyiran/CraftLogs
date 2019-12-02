@@ -19,7 +19,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -41,37 +40,27 @@ namespace CraftLogs.ViewModels
         private ProfileQr profileQr;
         private ObservableCollection<Log> logs;
 
-        private DelegateCommand navigateToLogsCommand;
-        private DelegateCommand navigateToQRScannerPageCommand;
-        private DelegateCommand navigateToInventoryPageCommand;
-        private DelegateCommand getProfileQRCommand;
-        private DelegateCommand startTradeCommand;
-        private DelegateCommand<object> raiseStatCommand;
-        private DelegateCommand lastTradeQRCommand;
-        private DelegateCommand showInfoCommand;
-        private DelegateCommand showProfileCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand NavigateToLogsCommand => navigateToLogsCommand ?? (navigateToLogsCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.LogsPage); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToLogsCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.LogsPage));
 
-        public DelegateCommand NavigateToQRScannerPageCommand => navigateToQRScannerPageCommand ?? (navigateToQRScannerPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.QRScannerPage); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
 
-        public DelegateCommand NavigateToInventoryPageCommand => navigateToInventoryPageCommand ?? (navigateToInventoryPageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateTo(NavigationLinks.InventoryPage); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToInventoryPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.InventoryPage));
 
-        public DelegateCommand GetProfileQRCommand => getProfileQRCommand ?? (getProfileQRCommand = new DelegateCommand(async () => await GetProfileQRAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand GetProfileQRCommand => new DelayCommand(async () => await GetProfileQRAsync());
 
-        public DelegateCommand StartTradeCommand => startTradeCommand ?? (startTradeCommand = new DelegateCommand(async () => await StartTradeAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand StartTradeCommand => new DelayCommand(async () => await StartTradeAsync());
 
-        public DelegateCommand<object> RaiseStatCommand => raiseStatCommand ?? (raiseStatCommand = new DelegateCommand<object>((a) => RaiseStat(a)));
+        public DelayCommand<object> RaiseStatCommand => new DelayCommand<object>((a) => RaiseStat(a));
 
-        public DelegateCommand LastTradeQRCommand => lastTradeQRCommand ?? (lastTradeQRCommand = new DelegateCommand(async () => { IsBusy = true; await ToLastTradeQR(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ToLastTradeQR());
 
-        public DelegateCommand ShowInfoCommand => showInfoCommand ?? (showInfoCommand = new DelegateCommand(async () => { await ShowInfo(); }));
+        public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ShowInfo(); });
 
-        public DelegateCommand ShowProfileCommand => showProfileCommand ?? (showProfileCommand = new DelegateCommand(async () => await ShowProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand ShowProfileCommand => new DelayCommand(async () => await ShowProfileAsync());
 
 
         #endregion

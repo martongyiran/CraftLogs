@@ -21,7 +21,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -32,20 +31,15 @@ namespace CraftLogs.ViewModels
         #region Private
         
         private Settings settings;
-        private DelegateCommand saveSettingsCommand;
-        private DelegateCommand resetSettingsCommand;
-        private DelegateCommand deleteProfileCommand;
-        private DelegateCommand toQuestCommand;
-        
 
         #endregion
 
         #region Public
 
-        public DelegateCommand SaveSettingsCommand => saveSettingsCommand ?? (saveSettingsCommand = new DelegateCommand(async () => await SaveSettings()));
-        public DelegateCommand ResetSettingsCommand => resetSettingsCommand ?? (resetSettingsCommand = new DelegateCommand(async () => await ResetSettingsAsync()));
-        public DelegateCommand DeleteProfileCommand => deleteProfileCommand ?? (deleteProfileCommand = new DelegateCommand(async () => await DeleteProfileAsync(), CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand ToQuestCommand => toQuestCommand ?? (toQuestCommand = new DelegateCommand(async () => await ToQuest(), CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand SaveSettingsCommand => new DelayCommand(async () => await SaveSettings());
+        public DelayCommand ResetSettingsCommand => new DelayCommand(async () => await ResetSettingsAsync());
+        public DelayCommand DeleteProfileCommand => new DelayCommand(async () => await DeleteProfileAsync());
+        public DelayCommand ToQuestCommand => new DelayCommand(async () => await ToQuest());
 
 
         #endregion

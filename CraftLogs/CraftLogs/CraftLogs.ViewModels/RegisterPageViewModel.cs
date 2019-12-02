@@ -2,11 +2,9 @@
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -18,17 +16,13 @@ namespace CraftLogs.ViewModels
 
         private Settings settings;
 
-        private DelegateCommand saveCommand;
-        private DelegateCommand cancelCommand;
-        private DelegateCommand<object> selectCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(async () => await Save()));
-        public DelegateCommand CancelCommand => cancelCommand ?? (cancelCommand = new DelegateCommand(async () => await Cancel(), CanSubmit).ObservesProperty(() => IsBusy));
-        public DelegateCommand<object> SelectCommand => selectCommand ?? (selectCommand = new DelegateCommand<object>( (a) => Select(a)));
+        public DelayCommand SaveCommand => new DelayCommand(async () => await Save());
+        public DelayCommand CancelCommand => new DelayCommand(async () => await Cancel());
+        public DelayCommand<object> SelectCommand => new DelayCommand<object>( (a) => Select(a));
 
         #endregion
 

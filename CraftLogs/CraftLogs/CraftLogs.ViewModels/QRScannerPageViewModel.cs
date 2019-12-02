@@ -16,7 +16,6 @@ limitations under the License.
 
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Threading.Tasks;
@@ -25,15 +24,9 @@ namespace CraftLogs.ViewModels
 {
     public class QRScannerPageViewModel : ViewModelBase
     {
-        #region Private
-
-        private DelegateCommand<string> getResultCommand;
-
-        #endregion
-
         #region Public
 
-        public DelegateCommand<string> GetResultCommand => getResultCommand ?? (getResultCommand = new DelegateCommand<string>(async (a) => await HandleResult(a)));
+        public DelayCommand<string> GetResultCommand => new DelayCommand<string>(async (a) => await HandleResult(a));
         
         #endregion
 

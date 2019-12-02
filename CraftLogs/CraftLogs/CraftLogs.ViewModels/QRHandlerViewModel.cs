@@ -24,7 +24,6 @@ using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Newtonsoft.Json;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -38,13 +37,11 @@ namespace CraftLogs.ViewModels
         private ILoggerService loggerService;
         private Settings settings;
 
-        private DelegateCommand navigateToProfilePageCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand NavigateToProfilePageCommand => navigateToProfilePageCommand ?? (navigateToProfilePageCommand = new DelegateCommand(async () => { IsBusy = true; await NavigateToWithoutHistory(NavigationLinks.ProfilePage); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand NavigateToProfilePageCommand => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
 
         #endregion
 

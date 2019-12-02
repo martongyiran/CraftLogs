@@ -19,7 +19,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
@@ -38,22 +37,17 @@ namespace CraftLogs.ViewModels
 
         private IQRService qRService;
 
-        private DelegateCommand<object> itemTappedCommand;
-        private DelegateCommand<object> removeItemTappedCommand;
-        private DelegateCommand emptyTappedCommand;
-        private DelegateCommand checkOutTappedCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand<object> ItemTappedCommand => itemTappedCommand ?? (itemTappedCommand = new DelegateCommand<object>(async (a) => await ItemTapped(a)));
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>(async (a) => await ItemTapped(a));
 
-        public DelegateCommand<object> RemoveItemTappedCommand => removeItemTappedCommand ?? (removeItemTappedCommand = new DelegateCommand<object>((a) => RemoveItemTapped(a)));
+        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
 
-        public DelegateCommand EmptyTappedCommand => emptyTappedCommand ?? (emptyTappedCommand = new DelegateCommand(() => { IsBusy = true; Empty(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
 
-        public DelegateCommand CheckOutTappedCommand => checkOutTappedCommand ?? (checkOutTappedCommand = new DelegateCommand(async () => { IsBusy = true; await CheckOut(); }, CanSubmit).ObservesProperty(() => IsBusy));
+        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
 
         #endregion
 

@@ -23,7 +23,6 @@ using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
-using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -36,21 +35,15 @@ namespace CraftLogs.ViewModels
 
         private ILoggerService logger;
 
-        private DelegateCommand<object> itemTappedCommand;
-
-        private DelegateCommand sellTappedCommand;
-
-        private DelegateCommand useTappedCommand;
-
         #endregion
 
         #region Public
 
-        public DelegateCommand<object> ItemTappedCommand => itemTappedCommand ?? (itemTappedCommand = new DelegateCommand<object>((a) => ItemTapped(a)));
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
 
-        public DelegateCommand SellTappedCommand => sellTappedCommand ?? (sellTappedCommand = new DelegateCommand(async () => await SellTapped()));
+        public DelayCommand SellTappedCommand => new DelayCommand(async () => await SellTapped());
 
-        public DelegateCommand UseTappedCommand => useTappedCommand ?? (useTappedCommand = new DelegateCommand(async () => await UseTapped()));
+        public DelayCommand UseTappedCommand => new DelayCommand(async () => await UseTapped());
 
         #endregion
 
