@@ -97,10 +97,6 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.HqPage);
             }
-            else if (settings.AppMode == AppModeEnum.Spectator)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.SpectatorPage);
-            }
 
             IsBusy = false;
         }

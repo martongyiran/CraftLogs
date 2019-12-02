@@ -22,7 +22,6 @@ namespace CraftLogs.BLL.Enums
             Team,
             Shop,
             Arena,
-            Hq,
-            Spectator
+            Hq
         }
 }

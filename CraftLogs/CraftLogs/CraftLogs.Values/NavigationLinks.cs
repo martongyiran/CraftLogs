@@ -33,6 +33,5 @@ namespace CraftLogs.Values
         public const string ArenaPage = "ArenaPage";
         public const string TradePage = "TradePage";
         public const string HqPage = "HqPage";
-        public const string SpectatorPage = "SpectatorPage";
     }
 }

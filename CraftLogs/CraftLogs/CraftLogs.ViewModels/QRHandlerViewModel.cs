@@ -134,7 +134,7 @@ namespace CraftLogs.ViewModels
 
                 IsBusy = true;
 
-                if (data.Type == QRTypeEnum.Reward && settings.AppMode != AppModeEnum.Spectator)
+                if (data.Type == QRTypeEnum.Reward)
                 {
                     Title = Texts.QuestRewardTitle;
                     QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.D);
@@ -161,7 +161,7 @@ namespace CraftLogs.ViewModels
                     loggerService.CreateQueustLog(processedData);
                     IsQuestReward = true;
                 }
-                else if (data.Type == QRTypeEnum.ShopList && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.ShopList)
                 {
                     Title = Texts.ShopListOkTitle;
                     ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.D);
@@ -204,7 +204,7 @@ namespace CraftLogs.ViewModels
 
                     await NavigateBack();
                 }
-                else if (data.Type == QRTypeEnum.ArenaResult && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.ArenaResult)
                 {
                     ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.D);
                     var profile = DataRepository.GetTeamProfile();
@@ -226,7 +226,7 @@ namespace CraftLogs.ViewModels
                     RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
                     loggerService.CreateArenaLog(processedData);
                 }
-                else if (data.Type == QRTypeEnum.TradeGive && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.TradeGive)
                 {
                     var profile = DataRepository.GetTeamProfile();
                     TradeGive processedData = JsonConvert.DeserializeObject<TradeGive>(data.D);
@@ -250,7 +250,7 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.TradeGetAndGive && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.TradeGetAndGive)
                 {
                     var profile = DataRepository.GetTeamProfile();
                     TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.D);
@@ -283,7 +283,7 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.TradeFirstOk && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.TradeFirstOk)
                 {
                     var profile = DataRepository.GetTeamProfile();
                     TradeFirstOk processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.D);
@@ -322,7 +322,7 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.TradeSecondOk && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.TradeSecondOk)
                 {
                     var profile = DataRepository.GetTeamProfile();
                     TradeSecondOk processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.D);
@@ -351,29 +351,7 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Hq)
-                {
-                    Title = Texts.ArenaTeamDetails;
-                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
-
-                    var profile = DataRepository.GetHqProfile();
-                    profile.Scores.Add(new Tuple<string, int>(processedData.a, processedData.e));
-                    DataRepository.SaveToFile(profile);
-                    RewardText = Texts.ArenaScanned;
-                }
-                else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Spectator)
-                {
-                    Title = Texts.ArenaTeamDetails;
-                    RewardText = Texts.ArenaScanned;
-                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
-
-                    var profile = DataRepository.GetSpectatorProfile();
-
-                    profile = processedData;
-
-                    DataRepository.SaveToFile(profile);
-                }
-                else if (data.Type == QRTypeEnum.HqReward && settings.AppMode != AppModeEnum.Spectator)
+                else if (data.Type == QRTypeEnum.HqReward)
                 {
                     Title = Texts.ArenaTeamDetails;
                     HqReward processedData = JsonConvert.DeserializeObject<HqReward>(data.D);
