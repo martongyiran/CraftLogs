@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 x:Class="CraftLogs.Views.QRPage"
-                 xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-                 xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-                 IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-                 BackgroundColor="White">
-    <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-            <Button Text="{x:Static values:Texts.Ok}" Style="{StaticResource WhiteButton}" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToHomeCommand}"/>
-            <!--Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323-->
-            <Entry x:Name="EntryPhoneNumber" Text="{Binding QrCode}" IsVisible="False"/>
+<ContentPage
+    x:Class="CraftLogs.Views.QRPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    BackgroundColor="White"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <ScrollView
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Button
+                Command="{Binding NavigateToHomeCommand}"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource WhiteButton}"
+                Text="{x:Static values:Texts.Ok}"
+                VerticalOptions="StartAndExpand" />
+            <!--  Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323  -->
+            <Entry
+                x:Name="EntryPhoneNumber"
+                IsVisible="False"
+                Text="{Binding QrCode}" />
             <zxing:ZXingBarcodeImageView
-                    x:Name="qrcode"
-                    WidthRequest="600"
-                    HeightRequest="600"
-                    BindingContext="{x:Reference Name=EntryPhoneNumber}"
-                    BarcodeValue="{Binding Path=Text}"
-                    BarcodeFormat="QR_CODE"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand" />
+                x:Name="qrcode"
+                BarcodeFormat="QR_CODE"
+                BarcodeValue="{Binding Path=Text}"
+                BindingContext="{x:Reference Name=EntryPhoneNumber}"
+                HeightRequest="600"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="600" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

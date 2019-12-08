@@ -29,7 +29,7 @@ namespace CraftLogs.ViewModels
     public class SettingsPageViewModel : ViewModelBase
     {
         #region Private
-        
+
         private Settings settings;
 
         #endregion
@@ -105,7 +105,7 @@ namespace CraftLogs.ViewModels
             get { return craft2MinPont; }
             set { SetProperty(ref craft2MinPont, value); }
         }
-        
+
         private bool isNpc;
 
         public bool IsNpc
@@ -172,7 +172,7 @@ namespace CraftLogs.ViewModels
             {
                 await NavigateToWithoutHistory(NavigationLinks.MainPage);
             }
-            
+
         }
 
         private async Task ResetSettingsAsync()
@@ -204,10 +204,13 @@ namespace CraftLogs.ViewModels
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }
-        
+
         private async Task ToQuest()
         {
-            if(Pw == "123467")
+#if DEV
+            await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
+#else
+        if(Pw == "123467")
             {
                 await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
             }
@@ -215,6 +218,7 @@ namespace CraftLogs.ViewModels
             {
                 await DialogService.DisplayAlertAsync(Texts.Error, "Hibás jelszó!", Texts.No);
             }
+#endif
         }
 
         #endregion

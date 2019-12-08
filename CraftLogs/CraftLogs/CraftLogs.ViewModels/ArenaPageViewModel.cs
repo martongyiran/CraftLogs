@@ -27,63 +27,47 @@ namespace CraftLogs.ViewModels
 {
     public class ArenaPageViewModel : ViewModelBase
     {
-        #region Private
 
-        private ICombatService combatService;
-        private IQRService qRService;
+        private readonly ICombatService _combatService;
+        private readonly IQRService _qRService;
 
-        private ArenaProfile arenaProfile;
-        private Settings settings;
-        private CombatUnit challenger;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
-
-        #endregion
-
-        #region Ctor
-
-        public ArenaPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, ICombatService combatservice, IQRService qrService) : base(navigationService, dataRepository, dialogService)
-        {
-            combatService = combatservice;
-            qRService = qrService;
-            Title = Texts.ArenaTitle;
-        }
-
-        #endregion
-
-        #region Properties
-
-        private CombatUnit firstUnit;
+        private ArenaProfile _arenaProfile;
+        private Settings _settings;
+        private CombatUnit _challenger;
+        private CombatUnit _firstUnit;
+        private string _logs;
 
         public CombatUnit FirstUnit
         {
-            get { return firstUnit; }
-            set { SetProperty(ref firstUnit, value); }
+            get => _firstUnit;
+            set => SetProperty(ref _firstUnit, value);
         }
-
-        private string logs;
 
         public string Logs
         {
-            get { return logs; }
-            set { SetProperty(ref logs, value); }
+            get => _logs; 
+            set => SetProperty(ref _logs, value); 
         }
 
-        #endregion
+        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
 
-        #region Overrides
+        public ArenaPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService, ICombatService combatservice,
+            IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
+        {
+            _combatService = combatservice;
+            _qRService = qrService;
+            Title = Texts.ArenaTitle;
+        }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
             await Init();
-
-            IsBusy = false;
         }
 
         public override async Task ToSettings()
@@ -94,64 +78,61 @@ namespace CraftLogs.ViewModels
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
-        #endregion
-
-        #region Private functions
-
         private async Task Init()
         {
             IsBusy = true;
-            DataRepository.CreateArenaProfile();
-            arenaProfile = DataRepository.GetArenaProfile();
-            settings = DataRepository.GetSettings();
 
-            if (settings.AppMode == AppModeEnum.None)
+            DataRepository.CreateArenaProfile();
+            _arenaProfile = DataRepository.GetArenaProfile();
+            _settings = DataRepository.GetSettings();
+
+            if (_settings.AppMode == AppModeEnum.None)
             {
-                settings.AppMode = AppModeEnum.Arena;
-                DataRepository.SaveToFile(settings);
+                _settings.AppMode = AppModeEnum.Arena;
+                DataRepository.SaveToFile(_settings);
             }
 
-            FirstUnit = arenaProfile.Leader;
-            Logs = arenaProfile.LastLog;
-            if(arenaProfile.Attacker != null)
-            {
-                challenger = arenaProfile?.Attacker;
+            FirstUnit = _arenaProfile.Leader;
+            Logs = _arenaProfile.LastLog;
 
-                if (combatService.CanFight(FirstUnit, challenger))
+            if(_arenaProfile.Attacker != null)
+            {
+                _challenger = _arenaProfile?.Attacker;
+
+                if (_combatService.CanFight(FirstUnit, _challenger))
                 {
-                    ArenaResponse details = combatService.Fight(FirstUnit, challenger);
+                    ArenaResponse details = _combatService.Fight(FirstUnit, _challenger);
 
                     if (details.IsWin)
                     {
-                        arenaProfile.Leader = challenger;
+                        _arenaProfile.Leader = _challenger;
                     }
 
-                    arenaProfile.Attacker = null;
-                    arenaProfile.LastLog = details.CombatLog;
+                    _arenaProfile.Attacker = null;
+                    _arenaProfile.LastLog = details.CombatLog;
 
-                    DataRepository.SaveToFile(arenaProfile);
+                    DataRepository.SaveToFile(_arenaProfile);
 
-                    var qrCode = qRService.CreateQR(details);
-                    NavigationParameters param = new NavigationParameters();
-                    param.Add("code", qrCode);
-
-                    IsBusy = false;
+                    var qrCode = _qRService.CreateQR(details);
+                    var param = new NavigationParameters
+                    {
+                        { "code", qrCode }
+                    };
 
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
+
+                    IsBusy = false;
                 }
                 else
                 {
-                    arenaProfile.Attacker = null;
+                    _arenaProfile.Attacker = null;
 
-                    DataRepository.SaveToFile(arenaProfile);
+                    DataRepository.SaveToFile(_arenaProfile);
                     await DialogService.DisplayAlertAsync(Texts.Oupsie, Texts.CantFight, Texts.Sadface);
                 }
             }
             
             IsBusy = false;
         }
-
-        #endregion
-
     }
 }

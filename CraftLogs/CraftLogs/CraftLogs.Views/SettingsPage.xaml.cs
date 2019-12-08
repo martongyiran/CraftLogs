@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +15,7 @@ namespace CraftLogs.Views
 
         private void On_Support_Clicked(object sender, EventArgs e)
         {
-            Device.OpenUri(new Uri("https://paypal.me/CHlGGA"));
+            Launcher.TryOpenAsync(new Uri("https://paypal.me/CHlGGA"));
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)

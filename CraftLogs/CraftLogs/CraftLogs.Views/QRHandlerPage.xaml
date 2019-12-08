@@ -1,35 +1,69 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CraftLogs.Views.QRHandlerPage"
-             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-             BackgroundColor="{StaticResource BackgroundColorLight}"
-             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="CraftLogs.Views.QRHandlerPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColorLight}"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <views:CardView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
-                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="16" Text="{Binding RewardText}"/>
-            </views:CardView>
-            <ListView ItemsSource="{Binding Rewards}" BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" SelectionMode="None" IsRefreshing="{Binding IsBusy}" CachingStrategy="RecycleElement">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" Padding="1">
-                                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+        <ScrollView>
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand">
+                <views:CardView
+                    BackgroundColor="White"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Label
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{Binding RewardText}"
+                        TextColor="Black"
+                        VerticalOptions="CenterAndExpand" />
+                </views:CardView>
+                <StackLayout
+                    BackgroundColor="Transparent"
+                    BindableLayout.ItemsSource="{Binding Rewards}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView
+                                Padding="1"
+                                BackgroundColor="Gray"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Grid
+                                    BackgroundColor="White"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding Image}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="50" WidthRequest="50" Grid.Column="0" />
-                                    <Label Text="{Binding InvString}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+                                    <Image
+                                        Grid.Column="0"
+                                        HeightRequest="50"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding Image}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="50" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="{Binding InvString}"
+                                        VerticalOptions="CenterAndExpand" />
                                 </Grid>
                             </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Text="Köszi" Style="{StaticResource WhiteButton}" Command="{Binding NavigateToProfilePageCommand}" IsVisible="{Binding IsQuestReward}"/>
-        </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Button
+                    Command="{Binding NavigateToProfilePageCommand}"
+                    IsVisible="{Binding IsQuestReward}"
+                    Style="{StaticResource WhiteButton}"
+                    Text="Köszi" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -16,7 +16,6 @@ limitations under the License.
 
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
-using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
@@ -26,53 +25,40 @@ namespace CraftLogs.ViewModels
 {
     public class LogsPageViewModel : ViewModelBase
     {
-        #region Private
-
-        private ObservableCollection<Log> logs;
-        private int numberOfVisibleLogs = 20;
-        private ObservableCollection<Log> filteredLogsList;
-        private bool footerIsVisible;
-        private bool headerIsVisible;
-        private readonly ILoggerService loggerService;
-
-        #endregion
-
-        #region Public
+        private int _numberOfVisibleLogs = 20;
+        private bool _footerIsVisible;
+        private bool _headerIsVisible;
+        private ObservableCollection<Log> _logs;
+        private ObservableCollection<Log> _filteredLogsList;
 
         public bool HeaderIsVisible
         {
-            get { return headerIsVisible; }
-            set { SetProperty(ref headerIsVisible, value); }
+            get => _headerIsVisible;
+            set => SetProperty(ref _headerIsVisible, value);
         }
 
         public ObservableCollection<Log> FilteredLogsList
         {
-            get { return filteredLogsList; }
-            set { SetProperty(ref filteredLogsList, value); }
+            get => _filteredLogsList;
+            set => SetProperty(ref _filteredLogsList, value);
         }
 
         public bool FooterIsVisible
         {
-            get { return footerIsVisible; }
-            set { SetProperty(ref footerIsVisible, value); }
+            get => _footerIsVisible;
+            set => SetProperty(ref _footerIsVisible, value);
         }
 
         public DelayCommand LoadLogsCommand => new DelayCommand(LoadLogs);
 
-
-        #endregion
-
-        #region Ctor
-
-        public LogsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, ILoggerService loggerService) : base(navigationService, dataRepository, dialogService)
+        public LogsPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
+            : base(navigationService, dataRepository, dialogService)
         {
             Title = Texts.LogsPage;
-            this.loggerService = loggerService;
         }
-
-        #endregion
-
-        #region Overrides
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -80,42 +66,31 @@ namespace CraftLogs.ViewModels
             SetUp();
         }
 
-        #endregion
-
-        #region Private functions
-
         private void SetUp()
         {
-            logs = DataRepository.GetLogs();
+            _logs = DataRepository.GetLogs();
             LoadLogs();
         }
 
         private void LoadLogs()
         {
-            IsBusy = true;
+            HeaderIsVisible = _logs.Count == 0;
 
-            HeaderIsVisible = logs.Count == 0;
-
-            if (logs.Count > numberOfVisibleLogs)
+            if (_logs.Count > _numberOfVisibleLogs)
             {
                 FilteredLogsList = new ObservableCollection<Log>();
-                for (int i = 0; i < numberOfVisibleLogs; i++)
+                for (int i = 0; i < _numberOfVisibleLogs; i++)
                 {
-                    FilteredLogsList.Add(logs[i]);
+                    FilteredLogsList.Add(_logs[i]);
                 }
-                numberOfVisibleLogs += 20;
+                _numberOfVisibleLogs += 20;
                 FooterIsVisible = true;
             }
             else
             {
                 FooterIsVisible = false;
-                FilteredLogsList = logs;
+                FilteredLogsList = _logs;
             }
-
-
-            IsBusy = false;
         }
-        
-        #endregion
     }
 }

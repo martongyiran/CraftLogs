@@ -14,25 +14,45 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using Prism.Mvvm;
 using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Models
 {
-    public class HqReward
+    public class HqReward : BindableBase
     {
-        public int Exp { get; set; }
+        private int _exp;
+        private int _honor;
+        private int _money;
+        private ObservableCollection<Item> _rewardItems;
 
-        public int Honor { get; set; }
-
-        public int Money { get; set; }
-
-        public ObservableCollection<Item> RewardItems = new ObservableCollection<Item>();
-
-        public HqReward(int exp, int honor, int money)
+        public int Exp
         {
-            Exp = exp;
-            Honor = honor;
-            Money = money;
+            get => _exp;
+            set => SetProperty(ref _exp, value);
+        }
+
+        public int Honor
+        {
+            get => _honor;
+            set => SetProperty(ref _honor, value);
+        }
+
+        public int Money
+        {
+            get => _money;
+            set => SetProperty(ref _money, value);
+        }
+
+        public ObservableCollection<Item> RewardItems
+        {
+            get => _rewardItems;
+            set => SetProperty(ref _rewardItems, value);
+        }
+
+        public HqReward()
+        {
+            RewardItems = new ObservableCollection<Item>();
         }
 
         public override string ToString()

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
@@ -25,67 +26,49 @@ namespace CraftLogs.ViewModels
 {
     public class QRPageViewModel : ViewModelBase
     {
-        #region Private
-
-        private string qrCode;
-        private Settings settings;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand NavigateToHomeCommand => new DelayCommand(async () => await SmartNavigation());
+        private string _qrCode;
+        private Settings _settings;
 
         public string QrCode
         {
-            get { return qrCode; }
-            set { SetProperty(ref qrCode, value); }
+            get => _qrCode;
+            set => SetProperty(ref _qrCode, value);
         }
 
-        #endregion
-
-        #region ctor
+        public DelayCommand NavigateToHomeCommand => new DelayCommand(async () => await ExecuteNavigateToHomeCommandAsync());
 
         public QRPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
         }
 
-        #endregion
-
-        #region Overrides
-
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
 
-            settings = DataRepository.GetSettings();
+            _settings = DataRepository.GetSettings();
 
             QrCode = parameters["code"] as string;
             System.Diagnostics.Debug.WriteLine(QrCode);
         }
 
-        #endregion
-
-        #region Private functions
-
-        private async Task SmartNavigation()
+        private async Task ExecuteNavigateToHomeCommandAsync()
         {
-            if (settings.AppMode == BLL.Enums.AppModeEnum.Team)
+            switch (_settings.AppMode)
             {
-                await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+                case AppModeEnum.Team:
+                    await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+                    break;
+                case AppModeEnum.Shop:
+                    await NavigateToWithoutHistory(NavigationLinks.ShopPage);
+                    break;
+                case AppModeEnum.Arena:
+                    await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
+                    break;
+                default:
+                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                    break;
             }
-            else if (settings.AppMode == BLL.Enums.AppModeEnum.Shop)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.ShopPage);
-            }
-            else if (settings.AppMode == BLL.Enums.AppModeEnum.Arena)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
-            }
-            await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
-
-        #endregion
     }
 }

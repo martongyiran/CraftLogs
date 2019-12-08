@@ -24,26 +24,24 @@ namespace CraftLogs.ViewModels
 {
     public class QRScannerPageViewModel : ViewModelBase
     {
-        #region Public
-
-        public DelayCommand<string> GetResultCommand => new DelayCommand<string>(async (a) => await HandleResult(a));
+        public DelayCommand<string?> GetResultCommand => new DelayCommand<string?>(async (a) => await ExecuteGetResultCommandAsync(a));
         
-        #endregion
-
-        #region ctor
-
-        public QRScannerPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public QRScannerPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = "QR Scanner Page";
+            Title = "QR kód leolvasása";
         }
 
-        #endregion
-
-        private async Task HandleResult(string text)
+        private async Task ExecuteGetResultCommandAsync(string? text)
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("res", text);
+            var param = new NavigationParameters
+            {
+                { "res", text }
+            };
+
             await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, param);
         }
     }

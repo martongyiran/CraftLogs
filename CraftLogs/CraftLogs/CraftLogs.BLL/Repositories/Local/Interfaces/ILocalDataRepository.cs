@@ -150,28 +150,5 @@ namespace CraftLogs.BLL.Repositories.Local.Interfaces
         /// Deletes HqProfile file.
         /// </summary>
         void DeleteHqProfile();
-
-        /// <summary>
-        /// Creates a SpectatorProfile file.
-        /// </summary>
-        void CreateSpectatorProfile();
-
-        /// <summary>
-        /// Returns the SpectatorProfile.
-        /// </summary>
-        /// <returns></returns>
-        ProfileQr GetSpectatorProfile();
-
-        /// <summary>
-        /// Checks if SpectatorProfile exist.
-        /// </summary>
-        /// <returns></returns>
-        bool IsSpectatorProfileExist();
-
-        /// <summary>
-        /// Deletes SpectatorProfile file.
-        /// </summary>
-        void DeleteSpectatorProfile();
-
     }
 }

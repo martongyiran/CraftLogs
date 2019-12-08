@@ -26,27 +26,22 @@ namespace CraftLogs.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
-        #region Private
 
-        private string title;
-        private bool isBusy = false;
-
-        #endregion
-
-        #region Public
+        private string _title;
+        private bool _isBusy = false;
 
         public DelayCommand NavigateToSettingsCommand => new DelayCommand(async () => await ToSettings());
 
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
 
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
 
 #if DEV
@@ -57,17 +52,9 @@ namespace CraftLogs.ViewModels
         public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
 #endif
 
-        #endregion
-
-        #region Services
-
         protected INavigationService NavigationService { get; private set; }
         protected ILocalDataRepository DataRepository { get; private set; }
         protected IPageDialogService DialogService { get; private set; }
-
-        #endregion
-
-        #region Ctor
 
         public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
         {
@@ -75,10 +62,6 @@ namespace CraftLogs.ViewModels
             DataRepository = dataRepository;
             DialogService = dialogService;
         }
-
-        #endregion
-
-        #region Virtual
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -102,10 +85,6 @@ namespace CraftLogs.ViewModels
         public virtual async Task ToSettings()
         {
         }
-
-        #endregion
-
-        #region Protected functions
 
         protected async Task NavigateTo(string navigationLink)
         {
@@ -148,7 +127,5 @@ namespace CraftLogs.ViewModels
             IsBusy = true;
             await NavigationService.NavigateAsync("../");
         }
-
-        #endregion
     }
 }

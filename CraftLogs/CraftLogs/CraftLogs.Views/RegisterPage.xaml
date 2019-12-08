@@ -1,82 +1,134 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             x:Class="CraftLogs.Views.RegisterPage"
-             BackgroundColor="{StaticResource BackgroundColorLight}"
-             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-             Title="{Binding Title}"
-             x:Name="view">
+<ContentPage
+    x:Class="CraftLogs.Views.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    x:Name="view"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColorLight}"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem Text="{x:Static values:Texts.Cancel}" Command="{Binding CancelCommand}"/>
+        <views:BindableToolbarItem
+            Command="{Binding CancelCommand}"
+            Text="{x:Static values:Texts.Cancel}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-                <Label TextColor="Black" FontSize="16" HorizontalOptions="StartAndExpand" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamRegisterName}" />
-                <Entry Text="{Binding Name, Mode=TwoWay}" Style="{StaticResource RegisterEntry}"/>
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                VerticalOptions="Center">
+                <Label
+                    Margin="5,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="StartAndExpand"
+                    Text="{x:Static values:Texts.TeamRegisterName}"
+                    TextColor="Black" />
 
-                <Label TextColor="Black" FontSize="16" HorizontalOptions="Start" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamHouse}" />
+                <Entry
+                    Style="{StaticResource RegisterEntry}"
+                    Text="{Binding Name, Mode=TwoWay}" />
+
+                <Label
+                    Margin="5,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="{x:Static values:Texts.TeamHouse}"
+                    TextColor="Black" />
+
                 <Picker
-                        ItemsSource="{Binding Houses}"
-                        SelectedItem="{Binding House, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                    FontSize="16"
+                    ItemsSource="{Binding Houses}"
+                    SelectedItem="{Binding House, Mode=TwoWay}"
+                    TextColor="{StaticResource ColorDark}" />
 
-                <Label TextColor="Black" FontSize="16" FontAttributes="Bold" Margin="5,0,0,0" Text="{x:Static values:Texts.TeamClass}" />
+                <Label
+                    Margin="5,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="{x:Static values:Texts.TeamClass}"
+                    TextColor="Black" />
+
                 <Picker
-                        ItemsSource="{Binding Classes}"
-                        SelectedItem="{Binding Cast, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                    FontSize="16"
+                    ItemsSource="{Binding Classes}"
+                    SelectedItem="{Binding Cast, Mode=TwoWay}"
+                    TextColor="{StaticResource ColorDark}" />
 
-                <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    VerticalOptions="FillAndExpand">
+
                     <Image
-                    x:Name="Image1"
-                    Source="{Binding Img1}" 
-                    HeightRequest="100" 
-                    WidthRequest="100" 
-                    HorizontalOptions="CenterAndExpand" 
-                    VerticalOptions="CenterAndExpand"
-                    FlowDirection="LeftToRight">
+                        x:Name="Image1"
+                        FlowDirection="LeftToRight"
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="{Binding Img1}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="100">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="CharacterSelect_Tapped"/>
+                            <TapGestureRecognizer
+                                Command="{Binding SelectCommand}"
+                                CommandParameter="1" />
                         </Image.GestureRecognizers>
                     </Image>
-                    <Image  
-                    x:Name="Image2"
-                    Source="{Binding Img2}" 
-                    HeightRequest="100" 
-                    WidthRequest="100" 
-                    HorizontalOptions="CenterAndExpand" 
-                    VerticalOptions="CenterAndExpand"
-                    FlowDirection="LeftToRight">
+
+                    <Image
+                        x:Name="Image2"
+                        FlowDirection="LeftToRight"
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="{Binding Img2}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="100">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="CharacterSelect_Tapped2"/>
+                            <TapGestureRecognizer
+                                Command="{Binding SelectCommand}"
+                                CommandParameter="2" />
                         </Image.GestureRecognizers>
                     </Image>
+
                     <Image
-                    x:Name="Image3"
-                    Source="{Binding Img3}" 
-                    HeightRequest="100" 
-                    WidthRequest="100" 
-                    HorizontalOptions="CenterAndExpand" 
-                    VerticalOptions="CenterAndExpand"
-                    FlowDirection="LeftToRight">
+                        x:Name="Image3"
+                        FlowDirection="LeftToRight"
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="{Binding Img3}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="100">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="CharacterSelect_Tapped3"/>
+                            <TapGestureRecognizer
+                                Command="{Binding SelectCommand}"
+                                CommandParameter="3" />
                         </Image.GestureRecognizers>
                     </Image>
                 </StackLayout>
 
-                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
-                       Text="Mage: 1 Stamina == 4 HP. 2-vel több ATK-al kezd." Margin="10,0,10,0"/>
-                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
-                       Text="Warrior: 1 Stamina == 6 HP. 2-vel több DEF-el kezd." Margin="10,0,10,0"/>
-                <Label VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontAttributes="Italic" TextColor="Black" FontSize="15"
-                       Text="Rogue: 1 Stamina == 5 HP. 2-vel több Dodge-al és Crit Rate-el kezd." Margin="10,0,10,0"/>
-                <Button Text="{x:Static values:Texts.Save}" Command="{Binding SaveCommand}" Style="{StaticResource WhiteButton}" />
+                <Label
+                    Margin="10,0,10,0"
+                    FontAttributes="Italic"
+                    FontSize="15"
+                    HorizontalOptions="StartAndExpand"
+                    Text=""
+                    TextColor="Black"
+                    VerticalOptions="StartAndExpand">
+                    <Label.FormattedText>
+                        Mage: 1 Stamina == 4 HP. +2 ATK
+                        Warrior: 1 Stamina == 6 HP. +2 DEF
+                        Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR
+                    </Label.FormattedText>
+                </Label>
+
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource WhiteButton}"
+                    Text="{x:Static values:Texts.Save}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using Prism.Commands;
 using Prism.Navigation;
 using CraftLogs.Values;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
@@ -27,27 +26,20 @@ namespace CraftLogs.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        #region Private
-        
-        private Settings settings;
-
-        private bool isDevMode = false;
-        
-        #endregion
-
-        #region Public
+        private Settings _settings;
+        private bool _isDevMode = false;
 
         public bool IsDevMode
         {
-            get { return isDevMode; }
-            set { SetProperty(ref isDevMode, value); }
+            get => _isDevMode;
+            set => SetProperty(ref _isDevMode, value);
         }
 
-        #endregion
-
-        #region Ctor
-
-        public MainPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
+        public MainPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
             IsBusy = true;
@@ -62,53 +54,36 @@ namespace CraftLogs.ViewModels
 
         }
 
-        #endregion
-
-        #region Overrides
-
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            IsBusy = true;
-            SetUpFileSystem();
-            settings = DataRepository.GetSettings();
-#if SPC
-            settings.AppMode = AppModeEnum.Spectator;
-            DataRepository.SaveToFile(settings);
-#endif
 
-            if (settings.AppMode == AppModeEnum.None)
+            IsBusy = true;
+
+            DataRepository.CreateSettings();
+
+            _settings = DataRepository.GetSettings();
+
+            switch (_settings.AppMode)
             {
-                await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
-            }
-            else if (settings.AppMode == AppModeEnum.Team)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
-            }
-            else if (settings.AppMode == AppModeEnum.Shop)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.ShopPage);
-            }
-            else if (settings.AppMode == AppModeEnum.Arena)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
-            }
-            else if (settings.AppMode == AppModeEnum.Hq)
-            {
-                await NavigateToWithoutHistory(NavigationLinks.HqPage);
+                case AppModeEnum.None:
+                    await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
+                    break;
+                case AppModeEnum.Team:
+                    await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+                    break;
+                case AppModeEnum.Shop:
+                    await NavigateToWithoutHistory(NavigationLinks.ShopPage);
+                    break;
+                case AppModeEnum.Arena:
+                    await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
+                    break;
+                case AppModeEnum.Hq:
+                    await NavigateToWithoutHistory(NavigationLinks.HqPage);
+                    break;
             }
 
             IsBusy = false;
         }
-
-        #endregion
-
-        #region Private functions
-
-        private void SetUpFileSystem()
-        {
-            DataRepository.CreateSettings();
-        }
-        #endregion
     }
 }

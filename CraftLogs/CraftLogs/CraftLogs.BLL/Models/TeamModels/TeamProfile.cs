@@ -17,57 +17,94 @@ limitations under the License.
 using System;
 using System.Collections.ObjectModel;
 using CraftLogs.BLL.Enums;
+using Prism.Mvvm;
 
 namespace CraftLogs.BLL.Models
 {
-    public class TeamProfile
+    public class TeamProfile : BindableBase
     {
+        private string _name;
+        private HouseEnum _house;
+        private CharacterClassEnum _cast;
+        private int _score;
+        private int _money;
+        private int _honor;
+        private int _allExp;
+        private int _atk;
+        private int _def;
+        private int _stamina;
+        private string _image;
 
-        public string Name { get; set; }
-
-        public HouseEnum House { get; set; }
-
-        public CharacterClassEnum Cast { get; set; }
-
-        public int Score { get; set; } = 0;
-
-        public int Money { get; set; } = 0;
-
-        public int Honor { get; set; } = 0;
-
-        public int AllExp { get; set; } = 1;
-
-        public int Exp
+        public string Name
         {
-            get { return CalcualteExp(); }
-        }
-        public int Level
-        {
-            get { return CalculateLevel(); }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
-        public int XpForNextLevel
+        public HouseEnum House
         {
-            get { return CalculateXpForNextLevel(); }
+            get => _house;
+            set => SetProperty(ref _house, value);
         }
 
-        public int Atk { get; set; } = 1;
-
-        public int Def { get; set; } = 1;
-
-        public int Stamina { get; set; } = 1;
-
-        public int CritR { get { return GetCrit(); } }
-
-        public int Dodge { get { return GetDodge(); } }
-
-        public int Hp { get { return (Stamina * HpValue) + 95; } }
-
-        public string Image { get; set; } = "@drawable/filler.png";
-
-        public int StatPoint
+        public CharacterClassEnum Cast
         {
-            get { return GetStatPoint(); }
+            get => _cast;
+            set => SetProperty(ref _cast, value);
+        }
+
+        public int Score
+        {
+            get => _score;
+            set => SetProperty(ref _score, value);
+        }
+
+        public int Money
+        {
+            get => _money;
+            set => SetProperty(ref _money, value);
+        }
+
+        public int Honor
+        {
+            get => _honor;
+            set => SetProperty(ref _honor, value);
+        }
+
+        public int AllExp
+        {
+            get => _allExp;
+            set => SetProperty(ref _allExp, value);
+        }
+
+        public int Atk
+        {
+            get => _atk;
+            set => SetProperty(ref _atk, value);
+        }
+
+        public int Def
+        {
+            get => _def;
+            set => SetProperty(ref _def, value);
+        }
+
+        public int Stamina
+        {
+            get => _stamina;
+            set => SetProperty(ref _stamina, value);
+        }
+
+        public int CritR => GetCrit();
+
+        public int Dodge => GetDodge();
+
+        public int Hp => (Stamina * HpValue) + 95;
+
+        public string Image
+        {
+            get => _image;
+            set => SetProperty(ref _image, value);
         }
 
         public ObservableCollection<Item> Inventory = new ObservableCollection<Item>();
@@ -84,9 +121,25 @@ namespace CraftLogs.BLL.Models
 
         public string TradeLastQR { get; set; }
 
-        public int HpValue { get { return GetHpValue(); } }
+        public int Exp => CalcualteExp();
 
-        public TeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
+        public int Level => CalculateLevel();
+
+        public int XpForNextLevel => CalculateXpForNextLevel();
+
+        public int StatPoint => GetStatPoint();
+
+        public int HpValue => GetHpValue();
+
+        public string LevelText => "Lvl." + Level + " " + Cast;
+
+        public string ExpText => "EXP: " + Exp + "/" + XpForNextLevel;
+
+        public TeamProfile(
+            string name,
+            HouseEnum house,
+            CharacterClassEnum cast,
+            string image)
         {
             Name = name;
             House = house;
@@ -94,10 +147,10 @@ namespace CraftLogs.BLL.Models
             Image = image;
             Atk = Cast == CharacterClassEnum.Mage ? 3 : 1;
             Def = Cast == CharacterClassEnum.Warrior ? 3 : 1;
+            Stamina = 1;
+            AllExp = 1;
         }
         
-        #region Private functions
-
         private int CalculateLevel()
         {
             if (AllExp >= 34)
@@ -196,10 +249,6 @@ namespace CraftLogs.BLL.Models
             return Cast == CharacterClassEnum.Rogue ? 3 : 1;
         }
 
-        #endregion
-
-        #region Public functions
-
         public void Init()
         {
             foreach (var item in Inventory)
@@ -217,8 +266,5 @@ namespace CraftLogs.BLL.Models
                 item.SetStats(item.StatsFromQR);
             }
         }
-        
-        #endregion
-
     }
 }

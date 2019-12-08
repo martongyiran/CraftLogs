@@ -27,42 +27,68 @@ namespace CraftLogs.ViewModels
 {
     public class QuestPageViewModel : ViewModelBase
     {
-
-        #region Private
+        private readonly IQRService _qRService;
+        private readonly IItemGeneratorService _itemGeneratorService;
 
         private Settings settings;
-        private IQRService qRService;
-        private IItemGeneratorService itemGeneratorService;
         private DateTime date;
+
         private int minPoint;
         private int maxPoint;
         private int pointRange;
 
-        #endregion
+        private int _sliderScore = 50;
+        private int _score;
+        private bool _readyToScore = false;
+        private string _from;
 
-        #region Public
+        public int SliderScore
+        {
+            get => _sliderScore;
+            set
+            {
+                SetProperty(ref _sliderScore, value);
+                Score = minPoint + (int)((SliderScore / 100.0) * pointRange);
+            }
+        }
 
-        public DelayCommand ScoreCommand => new DelayCommand(async () => await ScoreAsync());
+        public int Score
+        {
+            get => _score;
+            set => SetProperty(ref _score, value);
+        }
 
-        public DelayCommand StartCommand => new DelayCommand(Start);
+        public bool ReadyToScore
+        {
+            get => _readyToScore;
+            set => SetProperty(ref _readyToScore, value);
+        }
+
+        public string From
+        {
+            get => _from;
+            set => SetProperty(ref _from, value);
+        }
+
+        public DelayCommand ScoreCommand => new DelayCommand(async () => await ExecuteScoreCommandAsync());
+
+        public DelayCommand StartCommand => new DelayCommand(ExecuteStartCommand);
 
         public DelayCommand ReloadCommand => new DelayCommand( () => { ReadyToScore = false; Init(); });
         
-        #endregion
-
-        #region Ctor
-
-        public QuestPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, IItemGeneratorService itemgeneratorService) : base(navigationService, dataRepository, dialogService)
+        public QuestPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IQRService qrService, IItemGeneratorService
+            itemgeneratorService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            qRService = qrService;
-            itemGeneratorService = itemgeneratorService;
+            _qRService = qrService;
+            _itemGeneratorService = itemgeneratorService;
             Title = Texts.QuestPage;
         }
         
-        #endregion
-
-        #region Overrides
-
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
@@ -78,52 +104,12 @@ namespace CraftLogs.ViewModels
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
-        #endregion
-
-        #region Properties
-
-        private int sliderScore = 50;
-
-        public int SliderScore
-        {
-            get { return sliderScore; }
-            set { SetProperty(ref sliderScore, value); Score = minPoint + (int)((SliderScore / 100.0) * pointRange); }
-        }
-
-        private int score;
-
-        public int Score
-        {
-            get { return score; }
-            set { SetProperty(ref score, value); }
-        }
-
-        private bool readyToScore = false;
-
-        public bool ReadyToScore
-        {
-            get { return readyToScore; }
-            set { SetProperty(ref readyToScore, value); }
-        }
-
-        private string from;
-
-        public string From
-        {
-            get { return from; }
-            set { SetProperty(ref from, value); }
-        }
-
-        #endregion
-
-        #region Private functions
-
         private void Init()
         {
             settings = DataRepository.GetSettings();
         }
 
-        private void Start()
+        private void ExecuteStartCommand()
         {
             date = DateTime.Now;
             GetPointRange();
@@ -214,7 +200,7 @@ namespace CraftLogs.ViewModels
 #endif
         }
 
-        private async Task ScoreAsync()
+        private async Task ExecuteScoreCommandAsync()
         {
             if (Score != 0 && !string.IsNullOrEmpty(From) && !string.IsNullOrWhiteSpace(From))
             {
@@ -222,9 +208,10 @@ namespace CraftLogs.ViewModels
                 if (res)
                 {
                     int usablePoints = Score;
-                    QuestReward reward = new QuestReward
+
+                    var reward = new QuestReward
                     {
-                        From = this.From,
+                        From = From,
                         Score = Score,
                         Honor = 1
                     };
@@ -233,32 +220,35 @@ namespace CraftLogs.ViewModels
 
                     if (usablePoints >= 30)
                     {
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(3));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(3));
                         usablePoints -= 30;
                     }
                     else if (usablePoints >= 15)
                     {
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(2));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(2));
                         usablePoints -= 15;
                     }
                     else if (usablePoints >= 5)
                     {
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
-                        reward.Items.Add(itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(1));
+                        reward.Items.Add(_itemGeneratorService.GetRandomItem(1));
                         usablePoints -= 5;
                     }
 
                     reward.Money = usablePoints * 10;
 
-                    var qrCode = qRService.CreateQR(reward);
+                    var qrCode = _qRService.CreateQR(reward);
 
-                    NavigationParameters param = new NavigationParameters();
-                    param.Add("res", qrCode);
+                    var param = new NavigationParameters
+                    {
+                        { "res", qrCode }
+                    };
+
                     await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, param);
                 }
             }
@@ -268,7 +258,5 @@ namespace CraftLogs.ViewModels
             }
 
         }
-        
-        #endregion
     }
 }

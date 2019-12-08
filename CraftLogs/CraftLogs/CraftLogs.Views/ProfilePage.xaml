@@ -56,7 +56,7 @@
                         FlowDirection="LeftToRight"
                         HeightRequest="100"
                         HorizontalOptions="StartAndExpand"
-                        Source="{Binding Image}"
+                        Source="{Binding Profile.Image}"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="100" />
                     <StackLayout
@@ -71,31 +71,31 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding Name}"
+                            Text="{Binding Profile.Name}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding Lvl}"
+                            Text="{Binding Profile.LevelText}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding Exp}"
+                            Text="{Binding Profile.ExpText}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding Honor}"
+                            Text="{Binding Profile.Honor, StringFormat='Honor: {0}'}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding Money}"
+                            Text="{Binding Profile.Money, StringFormat='Pénz: {0}'}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
@@ -106,7 +106,7 @@
                         Margin="15,0,0,0"
                         FontSize="16"
                         IsVisible="{Binding PointIsVisible}"
-                        Text="{Binding Points}"
+                        Text="{Binding Profile.StatPoint, StringFormat='Elosztható pontok: {0}'}"
                         TextColor="Black" />
                     <StackLayout
                         Grid.Row="3"
@@ -122,7 +122,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding Stamina}"
+                            Text="{Binding StaminaSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Image
@@ -135,7 +135,9 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Plus_Tapped1" />
+                                <TapGestureRecognizer
+                                    Command="{Binding RaiseStatCommand}"
+                                    CommandParameter="stamina" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
@@ -153,7 +155,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding Atk}"
+                            Text="{Binding AtkSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Image
@@ -166,7 +168,9 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Plus_Tapped2" />
+                                <TapGestureRecognizer
+                                    Command="{Binding RaiseStatCommand}"
+                                    CommandParameter="atk" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
@@ -184,7 +188,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding Def}"
+                            Text="{Binding DefSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                         <Image
@@ -197,7 +201,9 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Plus_Tapped3" />
+                                <TapGestureRecognizer
+                                    Command="{Binding RaiseStatCommand}"
+                                    CommandParameter="def" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
@@ -214,7 +220,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding Hp}"
+                            Text="{Binding HpSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
@@ -231,7 +237,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding CritR}"
+                            Text="{Binding CritRSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
@@ -248,7 +254,7 @@
                             WidthRequest="30" />
                         <Label
                             FontSize="16"
-                            Text="{Binding Dodge}"
+                            Text="{Binding DodgeSum}"
                             TextColor="Black"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
@@ -385,7 +391,7 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Inventory_Tapped" />
+                        <TapGestureRecognizer Command="{Binding NavigateToInventoryPageCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
@@ -409,7 +415,7 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ReadQR_Tapped" />
+                        <TapGestureRecognizer Command="{Binding NavigateToQRScannerPageCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
@@ -421,7 +427,7 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Trade_Tapped" />
+                        <TapGestureRecognizer Command="{Binding StartTradeCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
@@ -433,7 +439,7 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Arena_Tapped" />
+                        <TapGestureRecognizer Command="{Binding GetArenaQRCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>

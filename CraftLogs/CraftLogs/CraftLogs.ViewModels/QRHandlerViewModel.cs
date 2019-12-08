@@ -31,112 +31,85 @@ namespace CraftLogs.ViewModels
 {
     public class QRHandlerViewModel : ViewModelBase
     {
-        #region Private
-
-        private IQRService qRService;
-        private ILoggerService loggerService;
-        private Settings settings;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand NavigateToProfilePageCommand => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
-
-        #endregion
-
-        #region Properties
-
-        private string response;
+        private readonly IQRService _qRService;
+        private readonly ILoggerService _loggerService;
+        private Settings _settings;
+        private string _response;
+        private string _rewardText;
+        private bool _rewardIsVisible = false;
+        private bool _isQuestReward = false;
+        private ObservableCollection<Item> _rewards = new ObservableCollection<Item>();
 
         public string Response
         {
-            get { return response; }
-            set { SetProperty(ref response, value); }
+            get => _response;
+            set => SetProperty(ref _response, value);
         }
-
-        private bool rewardIsVisible = false;
 
         public bool RewardIsVisible
         {
-            get { return rewardIsVisible; }
-            set { SetProperty(ref rewardIsVisible, value); }
+            get => _rewardIsVisible;
+            set => SetProperty(ref _rewardIsVisible, value);
         }
-
-        private string rewardText;
 
         public string RewardText
         {
-            get { return rewardText; }
-            set { SetProperty(ref rewardText, value); }
+            get => _rewardText;
+            set => SetProperty(ref _rewardText, value);
         }
-
-        private ObservableCollection<Item> rewards = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> Rewards
         {
-            get { return rewards; }
-            set { SetProperty(ref rewards, value); }
+            get => _rewards;
+            set => SetProperty(ref _rewards, value);
         }
-
-        private bool isQuestReward = false;
 
         public bool IsQuestReward
         {
-            get { return isQuestReward; }
-            set { SetProperty(ref isQuestReward, value); }
+            get => _isQuestReward;
+            set => SetProperty(ref _isQuestReward, value);
         }
 
-        #endregion
-
-
-        #region Ctor
+        public DelayCommand NavigateToProfilePageCommand => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
 
         public QRHandlerViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, ILoggerService loggerservice)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = "QR Handler Page";
-            qRService = qrService;
-            loggerService = loggerservice;
+            _qRService = qrService;
+            _loggerService = loggerservice;
         }
-
-        #endregion
-
-        #region Overrides
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            settings = DataRepository.GetSettings();
+            _settings = DataRepository.GetSettings();
 
             var lul = parameters["res"] as string;
             Response = lul ?? "none";
             if (Response != "none")
             {
-                HandleQR(lul);
+                await HandleQR(lul);
                 System.Diagnostics.Debug.WriteLine(lul);
             }
         }
-
-        #endregion
-
-        #region Functions
 
         private async Task HandleQR(string rspns)
         {
             try
             {
-                var data = qRService.HandleQR(rspns);
+                var data = _qRService.HandleQR(rspns);
 
                 IsBusy = true;
 
                 if (data.Type == QRTypeEnum.Reward)
                 {
                     Title = Texts.QuestRewardTitle;
-                    QuestReward processedData = JsonConvert.DeserializeObject<QuestReward>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<QuestReward>(data.D);
 
                     var profile = DataRepository.GetTeamProfile();
+
                     profile.AllExp += 1;
                     profile.Honor += processedData.Honor;
                     profile.Money += processedData.Money;
@@ -155,14 +128,16 @@ namespace CraftLogs.ViewModels
                     processedData.Items = new ObservableCollection<Item>(temp);
                     Rewards = new ObservableCollection<Item>(temp);
                     DataRepository.SaveToFile(profile);
-                    loggerService.CreateQueustLog(processedData);
+                    _loggerService.CreateQueustLog(processedData);
                     IsQuestReward = true;
                 }
                 else if (data.Type == QRTypeEnum.ShopList)
                 {
                     Title = Texts.ShopListOkTitle;
-                    ShopResponse processedData = JsonConvert.DeserializeObject<ShopResponse>(data.D);
+
+                    var processedData = JsonConvert.DeserializeObject<ShopResponse>(data.D);
                     var profile = DataRepository.GetTeamProfile();
+
                     if (profile.Money >= processedData.Money)
                     {
                         profile.Money -= processedData.Money;
@@ -180,7 +155,7 @@ namespace CraftLogs.ViewModels
                         processedData.Items = new ObservableCollection<Item>(temp);
                         Rewards = new ObservableCollection<Item>(temp);
                         DataRepository.SaveToFile(profile);
-                        loggerService.CreateBuyLog(processedData);
+                        _loggerService.CreateBuyLog(processedData);
                     }
                     else
                     {
@@ -188,10 +163,11 @@ namespace CraftLogs.ViewModels
                         RewardText = Texts.NotEnoughMoney;
                     }
                 }
-                else if (data.Type == QRTypeEnum.ProfileForArena && settings.AppMode == AppModeEnum.Arena)
+                else if (data.Type == QRTypeEnum.ProfileForArena && _settings.AppMode == AppModeEnum.Arena)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    CombatUnit processedData = JsonConvert.DeserializeObject<CombatUnit>(data.D);
+
+                    var processedData = JsonConvert.DeserializeObject<CombatUnit>(data.D);
                     var profile = DataRepository.GetArenaProfile();
 
                     profile.Attacker = processedData;
@@ -203,7 +179,7 @@ namespace CraftLogs.ViewModels
                 }
                 else if (data.Type == QRTypeEnum.ArenaResult)
                 {
-                    ArenaResponse processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<ArenaResponse>(data.D);
                     var profile = DataRepository.GetTeamProfile();
 
                     profile.AllExp += 1;
@@ -221,12 +197,12 @@ namespace CraftLogs.ViewModels
                         Title = Texts.ArenaLose;
                     }
                     RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
-                    loggerService.CreateArenaLog(processedData);
+                    _loggerService.CreateArenaLog(processedData);
                 }
                 else if (data.Type == QRTypeEnum.TradeGive)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeGive processedData = JsonConvert.DeserializeObject<TradeGive>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<TradeGive>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -250,7 +226,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeGetAndGive)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeGetAndGive processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -262,11 +238,13 @@ namespace CraftLogs.ViewModels
 
                         RewardText = Texts.TradeHandlerIP;
 
-                        TradeFirstOk tradeResponse = new TradeFirstOk(profile.TradeNumber);
+                        var tradeResponse = new TradeFirstOk(profile.TradeNumber);
 
-                        var qrCode = qRService.CreateQR(tradeResponse);
-                        NavigationParameters param = new NavigationParameters();
-                        param.Add("code", qrCode);
+                        var qrCode = _qRService.CreateQR(tradeResponse);
+                        var param = new NavigationParameters
+                        {
+                            { "code", qrCode }
+                        };
 
                         profile.TradeLastQR = qrCode;
 
@@ -283,7 +261,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeFirstOk)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeFirstOk processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -302,14 +280,16 @@ namespace CraftLogs.ViewModels
 
                         TradeSecondOk tradeResponse = new TradeSecondOk(profile.TradeNumber);
 
-                        var qrCode = qRService.CreateQR(tradeResponse);
-                        NavigationParameters param = new NavigationParameters();
-                        param.Add("code", qrCode);
+                        var qrCode = _qRService.CreateQR(tradeResponse);
+                        var param = new NavigationParameters
+                        {
+                            { "code", qrCode }
+                        };
 
                         profile.TradeLastQR = qrCode;
 
                         DataRepository.SaveToFile(profile);
-                        loggerService.CreateTradeLog(profile);
+                        _loggerService.CreateTradeLog(profile);
 
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
@@ -322,7 +302,7 @@ namespace CraftLogs.ViewModels
                 else if (data.Type == QRTypeEnum.TradeSecondOk)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    TradeSecondOk processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.D);
 
                     Title = Texts.TradePage;
 
@@ -340,7 +320,7 @@ namespace CraftLogs.ViewModels
                         DataRepository.SaveToFile(profile);
                         RewardText = "Sikeres csere!";
 
-                        loggerService.CreateTradeLog(profile);
+                        _loggerService.CreateTradeLog(profile);
                     }
                     else
                     {
@@ -348,26 +328,27 @@ namespace CraftLogs.ViewModels
                         await DialogService.DisplayAlertAsync(Texts.Error, Texts.TradeIP + "Velük: " + profile.TradeWith, Texts.Ok);
                     }
                 }
-                else if (data.Type == QRTypeEnum.ProfileForSpectator && settings.AppMode == AppModeEnum.Hq)
+                else if (data.Type == QRTypeEnum.ProfileForHq && _settings.AppMode == AppModeEnum.Hq)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    ProfileQr processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<ProfileQr>(data.D);
 
                     var profile = DataRepository.GetHqProfile();
-                    profile.Scores.Add(new Tuple<string, int>(processedData.a, processedData.e));
+                    profile.Scores.Add(processedData);
                     DataRepository.SaveToFile(profile);
                     RewardText = Texts.ArenaScanned;
                 }
                 else if (data.Type == QRTypeEnum.HqReward)
                 {
                     Title = Texts.ArenaTeamDetails;
-                    HqReward processedData = JsonConvert.DeserializeObject<HqReward>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<HqReward>(data.D);
 
                     var profile = DataRepository.GetTeamProfile();
                     profile.AllExp += processedData.Exp;
                     profile.Honor += processedData.Honor;
                     profile.Money += processedData.Money;
-                    List<Item> temp = new List<Item>();
+                    var temp = new List<Item>();
+
                     foreach (var item in processedData?.RewardItems)
                     {
                         profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
@@ -379,7 +360,7 @@ namespace CraftLogs.ViewModels
 
                     processedData.RewardItems = new ObservableCollection<Item>(temp);
                     Rewards = new ObservableCollection<Item>(temp);
-                    loggerService.CreateSystemLog(processedData);
+                    _loggerService.CreateSystemLog(processedData);
 
                 }
                 else
@@ -396,8 +377,5 @@ namespace CraftLogs.ViewModels
             }
 
         }
-
-        #endregion
-
     }
 }

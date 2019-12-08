@@ -25,22 +25,5 @@ namespace CraftLogs.Views
         {
             popupView.IsVisible = false;
         }
-
-        void Use_Clicked(object sender, System.EventArgs e)
-        {
-            if (!(BindingContext is InventoryPageViewModel viewModel))
-                return;
-            viewModel.UseTappedCommand.Execute();
-            popupView.IsVisible = false;
-        }
-
-        void Sell_Clicked(object sender, System.EventArgs e)
-        {
-            if (!(BindingContext is InventoryPageViewModel viewModel))
-                return;
-
-            viewModel.SellTappedCommand.Execute();
-            popupView.IsVisible = false;
-        }
     }
 }

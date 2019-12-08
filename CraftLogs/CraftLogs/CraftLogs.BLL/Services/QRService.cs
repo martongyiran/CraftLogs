@@ -76,7 +76,7 @@ namespace CraftLogs.BLL.Services
             }
             else if (typeof(ProfileQr) == data.GetType())
             {
-                QRResponse<ProfileQr> response = new QRResponse<ProfileQr>(QRTypeEnum.ProfileForSpectator, JsonConvert.SerializeObject(data));
+                QRResponse<ProfileQr> response = new QRResponse<ProfileQr>(QRTypeEnum.ProfileForHq, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }

@@ -14,14 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System;
 using System.Collections.ObjectModel;
 
 namespace CraftLogs.BLL.Models
 {
     public class HqProfile
     {
-        public ObservableCollection<Tuple<string, int>> Scores = new ObservableCollection<Tuple<string, int>>();
+        public ObservableCollection<ProfileQr> Scores = new ObservableCollection<ProfileQr>();
     }
 }
 

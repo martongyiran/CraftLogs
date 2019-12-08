@@ -31,113 +31,111 @@ namespace CraftLogs.ViewModels
     public class InventoryPageViewModel : ViewModelBase
     {
 
-        #region Private
+        private readonly ILoggerService _logger;
 
-        private ILoggerService logger;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
-
-        public DelayCommand SellTappedCommand => new DelayCommand(async () => await SellTapped());
-
-        public DelayCommand UseTappedCommand => new DelayCommand(async () => await UseTapped());
-
-        #endregion
-
-        #region ctor
-
-        public InventoryPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, ILoggerService loggerService) : base(navigationService, dataRepository, dialogService)
-        {
-            Title = Texts.InventoryPage;
-            logger = loggerService;
-        }
-
-        #endregion
-
-        #region Properties
-
-        private ObservableCollection<Item> allItems = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _allItems = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _selectedItems = new ObservableCollection<Item>();
+        private ItemTypeEnum _selectedItemType;
+        private CharacterClassEnum _selectedItemClass;
+        private int _selectedItemTier;
+        private Item _activeItem;
+        private bool _noItem;
+        private bool _isPopupVisible;
 
         public ObservableCollection<Item> AllItems
         {
-            get { return allItems; }
-            set { SetProperty(ref allItems, value); }
+            get => _allItems;
+            set => SetProperty(ref _allItems, value);
         }
-
-        private ObservableCollection<Item> selectedItems = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> SelectedItems
         {
-            get { return selectedItems; }
-            set { SetProperty(ref selectedItems, value); }
+            get =>  _selectedItems; 
+            set => SetProperty(ref _selectedItems, value); 
         }
 
         public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
 
-        private ItemTypeEnum selectedItemType;
-
         public ItemTypeEnum SelectedItemType
         {
-            get { return selectedItemType; }
-            set { SetProperty(ref selectedItemType, value); FilterList(); }
+            get => _selectedItemType;
+            set
+            {
+                SetProperty(ref _selectedItemType, value);
+                FilterList();
+            }
         }
 
         public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
 
-        private CharacterClassEnum selectedItemClass;
-
         public CharacterClassEnum SelectedItemClass
         {
-            get { return selectedItemClass; }
-            set { SetProperty(ref selectedItemClass, value); FilterList(); }
+            get => _selectedItemClass;
+            set
+            {
+                SetProperty(ref _selectedItemClass, value);
+                FilterList();
+            }
         }
 
         public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
 
-        private int selectedItemTier;
-
         public int SelectedItemTier
         {
-            get { return selectedItemTier; }
-            set { SetProperty(ref selectedItemTier, value); FilterList(); }
+            get => _selectedItemTier;
+            set
+            {
+                SetProperty(ref _selectedItemTier, value);
+                FilterList();
+            }
         }
-
-        private Item activeItem;
 
         public Item ActiveItem
         {
-            get { return activeItem; }
-            set { SetProperty(ref activeItem, value); }
+            get => _activeItem;
+            set => SetProperty(ref _activeItem, value);
         }
-
-        private bool noItem;
 
         public bool NoItem
         {
-            get { return noItem; }
-            set { SetProperty(ref noItem, value); }
+            get => _noItem;
+            set => SetProperty(ref _noItem, value);
         }
 
-        #endregion
+        public bool IsPopupVisible
+        {
+            get => _isPopupVisible;
+            set => SetProperty(ref _isPopupVisible, value);
+        }
 
-        #region Overrides
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTapped(a));
+
+        public DelayCommand SellCommand => new DelayCommand(async () => await ExecuteSellCommandAsync());
+
+        public DelayCommand UseCommand => new DelayCommand(async () => await ExecuteUseCommandAsync());
+
+        public InventoryPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            ILoggerService loggerService)
+            : base(navigationService, dataRepository, dialogService)
+        {
+            Title = Texts.InventoryPage;
+            _logger = loggerService;
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
             Init();
+
             SelectedItemType = ItemTypeEnum.All;
             SelectedItemClass = DataRepository.GetTeamProfile().Cast;
             SelectedItemTier = 1;
+            IsPopupVisible = false;
         }
-
-        #endregion
-
-        #region Private functions
 
         private void Init()
         {
@@ -163,17 +161,18 @@ namespace CraftLogs.ViewModels
             NoItem = SelectedItems.Count == 0;
         }
 
-        private void ItemTapped(object o)
+        private void ExecuteItemTapped(object o)
         {
             ActiveItem = o as Item;
         }
 
-        private async Task SellTapped()
+        private async Task ExecuteSellCommandAsync()
         {
             var response = await DialogService.DisplayAlertAsync(Texts.Sell, Texts.DialogSell, Texts.Yes, Texts.No);
             if (response)
             {
                 var profile = DataRepository.GetTeamProfile();
+
                 foreach (var item in AllItems.ToList())
                 {
                     if (item.Id == ActiveItem.Id)
@@ -184,13 +183,16 @@ namespace CraftLogs.ViewModels
                 }
 
                 profile.Inventory = AllItems;
-                logger.CreateSellLog(ActiveItem);
+                IsPopupVisible = false;
+
+                _logger.CreateSellLog(ActiveItem);
                 DataRepository.SaveToFile(profile);
+
                 Init();
             }
         }
 
-        private async Task UseTapped()
+        private async Task ExecuteUseCommandAsync()
         {
             var profile = DataRepository.GetTeamProfile();
 
@@ -210,6 +212,8 @@ namespace CraftLogs.ViewModels
                 }
 
                 profile.Inventory = AllItems;
+                IsPopupVisible = false;
+
                 DataRepository.SaveToFile(profile);
                 Init();
             }
@@ -218,8 +222,5 @@ namespace CraftLogs.ViewModels
                 await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantUse, Texts.Ok);
             }
         }
-
-        #endregion
-
     }
 }

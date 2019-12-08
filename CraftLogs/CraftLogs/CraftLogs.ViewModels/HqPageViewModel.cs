@@ -32,135 +32,103 @@ namespace CraftLogs.ViewModels
 {
     public class HqPageViewModel : ViewModelBase
     {
-        #region Private
+        private readonly IItemGeneratorService _itemGenerator;
+        private readonly IQRService _qRService;
 
-        Settings settings;
-        HqProfile hqProfile;
+        private Settings _settings;
+        private HqProfile _hqProfile;
+        private ObservableCollection<ProfileQr> _teams = new ObservableCollection<ProfileQr>();
+        private HqReward _reward;
+        private LegendaryEnum _lego = LegendaryEnum.None;
 
-        private IItemGeneratorService itemGenerator;
-        private IQRService qRService;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand NavigateToQRScannerPageCommand =>  new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
-        public DelayCommand GiveCommand => new DelayCommand(async () => await Give());
-
-        #endregion
-
-        #region Ctor
-
-        public HqPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        public ObservableCollection<ProfileQr> Teams
         {
-            itemGenerator = itemGeneratorService;
-            qRService = qrService;
-            Title = "HQ";
+            get => _teams;
+            set => SetProperty(ref _teams, value);
         }
 
-        #endregion
 
-        #region Properties
-
-        private ObservableCollection<Tuple<string, int>> teams = new ObservableCollection<Tuple<string, int>>();
-
-        public ObservableCollection<Tuple<string, int>> Teams
+        public HqReward Reward
         {
-            get { return teams; }
-            set { SetProperty(ref teams, value); }
-        }
-
-        private int exp;
-
-        public int Exp
-        {
-            get { return exp; }
-            set { SetProperty(ref exp, value); }
-        }
-
-        private int honor;
-
-        public int Honor
-        {
-            get { return honor; }
-            set { SetProperty(ref honor, value); }
-        }
-
-        private int money;
-
-        public int Money
-        {
-            get { return money; }
-            set { SetProperty(ref money, value); }
+            get => _reward;
+            set => SetProperty(ref _reward, value);
         }
 
         public List<LegendaryEnum> Legendaries { get; set; } = new List<LegendaryEnum>() { LegendaryEnum.None, LegendaryEnum.Baetylus, LegendaryEnum.Brisingamen, LegendaryEnum.Mjolnir };
 
-        private LegendaryEnum lego = LegendaryEnum.None;
 
         public LegendaryEnum Lego
         {
-            get { return lego; }
-            set { SetProperty(ref lego, value); }
+            get => _lego;
+            set => SetProperty(ref _lego, value);
         }
 
-        #endregion
+        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        public DelayCommand GiveCommand => new DelayCommand(async () => await ExecuteGiveCommandAsync());
 
-        #region Overrides
+        public HqPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IItemGeneratorService itemGeneratorService,
+            IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
+        {
+            _itemGenerator = itemGeneratorService;
+            _qRService = qrService;
+            Title = "HQ";
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            IsBusy = true;
 
             Init();
-
-            IsBusy = false;
         }
 
         public override async Task ToSettings()
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("mode", "npc");
+            var param = new NavigationParameters
+            {
+                { "mode", "npc" }
+            };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
-        #endregion
-
-        #region Private functions
-
         private void Init()
         {
-            settings = DataRepository.GetSettings();
+            _settings = DataRepository.GetSettings();
 
-            if (settings.AppMode == AppModeEnum.None)
+            if (_settings.AppMode == AppModeEnum.None)
             {
-                settings.AppMode = AppModeEnum.Hq;
-                DataRepository.SaveToFile(settings);
+                _settings.AppMode = AppModeEnum.Hq;
+                DataRepository.SaveToFile(_settings);
             }
+
             DataRepository.CreateHqProfile();
 
-            hqProfile = DataRepository.GetHqProfile();
+            _hqProfile = DataRepository.GetHqProfile();
 
-            Teams = new ObservableCollection<Tuple<string, int>>(hqProfile.Scores.OrderByDescending(x  => x.Item2));
+            Reward = new HqReward();
+
+            Teams = new ObservableCollection<ProfileQr>(_hqProfile.Scores.OrderByDescending(x => x.Score));
         }
 
-        private async Task Give()
+        private async Task ExecuteGiveCommandAsync()
         {
-            HqReward hqReward = new HqReward(Exp, Honor, Money);
-            if(Lego != LegendaryEnum.None)
+            if (Lego != LegendaryEnum.None)
             {
-                hqReward.RewardItems.Add(itemGenerator.GetLegendary(Lego));
+                Reward.RewardItems.Add(_itemGenerator.GetLegendary(Lego));
             }
-            var qrCode = qRService.CreateQR(hqReward);
-            NavigationParameters param = new NavigationParameters();
-            param.Add("code", qrCode);
+
+            var qrCode = _qRService.CreateQR(Reward);
+            var param = new NavigationParameters
+            {
+                { "code", qrCode }
+            };
 
             await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
-
-        #endregion
-
     }
 }

@@ -30,19 +30,122 @@ namespace CraftLogs.ViewModels
 {
     public class ProfilePageViewModel : ViewModelBase
     {
+        private readonly IQRService _qRService;
 
-        #region Private
-        
-        private IQRService qRService;
+        private TeamProfile _profile;
+        private CombatUnit _combatUnit;
+        private ObservableCollection<Log> _logs;
+        private string _tradeIcon;
+        private string _arenaIcon;
+        private string _hpSum;
+        private string _atkSum;
+        private string _defSum;
+        private string _staminaSum;
+        private string _critRSum;
+        private string _dodgeSum;
+        private bool _pointIsVisible;
+        private bool _lastQRIsVisible;
+        private Tuple<string, string> _armorItem;
+        private Tuple<string, string> _ringItem;
+        private Tuple<string, string> _neckItem;
+        private Tuple<string, string> _lHandItem;
+        private Tuple<string, string> _rHandItem;
 
-        private TeamProfile teamProfile;
-        private CombatUnit combatUnit;
-        private ProfileQr profileQr;
-        private ObservableCollection<Log> logs;
+        public TeamProfile Profile
+        {
+            get => _profile;
+            set => SetProperty(ref _profile, value);
+        }
 
-        #endregion
+        public string HpSum
+        {
+            get => _hpSum;
+            set => SetProperty(ref _hpSum, value);
+        }
 
-        #region Public
+        public string AtkSum
+        {
+            get => _atkSum;
+            set => SetProperty(ref _atkSum, value);
+        }
+
+        public string DefSum
+        {
+            get => _defSum;
+            set => SetProperty(ref _defSum, value);
+        }
+
+        public string StaminaSum
+        {
+            get => _staminaSum;
+            set => SetProperty(ref _staminaSum, value);
+        }
+
+        public string CritRSum
+        {
+            get => _critRSum;
+            set => SetProperty(ref _critRSum, value);
+        }
+
+        public string DodgeSum
+        {
+            get => _dodgeSum;
+            set => SetProperty(ref _dodgeSum, value);
+        }
+
+        public bool PointIsVisible
+        {
+            get => _pointIsVisible;
+            set => SetProperty(ref _pointIsVisible, value);
+        }
+
+        public Tuple<string, string> ArmorItem
+        {
+            get => _armorItem;
+            set => SetProperty(ref _armorItem, value);
+        }
+
+        public Tuple<string, string> RingItem
+        {
+            get => _ringItem;
+            set => SetProperty(ref _ringItem, value);
+        }
+
+        public Tuple<string, string> NeckItem
+        {
+            get => _neckItem;
+            set => SetProperty(ref _neckItem, value);
+        }
+
+        public Tuple<string, string> LHandItem
+        {
+            get => _lHandItem;
+            set => SetProperty(ref _lHandItem, value);
+        }
+
+        public Tuple<string, string> RHandItem
+        {
+            get => _rHandItem;
+            set => SetProperty(ref _rHandItem, value);
+        }
+
+        public string TradeIcon
+        {
+            get => _tradeIcon;
+            set => SetProperty(ref _tradeIcon, value);
+        }
+
+        public string ArenaIcon
+        {
+            get => _arenaIcon;
+            set => SetProperty(ref _arenaIcon, value);
+        }
+
+        public bool LastQRIsVisible
+        {
+            get => _lastQRIsVisible;
+            set => SetProperty(ref _lastQRIsVisible, value);
+        }
 
         public DelayCommand NavigateToLogsCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.LogsPage));
 
@@ -50,212 +153,28 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand NavigateToInventoryPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.InventoryPage));
 
-        public DelayCommand GetProfileQRCommand => new DelayCommand(async () => await GetProfileQRAsync());
+        public DelayCommand GetArenaQRCommand => new DelayCommand(async () => await ExecuteGetArenaQRCommandAsync());
 
-        public DelayCommand StartTradeCommand => new DelayCommand(async () => await StartTradeAsync());
+        public DelayCommand StartTradeCommand => new DelayCommand(async () => await ExecuteStartTradeCommandAsync());
 
-        public DelayCommand<object> RaiseStatCommand => new DelayCommand<object>((a) => RaiseStat(a));
+        public DelayCommand<string?> RaiseStatCommand => new DelayCommand<string?>((a) => ExecuteRaiseStatCommand(a));
 
-        public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ToLastTradeQR());
+        public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ExecuteLastTradeQRCommandAsync());
 
-        public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ShowInfo(); });
+        public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ExecuteShowInfoCommandAsync(); });
 
-        public DelayCommand ShowProfileCommand => new DelayCommand(async () => await ShowProfileAsync());
+        public DelayCommand ShowProfileCommand => new DelayCommand(async () => await ExecuteShowProfileCommandAsync());
 
-
-        #endregion
-
-        #region Ctor
-
-        public ProfilePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        public ProfilePageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            qRService = qrService;
+            _qRService = qrService;
             Title = Texts.ProfilePage;
         }
-
-        #endregion
-
-        #region Properties
-
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { SetProperty(ref name, value); }
-        }
-
-        private string image;
-
-        public string Image
-        {
-            get { return image; }
-            set { SetProperty(ref image, value); }
-        }
-
-        private string lvl;
-
-        public string Lvl
-        {
-            get { return lvl; }
-            set { SetProperty(ref lvl, value); }
-        }
-
-        private string hp;
-
-        public string Hp
-        {
-            get { return hp; }
-            set { SetProperty(ref hp, value); }
-        }
-
-        private string exp;
-
-        public string Exp
-        {
-            get { return exp; }
-            set { SetProperty(ref exp, value); }
-        }
-
-        private string atk;
-
-        public string Atk
-        {
-            get { return atk; }
-            set { SetProperty(ref atk, value); }
-        }
-
-        private string def;
-
-        public string Def
-        {
-            get { return def; }
-            set { SetProperty(ref def, value); }
-        }
-
-        private string stamina;
-
-        public string Stamina
-        {
-            get { return stamina; }
-            set { SetProperty(ref stamina, value); }
-        }
-
-        private string critR;
-
-        public string CritR
-        {
-            get { return critR; }
-            set { SetProperty(ref critR, value); }
-        }
-
-        private string dodge;
-
-        public string Dodge
-        {
-            get { return dodge; }
-            set { SetProperty(ref dodge, value); }
-        }
-
-        private string points;
-
-        public string Points
-        {
-            get { return points; }
-            set { SetProperty(ref points, value); }
-        }
-
-        private string honor;
-
-        public string Honor
-        {
-            get { return honor; }
-            set { SetProperty(ref honor, value); }
-        }
-
-        private string money;
-
-        public string Money
-        {
-            get { return money; }
-            set { SetProperty(ref money, value); }
-        }
-
-        private bool pointIsVisible;
-
-        public bool PointIsVisible
-        {
-            get { return pointIsVisible; }
-            set { SetProperty(ref pointIsVisible, value); }
-        }
-
-        private Tuple<string,string> armorItem;
-
-        public Tuple<string, string> ArmorItem
-        {
-            get { return armorItem; }
-            set { SetProperty(ref armorItem, value); }
-        }
-
-        private Tuple<string, string> ringItem;
-
-        public Tuple<string, string> RingItem
-        {
-            get { return ringItem; }
-            set { SetProperty(ref ringItem, value); }
-        }
-
-        private Tuple<string, string> neckItem;
-
-        public Tuple<string, string> NeckItem
-        {
-            get { return neckItem; }
-            set { SetProperty(ref neckItem, value); }
-        }
-
-        private Tuple<string, string> lHandItem;
-
-        public Tuple<string, string> LHandItem
-        {
-            get { return lHandItem; }
-            set { SetProperty(ref lHandItem, value); }
-        }
-
-        private Tuple<string, string> rHandItem;
-
-        public Tuple<string, string> RHandItem
-        {
-            get { return rHandItem; }
-            set { SetProperty(ref rHandItem, value); }
-        }
-
-        private string tradeIcon;
-
-        public string TradeIcon
-        {
-            get { return tradeIcon; }
-            set { SetProperty(ref tradeIcon, value); }
-        }
-
-        private string arenaIcon;
-
-        public string ArenaIcon
-        {
-            get { return arenaIcon; }
-            set { SetProperty(ref arenaIcon, value); }
-        }
-
-        private bool lastQRIsVisible;
-
-        public bool LastQRIsVisible
-        {
-            get { return lastQRIsVisible; }
-            set { SetProperty(ref lastQRIsVisible, value); }
-        }
-
-        #endregion
-
-        #region Overrides
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -266,62 +185,36 @@ namespace CraftLogs.ViewModels
 
         public override async Task ToSettings()
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("mode", "team");
+            var param = new NavigationParameters
+            {
+                { "mode", "team" }
+            };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
-        #endregion
-
-        #region Private functions
-
         private void Init()
         {
-            teamProfile = DataRepository.GetTeamProfile();
+            Profile = DataRepository.GetTeamProfile();
+
             SetItems();
 
-            TradeIcon = teamProfile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
+            TradeIcon = Profile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
 
             ArenaIcon = GetArenaIcon();
 
-            LastQRIsVisible = !string.IsNullOrEmpty(teamProfile.TradeLastQR);
+            LastQRIsVisible = !string.IsNullOrEmpty(Profile.TradeLastQR);
 
-            Name = teamProfile.Name;
+            PointIsVisible = Profile.StatPoint > 0;
 
-            Image = teamProfile.Image;
-            Lvl = "Lvl." + teamProfile.Level + " " + teamProfile.Cast;
-            Exp = "EXP: " + teamProfile.Exp + "/" + teamProfile.XpForNextLevel;
-            Honor = "Honor: " + teamProfile.Honor;
-            Money = "Pénz: " + teamProfile.Money;
+            var equippedItems = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped).ToList();
 
-            Points = "Elosztható pontok: " + teamProfile.StatPoint;
-            PointIsVisible = teamProfile.StatPoint > 0;
-
-            var equippedItems = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped).ToList();
-
-            int batk = teamProfile.Atk;
-            int bdef = teamProfile.Def;
-            int bstamina = teamProfile.Stamina;
-            int bcr = teamProfile.CritR;
-            int bdodge = teamProfile.Dodge;
-            int bhp = teamProfile.Hp;
-
-            profileQr = new ProfileQr();
-            profileQr.i = teamProfile.Atk;
-            profileQr.b = teamProfile.Cast;
-            profileQr.l = teamProfile.CritR;
-            profileQr.j = teamProfile.Def;
-            profileQr.m = teamProfile.Dodge;
-            profileQr.f = teamProfile.Exp;
-            profileQr.d = teamProfile.Honor;
-            profileQr.n = teamProfile.Image;
-            profileQr.g = teamProfile.Level;
-            profileQr.c = teamProfile.Money;
-            profileQr.a = teamProfile.Name;
-            profileQr.e = teamProfile.Score;
-            profileQr.k = teamProfile.Stamina;
-            profileQr.h = teamProfile.XpForNextLevel;
+            int batk = Profile.Atk;
+            int bdef = Profile.Def;
+            int bstamina = Profile.Stamina;
+            int bcr = Profile.CritR;
+            int bdodge = Profile.Dodge;
+            int bhp = Profile.Hp;
 
             foreach (var item in equippedItems)
             {
@@ -330,86 +223,92 @@ namespace CraftLogs.ViewModels
                 bstamina += item.Stamina;
                 bcr += item.CritR;
                 bdodge += item.Dodge;
-                bhp += (item.Stamina * teamProfile.HpValue);
-                profileQr.o.Add(item);
+                bhp += (item.Stamina * Profile.HpValue);
             }
 
             bcr = bcr >= 60 ? 60 : bcr;
             bdodge = bdodge >= 60 ? 60 : bdodge;
 
-            Atk = "ATK: " + batk;
-            Def = "DEF: " + bdef;
-            Stamina = "STM: " + bstamina;
+            AtkSum = "ATK: " + batk;
+            DefSum = "DEF: " + bdef;
+            StaminaSum = "STM: " + bstamina;
 
-            Hp = "HP: " + bhp;
-            CritR = "CritR: " + bcr + "%";
-            Dodge = "Dodge: " + bdodge + "%";
+            HpSum = "HP: " + bhp;
+            CritRSum = "CritR: " + bcr + "%";
+            DodgeSum = "Dodge: " + bdodge + "%";
 
-            combatUnit = new CombatUnit(teamProfile.Name, batk, bdef, bcr, bdodge, bhp, teamProfile.House.ToString(), teamProfile.Image);
+            _combatUnit = new CombatUnit(Profile.Name, batk, bdef, bcr, bdodge, bhp, Profile.House.ToString(), Profile.Image);
         }
 
         private void SetItems()
         {
-            var armor = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).ToList();
-            ArmorItem = new Tuple<string, string>(armor.Count != 0 ? armor[0].Image : "@drawable/chest.png", armor.Count != 0 ? armor[0].SimpleString : "Nincs páncél.");
+            var armor = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).FirstOrDefault();
+            ArmorItem = new Tuple<string, string>(armor != null ? armor.Image : "@drawable/chest.png", armor != null ? armor.SimpleString : "Nincs páncél.");
 
-            var ring = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).ToList();
-            RingItem = new Tuple<string, string>(ring.Count != 0 ? ring[0].Image : "@drawable/ring.png", ring.Count != 0 ? ring[0].SimpleString : "Nincs gyűrű.");
+            var ring = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).FirstOrDefault();
+            RingItem = new Tuple<string, string>(ring != null ? ring.Image : "@drawable/ring.png", ring != null ? ring.SimpleString : "Nincs gyűrű.");
 
-            var neck = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).ToList();
-            NeckItem = new Tuple<string, string>(neck.Count != 0 ? neck[0].Image : "@drawable/neck.png", neck.Count != 0 ? neck[0].SimpleString : "Nincs nyaklánc.");
+            var neck = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).FirstOrDefault();
+            NeckItem = new Tuple<string, string>(neck != null ? neck.Image : "@drawable/neck.png", neck != null ? neck.SimpleString : "Nincs nyaklánc.");
 
-            var lhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).ToList();
-            LHandItem = new Tuple<string, string>(lhand.Count != 0 ? lhand[0].Image : "@drawable/weapon.png", lhand.Count != 0 ? lhand[0].SimpleString : "Nincs fegyver.");
+            var lhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).FirstOrDefault();
+            LHandItem = new Tuple<string, string>(lhand != null ? lhand.Image : "@drawable/weapon.png", lhand != null ? lhand.SimpleString : "Nincs fegyver.");
 
-            var rhand = teamProfile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).ToList();
-            RHandItem = new Tuple<string, string>(rhand.Count != 0 ? rhand[0].Image : "@drawable/weapon.png", rhand.Count != 0 ? rhand[0].SimpleString : "Nincs fegyver.");
+            var rhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).FirstOrDefault();
+            RHandItem = new Tuple<string, string>(rhand != null ? rhand.Image : "@drawable/weapon.png", rhand != null ? rhand.SimpleString : "Nincs fegyver.");
         }
 
-        private async Task ShowProfileAsync()
+        private async Task ExecuteShowProfileCommandAsync()
         {
-            var qrCode = qRService.CreateQR(profileQr);
-            NavigationParameters param = new NavigationParameters();
-            param.Add("code", qrCode);
+            var profileQr = new ProfileQr(Profile);
+            var qrCode = _qRService.CreateQR(profileQr);
+            var param = new NavigationParameters
+            {
+                { "code", qrCode }
+            };
 
             await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
 
 
-        private async Task GetProfileQRAsync()
+        private async Task ExecuteGetArenaQRCommandAsync()
         {
-
 #if DEV
-
             var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
             if (res)
             {
-                var qrCode = qRService.CreateQR(combatUnit);
-                NavigationParameters param = new NavigationParameters();
-                param.Add("code", qrCode);
+                var qrCode = _qRService.CreateQR(_combatUnit);
+
+                var param = new NavigationParameters
+                {
+                    { "code", qrCode }
+                };
 
                 await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
             }
 
 #else
 
-            logs = DataRepository.GetLogs();
+            _logs = DataRepository.GetLogs();
 
-            if(logs.Count == 0)
+            if(_logs.Count == 0)
             {
                 var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
                 if (res)
                 {
-                    var qrCode = qRService.CreateQR(combatUnit);
-                    NavigationParameters param = new NavigationParameters();
-                    param.Add("code", qrCode);
+                    var qrCode = _qRService.CreateQR(_combatUnit);
+
+                    var param = new NavigationParameters
+                    {
+                        { "code", qrCode }
+                    };
 
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 }
             }
             else
             {
-                var arenas = logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
+                var arenas = _logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
 
                 if (arenas != null && arenas.Date.AddMinutes(15) > DateTime.Now)
                 {
@@ -420,9 +319,12 @@ namespace CraftLogs.ViewModels
                     var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
                     if (res)
                     {
-                        var qrCode = qRService.CreateQR(combatUnit);
-                        NavigationParameters param = new NavigationParameters();
-                        param.Add("code", qrCode);
+                        var qrCode = _qRService.CreateQR(_combatUnit);
+
+                        var param = new NavigationParameters
+                        {
+                            { "code", qrCode }
+                        };
 
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
@@ -433,71 +335,77 @@ namespace CraftLogs.ViewModels
 
         }
 
-        private async Task StartTradeAsync()
+        private async Task ExecuteStartTradeCommandAsync()
         {
-            if(teamProfile.TradeStatus == TradeStatusEnum.Finished || teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
+            if (Profile.TradeStatus == TradeStatusEnum.Finished
+                || Profile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
             {
                 await NavigateTo(NavigationLinks.TradePage);
             }
-            else if(teamProfile.TradeStatus == TradeStatusEnum.TradeGive || teamProfile.TradeStatus == TradeStatusEnum.TradeGiveAndGet || teamProfile.TradeStatus == TradeStatusEnum.TradeFirstOk || teamProfile.TradeStatus == TradeStatusEnum.TradeSecondOk)
+            else if (Profile.TradeStatus == TradeStatusEnum.TradeGive
+                || Profile.TradeStatus == TradeStatusEnum.TradeGiveAndGet
+                || Profile.TradeStatus == TradeStatusEnum.TradeFirstOk
+                || Profile.TradeStatus == TradeStatusEnum.TradeSecondOk)
             {
-                await NavigateTo(NavigationLinks.QRScannerPage );
+                await NavigateTo(NavigationLinks.QRScannerPage);
             }
         }
 
-        private void RaiseStat(object a)
+        private void ExecuteRaiseStatCommand(string? stat)
         {
-            if (!IsBusy && teamProfile.StatPoint > 0)
+            if (Profile.StatPoint > 0)
             {
-                IsBusy = true;
-
-                switch ((int)a)
+                switch (stat)
                 {
-                    case 1:
-                        teamProfile.Stamina += 1;
+                    case "stamina":
+                        Profile.Stamina += 1;
                         break;
-                    case 2:
-                        teamProfile.Atk += 1;
+                    case "atk":
+                        Profile.Atk += 1;
                         break;
-                    case 3:
-                        teamProfile.Def += 1;
+                    case "def":
+                        Profile.Def += 1;
                         break;
                     default:
                         break;
                 }
 
-                DataRepository.SaveToFile(teamProfile);
+                DataRepository.SaveToFile(Profile);
                 Init();
-                IsBusy = false;
             }
 
         }
 
         private string GetArenaIcon()
         {
-            logs = DataRepository.GetLogs();
-            var arenas = logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
+            _logs = DataRepository.GetLogs();
 
-            if (arenas != null && arenas.Date.AddMinutes(15) > DateTime.Now)
+            var arenas = _logs.FirstOrDefault(x => x.LogType == LogTypeEnum.Arena);
+
+            if (arenas != null
+                && arenas.Date.AddMinutes(15) > DateTime.Now)
             {
                 return "@drawable/ic_arena_whiteIP.png";
             }
+
             return "@drawable/ic_arena_white.png";
         }
 
-        private async Task ToLastTradeQR()
+        private async Task ExecuteLastTradeQRCommandAsync()
         {
-            var qrCode = teamProfile.TradeLastQR;
-            NavigationParameters param = new NavigationParameters();
-            param.Add("code", qrCode);
+            var qrCode = Profile.TradeLastQR;
+
+            var param = new NavigationParameters
+            {
+                { "code", qrCode }
+            };
+
             await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
 
-        private async Task ShowInfo()
+        private async Task ExecuteShowInfoCommandAsync()
         {
-            await DialogService.DisplayAlertAsync("Info","Egy stamina == "+teamProfile.HpValue+" HP\nEgy Def 0.33%-al csökkenti a bekapott sebzést.\nCrit Rate és Dodge maximum 60% lehet.\nA Crit Rate a kritikus ütés esélye, ami duplán sebez.\nA Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.\n 1 ATK == random.Next(0,3) sebzés.","Cool");
+            await DialogService.DisplayAlertAsync("Info", "Egy stamina == " + Profile.HpValue + " HP\nEgy Def 0.33%-al csökkenti a bekapott sebzést.\nCrit Rate és Dodge maximum 60% lehet.\nA Crit Rate a kritikus ütés esélye, ami duplán sebez.\nA Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.\n 1 ATK == random.Next(0,3) sebzés.", "Cool");
         }
-
-#endregion
     }
 }

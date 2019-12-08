@@ -1,4 +1,20 @@
-﻿using CraftLogs.BLL.Enums;
+﻿/*
+Copyright 2019 Gyirán Márton Áron
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. 
+*/
+
+using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
@@ -12,132 +28,101 @@ namespace CraftLogs.ViewModels
     public class RegisterPageViewModel : ViewModelBase
     {
 
-        #region Private
+        private Settings _settings;
+        private string _housePrefix;
+        private string _castPrefix;
+        private string _selectedImage = null;
 
-        private Settings settings;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand SaveCommand => new DelayCommand(async () => await Save());
-        public DelayCommand CancelCommand => new DelayCommand(async () => await Cancel());
-        public DelayCommand<object> SelectCommand => new DelayCommand<object>( (a) => Select(a));
-
-        #endregion
-
-        #region Ctor
-
-        public RegisterPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
-        {
-            Title = Texts.RegisterTitle;
-        }
-
-        #endregion
-
-        #region Properties
-
-        private bool isQuest;
-
-        public bool IsQuest
-        {
-            get { return isQuest; }
-            set { SetProperty(ref isQuest, value); }
-        }
-
-        private bool isTeam;
-
-        public bool IsTeam
-        {
-            get { return isTeam; }
-            set { SetProperty(ref isTeam, value); }
-        }
-
-        private string name;
+        private string _name;
+        private string _house;
+        private string _img1;
+        private string _img2;
+        private string _img3;
+        private CharacterClassEnum _cast;
 
         public string Name
         {
-            get { return name; }
-            set { SetProperty(ref name, value); }
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        public string House
+        {
+            get => _house;
+            set
+            {
+                SetProperty(ref _house, value);
+                SetHousePrefix();
+                SetImages();
+            }
+        }
+
+        public CharacterClassEnum Cast
+        {
+            get => _cast;
+            set
+            {
+                SetProperty(ref _cast, value);
+                SetCastPrefix();
+                SetImages();
+            }
+        }
+
+        public string Img1
+        {
+            get => _img1;
+            set => SetProperty(ref _img1, value);
+        }
+
+        public string Img2
+        {
+            get => _img2;
+            set => SetProperty(ref _img2, value);
+        }
+
+        public string Img3
+        {
+            get => _img3;
+            set => SetProperty(ref _img3, value);
         }
 
         public List<string> Houses { get; set; } = new List<string> { Texts.House1, Texts.House2, Texts.House3, Texts.House4, Texts.House5, Texts.House6 };
 
-        private string house;
-
-        public string House
-        {
-            get { return house; }
-            set { SetProperty(ref house, value); SetHousePrefix(); SetImages(); }
-        }
-
         public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
 
-        private CharacterClassEnum cast;
+        public DelayCommand SaveCommand => new DelayCommand(async () => await ExecuteSaveCommandAsync());
+        public DelayCommand CancelCommand => new DelayCommand(async () => await ExecuteCancelCommandAsync());
+        public DelayCommand<string?> SelectCommand => new DelayCommand<string?>((a) => ExecuteSelectCommand(a));
 
-        public CharacterClassEnum Cast
+        public RegisterPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            get { return cast; }
-            set { SetProperty(ref cast, value); SetCastPrefix(); SetImages(); }
+            Title = Texts.RegisterTitle;
         }
-
-        private string img1;
-
-        public string Img1
-        {
-            get { return img1; }
-            set { SetProperty(ref img1, value); }
-        }
-
-        private string img2;
-
-        public string Img2
-        {
-            get { return img2; }
-            set { SetProperty(ref img2, value); }
-        }
-
-        private string img3;
-
-        public string Img3
-        {
-            get { return img3; }
-            set { SetProperty(ref img3, value); }
-        }
-
-        private string housePrefix;
-
-        private string castPrefix;
-
-        private string selectedImage = null;
-
-        #endregion
-
-        #region Overrides
 
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
 
-            settings = DataRepository.GetSettings();
+            _settings = DataRepository.GetSettings();
         }
 
-        #endregion
-
-        #region Functions
-
-        private async Task Save()
+        private async Task ExecuteSaveCommandAsync()
         {
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrEmpty(selectedImage))
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrEmpty(_selectedImage))
             {
                 bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.RegisterNameSave, Texts.Save, Texts.Cancel);
-                if (sure )
+                if (sure)
                 {
-                        settings.AppMode = AppModeEnum.Team;
-                        DataRepository.SaveToFile(settings);
-                        DataRepository.CreateTeamProfile(Name, NameToEnum(House), Cast, selectedImage);
-                        DataRepository.CreateLogs();
-                        await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+                    _settings.AppMode = AppModeEnum.Team;
+                    DataRepository.SaveToFile(_settings);
+                    DataRepository.CreateTeamProfile(Name, NameToEnum(House), Cast, _selectedImage);
+                    DataRepository.CreateLogs();
+
+                    await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
                 }
             }
             else
@@ -146,14 +131,29 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private async Task Cancel()
+        private async Task ExecuteCancelCommandAsync()
         {
-            IsBusy = true;
-
             var settings = DataRepository.GetSettings();
             settings.AppMode = AppModeEnum.None;
             DataRepository.SaveToFile(settings);
+
             await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
+        }
+
+        private void ExecuteSelectCommand(string? imgNum)
+        {
+            switch (imgNum)
+            {
+                case "1":
+                    _selectedImage = Img1;
+                    break;
+                case "2":
+                    _selectedImage = Img2;
+                    break;
+                case "3":
+                    _selectedImage = Img3;
+                    break;
+            }
         }
 
         private void SetHousePrefix()
@@ -161,22 +161,22 @@ namespace CraftLogs.ViewModels
             switch (NameToEnum(House))
             {
                 case HouseEnum.House1:
-                    housePrefix = "h1_";
+                    _housePrefix = "h1_";
                     break;
                 case HouseEnum.House2:
-                    housePrefix = "h2_";
+                    _housePrefix = "h2_";
                     break;
                 case HouseEnum.House3:
-                    housePrefix = "h3_";
+                    _housePrefix = "h3_";
                     break;
                 case HouseEnum.House4:
-                    housePrefix = "h4_";
+                    _housePrefix = "h4_";
                     break;
                 case HouseEnum.House5:
-                    housePrefix = "h5_";
+                    _housePrefix = "h5_";
                     break;
                 case HouseEnum.House6:
-                    housePrefix = "h6_";
+                    _housePrefix = "h6_";
                     break;
             }
         }
@@ -207,20 +207,20 @@ namespace CraftLogs.ViewModels
             switch (Cast)
             {
                 case CharacterClassEnum.Mage:
-                    castPrefix = "mage";
+                    _castPrefix = "mage";
                     break;
                 case CharacterClassEnum.Warrior:
-                    castPrefix = "warrior";
+                    _castPrefix = "warrior";
                     break;
                 case CharacterClassEnum.Rogue:
-                    castPrefix = "rogue";
+                    _castPrefix = "rogue";
                     break;
             }
         }
 
         private string GetImgUrl(string num)
         {
-            return "@drawable/" + housePrefix + castPrefix + num + ".png";
+            return "@drawable/" + _housePrefix + _castPrefix + num + ".png";
         }
 
         private void SetImages()
@@ -229,24 +229,5 @@ namespace CraftLogs.ViewModels
             Img2 = GetImgUrl("2");
             Img3 = GetImgUrl("3");
         }
-
-        private void Select(object a)
-        {
-            switch ((int)a)
-            {
-                case 1:
-                    selectedImage = Img1;
-                    break;
-                case 2:
-                    selectedImage = Img2;
-                    break;
-                case 3:
-                    selectedImage = Img3;
-                    break;
-            }
-        }
-
-        #endregion
-
     }
 }

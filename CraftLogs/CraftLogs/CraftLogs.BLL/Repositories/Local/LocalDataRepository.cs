@@ -294,41 +294,6 @@ namespace CraftLogs.BLL.Repositories.Local
         }
 
         #endregion
-
-        #region Spectator
-
-        public void CreateSpectatorProfile()
-        {
-            if (!dataService.IsFileExist(FileNames.SpectatorProfile))
-            {
-                ProfileQr profile = new ProfileQr();
-                dataService.CreateFile(FileNames.SpectatorProfile);
-                SaveToFile(profile);
-            }
-        }
-
-        public ProfileQr GetSpectatorProfile()
-        {
-            var profile = GetFile<ProfileQr>(FileNames.SpectatorProfile);
-            profile.Init();
-            return profile;
-        }
-
-        public bool IsSpectatorProfileExist()
-        {
-            return dataService.IsFileExist(FileNames.SpectatorProfile);
-        }
-
-        public void DeleteSpectatorProfile()
-        {
-            if (dataService.IsFileExist(FileNames.SpectatorProfile))
-            {
-                DeleteFile(FileNames.SpectatorProfile);
-            }
-        }
-
-        #endregion
-
         #endregion
     }
 }
