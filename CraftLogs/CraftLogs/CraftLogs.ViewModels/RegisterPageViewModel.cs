@@ -21,6 +21,7 @@ using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -39,6 +40,7 @@ namespace CraftLogs.ViewModels
         private string _img2;
         private string _img3;
         private CharacterClassEnum _cast;
+        private ObservableCollection<string> _images;
 
         public string Name
         {
@@ -90,9 +92,20 @@ namespace CraftLogs.ViewModels
 
         public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
 
+        public ObservableCollection<string> Images
+        {
+            get => _images;
+            set => SetProperty(ref _images, value);
+        }
+
+        public string SelectedImage
+        {
+            get => _selectedImage;
+            set => SetProperty(ref _selectedImage, value);
+        }
+
         public DelayCommand SaveCommand => new DelayCommand(async () => await ExecuteSaveCommandAsync());
         public DelayCommand CancelCommand => new DelayCommand(async () => await ExecuteCancelCommandAsync());
-        public DelayCommand<string?> SelectCommand => new DelayCommand<string?>((a) => ExecuteSelectCommand(a));
 
         public RegisterPageViewModel(
             INavigationService navigationService,
@@ -138,22 +151,6 @@ namespace CraftLogs.ViewModels
             DataRepository.SaveToFile(settings);
 
             await NavigateToWithoutHistory(NavigationLinks.SelectModePage);
-        }
-
-        private void ExecuteSelectCommand(string? imgNum)
-        {
-            switch (imgNum)
-            {
-                case "1":
-                    _selectedImage = Img1;
-                    break;
-                case "2":
-                    _selectedImage = Img2;
-                    break;
-                case "3":
-                    _selectedImage = Img3;
-                    break;
-            }
         }
 
         private void SetHousePrefix()
@@ -228,6 +225,8 @@ namespace CraftLogs.ViewModels
             Img1 = GetImgUrl("1");
             Img2 = GetImgUrl("2");
             Img3 = GetImgUrl("3");
+
+            Images = new ObservableCollection<string>() { Img1, Img2, Img3 };
         }
     }
 }

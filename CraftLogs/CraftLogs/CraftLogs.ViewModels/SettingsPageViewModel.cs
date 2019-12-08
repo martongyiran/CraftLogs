@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,38 +24,34 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
+using Xamarin.Essentials;
 
 namespace CraftLogs.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
     {
-        #region Private
+        private Settings _userSettings;
+        private bool _isNpc;
+        private string _pw;
+        private string _param;
 
-        private Settings settings;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand SaveSettingsCommand => new DelayCommand(async () => await SaveSettings());
-        public DelayCommand ResetSettingsCommand => new DelayCommand(async () => await ResetSettingsAsync());
-        public DelayCommand DeleteProfileCommand => new DelayCommand(async () => await DeleteProfileAsync());
-        public DelayCommand ToQuestCommand => new DelayCommand(async () => await ToQuest());
-
-
-        #endregion
-
-        #region Ctor
-
-        public SettingsPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
-            : base(navigationService, dataRepository, dialogService)
+        public Settings UserSettings
         {
-            Title = Texts.SettingsPage;
+            get => _userSettings;
+            set => SetProperty(ref _userSettings, value);
         }
 
-        #endregion
+        public bool IsNpc
+        {
+            get => _isNpc;
+            set => SetProperty(ref _isNpc, value);
+        }
 
-        #region Properties
+        public string Pw
+        {
+            get => _pw;
+            set => SetProperty(ref _pw, value);
+        }
 
         public List<int> Days { get; set; } = Enumerable.Range(1, 2).ToList();
 
@@ -66,104 +63,40 @@ namespace CraftLogs.ViewModels
 
         public List<int> C2PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
 
-        private int craftDay;
+        public DelayCommand SaveSettingsCommand => new DelayCommand(async () => await SaveSettings());
+        public DelayCommand ResetSettingsCommand => new DelayCommand(async () => await ResetSettingsAsync());
+        public DelayCommand DeleteProfileCommand => new DelayCommand(async () => await DeleteProfileAsync());
+        public DelayCommand ToQuestCommand => new DelayCommand(async () => await ToQuest());
+        public DelayCommand SupportCommand => new DelayCommand(async () => await Launcher.OpenAsync(new Uri("https://paypal.me/CHlGGA")));
 
-        public int CraftDay
+        public SettingsPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            get { return craftDay; }
-            set { SetProperty(ref craftDay, value); }
+            Title = Texts.SettingsPage;
         }
-
-        private int craft1Start;
-
-        public int Craft1Start
-        {
-            get { return craft1Start; }
-            set { SetProperty(ref craft1Start, value); }
-        }
-
-        private int craft2Start;
-
-        public int Craft2Start
-        {
-            get { return craft2Start; }
-            set { SetProperty(ref craft2Start, value); }
-        }
-
-        private int craft1MinPont;
-
-        public int Craft1MinPont
-        {
-            get { return craft1MinPont; }
-            set { SetProperty(ref craft1MinPont, value); }
-        }
-
-        private int craft2MinPont;
-
-        public int Craft2MinPont
-        {
-            get { return craft2MinPont; }
-            set { SetProperty(ref craft2MinPont, value); }
-        }
-
-        private bool isNpc;
-
-        public bool IsNpc
-        {
-            get { return isNpc; }
-            set { SetProperty(ref isNpc, value); }
-        }
-
-        private string pw;
-
-        public string Pw
-        {
-            get { return pw; }
-            set { SetProperty(ref pw, value); }
-        }
-
-        #endregion
-
-        #region Overrides
 
         public override void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
 
-            var lul = parameters["mode"] as string;
-
-            IsNpc = lul == "npc";
+            _param = parameters["mode"] as string;
 
             SetUp();
         }
 
-        #endregion
-
-        #region Private functions
-
         private void SetUp()
         {
-            IsBusy = true;
-            settings = DataRepository.GetSettings();
-
-            CraftDay = settings.CraftDay;
-            Craft1Start = settings.Craft1Start;
-            Craft2Start = settings.Craft2Start;
-            Craft1MinPont = settings.Craft1MinPont;
-            Craft2MinPont = settings.Craft2MinPont;
-            IsBusy = false;
+            UserSettings = DataRepository.GetSettings();
+            IsNpc = _param == "npc";
         }
 
         private async Task SaveSettings()
         {
-            IsBusy = true;
-            settings.CraftDay = CraftDay;
-            settings.Craft1Start = Craft1Start;
-            settings.Craft2Start = Craft2Start;
-            settings.Craft1MinPont = Craft1MinPont;
-            settings.Craft2MinPont = Craft2MinPont;
+            DataRepository.SaveToFile(UserSettings);
 
-            DataRepository.SaveToFile(settings);
             if (IsNpc)
             {
                 await DialogService.DisplayAlertAsync("", "Sikeres mentés.", "Cool");
@@ -180,11 +113,11 @@ namespace CraftLogs.ViewModels
             var res = await DialogService.DisplayAlertAsync("", Texts.ResetData, Texts.Yes, Texts.No);
             if (res)
             {
-                var mode = settings.AppMode;
+                var mode = UserSettings.AppMode;
                 DataRepository.ResetSettings();
                 SetUp();
-                settings.AppMode = mode;
-                DataRepository.SaveToFile(settings);
+                UserSettings.AppMode = mode;
+                DataRepository.SaveToFile(UserSettings);
             }
         }
 
@@ -201,6 +134,7 @@ namespace CraftLogs.ViewModels
                 DataRepository.DeleteArenaProfile();
                 DataRepository.DeleteHqProfile();
                 DataRepository.DeleteLogs();
+
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
         }
@@ -220,9 +154,5 @@ namespace CraftLogs.ViewModels
             }
 #endif
         }
-
-        #endregion
-
-
     }
 }

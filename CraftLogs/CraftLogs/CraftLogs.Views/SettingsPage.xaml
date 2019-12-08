@@ -1,79 +1,143 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CraftLogs.Views.SettingsPage"
-             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-             BackgroundColor="{StaticResource BackgroundColorLight}"
-             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-             Title="{Binding Title}">
-    <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem Text="{x:Static values:Texts.SaveSettings}" Command="{Binding SaveSettingsCommand}" IsVisible="{Binding IsNpc}"/>
-    </ContentPage.ToolbarItems>
+<ContentPage
+    x:Class="CraftLogs.Views.SettingsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColorLight}"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.Content>
 
-        <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="5">
+        <ScrollView
+            Margin="5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="StartAndExpand">
             <Grid>
-            <views:CardView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" InputTransparent="True" Padding="10">
-                <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                <views:CardView
+                    Padding="10"
+                    BackgroundColor="White"
+                    HorizontalOptions="FillAndExpand"
+                    InputTransparent="True"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Vertical"
+                        VerticalOptions="Center">
 
-                    <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsNpc}">
-                        <Label Text="{x:Static values:Texts.CraftDay}" TextColor="Black" FontSize="16" />
-                        <Picker
-                        x:Name="dayPicker"
-                        ItemsSource="{Binding Days}"
-                        SelectedItem="{Binding CraftDay, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding IsNpc}"
+                            Orientation="Vertical"
+                            VerticalOptions="Center">
+                            <Label
+                                FontSize="16"
+                                Text="{x:Static values:Texts.CraftDay}"
+                                TextColor="Black" />
+                            <Picker
+                                x:Name="dayPicker"
+                                FontSize="16"
+                                ItemsSource="{Binding Days}"
+                                SelectedItem="{Binding UserSettings.CraftDay, Mode=TwoWay}"
+                                TextColor="{StaticResource ColorDark}" />
 
 
-                        <Label Text="{x:Static values:Texts.Craft1Start}" TextColor="Black" FontSize="16" />
-                        <Picker
-                        x:Name="c1startPicker"
-                        ItemsSource="{Binding C1Starts}"
-                        SelectedItem="{Binding Craft1Start, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                            <Label
+                                FontSize="16"
+                                Text="{x:Static values:Texts.Craft1Start}"
+                                TextColor="Black" />
+                            <Picker
+                                x:Name="c1startPicker"
+                                FontSize="16"
+                                ItemsSource="{Binding C1Starts}"
+                                SelectedItem="{Binding UserSettings.Craft1Start, Mode=TwoWay}"
+                                TextColor="{StaticResource ColorDark}" />
 
-                        <Label Text="{x:Static values:Texts.Craft2Start}" TextColor="Black" FontSize="16" />
-                        <Picker
-                        x:Name="c2startPicker"
-                        ItemsSource="{Binding C2Starts}"
-                        SelectedItem="{Binding Craft2Start, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                            <Label
+                                FontSize="16"
+                                Text="{x:Static values:Texts.Craft2Start}"
+                                TextColor="Black" />
+                            <Picker
+                                x:Name="c2startPicker"
+                                FontSize="16"
+                                ItemsSource="{Binding C2Starts}"
+                                SelectedItem="{Binding UserSettings.Craft2Start, Mode=TwoWay}"
+                                TextColor="{StaticResource ColorDark}" />
 
-                        <Label Text="{x:Static values:Texts.Craft1MinPont}" TextColor="Black" FontSize="16" />
-                        <Picker
-                        x:Name="c1pointPicker"
-                        ItemsSource="{Binding C1PointRange}"
-                        SelectedItem="{Binding Craft1MinPont, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
+                            <Label
+                                FontSize="16"
+                                Text="{x:Static values:Texts.Craft1MinPont}"
+                                TextColor="Black" />
+                            <Picker
+                                x:Name="c1pointPicker"
+                                FontSize="16"
+                                ItemsSource="{Binding C1PointRange}"
+                                SelectedItem="{Binding UserSettings.Craft1MinPont, Mode=TwoWay}"
+                                TextColor="{StaticResource ColorDark}" />
 
-                        <Label Text="{x:Static values:Texts.Craft2MinPont}" TextColor="Black" FontSize="16" />
-                        <Picker
-                        x:Name="c2pointPicker"
-                        ItemsSource="{Binding C2PointRange}"
-                        SelectedItem="{Binding Craft2MinPont, Mode=TwoWay}"
-                        FontSize="16"
-                        TextColor="{StaticResource ColorDark}"/>
-                    </StackLayout>
+                            <Label
+                                FontSize="16"
+                                Text="{x:Static values:Texts.Craft2MinPont}"
+                                TextColor="Black" />
+                            <Picker
+                                x:Name="c2pointPicker"
+                                FontSize="16"
+                                ItemsSource="{Binding C2PointRange}"
+                                SelectedItem="{Binding UserSettings.Craft2MinPont, Mode=TwoWay}"
+                                TextColor="{StaticResource ColorDark}" />
+                        </StackLayout>
 
-                    <Button Text="{x:Static values:Texts.ToDefault}" Style="{StaticResource WhiteButton}" Command="{Binding ResetSettingsCommand}" IsVisible="{Binding IsNpc}"/>
-                    <Button Text="{x:Static values:Texts.DeleteProfile}" Style="{StaticResource WhiteButton}" Command="{Binding DeleteProfileCommand}"/>
-                    <Button Text="{x:Static values:Texts.Support}" Style="{StaticResource WhiteButton}" Clicked="On_Support_Clicked"/>
-                    <Entry Text="{Binding Pw, Mode=TwoWay}" Style="{StaticResource RegisterEntry}" IsPassword="True" Placeholder="Állomás jelszó" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
-                    <Button Text="Állomás" Style="{StaticResource WhiteButton}" Command="{Binding ToQuestCommand}" IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"/>
+                        <Button
+                            Command="{Binding ResetSettingsCommand}"
+                            IsVisible="{Binding IsNpc}"
+                            Style="{StaticResource WhiteButton}"
+                            Text="{x:Static values:Texts.ToDefault}" />
+                        <Button
+                            Command="{Binding DeleteProfileCommand}"
+                            Style="{StaticResource WhiteButton}"
+                            Text="{x:Static values:Texts.DeleteProfile}" />
+                        <Button
+                            Command="{Binding SupportCommand}"
+                            Style="{StaticResource WhiteButton}"
+                            Text="{x:Static values:Texts.Support}" />
+                        <Entry
+                            IsPassword="True"
+                            IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"
+                            Placeholder="Állomás jelszó"
+                            Style="{StaticResource RegisterEntry}"
+                            Text="{Binding Pw, Mode=TwoWay}" />
+                        <Button
+                            Command="{Binding ToQuestCommand}"
+                            IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"
+                            Style="{StaticResource WhiteButton}"
+                            Text="Állomás" />
 
-                        <Label VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5">
+                        <Button
+                            Command="{Binding SaveSettingsCommand}"
+                            IsVisible="{Binding IsNpc}"
+                            Style="{StaticResource WhiteButton}"
+                            Text="{x:Static values:Texts.SaveSettings}" />
+
+                        <Label
+                            Margin="5"
+                            FontSize="15"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding Version}"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-            </views:CardView>
-                <Image x:Name="csiga" Source="@drawable/csiga.png" IsVisible="False" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" />
+                </views:CardView>
+                <Image
+                    x:Name="csiga"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="False"
+                    Source="@drawable/csiga.png"
+                    VerticalOptions="EndAndExpand" />
             </Grid>
         </ScrollView>
 

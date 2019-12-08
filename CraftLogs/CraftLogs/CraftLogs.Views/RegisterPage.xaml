@@ -17,9 +17,10 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
-                HorizontalOptions="FillAndExpand"
+                Padding="16"
+                HorizontalOptions="Center"
                 Orientation="Vertical"
-                VerticalOptions="Center">
+                VerticalOptions="Start">
                 <Label
                     Margin="5,0,0,0"
                     FontAttributes="Bold"
@@ -59,69 +60,46 @@
                     SelectedItem="{Binding Cast, Mode=TwoWay}"
                     TextColor="{StaticResource ColorDark}" />
 
-                <StackLayout
-                    HorizontalOptions="FillAndExpand"
-                    Orientation="Horizontal"
-                    VerticalOptions="FillAndExpand">
-
-                    <Image
-                        x:Name="Image1"
-                        FlowDirection="LeftToRight"
-                        HeightRequest="100"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="{Binding Img1}"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="100">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding SelectCommand}"
-                                CommandParameter="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image
-                        x:Name="Image2"
-                        FlowDirection="LeftToRight"
-                        HeightRequest="100"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="{Binding Img2}"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="100">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding SelectCommand}"
-                                CommandParameter="2" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image
-                        x:Name="Image3"
-                        FlowDirection="LeftToRight"
-                        HeightRequest="100"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="{Binding Img3}"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="100">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding SelectCommand}"
-                                CommandParameter="3" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                </StackLayout>
+                <CollectionView
+                    HeightRequest="120"
+                    HorizontalOptions="CenterAndExpand"
+                    ItemsSource="{Binding Images}"
+                    SelectedItem="{Binding SelectedImage}"
+                    SelectionMode="Single"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="360">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            ItemSpacing="8"
+                            Orientation="Horizontal"
+                            SnapPointsAlignment="Center" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                HeightRequest="100"
+                                HorizontalOptions="Center"
+                                Source="{Binding .}"
+                                VerticalOptions="Center"
+                                WidthRequest="100" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <Label
                     Margin="10,0,10,0"
                     FontAttributes="Italic"
                     FontSize="15"
                     HorizontalOptions="StartAndExpand"
-                    Text=""
+                    HorizontalTextAlignment="Start"
                     TextColor="Black"
                     VerticalOptions="StartAndExpand">
                     <Label.FormattedText>
-                        Mage: 1 Stamina == 4 HP. +2 ATK
-                        Warrior: 1 Stamina == 6 HP. +2 DEF
-                        Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR
+                        <FormattedString>
+                            <Span Text="Mage: 1 Stamina == 4 HP. +2 ATK&#10;" />
+                            <Span Text="Warrior: 1 Stamina == 6 HP. +2 DEF&#10;" />
+                            <Span Text="Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR" />
+                        </FormattedString>
                     </Label.FormattedText>
                 </Label>
 

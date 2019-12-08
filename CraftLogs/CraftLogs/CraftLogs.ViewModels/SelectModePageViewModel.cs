@@ -26,24 +26,26 @@ namespace CraftLogs.ViewModels
 {
     public class SelectModePageViewModel : ViewModelBase
     {
-        #region Private
+        private Settings _settings;
 
-        private Settings settings;
+        private bool _isDev = true;
 
-        #endregion
+        public bool IsDev
+        {
+            get => _isDev;
+            set => SetProperty(ref _isDev, value);
+        }
 
-        #region Public
+        public DelayCommand SetModeToTeamCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Team));
+        public DelayCommand SetModeToShopCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Shop));
+        public DelayCommand SetModeToArenaCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Arena));
+        public DelayCommand SetModeToHqCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Hq));
 
-        public DelayCommand SetModeToTeamCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Team));
-        public DelayCommand SetModeToShopCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Shop));
-        public DelayCommand SetModeToArenaCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Arena));
-        public DelayCommand SetModeToHqCommand => new DelayCommand(async () => await SetMode(AppModeEnum.Hq));
-
-        #endregion
-
-        #region Ctor
-
-        public SelectModePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService) : base(navigationService, dataRepository, dialogService)
+        public SelectModePageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
+            : base(navigationService, dataRepository, dialogService)
         {
 #if STG
             IsDev = false;
@@ -52,37 +54,17 @@ namespace CraftLogs.ViewModels
 #endif
         }
 
-        #endregion
-
-        #region Overrides
-
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            settings = DataRepository.GetSettings();
+            _settings = DataRepository.GetSettings();
 
-            if (settings.AppMode != AppModeEnum.None)
+            if (_settings.AppMode != AppModeEnum.None)
                 await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
-        #endregion
-
-        #region Properties
-
-        private bool isDev = true;
-
-        public bool IsDev
-        {
-            get { return isDev; }
-            set { SetProperty(ref isDev, value); }
-        }
-
-        #endregion
-
-        #region Private functions
-
-        private async Task SetMode(AppModeEnum appMode)
+        private async Task SetModeAsync(AppModeEnum appMode)
         {
             IsBusy = true;
 
@@ -106,7 +88,5 @@ namespace CraftLogs.ViewModels
                     break;
             }
         }
-
-        #endregion
     }
 }

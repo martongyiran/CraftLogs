@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-             xmlns:converters="clr-namespace:CraftLogs.Views.Converters;assembly=CraftLogs.Views"
-             x:Class="CraftLogs.App">
-	<Application.Resources>
+<prism:PrismApplication
+    x:Class="CraftLogs.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:CraftLogs.Views.Converters;assembly=CraftLogs.Views"
+    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
+    <Application.Resources>
 
         <ResourceDictionary>
-            
+
             <Color x:Key="BackgroundColorLight">#f6f6f6</Color>
             <Color x:Key="ColorLight">#7a7cff</Color>
             <Color x:Key="ColorPrimary">#304ffe</Color>
             <Color x:Key="ColorDark">#0026ca</Color>
 
-            <Style x:Key="SettingsEntry" TargetType="Entry">
+            <Style
+                x:Key="SettingsEntry"
+                TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="EndAndExpand" />
                 <Setter Property="WidthRequest" Value="50" />
@@ -21,14 +24,18 @@
                 <Setter Property="Keyboard" Value="Telephone" />
             </Style>
 
-            <Style x:Key="RegisterEntry" TargetType="Entry">
+            <Style
+                x:Key="RegisterEntry"
+                TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="WidthRequest" Value="400" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
 
-            <Style x:Key="DefaultFrame" TargetType="Frame">
+            <Style
+                x:Key="DefaultFrame"
+                TargetType="Frame">
                 <Setter Property="OutlineColor" Value="Gray" />
                 <Setter Property="CornerRadius" Value="5" />
                 <Setter Property="BackgroundColor" Value="White" />
@@ -36,7 +43,9 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
-            <Style x:Key="SettingsFrame" TargetType="Frame">
+            <Style
+                x:Key="SettingsFrame"
+                TargetType="Frame">
                 <Setter Property="OutlineColor" Value="White" />
                 <Setter Property="CornerRadius" Value="0" />
                 <Setter Property="BackgroundColor" Value="White" />
@@ -44,7 +53,9 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
-            <Style x:Key="WhiteButton"  TargetType="Button">
+            <Style
+                x:Key="WhiteButton"
+                TargetType="Button">
                 <Setter Property="BorderColor" Value="LightGray" />
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="BorderWidth" Value="1" />
@@ -55,7 +66,9 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
-            <Style x:Key="SmallWhiteButton"  TargetType="Button">
+            <Style
+                x:Key="SmallWhiteButton"
+                TargetType="Button">
                 <Setter Property="BorderColor" Value="LightGray" />
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="BorderWidth" Value="1" />
@@ -68,6 +81,7 @@
 
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:InverseNullToBoolConverter x:Key="InverseNullToBoolConverter" />
 
         </ResourceDictionary>
 

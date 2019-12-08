@@ -31,47 +31,11 @@ namespace CraftLogs.ViewModels
 {
     public class ShopPageViewModel : ViewModelBase
     {
-
-        #region Private
+        private readonly IItemGeneratorService itemGenerator;
+        private readonly IQRService qRService;
 
         ShopProfile shopProfile;
         Settings settings;
-
-        private IItemGeneratorService itemGenerator;
-        private IQRService qRService;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand RefreshCommand => new DelayCommand(Refresh);
-
-        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
-
-        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
-
-        public DelayCommand BuyTappedCommand => new DelayCommand(async () => await Buy());
-
-        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
-
-        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
-
-        public DelayCommand DispalyCartIsEmptyCommand => new DelayCommand(async () => await DispalyCartIsEmpty());
-
-        #endregion
-
-        #region Ctor
-
-        public ShopPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
-        {
-            itemGenerator = itemGeneratorService;
-            qRService = qrService;
-            Title = Texts.ShopPageTitle;
-        }
-
-        #endregion
-
-        #region Properties
 
         private ObservableCollection<Item> items = new ObservableCollection<Item>();
 
@@ -159,31 +123,44 @@ namespace CraftLogs.ViewModels
             set { SetProperty(ref cartValue, value); }
         }
 
-        #endregion
+        public DelayCommand RefreshCommand => new DelayCommand(Refresh);
 
-        #region Overrides
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
+
+        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
+
+        public DelayCommand BuyTappedCommand => new DelayCommand(async () => await Buy());
+
+        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
+
+        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
+
+        public DelayCommand DispalyCartIsEmptyCommand => new DelayCommand(async () => await DispalyCartIsEmpty());
+
+
+        public ShopPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        {
+            itemGenerator = itemGeneratorService;
+            qRService = qrService;
+            Title = Texts.ShopPageTitle;
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            IsBusy = true;
            
             Refresh();
-
-            IsBusy = false;
         }
 
         public override async Task ToSettings()
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("mode", "npc");
+            var param = new NavigationParameters
+            {
+                { "mode", "npc" }
+            };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
-
-        #endregion
-
-        #region Private functions
 
         private void Refresh()
         {
@@ -238,7 +215,6 @@ namespace CraftLogs.ViewModels
             Items = Items.Count == 0 ? shopProfile.ItemStock : Items;
             NextRefresh = "Frissül: " + shopProfile.LastRefresh.AddHours(1).ToShortTimeString();
             FilterList();
-            IsBusy = false;
         }
 
         private void FilterList()
@@ -257,13 +233,11 @@ namespace CraftLogs.ViewModels
             SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.Tier == SelectedItemTier).ToList());
 
             NoItem = SelectedItems.Count == 0;
-            IsBusy = false;
         }
 
         private void ItemTapped(object o)
         {
             ActiveItem = o as Item;
-            IsBusy = false;
         }
 
         private void RemoveItemTapped(object o)
@@ -287,8 +261,6 @@ namespace CraftLogs.ViewModels
             }
 
             CartValue = "Összesen: " + allValue + "$";
-
-            IsBusy = false;
         }
 
         private async Task Buy()
@@ -315,12 +287,8 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                IsBusy = false;
                 await DialogService.DisplayAlertAsync("", Texts.ItemLimit, Texts.Ok);
             }
-            
-
-            IsBusy = false;
         }
 
         private void Empty()
@@ -331,7 +299,6 @@ namespace CraftLogs.ViewModels
             Items = DataRepository.GetShopProfile().ItemStock;
             FilterList();
             CartValue = "Összesen: 0$";
-            IsBusy = false;
         }
 
         private async Task CheckOut()
@@ -348,31 +315,25 @@ namespace CraftLogs.ViewModels
                     }
                     ShopResponse shopResponse = new ShopResponse(allValue, ShoppingCart);
                     var qrCode = qRService.CreateQR(shopResponse);
-                    NavigationParameters param = new NavigationParameters();
-                    param.Add("code", qrCode);
+                    var param = new NavigationParameters
+                    {
+                        { "code", qrCode }
+                    };
 
                     shopProfile.ItemStock = Items;
                     DataRepository.SaveToFile(shopProfile);
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-                    IsBusy = false;
                 }
             }
             else
             {
                 await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
             }
-
-            
-            IsBusy = false;
         }
 
         private async Task DispalyCartIsEmpty()
         {
             await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
-
-            IsBusy = false;
         }
-
-        #endregion
     }
 }

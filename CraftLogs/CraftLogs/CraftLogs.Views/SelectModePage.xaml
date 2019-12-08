@@ -1,22 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             BackgroundColor="{StaticResource BackgroundColorLight}"
-             x:Class="CraftLogs.Views.SelectModePage"
-             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-        <Label 
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="CraftLogs.Views.SelectModePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    BackgroundColor="{StaticResource BackgroundColorLight}"
+    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <StackLayout
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="CenterAndExpand">
+        <Label
+            Margin="5,0,5,5"
+            FontSize="15"
             HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
             HorizontalTextAlignment="Center"
-            Text="{x:Static values:Texts.ChooseDialog}" 
-            FontSize="15" 
-            TextColor="Black" 
-            Margin="5,0,5,5"/>
-        <Button Text="{x:Static values:Texts.TeamMode}" Command="{Binding SetModeToTeamCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.ShopMode}" Command="{Binding SetModeToShopCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.ArenaMode}" Command="{Binding SetModeToArenaCommand}" Style="{StaticResource WhiteButton}"/>
-        <Button Text="{x:Static values:Texts.HqMode}" Command="{Binding SetModeToHqCommand}" Style="{StaticResource WhiteButton}"/>
+            Text="{x:Static values:Texts.ChooseDialog}"
+            TextColor="Black"
+            VerticalOptions="CenterAndExpand" />
+        <Button
+            Command="{Binding SetModeToTeamCommand}"
+            Style="{StaticResource WhiteButton}"
+            Text="{x:Static values:Texts.TeamMode}" />
+        <Button
+            Command="{Binding SetModeToShopCommand}"
+            Style="{StaticResource WhiteButton}"
+            Text="{x:Static values:Texts.ShopMode}" />
+        <Button
+            Command="{Binding SetModeToArenaCommand}"
+            Style="{StaticResource WhiteButton}"
+            Text="{x:Static values:Texts.ArenaMode}" />
+        <Button
+            Command="{Binding SetModeToHqCommand}"
+            Style="{StaticResource WhiteButton}"
+            Text="{x:Static values:Texts.HqMode}" />
     </StackLayout>
 </ContentPage>
