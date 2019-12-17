@@ -89,7 +89,6 @@ namespace CraftLogs.BLL.Services
 
                 string log = round + ". | " + player1hit + " - " + player2hit + " | " + hp1 + " - " + hp2 + "\n";
                 resp.CombatLog += log;
-                //System.Diagnostics.Debug.WriteLine("----- "+ log);
 
                 round++;
             }
@@ -99,13 +98,11 @@ namespace CraftLogs.BLL.Services
             if (hp1 >= 0)
             {
                 resp.IsWin = false;
-                //System.Diagnostics.Debug.WriteLine("----- Leader win.");
                 resp.CombatLog += "----- " + Player1.Name + " a győztes.";
             }
             else if (hp2 >= 0)
             {
                 resp.IsWin = true;
-                // System.Diagnostics.Debug.WriteLine("----- Attacker win.");
                 resp.CombatLog += "----- " + Player2.Name + " a győztes.";
             }
 
@@ -141,7 +138,10 @@ namespace CraftLogs.BLL.Services
 
         private int SetMoney(int originalHp, int enemyRemainingHp)
         {
+            //Warning in DEV mode, because of #if DEV
+#pragma warning disable CS0168 // Variable is declared but never used
             int minPoint;
+#pragma warning restore CS0168 // Variable is declared but never used
             int maxPoint;
             enemyRemainingHp = enemyRemainingHp < 0 ? 0 : enemyRemainingHp;
             var actHour = date.Hour;

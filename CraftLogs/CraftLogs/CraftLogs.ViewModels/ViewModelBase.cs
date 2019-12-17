@@ -17,10 +17,10 @@ limitations under the License.
 using System.Threading.Tasks;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
-using Plugin.VersionTracking;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
+using Xamarin.Essentials;
 
 namespace CraftLogs.ViewModels
 {
@@ -45,11 +45,11 @@ namespace CraftLogs.ViewModels
         }
 
 #if DEV
-        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion) + " DEV"; } }
+        public string Version { get { return string.Format(Texts.Version, VersionTracking.CurrentVersion) + " DEV"; } }
 #elif STG
-        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion) + " STG"; } }
+        public string Version { get { return string.Format(Texts.Version, VersionTracking.CurrentVersion) + " STG"; } }
 #elif PRD
-        public string Version { get { return string.Format(Texts.Version, CrossVersionTracking.Current.CurrentVersion); } }
+        public string Version { get { return string.Format(Texts.Version, VersionTracking.CurrentVersion); } }
 #endif
 
         protected INavigationService NavigationService { get; private set; }
@@ -82,7 +82,9 @@ namespace CraftLogs.ViewModels
 
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task ToSettings()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
         }
 
