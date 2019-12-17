@@ -30,7 +30,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is ShopPageViewModel viewModel))
                 return;
 
-            viewModel.BuyTappedCommand.Execute();
+            viewModel.BuyCommand.Execute();
             settingsIcon.IsVisible = !settingsIcon.IsVisible;
             reloadIcon.IsVisible = !reloadIcon.IsVisible;
             buyitIcon.IsVisible = !buyitIcon.IsVisible;
@@ -70,7 +70,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is ShopPageViewModel viewModel))
                 return;
 
-            viewModel.RemoveItemTappedCommand.Execute(e.Item);
+            viewModel.RemoveItemCommand.Execute(e.Item);
 
             if (viewModel.ShoppingCart.Count == 0)
             {
@@ -97,7 +97,7 @@ namespace CraftLogs.Views
             reloadIcon.IsVisible = !reloadIcon.IsVisible;
             buyitIcon.IsVisible = !buyitIcon.IsVisible;
 
-            viewModel.EmptyTappedCommand.Execute();
+            viewModel.EmptyCommand.Execute();
         }
 
         private void CheckOutButton_Clicked(object sender, System.EventArgs e)
@@ -105,7 +105,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is ShopPageViewModel viewModel))
                 return;
 
-            viewModel.CheckOutTappedCommand.Execute();
+            viewModel.CheckOutCommand.Execute();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is TradePageViewModel viewModel))
                 return;
 
-            viewModel.ItemTappedCommand.Execute(e.Item);
+            viewModel.ItemCommand.Execute(e.Item);
         }
 
         private void BindableToolbarItem_Clicked(object sender, System.EventArgs e)
@@ -37,7 +37,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is TradePageViewModel viewModel))
                 return;
 
-            viewModel.RemoveItemTappedCommand.Execute(e.Item);
+            viewModel.RemoveItemCommand.Execute(e.Item);
 
             if (viewModel.TradeGiveCart.Count == 0)
             {
@@ -58,7 +58,7 @@ namespace CraftLogs.Views
             cartMenu.IsVisible = !cartMenu.IsVisible;
             cartList.IsVisible = !cartList.IsVisible;
 
-            viewModel.EmptyTappedCommand.Execute();
+            viewModel.EmptyCommand.Execute();
         }
 
         private void TradeButton_Clicked(object sender, System.EventArgs e)
@@ -66,7 +66,7 @@ namespace CraftLogs.Views
             if (!(BindingContext is TradePageViewModel viewModel))
                 return;
 
-            viewModel.CheckOutTappedCommand.Execute();
+            viewModel.CheckOutCommand.Execute();
         }
 
         private void GetListVisibility_Clicked(object sender, System.EventArgs e)

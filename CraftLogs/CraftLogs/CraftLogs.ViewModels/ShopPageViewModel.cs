@@ -31,125 +31,134 @@ namespace CraftLogs.ViewModels
 {
     public class ShopPageViewModel : ViewModelBase
     {
-        private readonly IItemGeneratorService itemGenerator;
-        private readonly IQRService qRService;
+        private readonly IItemGeneratorService _itemGenerator;
+        private readonly IQRService _qRService;
 
-        ShopProfile shopProfile;
-        Settings settings;
-
-        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+        private ShopProfile _shopProfile;
+        private Settings _settings;
+        private ObservableCollection<Item> _items = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _selectedItems = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _shoppingCart = new ObservableCollection<Item>();
+        private ItemTypeEnum _selectedItemType;
+        private CharacterClassEnum _selectedItemClass;
+        private int _selectedItemTier;
+        private string _nextRefresh;
+        private bool _noItem;
+        private Item _activeItem;
+        private string _cartValue = "Összesen: 0$";
 
         public ObservableCollection<Item> Items
         {
-            get { return items; }
-            set { SetProperty(ref items, value); }
+            get => _items;
+            set => SetProperty(ref _items, value);
         }
-
-        private ObservableCollection<Item> selectedItems = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> SelectedItems
         {
-            get { return selectedItems; }
-            set { SetProperty(ref selectedItems, value); }
+            get => _selectedItems;
+            set => SetProperty(ref _selectedItems, value);
         }
-
-        private ObservableCollection<Item> shoppingCart = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> ShoppingCart
         {
-            get { return shoppingCart; }
-            set { SetProperty(ref shoppingCart, value); }
+            get => _shoppingCart;
+            set => SetProperty(ref _shoppingCart, value);
         }
 
         public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
 
-        private ItemTypeEnum selectedItemType;
-
-        public ItemTypeEnum SelectedItemType
-        {
-            get { return selectedItemType; }
-            set { SetProperty(ref selectedItemType, value); FilterList(); }
-        }
-
         public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
-
-        private CharacterClassEnum selectedItemClass;
-
-        public CharacterClassEnum SelectedItemClass
-        {
-            get { return selectedItemClass; }
-            set { SetProperty(ref selectedItemClass, value); FilterList(); }
-        }
 
         public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
 
-        private int selectedItemTier;
+        public ItemTypeEnum SelectedItemType
+        {
+            get => _selectedItemType;
+            set
+            {
+                SetProperty(ref _selectedItemType, value);
+                FilterList();
+            }
+        }
+
+        public CharacterClassEnum SelectedItemClass
+        {
+            get => _selectedItemClass;
+            set
+            {
+                SetProperty(ref _selectedItemClass, value);
+                FilterList();
+            }
+        }
 
         public int SelectedItemTier
         {
-            get { return selectedItemTier; }
-            set { SetProperty(ref selectedItemTier, value); FilterList(); }
+            get => _selectedItemTier;
+            set
+            {
+                SetProperty(ref _selectedItemTier, value);
+                FilterList();
+            }
         }
-
-        private string nextRefresh;
 
         public string NextRefresh
         {
-            get { return nextRefresh; }
-            set { SetProperty(ref nextRefresh, value); }
+            get => _nextRefresh;
+            set => SetProperty(ref _nextRefresh, value);
         }
-
-        private bool noItem;
 
         public bool NoItem
         {
-            get { return noItem; }
-            set { SetProperty(ref noItem, value); }
+            get => _noItem;
+            set => SetProperty(ref _noItem, value);
         }
-
-        private Item activeItem;
 
         public Item ActiveItem
         {
-            get { return activeItem; }
-            set { SetProperty(ref activeItem, value); }
+            get => _activeItem;
+            set => SetProperty(ref _activeItem, value);
         }
-
-        private string cartValue = "Összesen: 0$";
 
         public string CartValue
         {
-            get { return cartValue; }
-            set { SetProperty(ref cartValue, value); }
+            get => _cartValue;
+            set => SetProperty(ref _cartValue, value);
         }
 
-        public DelayCommand RefreshCommand => new DelayCommand(Refresh);
+        public DelayCommand RefreshCommand => new DelayCommand(ExecuteRefreshCommand);
 
-        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ItemTapped(a));
+        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTappedCommand(a));
 
-        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
+        public DelayCommand<object> RemoveItemCommand => new DelayCommand<object>((a) => ExecuteRemoveItemCommand(a));
 
-        public DelayCommand BuyTappedCommand => new DelayCommand(async () => await Buy());
+        public DelayCommand BuyCommand => new DelayCommand(async () => await ExecuteBuyCommandAsync());
 
-        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
+        public DelayCommand EmptyCommand => new DelayCommand(ExecuteEmptyCommand);
 
-        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
+        public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommand());
 
-        public DelayCommand DispalyCartIsEmptyCommand => new DelayCommand(async () => await DispalyCartIsEmpty());
+        public DelayCommand DispalyCartIsEmptyCommand => new DelayCommand(async () => await ExecuteDispalyCartIsEmptyCommandAsync());
 
 
-        public ShopPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IItemGeneratorService itemGeneratorService, IQRService qrService) : base(navigationService, dataRepository, dialogService)
+        public ShopPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IItemGeneratorService itemGeneratorService,
+            IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
         {
-            itemGenerator = itemGeneratorService;
-            qRService = qrService;
+            _itemGenerator = itemGeneratorService;
+            _qRService = qrService;
+
             Title = Texts.ShopPageTitle;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-           
-            Refresh();
+
+            ExecuteRefreshCommand();
         }
 
         public override async Task ToSettings()
@@ -162,58 +171,58 @@ namespace CraftLogs.ViewModels
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }
 
-        private void Refresh()
+        private void ExecuteRefreshCommand()
         {
             DataRepository.CreateShopProfile();
-            shopProfile = DataRepository.GetShopProfile();
-            settings = DataRepository.GetSettings();
+           _shopProfile = DataRepository.GetShopProfile();
+            _settings = DataRepository.GetSettings();
 
-            if(settings.AppMode == AppModeEnum.None)
+            if(_settings.AppMode == AppModeEnum.None)
             {
-                settings.AppMode = AppModeEnum.Shop;
-                DataRepository.SaveToFile(settings);
+                _settings.AppMode = AppModeEnum.Shop;
+                DataRepository.SaveToFile(_settings);
             }
 
             SelectedItemType = ItemTypeEnum.All;
             SelectedItemClass = CharacterClassEnum.Mage;
             SelectedItemTier = 2;
 
-            if (DateTime.Now > shopProfile.LastRefresh.AddHours(1))
+            if (DateTime.Now > _shopProfile.LastRefresh.AddHours(1))
             {
-                shopProfile.ItemStock = new ObservableCollection<Item>();
+                _shopProfile.ItemStock = new ObservableCollection<Item>();
 
-                if (settings.CraftDay == 1)
+                if (_settings.CraftDay == 1)
                 {
                     for (int i = 0; i < 40; i++)
                     {
-                        shopProfile.ItemStock.Add(itemGenerator.GetRandomItem(1));
+                        _shopProfile.ItemStock.Add(_itemGenerator.GetRandomItem(1));
                     }
 
                     for (int i = 0; i < 10; i++)
                     {
-                        shopProfile.ItemStock.Add(itemGenerator.GetRandomItem(2));
+                        _shopProfile.ItemStock.Add(_itemGenerator.GetRandomItem(2));
                     }
                 }
                 else
                 {
                     for (int i = 0; i < 40; i++)
                     {
-                        shopProfile.ItemStock.Add(itemGenerator.GetRandomItem(2));
+                        _shopProfile.ItemStock.Add(_itemGenerator.GetRandomItem(2));
                     }
 
                     for (int i = 0; i < 10; i++)
                     {
-                        shopProfile.ItemStock.Add(itemGenerator.GetRandomItem(3));
+                        _shopProfile.ItemStock.Add(_itemGenerator.GetRandomItem(3));
                     }
                 }
 
-                shopProfile.LastRefresh = DateTime.Now;
-                DataRepository.SaveToFile(shopProfile);
-                Items = shopProfile.ItemStock;
+                _shopProfile.LastRefresh = DateTime.Now;
+                DataRepository.SaveToFile(_shopProfile);
+                Items = _shopProfile.ItemStock;
             }
 
-            Items = Items.Count == 0 ? shopProfile.ItemStock : Items;
-            NextRefresh = "Frissül: " + shopProfile.LastRefresh.AddHours(1).ToShortTimeString();
+            Items = Items.Count == 0 ? _shopProfile.ItemStock : Items;
+            NextRefresh = "Frissül: " + _shopProfile.LastRefresh.AddHours(1).ToShortTimeString();
             FilterList();
         }
 
@@ -235,12 +244,12 @@ namespace CraftLogs.ViewModels
             NoItem = SelectedItems.Count == 0;
         }
 
-        private void ItemTapped(object o)
+        private void ExecuteItemTappedCommand(object o)
         {
             ActiveItem = o as Item;
         }
 
-        private void RemoveItemTapped(object o)
+        private void ExecuteRemoveItemCommand(object o)
         {
             var sitem = o as Item;
 
@@ -255,6 +264,7 @@ namespace CraftLogs.ViewModels
             FilterList();
 
             int allValue = 0;
+
             foreach (var item in ShoppingCart)
             {
                 allValue += item.Value;
@@ -263,7 +273,7 @@ namespace CraftLogs.ViewModels
             CartValue = "Összesen: " + allValue + "$";
         }
 
-        private async Task Buy()
+        private async Task ExecuteBuyCommandAsync()
         {
             if(ShoppingCart.Count < 5)
             {
@@ -278,6 +288,7 @@ namespace CraftLogs.ViewModels
                 FilterList();
 
                 int allValue = 0;
+
                 foreach (var item in ShoppingCart)
                 {
                     allValue += item.Value;
@@ -291,7 +302,7 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private void Empty()
+        private void ExecuteEmptyCommand()
         {
             Items = new ObservableCollection<Item>();
             SelectedItems = new ObservableCollection<Item>();
@@ -301,7 +312,7 @@ namespace CraftLogs.ViewModels
             CartValue = "Összesen: 0$";
         }
 
-        private async Task CheckOut()
+        private async Task ExecuteCheckOutCommand()
         {
             if(ShoppingCart.Count != 0)
             {
@@ -314,14 +325,14 @@ namespace CraftLogs.ViewModels
                         allValue += item.Value;
                     }
                     ShopResponse shopResponse = new ShopResponse(allValue, ShoppingCart);
-                    var qrCode = qRService.CreateQR(shopResponse);
+                    var qrCode = _qRService.CreateQR(shopResponse);
                     var param = new NavigationParameters
                     {
                         { "code", qrCode }
                     };
 
-                    shopProfile.ItemStock = Items;
-                    DataRepository.SaveToFile(shopProfile);
+                    _shopProfile.ItemStock = Items;
+                    DataRepository.SaveToFile(_shopProfile);
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 }
             }
@@ -331,7 +342,7 @@ namespace CraftLogs.ViewModels
             }
         }
 
-        private async Task DispalyCartIsEmpty()
+        private async Task ExecuteDispalyCartIsEmptyCommandAsync()
         {
             await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
         }

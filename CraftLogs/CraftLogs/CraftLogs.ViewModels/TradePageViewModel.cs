@@ -30,145 +30,127 @@ namespace CraftLogs.ViewModels
 {
     public class TradePageViewModel : ViewModelBase
     {
+        private readonly IQRService _qRService;
 
-        #region Private
-
-        TeamProfile teamProfile;
-
-        private IQRService qRService;
-
-        #endregion
-
-        #region Public
-
-        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>(async (a) => await ItemTapped(a));
-
-        public DelayCommand<object> RemoveItemTappedCommand => new DelayCommand<object>((a) => RemoveItemTapped(a));
-
-        public DelayCommand EmptyTappedCommand => new DelayCommand(Empty);
-
-        public DelayCommand CheckOutTappedCommand => new DelayCommand(async () => await CheckOut());
-
-        #endregion
-
-        #region Ctor
-
-        public TradePageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService)
-            : base(navigationService, dataRepository, dialogService)
-        {
-            qRService = qrService;
-            Title = Texts.TradePage;
-        }
-
-        #endregion
-
-        #region Properties
-
-        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+        private TeamProfile _teamProfile;
+        private ObservableCollection<Item> _items = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _selectedItems = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _tradeGiveCart = new ObservableCollection<Item>();
+        private ObservableCollection<Item> _tradeGetCart = new ObservableCollection<Item>();
+        private ItemTypeEnum _selectedItemType;
+        private CharacterClassEnum _selectedItemClass;
+        private int _selectedItemTier;
+        private bool _noItem;
+        private Item _activeItem;
+        private bool _getListIsVisible;
+        private int _money;
+        private string _incMoney;
 
         public ObservableCollection<Item> Items
         {
-            get { return items; }
-            set { SetProperty(ref items, value); }
+            get => _items;
+            set => SetProperty(ref _items, value);
         }
-
-        private ObservableCollection<Item> selectedItems = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> SelectedItems
         {
-            get { return selectedItems; }
-            set { SetProperty(ref selectedItems, value); }
+            get => _selectedItems;
+            set => SetProperty(ref _selectedItems, value);
         }
-
-        private ObservableCollection<Item> tradeGiveCart = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> TradeGiveCart
         {
-            get { return tradeGiveCart; }
-            set { SetProperty(ref tradeGiveCart, value); }
+            get => _tradeGiveCart;
+            set => SetProperty(ref _tradeGiveCart, value);
         }
-
-        private ObservableCollection<Item> tradeGetCart = new ObservableCollection<Item>();
 
         public ObservableCollection<Item> TradeGetCart
         {
-            get { return tradeGetCart; }
-            set { SetProperty(ref tradeGetCart, value); }
+            get => _tradeGetCart;
+            set => SetProperty(ref _tradeGetCart, value);
         }
 
         public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
 
-        private ItemTypeEnum selectedItemType;
-
-        public ItemTypeEnum SelectedItemType
-        {
-            get { return selectedItemType; }
-            set { SetProperty(ref selectedItemType, value); FilterList(); }
-        }
-
         public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
-
-        private CharacterClassEnum selectedItemClass;
-
-        public CharacterClassEnum SelectedItemClass
-        {
-            get { return selectedItemClass; }
-            set { SetProperty(ref selectedItemClass, value); FilterList(); }
-        }
 
         public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
 
-        private int selectedItemTier;
+        public ItemTypeEnum SelectedItemType
+        {
+            get => _selectedItemType;
+            set
+            {
+                SetProperty(ref _selectedItemType, value);
+                FilterList();
+            }
+        }
+
+        public CharacterClassEnum SelectedItemClass
+        {
+            get => _selectedItemClass;
+            set
+            {
+                SetProperty(ref _selectedItemClass, value);
+                FilterList();
+            }
+        }
 
         public int SelectedItemTier
         {
-            get { return selectedItemTier; }
-            set { SetProperty(ref selectedItemTier, value); FilterList(); }
+            get => _selectedItemTier;
+            set
+            {
+                SetProperty(ref _selectedItemTier, value);
+                FilterList();
+            }
         }
-
-        private bool noItem;
 
         public bool NoItem
         {
-            get { return noItem; }
-            set { SetProperty(ref noItem, value); }
+            get => _noItem;
+            set => SetProperty(ref _noItem, value);
         }
-
-        private Item activeItem;
 
         public Item ActiveItem
         {
-            get { return activeItem; }
-            set { SetProperty(ref activeItem, value); }
+            get => _activeItem;
+            set => SetProperty(ref _activeItem, value);
         }
-
-        private bool getListIsVisible;
 
         public bool GetListIsVisible
         {
-            get { return getListIsVisible; }
-            set { SetProperty(ref getListIsVisible, value); }
+            get => _getListIsVisible;
+            set => SetProperty(ref _getListIsVisible, value);
         }
-
-        private int money;
 
         public int Money
         {
-            get { return money; }
-            set { SetProperty(ref money, value); }
+            get => _money;
+            set => SetProperty(ref _money, value);
         }
-
-        private string incMoney;
 
         public string IncMoney
         {
-            get { return incMoney; }
-            set { SetProperty(ref incMoney, value); }
+            get => _incMoney;
+            set => SetProperty(ref _incMoney, value);
         }
 
-        #endregion
+        public DelayCommand<object> ItemCommand => new DelayCommand<object>(async (a) => await ExecuteItemTappedCommandAsync(a));
+        public DelayCommand<object> RemoveItemCommand => new DelayCommand<object>((a) => ExecuteRemoveItemCommand(a));
+        public DelayCommand EmptyCommand => new DelayCommand(ExecuteEmptyCommand);
+        public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommandAscync());
 
-        #region Overrides
+        public TradePageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IQRService qrService)
+            : base(navigationService, dataRepository, dialogService)
+        {
+            _qRService = qrService;
+            Title = Texts.TradePage;
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -177,30 +159,27 @@ namespace CraftLogs.ViewModels
             Init();
         }
 
-        #endregion
-
-        #region Private functions
-
         private void Init()
         {
-            teamProfile = DataRepository.GetTeamProfile();
+            _teamProfile = DataRepository.GetTeamProfile();
 
             SelectedItemType = ItemTypeEnum.All;
             SelectedItemClass = CharacterClassEnum.Mage;
             SelectedItemTier = 2;
 
-            if (teamProfile.TradeStatus == TradeStatusEnum.Finished)
+            if (_teamProfile.TradeStatus == TradeStatusEnum.Finished)
             {
                 GetListIsVisible = false;
-                Items = teamProfile.Inventory;
+                Items = _teamProfile.Inventory;
             }
-            else if (teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
+            else if (_teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
             {
-                TradeGetCart = teamProfile.TradeIn.ItemsToTrade;
-                Items = teamProfile.Inventory;
-                IncMoney = teamProfile.TradeIn.Money + " pénz";
+                TradeGetCart = _teamProfile.TradeIn.ItemsToTrade;
+                Items = _teamProfile.Inventory;
+                IncMoney = _teamProfile.TradeIn.Money + " pénz";
                 GetListIsVisible = true;
             }
+
             FilterList();
         }
 
@@ -220,11 +199,9 @@ namespace CraftLogs.ViewModels
             SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.Tier == SelectedItemTier).ToList());
 
             NoItem = SelectedItems.Count == 0;
-
-            IsBusy = false;
         }
 
-        private async Task ItemTapped(object o)
+        private async Task ExecuteItemTappedCommandAsync(object o)
         {
             ActiveItem = o as Item;
 
@@ -242,14 +219,11 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                IsBusy = false;
                 await DialogService.DisplayAlertAsync("", "Maximum 5 tárgyat adhatsz egyszerre!", Texts.Ok);
             }
-
-            IsBusy = false;
         }
 
-        private void RemoveItemTapped(object o)
+        private void ExecuteRemoveItemCommand(object o)
         {
             var sitem = o as Item;
 
@@ -262,98 +236,91 @@ namespace CraftLogs.ViewModels
             Items = templist;
 
             FilterList();
-
-            IsBusy = false;
         }
 
-        private void Empty()
+        private void ExecuteEmptyCommand()
         {
             Items = new ObservableCollection<Item>();
             SelectedItems = new ObservableCollection<Item>();
             TradeGiveCart = new ObservableCollection<Item>();
             Items = DataRepository.GetTeamProfile().Inventory;
-            FilterList();
 
-            IsBusy = false;
+            FilterList();
         }
 
-        private async Task CheckOut()
+        private async Task ExecuteCheckOutCommandAscync()
         {
             var response = await DialogService.DisplayAlertAsync(Texts.Checkout, "Biztos ezeket a tárgyakat akarod elcserélni?", Texts.TradePage, Texts.Cancel);
             if (response)
             {
-                if (teamProfile.TradeStatus == TradeStatusEnum.Finished)
+                if (_teamProfile.TradeStatus == TradeStatusEnum.Finished)
                 {
-                    if(Money > teamProfile.Money)
+                    if(Money > _teamProfile.Money)
                     {
                         await DialogService.DisplayAlertAsync(Texts.Error, "Nincs ennyi pénzed!", Texts.Sadface);
                     }
                     else
                     {
-                        TradeGive tradeResponse = new TradeGive();
+                        var tradeResponse = new TradeGive();
                         tradeResponse.Reward.ItemsToTrade = TradeGiveCart;
                         tradeResponse.Reward.Money = Money;
-                        tradeResponse.Name = teamProfile.Name;
+                        tradeResponse.Name = _teamProfile.Name;
 
-                        teamProfile.TradeStatus = TradeStatusEnum.TradeGive;
-                        teamProfile.Inventory = Items;
-                        teamProfile.TradeOut.ItemsToTrade = TradeGiveCart;
-                        teamProfile.TradeOut.Money = Money;
-                        teamProfile.TradeNumber = tradeResponse.TradeNumber;
-                        teamProfile.Money -= Money;
+                        _teamProfile.TradeStatus = TradeStatusEnum.TradeGive;
+                        _teamProfile.Inventory = Items;
+                        _teamProfile.TradeOut.ItemsToTrade = TradeGiveCart;
+                        _teamProfile.TradeOut.Money = Money;
+                        _teamProfile.TradeNumber = tradeResponse.TradeNumber;
+                        _teamProfile.Money -= Money;
 
-                        var qrCode = qRService.CreateQR(tradeResponse);
-                        NavigationParameters param = new NavigationParameters();
-                        param.Add("code", qrCode);
+                        var qrCode = _qRService.CreateQR(tradeResponse);
+                        var param = new NavigationParameters
+                        {
+                            { "code", qrCode }
+                        };
 
-                        teamProfile.TradeLastQR = qrCode;
+                        _teamProfile.TradeLastQR = qrCode;
 
-                        DataRepository.SaveToFile(teamProfile);
+                        DataRepository.SaveToFile(_teamProfile);
+
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
-                    
-                    IsBusy = false;
                 }
-                else if (teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
+                else if (_teamProfile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
                 {
-                    if (Money > teamProfile.Money)
+                    if (Money > _teamProfile.Money)
                     {
                         await DialogService.DisplayAlertAsync(Texts.Error, "Nincs ennyi pénzed!", Texts.Sadface);
                     }
                     else
                     {
-                        TradeGetAndGive tradeResponse = new TradeGetAndGive(teamProfile.TradeNumber);
+                        var tradeResponse = new TradeGetAndGive(_teamProfile.TradeNumber);
                         tradeResponse.Reward.ItemsToTrade = TradeGiveCart;
                         tradeResponse.Reward.Money = Money;
-                        tradeResponse.Name = teamProfile.Name;
+                        tradeResponse.Name = _teamProfile.Name;
 
-                        teamProfile.TradeStatus = TradeStatusEnum.TradeGiveAndGet;
-                        teamProfile.Inventory = Items;
-                        teamProfile.TradeOut.ItemsToTrade = TradeGiveCart;
-                        teamProfile.TradeOut.Money = Money;
-                        teamProfile.Money -= Money;
+                        _teamProfile.TradeStatus = TradeStatusEnum.TradeGiveAndGet;
+                        _teamProfile.Inventory = Items;
+                        _teamProfile.TradeOut.ItemsToTrade = TradeGiveCart;
+                        _teamProfile.TradeOut.Money = Money;
+                        _teamProfile.Money -= Money;
 
-                        var qrCode = qRService.CreateQR(tradeResponse);
-                        NavigationParameters param = new NavigationParameters();
-                        param.Add("code", qrCode);
+                        var qrCode = _qRService.CreateQR(tradeResponse);
+                        var param = new NavigationParameters
+                        {
+                            { "code", qrCode }
+                        };
 
-                        teamProfile.TradeLastQR = qrCode;
+                        _teamProfile.TradeLastQR = qrCode;
 
-                        DataRepository.SaveToFile(teamProfile);
+                        DataRepository.SaveToFile(_teamProfile);
+
                         await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                     }
-                    
-                    IsBusy = false;
                 }
 
                 
             }
-
-
-            IsBusy = false;
         }
-
-        #endregion
-
     }
 }
