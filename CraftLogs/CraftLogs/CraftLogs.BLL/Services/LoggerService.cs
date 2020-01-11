@@ -18,75 +18,68 @@ using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace CraftLogs.BLL.Services
 {
     public class LoggerService : ILoggerService
     {
-        #region Ctor
 
-        private readonly ILocalDataRepository dataRepository;
+        private readonly ILocalDataRepository _dataRepository;
 
         public LoggerService(ILocalDataRepository dataRepository)
         {
-            this.dataRepository = dataRepository;
+            _dataRepository = dataRepository;
         }
-
-        #endregion
-
-        #region Public
 
         public void CreateArenaLog(ArenaResponse enemyTeam)
         {
-            var logs = dataRepository.GetLogs();
-            string logText = enemyTeam.GetResoult();
-            Log newLog = new Log(LogTypeEnum.Arena, logText);
+            var logs = _dataRepository.GetLogs();
+            var logText = enemyTeam.GetResoult();
+            var newLog = new Log(LogTypeEnum.Arena, logText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
 
         public void CreateBuyLog(ShopResponse shopList)
         {
-            var logs = dataRepository.GetLogs();
-            string logText = shopList.ToString();
-            Log newLog = new Log(LogTypeEnum.Buy, logText);
+            var logs = _dataRepository.GetLogs();
+            var logText = shopList.ToString();
+            var newLog = new Log(LogTypeEnum.Buy, logText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
 
         public void CreateQueustLog(QuestReward reward)
         {
-            var logs = dataRepository.GetLogs();
-            string logText = reward.ToString();
-            Log newLog = new Log(LogTypeEnum.Quest, logText);
+            var logs = _dataRepository.GetLogs();
+            var logText = reward.ToString();
+            var newLog = new Log(LogTypeEnum.Quest, logText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
 
         public void CreateSellLog(Item item)
         {
-            var logs = dataRepository.GetLogs();
-            string logText = "+" + item.Value + " $\n\n" + item.ToString();
-            Log newLog = new Log(LogTypeEnum.Sell, logText);
+            var logs = _dataRepository.GetLogs();
+            var logText = "+" + item.Value + " $\n\n" + item.ToString();
+            var newLog = new Log(LogTypeEnum.Sell, logText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
 
         public void CreateSystemLog(HqReward logText)
         {
-            var logs = dataRepository.GetLogs();
-            string newLogText = logText.ToString();
-            Log newLog = new Log(LogTypeEnum.System, newLogText);
+            var logs = _dataRepository.GetLogs();
+            var newLogText = logText.ToString();
+            var newLog = new Log(LogTypeEnum.System, newLogText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
 
         public void CreateTradeLog(TeamProfile profile)
         {
-            var logs = dataRepository.GetLogs();
-            string logText = "Velük: " + profile.TradeWith +"\n\n Adtál: " + profile.TradeOut.Money + " pénzt\n\n";
+            var logs = _dataRepository.GetLogs();
+            var logText = "Velük: " + profile.TradeWith +"\n\n Adtál: " + profile.TradeOut.Money + " pénzt\n\n";
             foreach(var item in profile.TradeOut.ItemsToTrade)
             {
                 logText += item.ToString();
@@ -96,11 +89,9 @@ namespace CraftLogs.BLL.Services
             {
                 logText += item.ToString();
             }
-            Log newLog = new Log(LogTypeEnum.Trade, logText);
+            var newLog = new Log(LogTypeEnum.Trade, logText);
             logs.Insert(0, newLog);
-            dataRepository.SaveToFile(logs);
+            _dataRepository.SaveToFile(logs);
         }
-
-        #endregion
     }
 }

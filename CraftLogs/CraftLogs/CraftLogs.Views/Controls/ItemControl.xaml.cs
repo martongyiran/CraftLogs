@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace CraftLogs.Views
 {
-    public partial class ItemControl : Grid
+    public partial class ItemControl
     {
         public ItemControl()
         {

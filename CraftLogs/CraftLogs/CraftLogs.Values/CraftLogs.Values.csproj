@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Configurations>Debug;Release;Staging;Production;Spectator</Configurations>
+    <Configurations>Debug;Release;Staging;Production</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,10 +19,6 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
     <DefineConstants>TRACE;PRD</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Spectator|AnyCPU'">
-    <DefineConstants>TRACE;SPC</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>

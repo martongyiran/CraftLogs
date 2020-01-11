@@ -1,10 +1,9 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace CraftLogs.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class QuestPage : ContentPage
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class QuestPage
 	{
 		public QuestPage ()
 		{

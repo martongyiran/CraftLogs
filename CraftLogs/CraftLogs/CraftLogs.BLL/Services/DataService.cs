@@ -24,8 +24,6 @@ namespace CraftLogs.BLL.Services
 {
     public class DataService : IDataService
     {
-        #region Private functions
-
         private string GetPath()
         {
             var tempPath = Path.GetTempPath();
@@ -43,10 +41,6 @@ namespace CraftLogs.BLL.Services
         {
             System.Diagnostics.Debug.WriteLine(this.GetType().Name+" | Saved json: "+ text);
         }
-
-        #endregion
-
-        #region Public functions
 
         public bool IsFileExist(string fileName)
         {
@@ -97,7 +91,5 @@ namespace CraftLogs.BLL.Services
             }
             return data;
         }
-
-        #endregion
     }
 }

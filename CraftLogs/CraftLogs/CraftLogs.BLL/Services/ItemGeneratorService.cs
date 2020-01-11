@@ -25,20 +25,12 @@ namespace CraftLogs.BLL.Services
     public class ItemGeneratorService : IItemGeneratorService
     {
 
-        #region Private
-
-        private Random random;
-
-        #endregion
-
-        #region Ctor
+        private readonly Random _random;
 
         public ItemGeneratorService()
         {
-            random = new Random();
+            _random = new Random();
         }
-
-        #endregion
 
         public Item GetRandomItem(int tier)
         {
@@ -63,42 +55,42 @@ namespace CraftLogs.BLL.Services
         {
             if (usableFor == CharacterClassEnum.Mage && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, MageArmors.Count);
+                int rnd = _random.Next(0, MageArmors.Count);
                 return rnd;
             }
             else if (usableFor == CharacterClassEnum.Mage && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, MageWeapons.Count);
+                int rnd = _random.Next(0, MageWeapons.Count);
                 return rnd;
             }
             else if (usableFor == CharacterClassEnum.Rogue && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, RogueArmors.Count);
+                int rnd = _random.Next(0, RogueArmors.Count);
                 return rnd;
             }
             else if (usableFor == CharacterClassEnum.Rogue && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, RogueWeapons.Count);
+                int rnd = _random.Next(0, RogueWeapons.Count);
                 return rnd;
             }
             else if (usableFor == CharacterClassEnum.Warrior && itemType == ItemTypeEnum.Armor)
             {
-                int rnd = random.Next(0, WarriorArmors.Count);
+                int rnd = _random.Next(0, WarriorArmors.Count);
                 return rnd;
             }
             else if (usableFor == CharacterClassEnum.Warrior && (itemType == ItemTypeEnum.LHand || itemType == ItemTypeEnum.RHand))
             {
-                int rnd = random.Next(0, WarriorWeapons.Count);
+                int rnd = _random.Next(0, WarriorWeapons.Count);
                 return rnd;
             }
             else if (itemType == ItemTypeEnum.Ring)
             {
-                int rnd = random.Next(0, Rings.Count);
+                int rnd = _random.Next(0, Rings.Count);
                 return rnd;
             }
             else if (itemType == ItemTypeEnum.Neck)
             {
-                int rnd = random.Next(0, Necks.Count);
+                int rnd = _random.Next(0, Necks.Count);
                 return rnd;
             }
 
@@ -108,21 +100,15 @@ namespace CraftLogs.BLL.Services
 
         private string GetStats(int statPool, ItemTypeEnum itemType)
         {
-            switch (itemType)
+            return itemType switch
             {
-                case ItemTypeEnum.Armor:
-                    return GetArmorStats(statPool);
-                case ItemTypeEnum.LHand:
-                    return GetOHWeaponStats(statPool / 2);
-                case ItemTypeEnum.RHand:
-                    return GetOHWeaponStats(statPool / 2);
-                case ItemTypeEnum.Neck:
-                    return GetTrinketStats(statPool);
-                case ItemTypeEnum.Ring:
-                    return GetTrinketStats(statPool);
-                default:
-                    return string.Empty;
-            }
+                ItemTypeEnum.Armor => GetArmorStats(statPool),
+                ItemTypeEnum.LHand => GetOHWeaponStats(statPool / 2),
+                ItemTypeEnum.RHand => GetOHWeaponStats(statPool / 2),
+                ItemTypeEnum.Neck => GetTrinketStats(statPool),
+                ItemTypeEnum.Ring => GetTrinketStats(statPool),
+                _ => string.Empty,
+            };
         }
 
         private string GetTrinketStats(int statPool)
@@ -135,7 +121,7 @@ namespace CraftLogs.BLL.Services
 
             while (statPool != 0)
             {
-                int rnd = random.Next(1, 6);
+                int rnd = _random.Next(1, 6);
 
                 switch (rnd)
                 {
@@ -159,6 +145,8 @@ namespace CraftLogs.BLL.Services
                         atk++;
                         statPool--;
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -176,7 +164,7 @@ namespace CraftLogs.BLL.Services
 
             while (statPool != 0)
             {
-                int rnd = random.Next(1, 5);
+                int rnd = _random.Next(1, 5);
 
                 switch (rnd)
                 {
@@ -196,6 +184,8 @@ namespace CraftLogs.BLL.Services
                         atk++;
                         statPool--;
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -213,7 +203,7 @@ namespace CraftLogs.BLL.Services
 
             while (statPool != 0)
             {
-                int rnd = random.Next(1, 5);
+                int rnd = _random.Next(1, 5);
 
                 switch (rnd)
                 {
@@ -233,6 +223,8 @@ namespace CraftLogs.BLL.Services
                         def++;
                         statPool--;
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -242,44 +234,34 @@ namespace CraftLogs.BLL.Services
 
         private CharacterClassEnum GetClass()
         {
-            int @class = random.Next(1, 4);
-            switch (@class)
+            int @class = _random.Next(1, 4);
+            return @class switch
             {
-                case 1:
-                    return CharacterClassEnum.Mage;
-                case 2:
-                    return CharacterClassEnum.Rogue;
-                case 3:
-                    return CharacterClassEnum.Warrior;
-                default:
-                    throw new Exception("ItemGeneratorService.cs/GetClass: invalid random integer.");
-            }
+                1 => CharacterClassEnum.Mage,
+                2 => CharacterClassEnum.Rogue,
+                3 => CharacterClassEnum.Warrior,
+                _ => throw new Exception("ItemGeneratorService.cs/GetClass: invalid random integer."),
+            };
         }
 
         private ItemRarityEnum GetRarity()
         {
-            int rare = random.Next(1, 11);
+            int rare = _random.Next(1, 11);
             return rare < 9 ? ItemRarityEnum.Common : ItemRarityEnum.Rare;
         }
 
         private ItemTypeEnum GetItemType()
         {
-            int type = random.Next(1, 6);
-            switch (type)
+            int type = _random.Next(1, 6);
+            return type switch
             {
-                case 1:
-                    return ItemTypeEnum.Armor;
-                case 2:
-                    return ItemTypeEnum.LHand;
-                case 3:
-                    return ItemTypeEnum.RHand;
-                case 4:
-                    return ItemTypeEnum.Neck;
-                case 5:
-                    return ItemTypeEnum.Ring;
-                default:
-                    throw new Exception("ItemGeneratorService.cs/GetItemType: invalid random integer.");
-            }
+                1 => ItemTypeEnum.Armor,
+                2 => ItemTypeEnum.LHand,
+                3 => ItemTypeEnum.RHand,
+                4 => ItemTypeEnum.Neck,
+                5 => ItemTypeEnum.Ring,
+                _ => throw new Exception("ItemGeneratorService.cs/GetItemType: invalid random integer."),
+            };
         }
 
         private int GetStatPool(int tier, ItemRarityEnum itemRarity)

@@ -24,11 +24,11 @@ namespace CraftLogs.BLL.Services
 {
     public class CombatService : ICombatService
     {
-        private ILocalDataRepository dataRepository;
+        private readonly ILocalDataRepository _dataRepository;
+        private readonly Settings settings;
+        private readonly Random random;
+        private readonly DateTime date;
 
-        private Settings settings;
-        private Random random;
-        private DateTime date;
         private CombatUnit Player1;
         private CombatUnit Player2;
         int def1;
@@ -39,8 +39,8 @@ namespace CraftLogs.BLL.Services
         public CombatService(ILocalDataRepository datarepository)
         {
             random = new Random();
-            dataRepository = datarepository;
-            settings = dataRepository.GetSettings();
+            _dataRepository = datarepository;
+            settings = _dataRepository.GetSettings();
             date = DateTime.Now;
         }
 

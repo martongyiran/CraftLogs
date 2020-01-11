@@ -15,7 +15,6 @@ limitations under the License.
 */
 
 using CraftLogs.BLL.Enums;
-using System;
 
 namespace CraftLogs.BLL.Models
 {

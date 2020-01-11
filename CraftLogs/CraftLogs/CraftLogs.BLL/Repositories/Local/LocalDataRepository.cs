@@ -94,10 +94,6 @@ namespace CraftLogs.BLL.Repositories.Local
             {
                 fileName = FileNames.HqProfile;
             }
-            else if (typeof(ProfileQr) == data.GetType())
-            {
-                fileName = FileNames.SpectatorProfile;
-            }
             else
             {
                 throw new NotImplementedException("Can't save " + data.GetType().ToString() + " type objects to file.");

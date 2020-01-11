@@ -228,15 +228,12 @@ namespace CraftLogs.BLL.Models
 
         private int GetHpValue()
         {
-            switch (Cast)
+            return Cast switch
             {
-                case CharacterClassEnum.Warrior:
-                    return 6;
-                case CharacterClassEnum.Mage:
-                    return 4;
-                default:
-                    return 5;
-            }
+                CharacterClassEnum.Warrior => 6,
+                CharacterClassEnum.Mage => 4,
+                _ => 5,
+            };
         }
 
         private int GetCrit()

@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace CraftLogs.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TradePage : ContentPage
+    public partial class TradePage
     {
         public TradePage()
         {

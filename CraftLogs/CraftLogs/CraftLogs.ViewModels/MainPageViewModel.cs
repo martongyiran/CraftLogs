@@ -81,6 +81,8 @@ namespace CraftLogs.ViewModels
                 case AppModeEnum.Hq:
                     await NavigateToWithoutHistory(NavigationLinks.HqPage);
                     break;
+                default:
+                    break;
             }
 
             IsBusy = false;

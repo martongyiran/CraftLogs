@@ -65,8 +65,6 @@ namespace CraftLogs.BLL.Models
         [JsonIgnore]
         public string InvString { get { return GetInvString(); } }
 
-        #region Ctor
-
         public Item()
         {
             Id = GenerateId();
@@ -91,10 +89,6 @@ namespace CraftLogs.BLL.Models
             Ad = ad;
             SetStats(statsFromQR);
         }
-
-        #endregion
-
-        #region Getters
 
         private string GenerateId()
         {
@@ -192,7 +186,7 @@ namespace CraftLogs.BLL.Models
             {
                 return Legends[Ad].Item1;
             }
-            else if(UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
+            else if (UsableFor == CharacterClassEnum.Mage && ItemType == ItemTypeEnum.Armor)
             {
                 return MageArmors[Ad].Item1;
             }
@@ -229,15 +223,15 @@ namespace CraftLogs.BLL.Models
 
         private string GetImage()
         {
-            if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
+            if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
             {
                 return Legends[Ad].Item2;
             }
-            else if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Neck)
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Neck)
             {
                 return Legends[Ad].Item2;
             }
-            else if(Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.RHand)
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.RHand)
             {
                 return Legends[Ad].Item2;
             }
@@ -275,10 +269,6 @@ namespace CraftLogs.BLL.Models
             }
             return "";
         }
-
-        #endregion
-
-        #region Overrides
 
         public override string ToString()
         {
@@ -464,7 +454,5 @@ namespace CraftLogs.BLL.Models
         new Tuple<string,string>("Ruszki vörös uralomköve","@drawable/neck_17.png"),
         new Tuple<string,string>("Kuni aranyos uralomköve","@drawable/neck_18.png")
         };
-
-        #endregion
     }
 }
