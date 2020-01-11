@@ -76,7 +76,7 @@ namespace CraftLogs.ViewModels
         {
             _itemGenerator = itemGeneratorService;
             _qRService = qrService;
-            Title = "HQ";
+            Title = Texts.SelectMode_Hq;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

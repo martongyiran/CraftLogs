@@ -26,7 +26,7 @@
                     FontAttributes="Bold"
                     FontSize="16"
                     HorizontalOptions="StartAndExpand"
-                    Text="{x:Static values:Texts.TeamRegisterName}"
+                    Text="{x:Static values:Texts.Register_TeamName}"
                     TextColor="Black" />
 
                 <Entry
@@ -38,7 +38,7 @@
                     FontAttributes="Bold"
                     FontSize="16"
                     HorizontalOptions="Start"
-                    Text="{x:Static values:Texts.TeamHouse}"
+                    Text="{x:Static values:Texts.Register_House}"
                     TextColor="Black" />
 
                 <Picker
@@ -51,7 +51,7 @@
                     Margin="5,0,0,0"
                     FontAttributes="Bold"
                     FontSize="16"
-                    Text="{x:Static values:Texts.TeamClass}"
+                    Text="{x:Static values:Texts.Register_Class}"
                     TextColor="Black" />
 
                 <Picker

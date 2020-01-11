@@ -123,7 +123,7 @@
                         Clicked="Buy_Clicked"
                         Font="20"
                         Style="{StaticResource WhiteButton}"
-                        Text="{x:Static values:Texts.Buy}"
+                        Text="{x:Static values:Texts.Shop_Checkout}"
                         TextColor="Black" />
                     <Button
                         Clicked="Handle_Clicked"
@@ -181,13 +181,13 @@
                     Clicked="EmptyButton_Clicked"
                     Font="15"
                     HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.EmptyCart}"
+                    Text="{x:Static values:Texts.Shop_EmptyCart}"
                     TextColor="Black" />
                 <Button
                     Clicked="CheckOutButton_Clicked"
                     Font="15"
                     HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.Checkout}"
+                    Text="{x:Static values:Texts.Shop_Checkout}"
                     TextColor="Black" />
             </StackLayout>
             <ListView

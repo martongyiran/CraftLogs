@@ -121,7 +121,7 @@ namespace CraftLogs.ViewModels
             ILoggerService loggerService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = Texts.InventoryPage;
+            Title = Texts.Inventory_Title;
             _logger = loggerService;
         }
 
@@ -168,7 +168,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ExecuteSellCommandAsync()
         {
-            var response = await DialogService.DisplayAlertAsync(Texts.Sell, Texts.DialogSell, Texts.Yes, Texts.No);
+            var response = await DialogService.DisplayAlertAsync(Texts.Inventory_Sell, Texts.Inventory_SellDialog, Texts.Yes, Texts.No);
             if (response)
             {
                 var profile = DataRepository.GetTeamProfile();
@@ -219,7 +219,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantUse, Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Inventory_CantUse, Texts.Ok);
             }
         }
     }

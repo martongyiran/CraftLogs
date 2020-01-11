@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Arena_CantFight" xml:space="preserve">
+    <value>Saját magadat / a házadból más csapatokat nem támadhatod meg!</value>
+  </data>
+  <data name="Arena_Details" xml:space="preserve">
+    <value>Csapat adatai</value>
+  </data>
+  <data name="Arena_Scanned" xml:space="preserve">
+    <value>A csapat adatai sikeresen beolvasva!</value>
+  </data>
+  <data name="Arena_Title" xml:space="preserve">
+    <value>Aréna</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="CraftLogs" xml:space="preserve">
+    <value>CraftLogs</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="Handler_ArenaLose" xml:space="preserve">
+    <value>Vesztettél az arénában!</value>
+  </data>
+  <data name="Handler_ArenaWin" xml:space="preserve">
+    <value>Nyertél az arénában!</value>
+  </data>
+  <data name="Handler_Error" xml:space="preserve">
+    <value>Ismeretlen QR!</value>
+  </data>
+  <data name="Handler_ErrorTitle" xml:space="preserve">
+    <value>QR hiba!</value>
+  </data>
+  <data name="Handler_NotEnoughMoney" xml:space="preserve">
+    <value>Nem volt elég pénzed a vásárlásra!</value>
+  </data>
+  <data name="Handler_QuestRewardTitle" xml:space="preserve">
+    <value>Jutalom</value>
+  </data>
+  <data name="Handler_ShopListNotOk" xml:space="preserve">
+    <value>Sikertelen vásárlás!</value>
+  </data>
+  <data name="Handler_ShopListOkTitle" xml:space="preserve">
+    <value>Sikeres vásárlás!</value>
+  </data>
+  <data name="Handler_TradeInProgress" xml:space="preserve">
+    <value>A csere oldalon folytathatod a kereskedelmet.</value>
+  </data>
+  <data name="House1" xml:space="preserve">
+    <value>Doctor Who</value>
+  </data>
+  <data name="House2" xml:space="preserve">
+    <value>Pokémon</value>
+  </data>
+  <data name="House3" xml:space="preserve">
+    <value>Marvel</value>
+  </data>
+  <data name="House4" xml:space="preserve">
+    <value>Treasure Planet</value>
+  </data>
+  <data name="House5" xml:space="preserve">
+    <value>Star Wars</value>
+  </data>
+  <data name="House6" xml:space="preserve">
+    <value>Harry Potter</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Inventory_CantUse" xml:space="preserve">
+    <value>Ezt a tárgyat nem használhatod!</value>
+  </data>
+  <data name="Inventory_IsEmpty" xml:space="preserve">
+    <value>Üres</value>
+  </data>
+  <data name="Inventory_Sell" xml:space="preserve">
+    <value>Eladás</value>
+  </data>
+  <data name="Inventory_SellDialog" xml:space="preserve">
+    <value>Biztos, hogy el akarod adni ezt a tárgyat?</value>
+  </data>
+  <data name="Inventory_Title" xml:space="preserve">
+    <value>Hátizsák</value>
+  </data>
+  <data name="Inventory_Use" xml:space="preserve">
+    <value>Használ</value>
+  </data>
+  <data name="Logs_IsEmpty" xml:space="preserve">
+    <value>Még nem találhatóak bejegyzések!</value>
+  </data>
+  <data name="Logs_LoadMore" xml:space="preserve">
+    <value>Több betöltése</value>
+  </data>
+  <data name="Logs_Title" xml:space="preserve">
+    <value>Napló</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nem</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Profile_ArenaDialog" xml:space="preserve">
+    <value>Biztos, hogy harcolsz az arénában?</value>
+  </data>
+  <data name="Profile_CantFightNow" xml:space="preserve">
+    <value>Még pihenned kell az előző harc után! Legközelebb ekkor vonulhatsz csatába: </value>
+  </data>
+  <data name="Profile_CritR" xml:space="preserve">
+    <value>CritR: {0}%</value>
+  </data>
+  <data name="Profile_Dodge" xml:space="preserve">
+    <value>Dodge: {0}%</value>
+  </data>
+  <data name="Profile_Info" xml:space="preserve">
+    <value>Egy stamina == {0} HP
+Egy Def 0.33%-al csökkenti a bekapott sebzést.
+Crit Rate és Dodge maximum 60% lehet.
+A Crit Rate a kritikus ütés esélye, ami duplán sebez.
+A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
+1 ATK == random.Next(0,3) sebzés.</value>
+  </data>
+  <data name="Profile_NoArmor" xml:space="preserve">
+    <value>Nincs páncél.</value>
+  </data>
+  <data name="Profile_NoNeck" xml:space="preserve">
+    <value>Nincs nyaklánc.</value>
+  </data>
+  <data name="Profile_NoRing" xml:space="preserve">
+    <value>Nincs gyűrű.</value>
+  </data>
+  <data name="Profile_NoWeapon" xml:space="preserve">
+    <value>Nincs fegyver.</value>
+  </data>
+  <data name="Profile_Title" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Profile_TradeInProgress" xml:space="preserve">
+    <value>Van már egy folyamatban lévő cseréd!</value>
+  </data>
+  <data name="QrScanner_Title" xml:space="preserve">
+    <value>QR kód leolvasása</value>
+  </data>
+  <data name="Quest_CantScoreError" xml:space="preserve">
+    <value>Most nem pontozhatsz!</value>
+  </data>
+  <data name="Quest_Result" xml:space="preserve">
+    <value>Eredmény</value>
+  </data>
+  <data name="Quest_ResultDialog" xml:space="preserve">
+    <value>Biztos, hogy {0} pontot adsz a csapatnak?</value>
+  </data>
+  <data name="Quest_Title" xml:space="preserve">
+    <value>Pontozás</value>
+  </data>
+  <data name="Rating_Subtitle" xml:space="preserve">
+    <value>A csapat értékelje az állomást az alapján, hogy mennyire tetszett nekik:</value>
+  </data>
+  <data name="Rating_Title" xml:space="preserve">
+    <value>Értékelés</value>
+  </data>
+  <data name="Register_Class" xml:space="preserve">
+    <value>Kaszt választása:</value>
+  </data>
+  <data name="Register_House" xml:space="preserve">
+    <value>Ház választása:</value>
+  </data>
+  <data name="Register_MissingError" xml:space="preserve">
+    <value>Kérlek írj be valamilyen nevet és válassz hőst!</value>
+  </data>
+  <data name="Register_SaveDialog" xml:space="preserve">
+    <value>Biztos, hogy elmented ezt a nevet? A későbbiekben nem módosíthatod!</value>
+  </data>
+  <data name="Register_TeamName" xml:space="preserve">
+    <value>Csapat neve:</value>
+  </data>
+  <data name="Register_Title" xml:space="preserve">
+    <value>Profil létrehozása</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="SelectMode_Arena" xml:space="preserve">
+    <value>Aréna</value>
+  </data>
+  <data name="SelectMode_Hq" xml:space="preserve">
+    <value>HQ</value>
+  </data>
+  <data name="SelectMode_Quest" xml:space="preserve">
+    <value>Állomás</value>
+  </data>
+  <data name="SelectMode_Shop" xml:space="preserve">
+    <value>Bolt</value>
+  </data>
+  <data name="SelectMode_Subtitle" xml:space="preserve">
+    <value>Kérlek válaszd ki, milyen módban indítod az alkalmazást!</value>
+  </data>
+  <data name="SelectMode_Team" xml:space="preserve">
+    <value>Csapat</value>
+  </data>
+  <data name="Settings_Craft1MinPoint" xml:space="preserve">
+    <value>Craft 1 Minimum Pont: </value>
+  </data>
+  <data name="Settings_Craft1Start" xml:space="preserve">
+    <value>Craft 1 kezdete (óra 0-24): </value>
+  </data>
+  <data name="Settings_Craft2MinPoint" xml:space="preserve">
+    <value>Craft 2 Minimum Pont: </value>
+  </data>
+  <data name="Settings_Craft2Start" xml:space="preserve">
+    <value>Craft 2 kezdete (óra 0-24): </value>
+  </data>
+  <data name="Settings_CraftDay" xml:space="preserve">
+    <value>Craft nap: </value>
+  </data>
+  <data name="Settings_DeleteProfile" xml:space="preserve">
+    <value>Profil törlése</value>
+  </data>
+  <data name="Settings_DeleteProfileDialog" xml:space="preserve">
+    <value>Biztos, hogy törlöd a profilodat?</value>
+  </data>
+  <data name="Settings_GodMode" xml:space="preserve">
+    <value>Isteni üzemmód</value>
+  </data>
+  <data name="Settings_QuestAverage" xml:space="preserve">
+    <value>Állomás átlag</value>
+  </data>
+  <data name="Settings_ResetData" xml:space="preserve">
+    <value>Biztos, hogy alaphelyzetbe állítod a beállításokat?</value>
+  </data>
+  <data name="Settings_SuccessfulSave" xml:space="preserve">
+    <value>A beállítások sikeresen elmentve!</value>
+  </data>
+  <data name="Settings_Sum" xml:space="preserve">
+    <value>Összegzés</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="Settings_ToDefault" xml:space="preserve">
+    <value>Alaphelyzet</value>
+  </data>
+  <data name="Settings_WrongPasswor" xml:space="preserve">
+    <value>Hibás jelszó!</value>
+  </data>
+  <data name="Shop_CartIsEmptyError" xml:space="preserve">
+    <value>Üres a kosarad, kérlek vegyél valamit!</value>
+  </data>
+  <data name="Shop_Checkout" xml:space="preserve">
+    <value>Vásárlás</value>
+  </data>
+  <data name="Shop_CheckoutDialog" xml:space="preserve">
+    <value>Megveszed az alábbi tárgyakat? Ellenőrizd, hogy van e elég pénzed!</value>
+  </data>
+  <data name="Shop_EmptyCart" xml:space="preserve">
+    <value>Kosár ürítése</value>
+  </data>
+  <data name="Shop_ItemLimit" xml:space="preserve">
+    <value>Maximum 5 tárgyat vehetsz egyszerre!</value>
+  </data>
+  <data name="Shop_RefreshAt" xml:space="preserve">
+    <value>Frissül: </value>
+  </data>
+  <data name="Shop_Sum" xml:space="preserve">
+    <value>Összesen: {0}$</value>
+  </data>
+  <data name="Shop_Title" xml:space="preserve">
+    <value>Tesco</value>
+  </data>
+  <data name="Shop_ToCart" xml:space="preserve">
+    <value>Kosárba</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Támogatás</value>
+  </data>
+  <data name="Trade_Dialog" xml:space="preserve">
+    <value>Biztos ezeket a tárgyakat akarod elcserélni?</value>
+  </data>
+  <data name="Trade_ItemLimit" xml:space="preserve">
+    <value>Maximum 5 tárgyat adhatsz egyszerre!</value>
+  </data>
+  <data name="Trade_NotEnoughMoney" xml:space="preserve">
+    <value>Nincs ennyi pénzed!</value>
+  </data>
+  <data name="Trade_Title" xml:space="preserve">
+    <value>Csere</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Igen</value>
+  </data>
+</root>

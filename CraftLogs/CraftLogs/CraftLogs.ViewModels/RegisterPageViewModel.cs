@@ -113,7 +113,7 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = Texts.RegisterTitle;
+            Title = Texts.Register_Title;
         }
 
         public override void OnNavigatingTo(INavigationParameters parameters)
@@ -127,7 +127,7 @@ namespace CraftLogs.ViewModels
         {
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrEmpty(_selectedImage))
             {
-                bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.RegisterNameSave, Texts.Save, Texts.Cancel);
+                bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.Register_SaveDialog, Texts.Save, Texts.Cancel);
                 if (sure)
                 {
                     _settings.AppMode = AppModeEnum.Team;
@@ -140,7 +140,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.RegisterMissing, Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Register_MissingError, Texts.Ok);
             }
         }
 
@@ -180,23 +180,20 @@ namespace CraftLogs.ViewModels
 
         private HouseEnum NameToEnum(string name)
         {
-            switch (name)
-            {
-                case Texts.House1:
-                    return HouseEnum.House1;
-                case Texts.House2:
-                    return HouseEnum.House2;
-                case Texts.House3:
-                    return HouseEnum.House3;
-                case Texts.House4:
-                    return HouseEnum.House4;
-                case Texts.House5:
-                    return HouseEnum.House5;
-                case Texts.House6:
-                    return HouseEnum.House6;
-                default:
-                    return HouseEnum.House1;
-            }
+            if (name.Equals(Texts.House1))
+                return HouseEnum.House1;
+            else if(name.Equals(Texts.House2))
+                return HouseEnum.House2;
+            else if (name.Equals(Texts.House3))
+                return HouseEnum.House3;
+            else if (name.Equals(Texts.House4))
+                return HouseEnum.House4;
+            else if (name.Equals(Texts.House5))
+                return HouseEnum.House5;
+            else if (name.Equals(Texts.House6))
+                return HouseEnum.House6;
+            else
+                return HouseEnum.House1;
         }
 
         private void SetCastPrefix()

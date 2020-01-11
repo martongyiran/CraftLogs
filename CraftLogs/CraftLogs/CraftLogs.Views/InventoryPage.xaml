@@ -103,13 +103,13 @@
                         Command="{Binding UseCommand}"
                         Font="20"
                         Style="{StaticResource WhiteButton}"
-                        Text="{x:Static values:Texts.Use}"
+                        Text="{x:Static values:Texts.Inventory_Use}"
                         TextColor="Black" />
                     <Button
                         Command="{Binding SellCommand}"
                         Font="20"
                         Style="{StaticResource WhiteButton}"
-                        Text="{x:Static values:Texts.Sell}"
+                        Text="{x:Static values:Texts.Inventory_Sell}"
                         TextColor="Black" />
                     <Button
                         Clicked="Handle_Clicked"
@@ -124,7 +124,7 @@
                 FontSize="16"
                 HorizontalOptions="CenterAndExpand"
                 IsVisible="{Binding NoItem}"
-                Text="{x:Static values:Texts.NoItems}"
+                Text="{x:Static values:Texts.Inventory_IsEmpty}"
                 TextColor="Black"
                 VerticalOptions="CenterAndExpand" />
         </Grid>

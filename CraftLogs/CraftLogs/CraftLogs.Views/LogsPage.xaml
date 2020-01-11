@@ -24,7 +24,7 @@
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FooterIsVisible}"
                     Style="{StaticResource WhiteButton}"
-                    Text="{x:Static values:Texts.LoadMore}"
+                    Text="{x:Static values:Texts.Logs_LoadMore}"
                     VerticalOptions="CenterAndExpand" />
             </ListView.Footer>
             <ListView.ItemTemplate>
@@ -172,7 +172,7 @@
             Font="15"
             HorizontalOptions="CenterAndExpand"
             IsVisible="{Binding HeaderIsVisible}"
-            Text="{x:Static values:Texts.EmptyLogs}"
+            Text="{x:Static values:Texts.Logs_IsEmpty}"
             TextColor="Black"
             VerticalOptions="CenterAndExpand" />
     </Grid>

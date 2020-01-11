@@ -57,7 +57,7 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = Texts.LogsPage;
+            Title = Texts.Logs_Title;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

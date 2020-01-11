@@ -86,7 +86,7 @@ namespace CraftLogs.ViewModels
         {
             _qRService = qrService;
             _itemGeneratorService = itemgeneratorService;
-            Title = Texts.QuestPage;
+            Title = Texts.Quest_Title;
         }
         
         public override void OnNavigatingTo(INavigationParameters parameters)
@@ -204,7 +204,7 @@ namespace CraftLogs.ViewModels
         {
             if (Score != 0 && !string.IsNullOrEmpty(From) && !string.IsNullOrWhiteSpace(From))
             {
-                var res = await DialogService.DisplayAlertAsync(Texts.Result, string.Format(Texts.ResultDialog, Score), Texts.Yes, Texts.No);
+                var res = await DialogService.DisplayAlertAsync(Texts.Quest_Result, string.Format(Texts.Quest_ResultDialog, Score), Texts.Yes, Texts.No);
                 if (res)
                 {
                     int usablePoints = Score;
@@ -254,7 +254,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantScore, Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Quest_CantScoreError, Texts.Ok);
             }
 
         }

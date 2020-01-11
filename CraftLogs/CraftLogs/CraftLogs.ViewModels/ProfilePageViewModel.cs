@@ -173,7 +173,7 @@ namespace CraftLogs.ViewModels
             : base(navigationService, dataRepository, dialogService)
         {
             _qRService = qrService;
-            Title = Texts.ProfilePage;
+            Title = Texts.Profile_Title;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -234,8 +234,8 @@ namespace CraftLogs.ViewModels
             StaminaSum = "STM: " + bstamina;
 
             HpSum = "HP: " + bhp;
-            CritRSum = "CritR: " + bcr + "%";
-            DodgeSum = "Dodge: " + bdodge + "%";
+            CritRSum = string.Format(Texts.Profile_CritR, bcr);
+            DodgeSum = string.Format(Texts.Profile_Dodge, bdodge);
 
             _combatUnit = new CombatUnit(Profile.Name, batk, bdef, bcr, bdodge, bhp, Profile.House.ToString(), Profile.Image);
         }
@@ -243,19 +243,19 @@ namespace CraftLogs.ViewModels
         private void SetItems()
         {
             var armor = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).FirstOrDefault();
-            ArmorItem = new Tuple<string, string>(armor != null ? armor.Image : "@drawable/chest.png", armor != null ? armor.SimpleString : "Nincs páncél.");
+            ArmorItem = new Tuple<string, string>(armor != null ? armor.Image : "@drawable/chest.png", armor != null ? armor.SimpleString : Texts.Profile_NoArmor);
 
             var ring = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).FirstOrDefault();
-            RingItem = new Tuple<string, string>(ring != null ? ring.Image : "@drawable/ring.png", ring != null ? ring.SimpleString : "Nincs gyűrű.");
+            RingItem = new Tuple<string, string>(ring != null ? ring.Image : "@drawable/ring.png", ring != null ? ring.SimpleString : Texts.Profile_NoRing);
 
             var neck = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).FirstOrDefault();
-            NeckItem = new Tuple<string, string>(neck != null ? neck.Image : "@drawable/neck.png", neck != null ? neck.SimpleString : "Nincs nyaklánc.");
+            NeckItem = new Tuple<string, string>(neck != null ? neck.Image : "@drawable/neck.png", neck != null ? neck.SimpleString : Texts.Profile_NoNeck);
 
             var lhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).FirstOrDefault();
-            LHandItem = new Tuple<string, string>(lhand != null ? lhand.Image : "@drawable/weapon.png", lhand != null ? lhand.SimpleString : "Nincs fegyver.");
+            LHandItem = new Tuple<string, string>(lhand != null ? lhand.Image : "@drawable/weapon.png", lhand != null ? lhand.SimpleString : Texts.Profile_NoWeapon);
 
             var rhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).FirstOrDefault();
-            RHandItem = new Tuple<string, string>(rhand != null ? rhand.Image : "@drawable/weapon.png", rhand != null ? rhand.SimpleString : "Nincs fegyver.");
+            RHandItem = new Tuple<string, string>(rhand != null ? rhand.Image : "@drawable/weapon.png", rhand != null ? rhand.SimpleString : Texts.Profile_NoWeapon);
         }
 
         private async Task ExecuteShowProfileCommandAsync()
@@ -274,7 +274,7 @@ namespace CraftLogs.ViewModels
         private async Task ExecuteGetArenaQRCommandAsync()
         {
 #if DEV
-            var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+            var res = await DialogService.DisplayAlertAsync(Texts.Arena_Title, Texts.Profile_ArenaDialog, Texts.Yes, Texts.No);
             if (res)
             {
                 var qrCode = _qRService.CreateQR(_combatUnit);
@@ -293,7 +293,7 @@ namespace CraftLogs.ViewModels
 
             if(_logs.Count == 0)
             {
-                var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+                var res = await DialogService.DisplayAlertAsync(Texts.Arena_Title, Texts.Profile_ArenaDialog, Texts.Yes, Texts.No);
                 if (res)
                 {
                     var qrCode = _qRService.CreateQR(_combatUnit);
@@ -312,11 +312,11 @@ namespace CraftLogs.ViewModels
 
                 if (arenas != null && arenas.Date.AddMinutes(15) > DateTime.Now)
                 {
-                    await DialogService.DisplayAlertAsync(Texts.Error, Texts.CantFightYet + arenas.Date.AddMinutes(15), Texts.Sadface);
+                    await DialogService.DisplayAlertAsync(Texts.Error, Texts.Profile_CantFightNow + arenas.Date.AddMinutes(15), Texts.Ok);
                 }
                 else
                 {
-                    var res = await DialogService.DisplayAlertAsync(Texts.ArenaTitle, Texts.FightQuestion, Texts.Yes, Texts.No);
+                    var res = await DialogService.DisplayAlertAsync(Texts.Arena_Title, Texts.Profile_ArenaDialog, Texts.Yes, Texts.No);
                     if (res)
                     {
                         var qrCode = _qRService.CreateQR(_combatUnit);
@@ -405,7 +405,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ExecuteShowInfoCommandAsync()
         {
-            await DialogService.DisplayAlertAsync("Info", "Egy stamina == " + Profile.HpValue + " HP\nEgy Def 0.33%-al csökkenti a bekapott sebzést.\nCrit Rate és Dodge maximum 60% lehet.\nA Crit Rate a kritikus ütés esélye, ami duplán sebez.\nA Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.\n 1 ATK == random.Next(0,3) sebzés.", "Cool");
+            await DialogService.DisplayAlertAsync(Texts.Info, string.Format(Texts.Profile_Info, Profile.HpValue), Texts.Ok);
         }
     }
 }

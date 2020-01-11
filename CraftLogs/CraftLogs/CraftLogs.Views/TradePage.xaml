@@ -136,7 +136,7 @@
                     Clicked="EmptyButton_Clicked"
                     Font="15"
                     HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.EmptyCart}"
+                    Text="{x:Static values:Texts.Shop_EmptyCart}"
                     TextColor="Black" />
                 <Button
                     Clicked="TradeButton_Clicked"

@@ -1,25 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-             x:Class="CraftLogs.Views.MainPage"
-             BackgroundColor="{StaticResource BackgroundColorLight}"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="CraftLogs.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColorLight}">
 
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <Grid
+        HorizontalOptions="FillAndExpand"
+        IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+        VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        
-        <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
+
+        <ScrollView
+            Grid.Row="0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
             <StackLayout>
-                <Button Text="QR olvasás"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
-                <Button Text="Godmode"  Style="{StaticResource WhiteButton}" IsEnabled="False"/>
-                <Button Text="{x:Static values:Texts.SettingsPage}" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource WhiteButton}" />
+                <Button
+                    IsEnabled="False"
+                    Style="{StaticResource WhiteButton}"
+                    Text="QR olvasás" />
+                <Button
+                    IsEnabled="False"
+                    Style="{StaticResource WhiteButton}"
+                    Text="Godmode" />
+                <Button
+                    Command="{Binding NavigateToSettingsCommand}"
+                    Style="{StaticResource WhiteButton}"
+                    Text="{x:Static values:Texts.Settings_Title}" />
             </StackLayout>
         </ScrollView>
 
-        <Label Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="{Binding Version}" FontSize="15" TextColor="Black" Margin="5"/>
+        <Label
+            Grid.Row="1"
+            Margin="5"
+            FontSize="15"
+            HorizontalOptions="EndAndExpand"
+            Text="{Binding Version}"
+            TextColor="Black"
+            VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

@@ -149,7 +149,7 @@ namespace CraftLogs.ViewModels
             : base(navigationService, dataRepository, dialogService)
         {
             _qRService = qrService;
-            Title = Texts.TradePage;
+            Title = Texts.Trade_Title;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -219,7 +219,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync("", "Maximum 5 tárgyat adhatsz egyszerre!", Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Trade_ItemLimit, Texts.Ok);
             }
         }
 
@@ -250,14 +250,14 @@ namespace CraftLogs.ViewModels
 
         private async Task ExecuteCheckOutCommandAscync()
         {
-            var response = await DialogService.DisplayAlertAsync(Texts.Checkout, "Biztos ezeket a tárgyakat akarod elcserélni?", Texts.TradePage, Texts.Cancel);
+            var response = await DialogService.DisplayAlertAsync(Texts.Trade_Title, Texts.Trade_Dialog, Texts.Trade_Title, Texts.Cancel);
             if (response)
             {
                 if (_teamProfile.TradeStatus == TradeStatusEnum.Finished)
                 {
                     if(Money > _teamProfile.Money)
                     {
-                        await DialogService.DisplayAlertAsync(Texts.Error, "Nincs ennyi pénzed!", Texts.Sadface);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Trade_NotEnoughMoney, Texts.Ok);
                     }
                     else
                     {
@@ -290,7 +290,7 @@ namespace CraftLogs.ViewModels
                 {
                     if (Money > _teamProfile.Money)
                     {
-                        await DialogService.DisplayAlertAsync(Texts.Error, "Nincs ennyi pénzed!", Texts.Sadface);
+                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Trade_NotEnoughMoney, Texts.Ok);
                     }
                     else
                     {

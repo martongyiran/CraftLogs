@@ -75,7 +75,7 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = Texts.SettingsPage;
+            Title = Texts.Settings_Title;
         }
 
         public override void OnNavigatingTo(INavigationParameters parameters)
@@ -99,7 +99,7 @@ namespace CraftLogs.ViewModels
 
             if (IsNpc)
             {
-                await DialogService.DisplayAlertAsync("", "Sikeres mentés.", "Cool");
+                await DialogService.DisplayAlertAsync("", Texts.Settings_SuccessfulSave, Texts.Ok);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ResetSettingsAsync()
         {
-            var res = await DialogService.DisplayAlertAsync("", Texts.ResetData, Texts.Yes, Texts.No);
+            var res = await DialogService.DisplayAlertAsync("", Texts.Settings_ResetData, Texts.Yes, Texts.No);
             if (res)
             {
                 var mode = UserSettings.AppMode;
@@ -123,7 +123,7 @@ namespace CraftLogs.ViewModels
 
         private async Task DeleteProfileAsync()
         {
-            var res = await DialogService.DisplayAlertAsync("", Texts.DeleteProfileQuestion, Texts.Yes, Texts.No);
+            var res = await DialogService.DisplayAlertAsync(Texts.Settings_DeleteProfile, Texts.Settings_DeleteProfileDialog, Texts.Yes, Texts.No);
             if (res)
             {
                 IsBusy = true;
@@ -144,13 +144,13 @@ namespace CraftLogs.ViewModels
 #if DEV
             await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
 #else
-        if(Pw == "123467")
+        if(Pw == "123456")
             {
                 await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, "Hibás jelszó!", Texts.No);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Settings_WrongPasswor, Texts.Ok);
             }
 #endif
         }

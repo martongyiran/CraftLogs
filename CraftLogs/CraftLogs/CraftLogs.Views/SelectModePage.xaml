@@ -14,24 +14,24 @@
             FontSize="15"
             HorizontalOptions="CenterAndExpand"
             HorizontalTextAlignment="Center"
-            Text="{x:Static values:Texts.ChooseDialog}"
+            Text="{x:Static values:Texts.SelectMode_Subtitle}"
             TextColor="Black"
             VerticalOptions="CenterAndExpand" />
         <Button
             Command="{Binding SetModeToTeamCommand}"
             Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.TeamMode}" />
+            Text="{x:Static values:Texts.SelectMode_Team}" />
         <Button
             Command="{Binding SetModeToShopCommand}"
             Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.ShopMode}" />
+            Text="{x:Static values:Texts.SelectMode_Shop}" />
         <Button
             Command="{Binding SetModeToArenaCommand}"
             Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.ArenaMode}" />
+            Text="{x:Static values:Texts.SelectMode_Arena}" />
         <Button
             Command="{Binding SetModeToHqCommand}"
             Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.HqMode}" />
+            Text="{x:Static values:Texts.SelectMode_Hq}" />
     </StackLayout>
 </ContentPage>

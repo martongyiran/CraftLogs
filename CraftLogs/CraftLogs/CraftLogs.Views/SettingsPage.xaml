@@ -33,7 +33,7 @@
                             VerticalOptions="Center">
                             <Label
                                 FontSize="16"
-                                Text="{x:Static values:Texts.CraftDay}"
+                                Text="{x:Static values:Texts.Settings_CraftDay}"
                                 TextColor="Black" />
                             <Picker
                                 x:Name="dayPicker"
@@ -45,7 +45,7 @@
 
                             <Label
                                 FontSize="16"
-                                Text="{x:Static values:Texts.Craft1Start}"
+                                Text="{x:Static values:Texts.Settings_Craft1Start}"
                                 TextColor="Black" />
                             <Picker
                                 x:Name="c1startPicker"
@@ -56,7 +56,7 @@
 
                             <Label
                                 FontSize="16"
-                                Text="{x:Static values:Texts.Craft2Start}"
+                                Text="{x:Static values:Texts.Settings_Craft2Start}"
                                 TextColor="Black" />
                             <Picker
                                 x:Name="c2startPicker"
@@ -67,7 +67,7 @@
 
                             <Label
                                 FontSize="16"
-                                Text="{x:Static values:Texts.Craft1MinPont}"
+                                Text="{x:Static values:Texts.Settings_Craft1MinPoint}"
                                 TextColor="Black" />
                             <Picker
                                 x:Name="c1pointPicker"
@@ -78,7 +78,7 @@
 
                             <Label
                                 FontSize="16"
-                                Text="{x:Static values:Texts.Craft2MinPont}"
+                                Text="{x:Static values:Texts.Settings_Craft2MinPoint}"
                                 TextColor="Black" />
                             <Picker
                                 x:Name="c2pointPicker"
@@ -92,11 +92,11 @@
                             Command="{Binding ResetSettingsCommand}"
                             IsVisible="{Binding IsNpc}"
                             Style="{StaticResource WhiteButton}"
-                            Text="{x:Static values:Texts.ToDefault}" />
+                            Text="{x:Static values:Texts.Settings_ToDefault}" />
                         <Button
                             Command="{Binding DeleteProfileCommand}"
                             Style="{StaticResource WhiteButton}"
-                            Text="{x:Static values:Texts.DeleteProfile}" />
+                            Text="{x:Static values:Texts.Settings_DeleteProfile}" />
                         <Button
                             Command="{Binding SupportCommand}"
                             Style="{StaticResource WhiteButton}"
@@ -117,7 +117,7 @@
                             Command="{Binding SaveSettingsCommand}"
                             IsVisible="{Binding IsNpc}"
                             Style="{StaticResource WhiteButton}"
-                            Text="{x:Static values:Texts.SaveSettings}" />
+                            Text="{x:Static values:Texts.Save}" />
 
                         <Label
                             Margin="5"

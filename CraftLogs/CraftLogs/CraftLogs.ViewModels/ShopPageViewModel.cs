@@ -45,7 +45,7 @@ namespace CraftLogs.ViewModels
         private string _nextRefresh;
         private bool _noItem;
         private Item _activeItem;
-        private string _cartValue = "Összesen: 0$";
+        private string _cartValue = string.Format(Texts.Shop_Sum, "0");
 
         public ObservableCollection<Item> Items
         {
@@ -151,7 +151,7 @@ namespace CraftLogs.ViewModels
             _itemGenerator = itemGeneratorService;
             _qRService = qrService;
 
-            Title = Texts.ShopPageTitle;
+            Title = Texts.Shop_Title;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -222,7 +222,7 @@ namespace CraftLogs.ViewModels
             }
 
             Items = Items.Count == 0 ? _shopProfile.ItemStock : Items;
-            NextRefresh = "Frissül: " + _shopProfile.LastRefresh.AddHours(1).ToShortTimeString();
+            NextRefresh = Texts.Shop_RefreshAt + _shopProfile.LastRefresh.AddHours(1).ToShortTimeString();
             FilterList();
         }
 
@@ -270,7 +270,7 @@ namespace CraftLogs.ViewModels
                 allValue += item.Value;
             }
 
-            CartValue = "Összesen: " + allValue + "$";
+            CartValue = string.Format(Texts.Shop_Sum, allValue);
         }
 
         private async Task ExecuteBuyCommandAsync()
@@ -294,11 +294,11 @@ namespace CraftLogs.ViewModels
                     allValue += item.Value;
                 }
 
-                CartValue = "Összesen: " + allValue + "$";
+                CartValue = string.Format(Texts.Shop_Sum, allValue);
             }
             else
             {
-                await DialogService.DisplayAlertAsync("", Texts.ItemLimit, Texts.Ok);
+                await DialogService.DisplayAlertAsync("", Texts.Shop_ItemLimit, Texts.Ok);
             }
         }
 
@@ -309,14 +309,14 @@ namespace CraftLogs.ViewModels
             ShoppingCart = new ObservableCollection<Item>();
             Items = DataRepository.GetShopProfile().ItemStock;
             FilterList();
-            CartValue = "Összesen: 0$";
+            CartValue = string.Format(Texts.Shop_Sum, "0");
         }
 
         private async Task ExecuteCheckOutCommand()
         {
             if(ShoppingCart.Count != 0)
             {
-                var response = await DialogService.DisplayAlertAsync(Texts.Checkout, Texts.CheckoutQuestion, Texts.Checkout, Texts.Cancel);
+                var response = await DialogService.DisplayAlertAsync(Texts.Shop_Checkout, Texts.Shop_CheckoutDialog, Texts.Shop_Checkout, Texts.Cancel);
                 if (response)
                 {
                     int allValue = 0;
@@ -338,13 +338,13 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
+                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Shop_CartIsEmptyError, Texts.Ok);
             }
         }
 
         private async Task ExecuteDispalyCartIsEmptyCommandAsync()
         {
-            await DialogService.DisplayAlertAsync(Texts.Error, Texts.YourCartIsEmpty, Texts.Ok);
+            await DialogService.DisplayAlertAsync(Texts.Error, Texts.Shop_CartIsEmptyError, Texts.Ok);
         }
     }
 }

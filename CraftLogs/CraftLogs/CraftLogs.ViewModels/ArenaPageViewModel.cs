@@ -60,7 +60,7 @@ namespace CraftLogs.ViewModels
         {
             _combatService = combatservice;
             _qRService = qrService;
-            Title = Texts.ArenaTitle;
+            Title = Texts.Arena_Title;
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -128,7 +128,7 @@ namespace CraftLogs.ViewModels
                     _arenaProfile.Attacker = null;
 
                     DataRepository.SaveToFile(_arenaProfile);
-                    await DialogService.DisplayAlertAsync(Texts.Oupsie, Texts.CantFight, Texts.Sadface);
+                    await DialogService.DisplayAlertAsync(Texts.Error, Texts.Arena_CantFight, Texts.Ok);
                 }
             }
             

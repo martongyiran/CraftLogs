@@ -44,12 +44,12 @@ namespace CraftLogs.ViewModels
         {
             IsBusy = true;
 #if DEV
-            Title = Texts.MainPage + " DEV";
+            Title = Texts.CraftLogs + " DEV";
             IsDevMode = true;
 #elif STG
-            Title = Texts.MainPage + " STG";
+            Title = Texts.CraftLogs + " STG";
 #elif PRD
-            Title = Texts.MainPage;
+            Title = Texts.CraftLogs;
 #endif
 
         }

@@ -32,7 +32,7 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = "QR kód leolvasása";
+            Title = Texts.QrScanner_Title;
         }
 
         private async Task ExecuteGetResultCommandAsync(string? text)
