@@ -27,15 +27,8 @@ namespace CraftLogs.ViewModels
     {
         private int _numberOfVisibleLogs = 20;
         private bool _footerIsVisible;
-        private bool _headerIsVisible;
         private ObservableCollection<Log> _logs;
         private ObservableCollection<Log> _filteredLogsList;
-
-        public bool HeaderIsVisible
-        {
-            get => _headerIsVisible;
-            set => SetProperty(ref _headerIsVisible, value);
-        }
 
         public ObservableCollection<Log> FilteredLogsList
         {
@@ -74,8 +67,6 @@ namespace CraftLogs.ViewModels
 
         private void LoadLogs()
         {
-            HeaderIsVisible = _logs.Count == 0;
-
             if (_logs.Count > _numberOfVisibleLogs)
             {
                 FilteredLogsList = new ObservableCollection<Log>();
@@ -89,7 +80,7 @@ namespace CraftLogs.ViewModels
             else
             {
                 FooterIsVisible = false;
-                FilteredLogsList = _logs;
+                FilteredLogsList = _logs.Count != 0 ? new ObservableCollection<Log>(_logs) : null;
             }
         }
     }

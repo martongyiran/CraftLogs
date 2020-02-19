@@ -3,16 +3,19 @@
     x:Class="CraftLogs.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:CraftLogs.Views.Converters;assembly=CraftLogs.Views"
-    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
+    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+    xmlns:resources="clr-namespace:CraftLogs.Resources;assembly=CraftLogs">
     <Application.Resources>
-
         <ResourceDictionary>
 
-            <Color x:Key="BackgroundColorLight">#f6f6f6</Color>
-            <Color x:Key="ColorLight">#7a7cff</Color>
-            <Color x:Key="ColorPrimary">#304ffe</Color>
-            <Color x:Key="ColorDark">#0026ca</Color>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Values />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
 
             <Style
                 x:Key="SettingsEntry"
@@ -54,6 +57,16 @@
             </Style>
 
             <Style
+                x:Key="CardFrame"
+                TargetType="Frame">
+                <Setter Property="BorderColor" Value="LightGray" />
+                <Setter Property="CornerRadius" Value="9" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Padding" Value="16" />
+            </Style>
+
+            <Style
                 x:Key="WhiteButton"
                 TargetType="Button">
                 <Setter Property="BorderColor" Value="LightGray" />
@@ -79,11 +92,6 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
-            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
-            <converters:InverseNullToBoolConverter x:Key="InverseNullToBoolConverter" />
-
         </ResourceDictionary>
-
     </Application.Resources>
 </prism:PrismApplication>

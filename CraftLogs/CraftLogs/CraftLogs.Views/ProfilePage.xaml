@@ -3,7 +3,6 @@
     x:Class="CraftLogs.Views.ProfilePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
     xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColorLight}"
