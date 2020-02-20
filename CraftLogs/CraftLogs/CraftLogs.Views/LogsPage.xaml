@@ -43,7 +43,7 @@
                     <Frame
                         Margin="10"
                         HorizontalOptions="Fill"
-                        Style="{StaticResource CardFrame}"
+                        Style="{StaticResource DefaultFrameStyle}"
                         VerticalOptions="CenterAndExpand">
                         <Grid
                             HorizontalOptions="FillAndExpand"

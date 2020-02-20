@@ -6,32 +6,31 @@
     xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
     BackgroundColor="{StaticResource BackgroundColorLight}"
     IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-    <StackLayout
-        HorizontalOptions="FillAndExpand"
-        VerticalOptions="CenterAndExpand">
-        <Label
-            Margin="5,0,5,5"
-            FontSize="15"
-            HorizontalOptions="CenterAndExpand"
-            HorizontalTextAlignment="Center"
-            Text="{x:Static values:Texts.SelectMode_Subtitle}"
-            TextColor="Black"
-            VerticalOptions="CenterAndExpand" />
-        <Button
-            Command="{Binding SetModeToTeamCommand}"
-            Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.SelectMode_Team}" />
-        <Button
-            Command="{Binding SetModeToShopCommand}"
-            Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.SelectMode_Shop}" />
-        <Button
-            Command="{Binding SetModeToArenaCommand}"
-            Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.SelectMode_Arena}" />
-        <Button
-            Command="{Binding SetModeToHqCommand}"
-            Style="{StaticResource WhiteButton}"
-            Text="{x:Static values:Texts.SelectMode_Hq}" />
-    </StackLayout>
+    <ScrollView>
+        <StackLayout
+            Padding="16"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Label
+                Style="{StaticResource TitleLabelStyle}"
+                Text="{x:Static values:Texts.SelectMode_Subtitle}" />
+
+            <Button
+                Margin="0,16,0,0"
+                Command="{Binding SetModeToTeamCommand}"
+                Text="{x:Static values:Texts.SelectMode_Team}" />
+
+            <Button
+                Command="{Binding SetModeToShopCommand}"
+                Text="{x:Static values:Texts.SelectMode_Shop}" />
+
+            <Button
+                Command="{Binding SetModeToArenaCommand}"
+                Text="{x:Static values:Texts.SelectMode_Arena}" />
+
+            <Button
+                Command="{Binding SetModeToHqCommand}"
+                Text="{x:Static values:Texts.SelectMode_Hq}" />
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
