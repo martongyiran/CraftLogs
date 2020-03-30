@@ -63,7 +63,6 @@
                     Command="{Binding ScoreCommand}"
                     HorizontalOptions="Center"
                     IsVisible="{Binding ReadyToScore}"
-                    Style="{StaticResource WhiteButton}"
                     Text="{x:Static values:Texts.Quest_Title}"
                     VerticalOptions="CenterAndExpand" />
 

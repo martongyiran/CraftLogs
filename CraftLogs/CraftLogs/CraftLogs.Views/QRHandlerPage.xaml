@@ -61,7 +61,6 @@
                 <Button
                     Command="{Binding NavigateToProfilePageCommand}"
                     IsVisible="{Binding IsQuestReward}"
-                    Style="{StaticResource WhiteButton}"
                     Text="Köszi" />
             </StackLayout>
         </ScrollView>

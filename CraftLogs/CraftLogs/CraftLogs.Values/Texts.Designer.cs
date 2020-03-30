@@ -876,7 +876,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Támogatás.
+        ///   Looks up a localized string similar to OnlyFans.
         /// </summary>
         public static string Support {
             get {

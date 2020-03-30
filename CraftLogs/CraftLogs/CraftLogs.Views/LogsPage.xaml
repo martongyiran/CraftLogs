@@ -18,7 +18,6 @@
                 Font="15"
                 HorizontalOptions="FillAndExpand"
                 IsVisible="{Binding BindingContext.FooterIsVisible, Source={x:Reference view}}"
-                Style="{StaticResource WhiteButton}"
                 Text="{x:Static values:Texts.Logs_LoadMore}"
                 VerticalOptions="CenterAndExpand" />
         </CollectionView.Footer>

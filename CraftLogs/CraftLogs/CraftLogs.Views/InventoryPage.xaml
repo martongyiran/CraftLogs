@@ -102,19 +102,16 @@
                     <Button
                         Command="{Binding UseCommand}"
                         Font="20"
-                        Style="{StaticResource WhiteButton}"
                         Text="{x:Static values:Texts.Inventory_Use}"
                         TextColor="Black" />
                     <Button
                         Command="{Binding SellCommand}"
                         Font="20"
-                        Style="{StaticResource WhiteButton}"
                         Text="{x:Static values:Texts.Inventory_Sell}"
                         TextColor="Black" />
                     <Button
                         Clicked="Handle_Clicked"
                         Font="20"
-                        Style="{StaticResource WhiteButton}"
                         Text="{x:Static values:Texts.Cancel}"
                         TextColor="Black" />
                 </StackLayout>

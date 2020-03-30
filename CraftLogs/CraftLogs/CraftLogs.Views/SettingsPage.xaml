@@ -9,21 +9,17 @@
     BackgroundColor="{StaticResource BackgroundColorLight}"
     IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.Content>
-
-        <ScrollView
-            Margin="5"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="StartAndExpand">
+        <ScrollView>
             <Grid>
-                <views:CardView
-                    Padding="10"
-                    BackgroundColor="White"
+                <Frame
+                    Margin="16,16,16,48"
                     HorizontalOptions="FillAndExpand"
                     InputTransparent="True"
-                    VerticalOptions="FillAndExpand">
+                    VerticalOptions="StartAndExpand">
                     <StackLayout
                         HorizontalOptions="FillAndExpand"
                         Orientation="Vertical"
+                        Spacing="16"
                         VerticalOptions="Center">
 
                         <StackLayout
@@ -91,16 +87,13 @@
                         <Button
                             Command="{Binding ResetSettingsCommand}"
                             IsVisible="{Binding IsNpc}"
-                            Style="{StaticResource WhiteButton}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
                             Text="{x:Static values:Texts.Settings_ToDefault}" />
                         <Button
                             Command="{Binding DeleteProfileCommand}"
-                            Style="{StaticResource WhiteButton}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
                             Text="{x:Static values:Texts.Settings_DeleteProfile}" />
-                        <Button
-                            Command="{Binding SupportCommand}"
-                            Style="{StaticResource WhiteButton}"
-                            Text="{x:Static values:Texts.Support}" />
+
                         <Entry
                             IsPassword="True"
                             IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"
@@ -110,34 +103,40 @@
                         <Button
                             Command="{Binding ToQuestCommand}"
                             IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"
-                            Style="{StaticResource WhiteButton}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
                             Text="Állomás" />
 
                         <Button
                             Command="{Binding SaveSettingsCommand}"
                             IsVisible="{Binding IsNpc}"
-                            Style="{StaticResource WhiteButton}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
                             Text="{x:Static values:Texts.Save}" />
 
-                        <Label
-                            Margin="5"
-                            FontSize="15"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding Version}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Label.GestureRecognizers>
-                        </Label>
+                        <Button
+                            Margin="0,16,0,0"
+                            BorderColor="#00AFF0"
+                            Command="{Binding SupportCommand}"
+                            Text="{x:Static values:Texts.Support}"
+                            TextColor="#00AFF0" />
                     </StackLayout>
-                </views:CardView>
+                </Frame>
+
+                <Label
+                    Margin="16"
+                    HorizontalOptions="End"
+                    Text="{Binding Version}"
+                    VerticalOptions="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
                 <Image
                     x:Name="csiga"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="False"
                     Source="@drawable/csiga.png"
-                    VerticalOptions="EndAndExpand" />
+                    VerticalOptions="StartAndExpand" />
             </Grid>
         </ScrollView>
 
