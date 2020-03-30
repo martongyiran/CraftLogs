@@ -18,7 +18,6 @@ using Prism.Navigation;
 using CraftLogs.Values;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using Prism.Services;
-using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Services.Interfaces;
 
@@ -26,7 +25,6 @@ namespace CraftLogs.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private Settings _settings;
         private bool _isDevMode = false;
 
         public bool IsDevMode
@@ -62,9 +60,9 @@ namespace CraftLogs.ViewModels
 
             DataRepository.CreateSettings();
 
-            _settings = DataRepository.GetSettings();
+            var settings = DataRepository.GetSettings();
 
-            switch (_settings.AppMode)
+            switch (settings.AppMode)
             {
                 case AppModeEnum.None:
                     await NavigateToWithoutHistory(NavigationLinks.SelectModePage);

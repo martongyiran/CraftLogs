@@ -15,99 +15,83 @@
             Text="{x:Static values:Texts.Cancel}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout
-                Padding="16"
-                HorizontalOptions="Center"
-                Orientation="Vertical"
-                VerticalOptions="Start">
-                <Label
-                    Margin="5,0,0,0"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{x:Static values:Texts.Register_TeamName}"
-                    TextColor="Black" />
+        <ScrollView
+            Padding="16"
+            VerticalOptions="StartAndExpand">
+            <Frame>
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Orientation="Vertical"
+                    VerticalOptions="Start">
+                    <Label
+                        Margin="5,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{x:Static values:Texts.Register_TeamName}"
+                        TextColor="Black" />
 
-                <Entry
-                    Style="{StaticResource RegisterEntry}"
-                    Text="{Binding Name, Mode=TwoWay}" />
+                    <Entry
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding Name, Mode=TwoWay}" />
 
-                <Label
-                    Margin="5,0,0,0"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    HorizontalOptions="Start"
-                    Text="{x:Static values:Texts.Register_House}"
-                    TextColor="Black" />
+                    <Label
+                        Margin="5,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        Text="{x:Static values:Texts.Register_House}"
+                        TextColor="Black" />
 
-                <Picker
-                    FontSize="16"
-                    ItemsSource="{Binding Houses}"
-                    SelectedItem="{Binding House, Mode=TwoWay}"
-                    TextColor="{StaticResource ColorDark}" />
+                    <Picker
+                        FontSize="16"
+                        ItemsSource="{Binding Houses}"
+                        SelectedItem="{Binding House, Mode=TwoWay}"
+                        TextColor="{StaticResource ColorDark}" />
 
-                <Label
-                    Margin="5,0,0,0"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    Text="{x:Static values:Texts.Register_Class}"
-                    TextColor="Black" />
+                    <Label
+                        Margin="5,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="{x:Static values:Texts.Register_Class}"
+                        TextColor="Black" />
 
-                <Picker
-                    FontSize="16"
-                    ItemsSource="{Binding Classes}"
-                    SelectedItem="{Binding Cast, Mode=TwoWay}"
-                    TextColor="{StaticResource ColorDark}" />
+                    <Picker
+                        FontSize="16"
+                        ItemsSource="{Binding Classes}"
+                        SelectedItem="{Binding Cast, Mode=TwoWay}"
+                        TextColor="{StaticResource ColorDark}" />
 
-                <CollectionView
-                    HeightRequest="120"
-                    HorizontalOptions="CenterAndExpand"
-                    ItemsSource="{Binding Images}"
-                    SelectedItem="{Binding SelectedImage}"
-                    SelectionMode="Single"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="360">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout
-                            ItemSpacing="8"
-                            Orientation="Horizontal"
-                            SnapPointsAlignment="Center" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Image
-                                HeightRequest="100"
-                                HorizontalOptions="Center"
-                                Source="{Binding .}"
-                                VerticalOptions="Center"
-                                WidthRequest="100" />
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    <views:ProfilePictureSelectorView
+                        Image1="{Binding Img1}"
+                        Image2="{Binding Img2}"
+                        Image3="{Binding Img3}"
+                        SelectedImage="{Binding SelectedImage}" />
 
-                <Label
-                    Margin="10,0,10,0"
-                    FontAttributes="Italic"
-                    FontSize="15"
-                    HorizontalOptions="StartAndExpand"
-                    HorizontalTextAlignment="Start"
-                    TextColor="Black"
-                    VerticalOptions="StartAndExpand">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Mage: 1 Stamina == 4 HP. +2 ATK&#10;" />
-                            <Span Text="Warrior: 1 Stamina == 6 HP. +2 DEF&#10;" />
-                            <Span Text="Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                    <Label
+                        Margin="10,0,10,0"
+                        FontAttributes="Italic"
+                        FontSize="15"
+                        HorizontalOptions="StartAndExpand"
+                        HorizontalTextAlignment="Start"
+                        TextColor="Black"
+                        VerticalOptions="StartAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Mage: 1 Stamina == 4 HP. +2 ATK&#10;" />
+                                <Span Text="Warrior: 1 Stamina == 6 HP. +2 DEF&#10;" />
+                                <Span Text="Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-                <Button
-                    Command="{Binding SaveCommand}"
-                    Style="{StaticResource WhiteButton}"
-                    Text="{x:Static values:Texts.Save}" />
-            </StackLayout>
+                    <Button
+                        Margin="0,16,0,0"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource FirstLevelButtonStyle}"
+                        Text="{x:Static values:Texts.Save}" />
+                </StackLayout>
+            </Frame>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

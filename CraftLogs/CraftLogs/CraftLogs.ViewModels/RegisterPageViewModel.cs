@@ -92,12 +92,6 @@ namespace CraftLogs.ViewModels
 
         public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
 
-        public ObservableCollection<string> Images
-        {
-            get => _images;
-            set => SetProperty(ref _images, value);
-        }
-
         public string SelectedImage
         {
             get => _selectedImage;
@@ -121,6 +115,7 @@ namespace CraftLogs.ViewModels
             base.OnNavigatingTo(parameters);
 
             _settings = DataRepository.GetSettings();
+            House = Houses[0];
         }
 
         private async Task ExecuteSaveCommandAsync()
@@ -222,8 +217,6 @@ namespace CraftLogs.ViewModels
             Img1 = GetImgUrl("1");
             Img2 = GetImgUrl("2");
             Img3 = GetImgUrl("3");
-
-            Images = new ObservableCollection<string>() { Img1, Img2, Img3 };
         }
     }
 }

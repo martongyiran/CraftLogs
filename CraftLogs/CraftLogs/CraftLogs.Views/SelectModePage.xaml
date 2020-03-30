@@ -6,9 +6,8 @@
     xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
     BackgroundColor="{StaticResource BackgroundColorLight}"
     IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-    <ScrollView>
+    <ScrollView Padding="16">
         <StackLayout
-            Padding="16"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
             <Label

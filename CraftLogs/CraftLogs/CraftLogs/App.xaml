@@ -13,16 +13,28 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="FontSize" Value="14" />
             </Style>
 
             <Style TargetType="Button">
                 <Setter Property="BorderColor" Value="{StaticResource ColorDark}" />
-                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="BorderWidth" Value="4" />
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style
+                x:Key="FirstLevelButtonStyle"
+                TargetType="Button">
+                <Setter Property="BorderColor" Value="{StaticResource ColorDark}" />
+                <Setter Property="BorderWidth" Value="4" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorLight}" />
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="CornerRadius" Value="10" />
             </Style>
@@ -37,10 +49,8 @@
                 <Setter Property="FontAttributes" Value="Bold" />
             </Style>
 
-            <Style
-                x:Key="DefaultFrameStyle"
-                TargetType="Frame">
-                <Setter Property="BorderColor" Value="LightGray" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="HasShadow" Value="True" />
@@ -64,49 +74,6 @@
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="WidthRequest" Value="400" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
-            </Style>
-
-            <Style
-                x:Key="DefaultFrame"
-                TargetType="Frame">
-                <Setter Property="OutlineColor" Value="Gray" />
-                <Setter Property="CornerRadius" Value="5" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="HasShadow" Value="True" />
-                <Setter Property="Margin" Value="5" />
-            </Style>
-
-            <Style
-                x:Key="SettingsFrame"
-                TargetType="Frame">
-                <Setter Property="OutlineColor" Value="White" />
-                <Setter Property="CornerRadius" Value="0" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="HasShadow" Value="True" />
-                <Setter Property="Margin" Value="5" />
-            </Style>
-
-            <Style
-                x:Key="CardFrame"
-                TargetType="Frame">
-                <Setter Property="BorderColor" Value="LightGray" />
-                <Setter Property="CornerRadius" Value="9" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="HasShadow" Value="True" />
-                <Setter Property="Padding" Value="16" />
-            </Style>
-
-            <Style
-                x:Key="WhiteButton"
-                TargetType="Button">
-                <Setter Property="BorderColor" Value="LightGray" />
-                <Setter Property="BorderRadius" Value="0" />
-                <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="Margin" Value="5" />
             </Style>
 
             <Style
