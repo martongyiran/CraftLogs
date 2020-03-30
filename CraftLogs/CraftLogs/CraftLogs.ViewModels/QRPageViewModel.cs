@@ -28,6 +28,7 @@ namespace CraftLogs.ViewModels
     {
         private string _qrCode;
         private Settings _settings;
+        private string isSettings;
 
         public string QrCode
         {
@@ -49,28 +50,39 @@ namespace CraftLogs.ViewModels
             _settings = DataRepository.GetSettings();
 
             QrCode = parameters["code"] as string;
+
+            isSettings = parameters["type"] as string;
+#if DEV
             System.Diagnostics.Debug.WriteLine(QrCode);
+#endif
         }
 
         private async Task ExecuteNavigateToHomeCommandAsync()
         {
-            switch (_settings.AppMode)
+            if(isSettings != null)
             {
-                case AppModeEnum.Team:
-                    await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
-                    break;
-                case AppModeEnum.Shop:
-                    await NavigateToWithoutHistory(NavigationLinks.ShopPage);
-                    break;
-                case AppModeEnum.Arena:
-                    await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
-                    break;
-                case AppModeEnum.Hq:
-                    await NavigateToWithoutHistory(NavigationLinks.HqPage);
-                    break;
-                default:
-                    await NavigateToWithoutHistory(NavigationLinks.MainPage);
-                    break;
+                await NavigateToWithoutHistoryDouble(NavigationLinks.ProfilePage);
+            }
+            else
+            {
+                switch (_settings.AppMode)
+                {
+                    case AppModeEnum.Team:
+                        await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
+                        break;
+                    case AppModeEnum.Shop:
+                        await NavigateToWithoutHistory(NavigationLinks.ShopPage);
+                        break;
+                    case AppModeEnum.Arena:
+                        await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
+                        break;
+                    case AppModeEnum.Hq:
+                        await NavigateToWithoutHistory(NavigationLinks.HqPage);
+                        break;
+                    default:
+                        await NavigateToWithoutHistory(NavigationLinks.MainPage);
+                        break;
+                }
             }
         }
     }

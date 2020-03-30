@@ -4623,7 +4623,7 @@ namespace CraftLogs.Droid
 			public const int ic_plus = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int ic_plus_blue = 2131165355;
+			public const int ic_plus_circle = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
 			public const int ic_prfile_white = 2131165356;

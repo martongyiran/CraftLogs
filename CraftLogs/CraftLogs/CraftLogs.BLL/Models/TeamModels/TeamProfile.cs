@@ -123,6 +123,8 @@ namespace CraftLogs.BLL.Models
 
         public int Exp => CalcualteExp();
 
+        public double ExpProgress => CalculateProgress();
+
         public int Level => CalculateLevel();
 
         public int XpForNextLevel => CalculateXpForNextLevel();
@@ -131,9 +133,7 @@ namespace CraftLogs.BLL.Models
 
         public int HpValue => GetHpValue();
 
-        public string LevelText => "Lvl." + Level + " " + Cast;
-
-        public string ExpText => "EXP: " + Exp + "/" + XpForNextLevel;
+        public string ExpText => "EXP: " + Exp + " / " + XpForNextLevel;
 
         public TeamProfile(
             string name,
@@ -218,6 +218,11 @@ namespace CraftLogs.BLL.Models
             {
                 return 7;
             }
+        }
+
+        private double CalculateProgress()
+        {
+            return (double)Exp / (double)XpForNextLevel;
         }
 
         private int GetStatPoint()

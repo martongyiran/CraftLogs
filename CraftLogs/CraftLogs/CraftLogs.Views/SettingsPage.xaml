@@ -89,10 +89,6 @@
                             IsVisible="{Binding IsNpc}"
                             Style="{StaticResource FirstLevelButtonStyle}"
                             Text="{x:Static values:Texts.Settings_ToDefault}" />
-                        <Button
-                            Command="{Binding DeleteProfileCommand}"
-                            Style="{StaticResource FirstLevelButtonStyle}"
-                            Text="{x:Static values:Texts.Settings_DeleteProfile}" />
 
                         <Entry
                             IsPassword="True"
@@ -107,10 +103,21 @@
                             Text="Állomás" />
 
                         <Button
+                            Command="{Binding MyProfileQrCommand}"
+                            IsVisible="{Binding IsNpc, Converter={StaticResource InverseBoolConverter}}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
+                            Text="Profil QR" />
+
+                        <Button
                             Command="{Binding SaveSettingsCommand}"
                             IsVisible="{Binding IsNpc}"
                             Style="{StaticResource FirstLevelButtonStyle}"
                             Text="{x:Static values:Texts.Save}" />
+
+                        <Button
+                            Command="{Binding DeleteProfileCommand}"
+                            Style="{StaticResource FirstLevelButtonStyle}"
+                            Text="{x:Static values:Texts.Settings_DeleteProfile}" />
 
                         <Button
                             Margin="0,16,0,0"

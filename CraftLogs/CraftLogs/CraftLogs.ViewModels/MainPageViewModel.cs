@@ -40,7 +40,6 @@ namespace CraftLogs.ViewModels
             IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
-            IsBusy = true;
 #if DEV
             Title = Texts.CraftLogs + " DEV";
             IsDevMode = true;
@@ -55,8 +54,6 @@ namespace CraftLogs.ViewModels
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
-            IsBusy = true;
 
             DataRepository.CreateSettings();
 
@@ -82,8 +79,6 @@ namespace CraftLogs.ViewModels
                 default:
                     break;
             }
-
-            IsBusy = false;
         }
     }
 }

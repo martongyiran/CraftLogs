@@ -6,9 +6,11 @@
     xmlns:converters="clr-namespace:CraftLogs.Views.Converters;assembly=CraftLogs.Views">
 
     <Color x:Key="BackgroundColorLight">#efefef</Color>
+    <Color x:Key="ColorLightAlt">#d4d4d4</Color>
     <Color x:Key="ColorLight">#8e8e8e</Color>
     <Color x:Key="ColorPrimary">#616161</Color>
     <Color x:Key="ColorDark">#373737</Color>
+    <Color x:Key="ColorLightGreen">#a8d3a9</Color>
 
     <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
     <converters:InverseBoolConverter x:Key="InverseBoolConverter" />

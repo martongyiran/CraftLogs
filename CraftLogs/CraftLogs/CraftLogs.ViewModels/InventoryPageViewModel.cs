@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,73 +32,20 @@ namespace CraftLogs.ViewModels
 
         private readonly ILoggerService _logger;
 
-        private ObservableCollection<Item> _allItems = new ObservableCollection<Item>();
-        private ObservableCollection<Item> _selectedItems = new ObservableCollection<Item>();
-        private ItemTypeEnum _selectedItemType;
-        private CharacterClassEnum _selectedItemClass;
-        private int _selectedItemTier;
+        private ObservableCollection<Item> _items = new ObservableCollection<Item>();
         private Item _activeItem;
-        private bool _noItem;
         private bool _isPopupVisible;
 
-        public ObservableCollection<Item> AllItems
+        public ObservableCollection<Item> Items
         {
-            get => _allItems;
-            set => SetProperty(ref _allItems, value);
-        }
-
-        public ObservableCollection<Item> SelectedItems
-        {
-            get =>  _selectedItems; 
-            set => SetProperty(ref _selectedItems, value); 
-        }
-
-        public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
-
-        public ItemTypeEnum SelectedItemType
-        {
-            get => _selectedItemType;
-            set
-            {
-                SetProperty(ref _selectedItemType, value);
-                FilterList();
-            }
-        }
-
-        public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
-
-        public CharacterClassEnum SelectedItemClass
-        {
-            get => _selectedItemClass;
-            set
-            {
-                SetProperty(ref _selectedItemClass, value);
-                FilterList();
-            }
-        }
-
-        public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
-
-        public int SelectedItemTier
-        {
-            get => _selectedItemTier;
-            set
-            {
-                SetProperty(ref _selectedItemTier, value);
-                FilterList();
-            }
+            get => _items;
+            set => SetProperty(ref _items, value);
         }
 
         public Item ActiveItem
         {
             get => _activeItem;
             set => SetProperty(ref _activeItem, value);
-        }
-
-        public bool NoItem
-        {
-            get => _noItem;
-            set => SetProperty(ref _noItem, value);
         }
 
         public bool IsPopupVisible
@@ -131,39 +77,20 @@ namespace CraftLogs.ViewModels
 
             Init();
 
-            SelectedItemType = ItemTypeEnum.All;
-            SelectedItemClass = DataRepository.GetTeamProfile().Cast;
-            SelectedItemTier = 1;
             IsPopupVisible = false;
         }
 
         private void Init()
         {
-            AllItems = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory);
-            FilterList();
-        }
-
-        private void FilterList()
-        {
-            if (SelectedItemType == ItemTypeEnum.All)
-            {
-                SelectedItems = new ObservableCollection<Item>(AllItems);
-            }
-            else
-            {
-                SelectedItems = new ObservableCollection<Item>(AllItems.Where((arg) => arg.ItemType == SelectedItemType).ToList());
-            }
-
-            SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.UsableFor == SelectedItemClass).ToList());
-
-            SelectedItems = new ObservableCollection<Item>(SelectedItems.Where((arg) => arg.Tier == SelectedItemTier).ToList());
-
-            NoItem = SelectedItems.Count == 0;
+            IsBusy = true;
+            Items = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory.OrderByDescending(x => x.State).ThenBy(y => y.UsableFor));
+            IsBusy = false;
         }
 
         private void ExecuteItemTapped(object o)
         {
             ActiveItem = o as Item;
+            System.Diagnostics.Debug.WriteLine(">--------------- " + ActiveItem.Name);
         }
 
         private async Task ExecuteSellCommandAsync()
@@ -173,16 +100,16 @@ namespace CraftLogs.ViewModels
             {
                 var profile = DataRepository.GetTeamProfile();
 
-                foreach (var item in AllItems.ToList())
+                foreach (var item in Items.ToList())
                 {
                     if (item.Id == ActiveItem.Id)
                     {
-                        AllItems.Remove(item);
+                        Items.Remove(item);
                         profile.Money += item.Value;
                     }
                 }
 
-                profile.Inventory = AllItems;
+                profile.Inventory = Items;
                 IsPopupVisible = false;
 
                 _logger.CreateSellLog(ActiveItem);
@@ -198,7 +125,7 @@ namespace CraftLogs.ViewModels
 
             if (ActiveItem.UsableFor == profile.Cast)
             {
-                foreach (var item in AllItems)
+                foreach (var item in Items)
                 {
                     if (item.Id == ActiveItem.Id)
                     {
@@ -211,7 +138,7 @@ namespace CraftLogs.ViewModels
                     }
                 }
 
-                profile.Inventory = AllItems;
+                profile.Inventory = Items;
                 IsPopupVisible = false;
 
                 DataRepository.SaveToFile(profile);

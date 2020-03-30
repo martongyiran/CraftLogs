@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="CraftLogs.Views.ProfileItemsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    mc:Ignorable="d">
+    <StackLayout HorizontalOptions="Start">
+        <views:ItemView
+            IsInventoryView="False"
+            Item="{Binding ArmorItem}" />
+        <Label Text="{Binding ArmorItem.Name}" />
+
+        <views:ItemView
+            IsInventoryView="False"
+            Item="{Binding RingItem}" />
+        <Label Text="{Binding RingItem.Name}" />
+
+        <views:ItemView
+            IsInventoryView="False"
+            Item="{Binding NeckItem}" />
+        <Label Text="{Binding NeckItem.Name}" />
+
+        <views:ItemView
+            IsInventoryView="False"
+            Item="{Binding LHandItem}" />
+        <Label Text="{Binding LHandItem.Name}" />
+
+        <views:ItemView
+            IsInventoryView="False"
+            Item="{Binding RHandItem}" />
+        <Label Text="{Binding RHandItem.Name}" />
+
+    </StackLayout>
+</Grid>

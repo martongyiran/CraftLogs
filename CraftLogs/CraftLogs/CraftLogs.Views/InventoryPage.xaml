@@ -4,94 +4,77 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColorLight}">
     <ContentPage.Content>
         <Grid
+            Padding="16"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackLayout
-                Grid.Row="0"
-                BackgroundColor="{StaticResource ColorPrimary}"
-                HeightRequest="40"
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                VerticalOptions="CenterAndExpand">
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker1Values}"
-                    SelectedItem="{Binding SelectedItemType, Mode=TwoWay}"
-                    TextColor="White" />
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker2Values}"
-                    SelectedItem="{Binding SelectedItemClass, Mode=TwoWay}"
-                    TextColor="White" />
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker3Values}"
-                    SelectedItem="{Binding SelectedItemTier, Mode=TwoWay}"
-                    TextColor="White" />
-            </StackLayout>
-            <ListView
-                Grid.Row="1"
-                BackgroundColor="Transparent"
-                CachingStrategy="RecycleElement"
-                HasUnevenRows="True"
-                IsRefreshing="{Binding IsBusy}"
-                ItemTapped="Handle_ItemTapped"
-                ItemsSource="{Binding SelectedItems}"
-                SelectionMode="None"
-                SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
-                            <ContentView
-                                Padding="1"
-                                BackgroundColor="Gray"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-                                <Grid
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Grid.Column="0"
-                                        HeightRequest="50"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Source="{Binding Image}"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="50" />
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding InvString}"
-                                        VerticalOptions="CenterAndExpand" />
-                                </Grid>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Frame>
+                <CollectionView
+                    BackgroundColor="Transparent"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemsSource="{Binding Items}"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            Orientation="Vertical"
+                            Span="4" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="0"
+                                Padding="5"
+                                BackgroundColor="{StaticResource ColorLightAlt}"
+                                BorderColor="Transparent">
+                                <Frame.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding State}"
+                                        TargetType="Frame"
+                                        Value="Equipped">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ColorLightGreen}" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        Binding="{Binding State}"
+                                        TargetType="Frame"
+                                        Value="Backpack">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ColorLightAlt}" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+
+                                <views:ItemView
+                                    IsInventoryView="True"
+                                    Item="{Binding}">
+                                    <views:ItemView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Handle_ItemTapped" />
+                                    </views:ItemView.GestureRecognizers>
+                                </views:ItemView>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <ContentView
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                Margin="0"
+                                HorizontalTextAlignment="Center"
+                                Text="{x:Static values:Texts.Inventory_IsEmpty}"
+                                VerticalOptions="Center" />
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </Frame>
+
             <ContentView
                 x:Name="popupView"
-                Grid.Row="0"
-                Grid.RowSpan="2"
                 BackgroundColor="#F2FFFFFF"
                 HorizontalOptions="FillAndExpand"
                 IsVisible="{Binding IsPopupVisible, Mode=TwoWay}"
@@ -116,13 +99,12 @@
                         TextColor="Black" />
                 </StackLayout>
             </ContentView>
-            <Label
-                Grid.Row="1"
-                FontSize="16"
+
+            <ActivityIndicator
+                HeightRequest="100"
                 HorizontalOptions="CenterAndExpand"
-                IsVisible="{Binding NoItem}"
-                Text="{x:Static values:Texts.Inventory_IsEmpty}"
-                TextColor="Black"
+                IsRunning="True"
+                IsVisible="{Binding IsBusy}"
                 VerticalOptions="CenterAndExpand" />
         </Grid>
     </ContentPage.Content>

@@ -30,6 +30,8 @@ namespace CraftLogs.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
     {
+        private readonly IQRService _qRService;
+
         private Settings _userSettings;
         private bool _isNpc;
         private string _pw;
@@ -68,13 +70,16 @@ namespace CraftLogs.ViewModels
         public DelayCommand DeleteProfileCommand => new DelayCommand(async () => await DeleteProfileAsync());
         public DelayCommand ToQuestCommand => new DelayCommand(async () => await ToQuest());
         public DelayCommand SupportCommand => new DelayCommand(async () => await Launcher.OpenAsync(new Uri("https://paypal.me/CHlGGA")));
+        public DelayCommand MyProfileQrCommand => new DelayCommand(async () => await ExecuteMyProfileQrCommand());
 
         public SettingsPageViewModel(
             INavigationService navigationService,
             ILocalDataRepository dataRepository,
-            IPageDialogService dialogService)
+            IPageDialogService dialogService,
+            IQRService qrService)
             : base(navigationService, dataRepository, dialogService)
         {
+            _qRService = qrService;
             Title = Texts.Settings_Title;
         }
 
@@ -137,6 +142,20 @@ namespace CraftLogs.ViewModels
 
                 await NavigateToWithoutHistoryDouble(NavigationLinks.SelectModePage);
             }
+        }
+
+        private async Task ExecuteMyProfileQrCommand()
+        {
+            var teamProfile = DataRepository.GetTeamProfile();
+            var profileQr = new ProfileQr(teamProfile);
+            var qrCode = _qRService.CreateQR(profileQr);
+            var param = new NavigationParameters
+            {
+                { "code", qrCode },
+                {"type", "settings"}
+            };
+
+            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
 
         private async Task ToQuest()

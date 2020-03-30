@@ -17,6 +17,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using CraftLogs.BLL.Enums;
+using CraftLogs.Values;
 using Newtonsoft.Json;
 
 namespace CraftLogs.BLL.Models
@@ -60,14 +61,16 @@ namespace CraftLogs.BLL.Models
         public string Image { get { return GetImage(); } }
 
         [JsonIgnore]
-        public string SimpleString { get { return GetSimpleString(); } }
-
-        [JsonIgnore]
         public string InvString { get { return GetInvString(); } }
 
         public Item()
         {
             Id = GenerateId();
+        }
+
+        public Item(int ad)
+        {
+            Ad = ad;
         }
 
         /// <summary>
@@ -111,35 +114,6 @@ namespace CraftLogs.BLL.Models
             }
         }
 
-        private string GetSimpleString()
-        {
-            string res = string.Format("{0} \n", Name);
-            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
-            res += string.Format("{0} \n", ItemType);
-            if (Atk != 0)
-            {
-                res += string.Format("{0} ATK ", Atk);
-            }
-            if (Def != 0)
-            {
-                res += string.Format("{0} DEF ", Def);
-            }
-            if (Stamina != 0)
-            {
-                res += string.Format("{0} STM ", Stamina);
-            }
-            if (CritR != 0)
-            {
-                res += string.Format("{0} CR ", CritR);
-            }
-            if (Dodge != 0)
-            {
-                res += string.Format("{0} DDG ", Dodge);
-            }
-
-            return res;
-        }
-
         private string GetInvString()
         {
             string res = string.Format("{0}$ \n", Value);
@@ -174,7 +148,23 @@ namespace CraftLogs.BLL.Models
 
         private string GetName()
         {
-            if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
+            if(Ad == 1111)
+            {
+                return Texts.Profile_NoArmor;
+            }
+            else if (Ad == 2222)
+            {
+                return Texts.Profile_NoRing;
+            }
+            else if (Ad == 3333)
+            {
+                return Texts.Profile_NoNeck;
+            }
+            else if (Ad == 4444)
+            {
+                return Texts.Profile_NoWeapon;
+            }
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
             {
                 return Legends[Ad].Item1;
             }
@@ -223,7 +213,23 @@ namespace CraftLogs.BLL.Models
 
         private string GetImage()
         {
-            if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
+            if (Ad == 1111)
+            {
+                return "@drawable/chest.png";
+            }
+            else if (Ad == 2222)
+            {
+                return "@drawable/ring.png";
+            }
+            else if (Ad == 3333)
+            {
+                return "@drawable/neck.png";
+            }
+            else if (Ad == 4444)
+            {
+                return "@drawable/weapon.png";
+            }
+            else if (Rarity == ItemRarityEnum.Legendary && ItemType == ItemTypeEnum.Ring)
             {
                 return Legends[Ad].Item2;
             }

@@ -16,79 +16,80 @@
             Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <Grid
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="100" />
-                </Grid.RowDefinitions>
-
-                <Entry
-                    Grid.Row="0"
-                    Placeholder="Állomás neve"
-                    Style="{StaticResource RegisterEntry}"
-                    Text="{Binding From, Mode=TwoWay}" />
-
-                <Label
-                    x:Name="scoreLabel"
-                    Grid.Row="1"
-                    FontSize="60"
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding ReadyToScore}"
-                    Text="{Binding Score, StringFormat='{0} pont'}"
-                    TextColor="{StaticResource ColorDark}"
-                    VerticalOptions="CenterAndExpand" />
-
-                <Slider
-                    x:Name="scoreSlider"
-                    Grid.Row="1"
-                    Margin="10,0,10,0"
+        <ScrollView Padding="16">
+            <Frame>
+                <Grid
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ReadyToScore}"
-                    Maximum="100"
-                    MaximumTrackColor="{StaticResource ColorPrimary}"
-                    Minimum="0"
-                    MinimumTrackColor="{StaticResource ColorLight}"
-                    ThumbColor="{StaticResource ColorDark}"
-                    VerticalOptions="End"
-                    Value="{Binding SliderScore, Mode=TwoWay}" />
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
 
-                <Button
-                    x:Name="scoreButton"
-                    Grid.Row="2"
-                    Command="{Binding ScoreCommand}"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding ReadyToScore}"
-                    Text="{x:Static values:Texts.Quest_Title}"
-                    VerticalOptions="CenterAndExpand" />
+                    <Entry
+                        Grid.Row="0"
+                        Placeholder="Állomás neve"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding From, Mode=TwoWay}" />
 
-                <Image
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    HeightRequest="120"
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding ReadyToScore, Converter={StaticResource InverseBoolConverter}}"
-                    Source="@drawable/ic_plus.png"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="120">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding StartCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                    <Label
+                        x:Name="scoreLabel"
+                        Grid.Row="1"
+                        FontSize="60"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding ReadyToScore}"
+                        Text="{Binding Score, StringFormat='{0} pont'}"
+                        TextColor="{StaticResource ColorDark}"
+                        VerticalOptions="CenterAndExpand" />
 
-                <Label
-                    Grid.Row="3"
-                    Margin="5"
-                    FontSize="15"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding Version}"
-                    TextColor="Black"
-                    VerticalOptions="EndAndExpand" />
-            </Grid>
+                    <Slider
+                        x:Name="scoreSlider"
+                        Grid.Row="1"
+                        Margin="10,0,10,0"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding ReadyToScore}"
+                        Maximum="100"
+                        MaximumTrackColor="{StaticResource ColorPrimary}"
+                        Minimum="0"
+                        MinimumTrackColor="{StaticResource ColorLight}"
+                        ThumbColor="{StaticResource ColorDark}"
+                        VerticalOptions="End"
+                        Value="{Binding SliderScore, Mode=TwoWay}" />
+
+                    <Button
+                        x:Name="scoreButton"
+                        Grid.Row="2"
+                        Command="{Binding ScoreCommand}"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding ReadyToScore}"
+                        Style="{StaticResource FirstLevelButtonStyle}"
+                        Text="{x:Static values:Texts.Quest_Title}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="200" />
+
+                    <Image
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        HeightRequest="120"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding ReadyToScore, Converter={StaticResource InverseBoolConverter}}"
+                        Source="@drawable/ic_plus_circle.png"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="120">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StartCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Label
+                        Grid.Row="3"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding Version}"
+                        VerticalOptions="EndAndExpand" />
+                </Grid>
+            </Frame>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -28,10 +28,8 @@
                 VerticalOptions="CenterAndExpand">
                 <Label
                     Margin="0"
-                    Font="15"
                     HorizontalTextAlignment="Center"
                     Text="{x:Static values:Texts.Logs_IsEmpty}"
-                    TextColor="Black"
                     VerticalOptions="Center" />
             </ContentView>
         </CollectionView.EmptyView>
@@ -42,7 +40,6 @@
                     <Frame
                         Margin="10"
                         HorizontalOptions="Fill"
-                        Style="{StaticResource DefaultFrameStyle}"
                         VerticalOptions="CenterAndExpand">
                         <Grid
                             HorizontalOptions="FillAndExpand"

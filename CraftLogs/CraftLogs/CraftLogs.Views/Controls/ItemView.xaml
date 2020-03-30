@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="CraftLogs.Views.ItemView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="itemHolder"
+    HeightRequest="70"
+    HorizontalOptions="CenterAndExpand"
+    VerticalOptions="CenterAndExpand"
+    WidthRequest="70"
+    mc:Ignorable="d">
+    <Frame
+        Padding="0"
+        CornerRadius="10"
+        HasShadow="False"
+        HeightRequest="55"
+        HorizontalOptions="Center"
+        IsClippedToBounds="True"
+        VerticalOptions="Center"
+        WidthRequest="55">
+        <Frame.Triggers>
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Common">
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Black" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Rare">
+                <Setter Property="BorderColor" Value="Blue" />
+                <Setter Property="BackgroundColor" Value="Blue" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Legendary">
+                <Setter Property="BorderColor" Value="Orange" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="0">
+                <Setter Property="BackgroundColor" Value="White" />
+            </DataTrigger>
+        </Frame.Triggers>
+
+        <Image
+            Margin="3"
+            Aspect="AspectFill"
+            HeightRequest="55"
+            Source="{Binding Item.Image, Source={x:Reference itemHolder}}"
+            WidthRequest="55" />
+    </Frame>
+
+    <Frame
+        Margin="30,0,0,0"
+        Padding="0"
+        BackgroundColor="Black"
+        BorderColor="Transparent"
+        CornerRadius="20"
+        HasShadow="False"
+        HeightRequest="20"
+        HorizontalOptions="EndAndExpand"
+        VerticalOptions="EndAndExpand"
+        WidthRequest="20">
+
+        <Frame.Triggers>
+            <DataTrigger
+                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="0">
+                <Setter Property="IsVisible" Value="False" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Rare">
+                <Setter Property="BackgroundColor" Value="Blue" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Legendary">
+                <Setter Property="BackgroundColor" Value="Orange" />
+            </DataTrigger>
+        </Frame.Triggers>
+
+        <Label
+            FontAttributes="Bold"
+            HorizontalOptions="CenterAndExpand"
+            Text="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+            TextColor="White"
+            VerticalOptions="CenterAndExpand" />
+    </Frame>
+
+    <Frame
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Black"
+        BorderColor="Transparent"
+        CornerRadius="20"
+        HasShadow="False"
+        HeightRequest="20"
+        HorizontalOptions="CenterAndExpand"
+        IsVisible="{Binding IsInventoryView, Source={x:Reference itemHolder}}"
+        VerticalOptions="EndAndExpand"
+        WidthRequest="20">
+
+        <Frame.Triggers>
+            <DataTrigger
+                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="0">
+                <Setter Property="IsVisible" Value="False" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Rare">
+                <Setter Property="BackgroundColor" Value="Blue" />
+            </DataTrigger>
+
+            <DataTrigger
+                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
+                TargetType="Frame"
+                Value="Legendary">
+                <Setter Property="BackgroundColor" Value="Orange" />
+            </DataTrigger>
+        </Frame.Triggers>
+
+        <Label
+            FontAttributes="Bold"
+            HorizontalOptions="CenterAndExpand"
+            TextColor="White"
+            VerticalOptions="CenterAndExpand">
+
+            <Label.Triggers>
+                <DataTrigger
+                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
+                    TargetType="Label"
+                    Value="Mage">
+                    <Setter Property="Text" Value="M" />
+                </DataTrigger>
+
+                <DataTrigger
+                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
+                    TargetType="Label"
+                    Value="Warrior">
+                    <Setter Property="Text" Value="W" />
+                </DataTrigger>
+
+                <DataTrigger
+                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
+                    TargetType="Label"
+                    Value="Rogue">
+                    <Setter Property="Text" Value="R" />
+                </DataTrigger>
+            </Label.Triggers>
+
+        </Label>
+    </Frame>
+</Grid>

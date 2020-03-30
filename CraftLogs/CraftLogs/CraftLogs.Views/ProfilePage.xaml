@@ -9,9 +9,6 @@
     IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
         <views:BindableToolbarItem
-            Command="{Binding ShowProfileCommand}"
-            Icon="@drawable/ic_prfile_white.png" />
-        <views:BindableToolbarItem
             Command="{Binding ShowInfoCommand}"
             Icon="@drawable/ic_info_white.png" />
         <views:BindableToolbarItem
@@ -19,368 +16,36 @@
             Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid
+        <StackLayout
+            Margin="0"
+            Padding="0"
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+            Spacing="0"
+            VerticalOptions="StartAndExpand">
             <ScrollView
-                Grid.Row="1"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="StartAndExpand">
-                <Grid
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="20" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        Grid.Column="0"
-                        Margin="15,15,0,0"
-                        FlowDirection="LeftToRight"
-                        HeightRequest="100"
-                        HorizontalOptions="StartAndExpand"
-                        Source="{Binding Profile.Image}"
-                        VerticalOptions="StartAndExpand"
-                        WidthRequest="100" />
+                Padding="16"
+                VerticalOptions="Start">
+                <Frame>
                     <StackLayout
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        Grid.Column="1"
-                        Margin="0,15,0,0"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Vertical"
-                        VerticalOptions="StartAndExpand">
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Profile.Name}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Label
-                            FontSize="16"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Profile.LevelText}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Label
-                            FontSize="16"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Profile.ExpText}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Label
-                            FontSize="16"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Profile.Honor, StringFormat='Honor: {0}'}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Label
-                            FontSize="16"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding Profile.Money, StringFormat='Pénz: {0}'}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                    </StackLayout>
-                    <Label
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="15,0,0,0"
-                        FontSize="16"
-                        IsVisible="{Binding PointIsVisible}"
-                        Text="{Binding Profile.StatPoint, StringFormat='Elosztható pontok: {0}'}"
-                        TextColor="Black" />
-                    <StackLayout
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Margin="15,0,0,0"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
+                        HorizontalOptions="CenterAndExpand"
                         VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_stamina.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding StaminaSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Image
-                            BackgroundColor="{StaticResource BackgroundColorLight}"
-                            FlowDirection="LeftToRight"
-                            HeightRequest="40"
-                            HorizontalOptions="CenterAndExpand"
-                            IsVisible="{Binding PointIsVisible}"
-                            Source="@drawable/ic_plus_blue.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding RaiseStatCommand}"
-                                    CommandParameter="stamina" />
-                            </Image.GestureRecognizers>
-                        </Image>
+
+                        <views:ProfileInfoView />
+
+                        <views:ProfileStatsView Margin="0,16,0,0" />
+
+                        <views:ProfileItemsView Margin="0,16,0,0" />
+
                     </StackLayout>
-                    <StackLayout
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Margin="15,0,0,0"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_attack.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding AtkSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Image
-                            BackgroundColor="{StaticResource BackgroundColorLight}"
-                            FlowDirection="LeftToRight"
-                            HeightRequest="40"
-                            HorizontalOptions="CenterAndExpand"
-                            IsVisible="{Binding PointIsVisible}"
-                            Source="@drawable/ic_plus_blue.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding RaiseStatCommand}"
-                                    CommandParameter="atk" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </StackLayout>
-                    <StackLayout
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Margin="15,0,0,0"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_def.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding DefSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                        <Image
-                            BackgroundColor="{StaticResource BackgroundColorLight}"
-                            FlowDirection="LeftToRight"
-                            HeightRequest="40"
-                            HorizontalOptions="CenterAndExpand"
-                            IsVisible="{Binding PointIsVisible}"
-                            Source="@drawable/ic_plus_blue.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding RaiseStatCommand}"
-                                    CommandParameter="def" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </StackLayout>
-                    <StackLayout
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_hp.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding HpSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                    </StackLayout>
-                    <StackLayout
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_critr.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding CritRSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                    </StackLayout>
-                    <StackLayout
-                        Grid.Row="5"
-                        Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="CenterAndExpand">
-                        <Image
-                            HeightRequest="30"
-                            Source="@drawable/ic_dodge.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="30" />
-                        <Label
-                            FontSize="16"
-                            Text="{Binding DodgeSum}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
-                    </StackLayout>
-                    <Grid
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="15"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            BackgroundColor="White"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="FillAndExpand">
-                            <Image
-                                HeightRequest="50"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding LHandItem.Item1}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="{Binding LHandItem.Item2}"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                        <StackLayout
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            BackgroundColor="White"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="FillAndExpand">
-                            <Image
-                                HeightRequest="50"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding RHandItem.Item1}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="{Binding RHandItem.Item2}"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                        <StackLayout
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            BackgroundColor="White"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="FillAndExpand">
-                            <Image
-                                HeightRequest="50"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding RingItem.Item1}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="{Binding RingItem.Item2}"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                        <StackLayout
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            BackgroundColor="White"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="FillAndExpand">
-                            <Image
-                                HeightRequest="50"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding NeckItem.Item1}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="{Binding NeckItem.Item2}"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                        <StackLayout
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            BackgroundColor="White"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="FillAndExpand">
-                            <Image
-                                HeightRequest="50"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding ArmorItem.Item1}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="{Binding ArmorItem.Item2}"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                    </Grid>
-                    <Button
-                        Grid.Row="7"
-                        Command="{Binding LastTradeQRCommand}"
-                        FontSize="15"
-                        HeightRequest="40"
-                        IsVisible="{Binding LastQRIsVisible}"
-                        Text="Utolsó csere QR"
-                        TextColor="Black" />
-                </Grid>
+                </Frame>
             </ScrollView>
+
             <StackLayout
-                Grid.Row="0"
                 BackgroundColor="{StaticResource ColorPrimary}"
+                HeightRequest="60"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="End">
                 <Image
                     BackgroundColor="{StaticResource ColorPrimary}"
                     FlowDirection="LeftToRight"
@@ -442,13 +107,7 @@
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>
-            <ActivityIndicator
-                Grid.Row="0"
-                HorizontalOptions="CenterAndExpand"
-                IsRunning="True"
-                IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand"
-                Color="{StaticResource ColorPrimary}" />
-        </Grid>
+        </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

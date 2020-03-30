@@ -45,11 +45,11 @@ namespace CraftLogs.ViewModels
         private string _dodgeSum;
         private bool _pointIsVisible;
         private bool _lastQRIsVisible;
-        private Tuple<string, string> _armorItem;
-        private Tuple<string, string> _ringItem;
-        private Tuple<string, string> _neckItem;
-        private Tuple<string, string> _lHandItem;
-        private Tuple<string, string> _rHandItem;
+        private Item _armorItem;
+        private Item _ringItem;
+        private Item _neckItem;
+        private Item _lHandItem;
+        private Item _rHandItem;
 
         public TeamProfile Profile
         {
@@ -99,31 +99,31 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _pointIsVisible, value);
         }
 
-        public Tuple<string, string> ArmorItem
+        public Item ArmorItem
         {
             get => _armorItem;
             set => SetProperty(ref _armorItem, value);
         }
 
-        public Tuple<string, string> RingItem
+        public Item RingItem
         {
             get => _ringItem;
             set => SetProperty(ref _ringItem, value);
         }
 
-        public Tuple<string, string> NeckItem
+        public Item NeckItem
         {
             get => _neckItem;
             set => SetProperty(ref _neckItem, value);
         }
 
-        public Tuple<string, string> LHandItem
+        public Item LHandItem
         {
             get => _lHandItem;
             set => SetProperty(ref _lHandItem, value);
         }
 
-        public Tuple<string, string> RHandItem
+        public Item RHandItem
         {
             get => _rHandItem;
             set => SetProperty(ref _rHandItem, value);
@@ -162,8 +162,6 @@ namespace CraftLogs.ViewModels
         public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ExecuteLastTradeQRCommandAsync());
 
         public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ExecuteShowInfoCommandAsync(); });
-
-        public DelayCommand ShowProfileCommand => new DelayCommand(async () => await ExecuteShowProfileCommandAsync());
 
         public ProfilePageViewModel(
             INavigationService navigationService,
@@ -243,33 +241,20 @@ namespace CraftLogs.ViewModels
         private void SetItems()
         {
             var armor = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).FirstOrDefault();
-            ArmorItem = new Tuple<string, string>(armor != null ? armor.Image : "@drawable/chest.png", armor != null ? armor.SimpleString : Texts.Profile_NoArmor);
+            ArmorItem = armor ?? new Item(1111);
 
             var ring = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).FirstOrDefault();
-            RingItem = new Tuple<string, string>(ring != null ? ring.Image : "@drawable/ring.png", ring != null ? ring.SimpleString : Texts.Profile_NoRing);
+            RingItem = ring ?? new Item(2222);
 
             var neck = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).FirstOrDefault();
-            NeckItem = new Tuple<string, string>(neck != null ? neck.Image : "@drawable/neck.png", neck != null ? neck.SimpleString : Texts.Profile_NoNeck);
+            NeckItem = neck ?? new Item(3333);
 
             var lhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).FirstOrDefault();
-            LHandItem = new Tuple<string, string>(lhand != null ? lhand.Image : "@drawable/weapon.png", lhand != null ? lhand.SimpleString : Texts.Profile_NoWeapon);
+            LHandItem = lhand ?? new Item(4444);
 
             var rhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).FirstOrDefault();
-            RHandItem = new Tuple<string, string>(rhand != null ? rhand.Image : "@drawable/weapon.png", rhand != null ? rhand.SimpleString : Texts.Profile_NoWeapon);
+            RHandItem = rhand ?? new Item(4444);
         }
-
-        private async Task ExecuteShowProfileCommandAsync()
-        {
-            var profileQr = new ProfileQr(Profile);
-            var qrCode = _qRService.CreateQR(profileQr);
-            var param = new NavigationParameters
-            {
-                { "code", qrCode }
-            };
-
-            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-        }
-
 
         private async Task ExecuteGetArenaQRCommandAsync()
         {
