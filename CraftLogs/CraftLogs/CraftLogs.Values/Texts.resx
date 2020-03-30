@@ -293,6 +293,9 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
   <data name="Register_TeamName" xml:space="preserve">
     <value>Csapat neve:</value>
   </data>
+  <data name="Register_TeamNamePlaceholder" xml:space="preserve">
+    <value>Csapatnév</value>
+  </data>
   <data name="Register_Title" xml:space="preserve">
     <value>Profil létrehozása</value>
   </data>

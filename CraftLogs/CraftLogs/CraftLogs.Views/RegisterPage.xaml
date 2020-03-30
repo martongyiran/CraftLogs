@@ -32,6 +32,7 @@
                         TextColor="Black" />
 
                     <Entry
+                        Placeholder="{x:Static values:Texts.Register_TeamNamePlaceholder}"
                         Style="{StaticResource RegisterEntry}"
                         Text="{Binding Name, Mode=TwoWay}" />
 
@@ -71,10 +72,8 @@
                     <Label
                         Margin="10,0,10,0"
                         FontAttributes="Italic"
-                        FontSize="15"
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        TextColor="Black"
                         VerticalOptions="StartAndExpand">
                         <Label.FormattedText>
                             <FormattedString>

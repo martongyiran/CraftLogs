@@ -73,25 +73,37 @@ namespace CraftLogs.Views
         private void Slot1_Tapped(object sender, EventArgs e)
         {
             SelectedImage = Image1;
+
             Slot1.BackgroundColor = Color.FromHex("#8e8e8e");
+            Slot1.Opacity = 1.0;
             Slot2.BackgroundColor = Color.Transparent;
+            Slot2.Opacity = 0.6;
             Slot3.BackgroundColor = Color.Transparent;
+            Slot3.Opacity = 0.6;
         }
 
         private void Slot2_Tapped(object sender, EventArgs e)
         {
             SelectedImage = Image2;
+
             Slot2.BackgroundColor = Color.FromHex("#8e8e8e");
+            Slot2.Opacity = 1.0;
             Slot1.BackgroundColor = Color.Transparent;
+            Slot1.Opacity = 0.6;
             Slot3.BackgroundColor = Color.Transparent;
+            Slot3.Opacity = 0.6;
         }
 
         private void Slot3_Tapped(object sender, EventArgs e)
         {
             SelectedImage = Image3;
+            
             Slot3.BackgroundColor = Color.FromHex("#8e8e8e");
+            Slot3.Opacity = 1.0;
             Slot1.BackgroundColor = Color.Transparent;
+            Slot1.Opacity = 0.6;
             Slot2.BackgroundColor = Color.Transparent;
+            Slot2.Opacity = 0.6;
         }
     }
 }

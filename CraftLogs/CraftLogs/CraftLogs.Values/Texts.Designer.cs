@@ -579,6 +579,15 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Csapatnév.
+        /// </summary>
+        public static string Register_TeamNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Register_TeamNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profil létrehozása.
         /// </summary>
         public static string Register_Title {
