@@ -19,5 +19,8 @@
     <converters:LogTypeToStringConverter x:Key="LogTypeToStringConverter" />
     <converters:ItemRarityToColorConverter x:Key="RarityToColorConverter" />
     <converters:CharacterClassEnumToCharConverter x:Key="ClassEnumToCharConverter" />
+    <converters:ItemTypeEnumToStringConverter x:Key="ItemTypeToStringConverter" />
+    <converters:ItemStateEnumToStringConverter x:Key="ItemStateToStringConverter" />
+    <converters:ItemStateEnumToActionConverter x:Key="ItemStateToActionConverter" />
 
 </ResourceDictionary>

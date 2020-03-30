@@ -8,57 +8,51 @@
     BackgroundColor="{StaticResource BackgroundColorLight}"
     IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView Padding="16">
             <StackLayout
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="StartAndExpand">
-                <views:CardView
-                    BackgroundColor="White"
+
+                <Frame
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand">
                     <Label
-                        FontSize="16"
+                        FontAttributes="Bold"
+                        FontSize="18"
                         HorizontalOptions="CenterAndExpand"
-                        Text="{Binding RewardText}"
-                        TextColor="Black"
-                        VerticalOptions="CenterAndExpand" />
-                </views:CardView>
+                        Text="{Binding RewardText}" />
+                </Frame>
+
                 <StackLayout
                     BackgroundColor="Transparent"
                     BindableLayout.ItemsSource="{Binding Rewards}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <ContentView
-                                Padding="1"
-                                BackgroundColor="Gray"
+                            <Frame
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
-                                <Grid
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Grid.Column="0"
-                                        HeightRequest="50"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Source="{Binding Image}"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="50" />
+                                <StackLayout
+                                    HorizontalOptions="StartAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="CenterAndExpand">
+                                    <views:ItemView
+                                        IsInventoryView="True"
+                                        Item="{Binding}" />
+
                                     <Label
-                                        Grid.Column="1"
                                         HorizontalOptions="StartAndExpand"
-                                        Text="{Binding InvString}"
+                                        Style="{StaticResource TitleLabelStyle}"
+                                        Text="{Binding Name}"
+                                        TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}"
                                         VerticalOptions="CenterAndExpand" />
-                                </Grid>
-                            </ContentView>
+                                </StackLayout>
+                            </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
+
                 <Button
+                    Margin="16,48,16,16"
                     Command="{Binding NavigateToProfilePageCommand}"
                     IsVisible="{Binding IsQuestReward}"
                     Text="Köszi" />

@@ -116,31 +116,26 @@ namespace CraftLogs.BLL.Models
 
         private string GetInvString()
         {
-            string res = string.Format("{0}$ \n", Value);
-            res += string.Format("{0} \n", Name);
-            res += string.Format("Tier {0}, {1}\n", Tier, Rarity);
-            res += string.Format("{0} \n", UsableFor);
-            res += string.Format("{0} \n", ItemType);
-            res += string.Format("{0} \n", State);
+            string res = string.Empty;
             if (Atk != 0)
             {
-                res += string.Format("{0} ATK ", Atk);
+                res += string.Format("+{0} ATK \n", Atk);
             }
             if (Def != 0)
             {
-                res += string.Format("{0} DEF ", Def);
+                res += string.Format("+{0} DEF \n", Def);
             }
             if (Stamina != 0)
             {
-                res += string.Format("{0} STM ", Stamina);
+                res += string.Format("+{0} STM \n", Stamina);
             }
             if (CritR != 0)
             {
-                res += string.Format("{0} CR ", CritR);
+                res += string.Format("+{0} CritR \n", CritR);
             }
             if (Dodge != 0)
             {
-                res += string.Format("{0} DDG ", Dodge);
+                res += string.Format("+{0} Dodge", Dodge);
             }
 
             return res;

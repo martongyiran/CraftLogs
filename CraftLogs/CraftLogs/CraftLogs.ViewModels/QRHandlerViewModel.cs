@@ -115,7 +115,7 @@ namespace CraftLogs.ViewModels
                     profile.Money += processedData.Money;
                     profile.Score += processedData.Score;
 
-                    RewardText = "+1 EXP \n+" + processedData.Honor + " Honor \n+" + processedData.Money + " pénz";
+                    RewardText = "+1 EXP \n+" + processedData.Honor + " hírnév \n+" + processedData.Money + " $";
 
                     List<Item> temp = new List<Item>();
 
@@ -196,7 +196,7 @@ namespace CraftLogs.ViewModels
                     {
                         Title = Texts.Handler_ArenaLose;
                     }
-                    RewardText = "+1 EXP \n+1 Honor \n+" + processedData.Money + " pénz";
+                    RewardText = "+1 EXP \n+1 hírnév \n+" + processedData.Money + " $";
                     _loggerService.CreateArenaLog(processedData);
                 }
                 else if (data.Type == QRTypeEnum.TradeGive)
@@ -356,7 +356,7 @@ namespace CraftLogs.ViewModels
                     }
 
                     DataRepository.SaveToFile(profile);
-                    RewardText = processedData.Exp + " EXP \n" + processedData.Honor + " Honor \n" + processedData.Money + " pénz";
+                    RewardText = processedData.Exp + " EXP \n" + processedData.Honor + " hírnév \n" + processedData.Money + " $";
 
                     processedData.RewardItems = new ObservableCollection<Item>(temp);
                     Rewards = new ObservableCollection<Item>(temp);

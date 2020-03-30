@@ -163,6 +163,8 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ExecuteShowInfoCommandAsync(); });
 
+        public DelayCommand<string?> ViewItemCommand => new DelayCommand<string?>(async (a) => { await ExecuteViewItemCommandAsync(a); });
+
         public ProfilePageViewModel(
             INavigationService navigationService,
             ILocalDataRepository dataRepository,
@@ -391,6 +393,85 @@ namespace CraftLogs.ViewModels
         private async Task ExecuteShowInfoCommandAsync()
         {
             await DialogService.DisplayAlertAsync(Texts.Info, string.Format(Texts.Profile_Info, Profile.HpValue), Texts.Ok);
+        }
+
+        private async Task ExecuteViewItemCommandAsync(string? type)
+        {
+            switch (type)
+            {
+                case "armor":
+                    if (ArmorItem.Ad != 1111)
+                    {
+                        var param = new NavigationParameters
+            {
+                { "item", ArmorItem }
+            };
+                        await NavigateTo(NavigationLinks.InventoryPage, param);
+                    }
+                    else
+                    {
+                        await NavigateTo(NavigationLinks.InventoryPage);
+                    }
+                    break;
+                case "ring":
+                    if (RingItem.Ad != 2222)
+                    {
+                        var param = new NavigationParameters
+            {
+                { "item", RingItem }
+            };
+                        await NavigateTo(NavigationLinks.InventoryPage, param);
+                    }
+                    else
+                    {
+                        await NavigateTo(NavigationLinks.InventoryPage);
+                    }
+                    break;
+                case "neck":
+                    if (NeckItem.Ad != 3333)
+                    {
+                        var param = new NavigationParameters
+            {
+                { "item", NeckItem }
+            };
+                        await NavigateTo(NavigationLinks.InventoryPage, param);
+                    }
+                    else
+                    {
+                        await NavigateTo(NavigationLinks.InventoryPage);
+                    }
+                    break;
+                case "lHand":
+                    if (LHandItem.Ad != 4444)
+                    {
+                        var param = new NavigationParameters
+            {
+                { "item", LHandItem }
+            };
+                        await NavigateTo(NavigationLinks.InventoryPage, param);
+                    }
+                    else
+                    {
+                        await NavigateTo(NavigationLinks.InventoryPage);
+                    }
+                    break;
+                case "rHand":
+                    if (RHandItem.Ad != 4444)
+                    {
+                        var param = new NavigationParameters
+            {
+                { "item", RHandItem }
+            };
+                        await NavigateTo(NavigationLinks.InventoryPage, param);
+                    }
+                    else
+                    {
+                        await NavigateTo(NavigationLinks.InventoryPage);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

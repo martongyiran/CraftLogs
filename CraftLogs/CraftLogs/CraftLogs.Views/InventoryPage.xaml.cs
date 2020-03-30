@@ -22,10 +22,5 @@ namespace CraftLogs.Views
 
             viewModel.ItemTappedCommand.Execute(item);
         }
-
-        void Handle_Clicked(object sender, System.EventArgs e)
-        {
-            popupView.IsVisible = false;
-        }
     }
 }

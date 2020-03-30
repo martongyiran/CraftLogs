@@ -73,32 +73,7 @@
                 </CollectionView>
             </Frame>
 
-            <ContentView
-                x:Name="popupView"
-                BackgroundColor="#F2FFFFFF"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="{Binding IsPopupVisible, Mode=TwoWay}"
-                VerticalOptions="FillAndExpand">
-                <StackLayout
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand">
-                    <Button
-                        Command="{Binding UseCommand}"
-                        Font="20"
-                        Text="{x:Static values:Texts.Inventory_Use}"
-                        TextColor="Black" />
-                    <Button
-                        Command="{Binding SellCommand}"
-                        Font="20"
-                        Text="{x:Static values:Texts.Inventory_Sell}"
-                        TextColor="Black" />
-                    <Button
-                        Clicked="Handle_Clicked"
-                        Font="20"
-                        Text="{x:Static values:Texts.Cancel}"
-                        TextColor="Black" />
-                </StackLayout>
-            </ContentView>
+            <views:ItemDetailsView x:Name="popupView" />
 
             <ActivityIndicator
                 HeightRequest="100"

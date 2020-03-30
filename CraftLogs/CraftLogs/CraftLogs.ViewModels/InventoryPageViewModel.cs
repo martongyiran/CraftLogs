@@ -73,24 +73,25 @@ namespace CraftLogs.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
+            IsBusy = true;
             base.OnNavigatedTo(parameters);
+
+            ActiveItem = parameters["item"] as Item;
 
             Init();
 
-            IsPopupVisible = false;
+            IsPopupVisible = ActiveItem != null;
+            IsBusy = false;
         }
 
         private void Init()
         {
-            IsBusy = true;
             Items = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory.OrderByDescending(x => x.State).ThenBy(y => y.UsableFor));
-            IsBusy = false;
         }
 
         private void ExecuteItemTapped(object o)
         {
             ActiveItem = o as Item;
-            System.Diagnostics.Debug.WriteLine(">--------------- " + ActiveItem.Name);
         }
 
         private async Task ExecuteSellCommandAsync()
