@@ -13,6 +13,8 @@
     mc:Ignorable="d">
     <Frame
         Padding="0"
+        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
+        BorderColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
         CornerRadius="10"
         HasShadow="False"
         HeightRequest="55"
@@ -21,30 +23,6 @@
         VerticalOptions="Center"
         WidthRequest="55">
         <Frame.Triggers>
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Common">
-                <Setter Property="BorderColor" Value="Black" />
-                <Setter Property="BackgroundColor" Value="Black" />
-            </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Rare">
-                <Setter Property="BorderColor" Value="Blue" />
-                <Setter Property="BackgroundColor" Value="Blue" />
-            </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Legendary">
-                <Setter Property="BorderColor" Value="Orange" />
-                <Setter Property="BackgroundColor" Value="Orange" />
-            </DataTrigger>
-
             <DataTrigger
                 Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
                 TargetType="Frame"
@@ -64,7 +42,7 @@
     <Frame
         Margin="30,0,0,0"
         Padding="0"
-        BackgroundColor="Black"
+        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
         BorderColor="Transparent"
         CornerRadius="20"
         HasShadow="False"
@@ -80,20 +58,6 @@
                 Value="0">
                 <Setter Property="IsVisible" Value="False" />
             </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Rare">
-                <Setter Property="BackgroundColor" Value="Blue" />
-            </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Legendary">
-                <Setter Property="BackgroundColor" Value="Orange" />
-            </DataTrigger>
         </Frame.Triggers>
 
         <Label
@@ -107,7 +71,7 @@
     <Frame
         Margin="0"
         Padding="0"
-        BackgroundColor="Black"
+        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
         BorderColor="Transparent"
         CornerRadius="20"
         HasShadow="False"
@@ -124,51 +88,13 @@
                 Value="0">
                 <Setter Property="IsVisible" Value="False" />
             </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Rare">
-                <Setter Property="BackgroundColor" Value="Blue" />
-            </DataTrigger>
-
-            <DataTrigger
-                Binding="{Binding Item.Rarity, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="Legendary">
-                <Setter Property="BackgroundColor" Value="Orange" />
-            </DataTrigger>
         </Frame.Triggers>
 
         <Label
             FontAttributes="Bold"
             HorizontalOptions="CenterAndExpand"
+            Text="{Binding Item.UsableFor, Source={x:Reference itemHolder}, Converter={StaticResource ClassEnumToCharConverter}}"
             TextColor="White"
-            VerticalOptions="CenterAndExpand">
-
-            <Label.Triggers>
-                <DataTrigger
-                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
-                    TargetType="Label"
-                    Value="Mage">
-                    <Setter Property="Text" Value="M" />
-                </DataTrigger>
-
-                <DataTrigger
-                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
-                    TargetType="Label"
-                    Value="Warrior">
-                    <Setter Property="Text" Value="W" />
-                </DataTrigger>
-
-                <DataTrigger
-                    Binding="{Binding Item.UsableFor, Source={x:Reference itemHolder}}"
-                    TargetType="Label"
-                    Value="Rogue">
-                    <Setter Property="Text" Value="R" />
-                </DataTrigger>
-            </Label.Triggers>
-
-        </Label>
+            VerticalOptions="CenterAndExpand" />
     </Frame>
 </Grid>

@@ -17,5 +17,7 @@
     <converters:InverseNullToBoolConverter x:Key="InverseNullToBoolConverter" />
     <converters:LogTypeToColorConverter x:Key="LogTypeToColorConverter" />
     <converters:LogTypeToStringConverter x:Key="LogTypeToStringConverter" />
+    <converters:ItemRarityToColorConverter x:Key="RarityToColorConverter" />
+    <converters:CharacterClassEnumToCharConverter x:Key="ClassEnumToCharConverter" />
 
 </ResourceDictionary>
