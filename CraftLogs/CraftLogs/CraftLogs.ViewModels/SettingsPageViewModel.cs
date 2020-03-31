@@ -163,7 +163,7 @@ namespace CraftLogs.ViewModels
 #if DEV
             await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
 #else
-        if(Pw == "123456")
+        if(Pw == Texts.QuestPw)
             {
                 await NavigateToWithoutHistoryDouble(NavigationLinks.QuestPage);
             }

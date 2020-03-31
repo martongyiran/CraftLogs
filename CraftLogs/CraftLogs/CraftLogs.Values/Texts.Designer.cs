@@ -516,6 +516,15 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 111112.
+        /// </summary>
+        public static string QuestPw {
+            get {
+                return ResourceManager.GetString("QuestPw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A csapat értékelje az állomást az alapján, hogy mennyire tetszett nekik:.
         /// </summary>
         public static string Rating_Subtitle {

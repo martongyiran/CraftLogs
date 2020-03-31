@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System.Collections.Generic;
+using CraftLogs.BLL.Models.ArenaModels;
 using Newtonsoft.Json;
 
 namespace CraftLogs.BLL.Models
@@ -26,11 +26,11 @@ namespace CraftLogs.BLL.Models
         public int Money { get; set; }
 
         [JsonIgnore]
-        public string CombatLog { get; set; }
+        public CombatLogDetailsModel CombatLog { get; set; } = new CombatLogDetailsModel();
 
         public string GetResoult()
         {
-            return IsWin ? "Nyertél az arénában!\nA jutalmad: 1 EXP, 1 Honor és " + Money + " pénz." : "Vesztettél az arénában, de szereztél 1 EXP-et, 1 Honort és " + Money + " pénzt.";
+            return IsWin ? "Nyertél az arénában!\nA jutalmad: 1 EXP, 1 hírnév és " + Money + " $!" : "Vesztettél az arénában, de szereztél 1 EXP-et, 1 hírnevet és " + Money + " $-t!";
         }
     }
 }

@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using CraftLogs.BLL.Models.ArenaModels;
 
 namespace CraftLogs.BLL.Models
 {
@@ -26,6 +25,6 @@ namespace CraftLogs.BLL.Models
 
         public CombatUnit Attacker { get; set; } = null;
 
-        public string LastLog { get; set; }
+        public CombatLogDetailsModel LastLog { get; set; }
     }
 }

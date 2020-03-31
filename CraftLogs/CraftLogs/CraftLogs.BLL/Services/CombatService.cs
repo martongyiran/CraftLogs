@@ -16,6 +16,7 @@ limitations under the License.
 
 
 using CraftLogs.BLL.Models;
+using CraftLogs.BLL.Models.ArenaModels;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using System;
@@ -66,9 +67,9 @@ namespace CraftLogs.BLL.Services
             int allDmg1 = 0;
             int allDmg2 = 0;
 
-            resp.CombatLog = Player1.Name + " vs. " + Player2.Name + "\n";
-            resp.CombatLog += "Kör | Sebzés | Hp\n";
-            resp.CombatLog += "0. | 0 - 0 | " + hp1 + " - " + hp2 + "\n";
+            resp.CombatLog.Title = Player1.Name + " vs. " + Player2.Name;
+            resp.CombatLog.Rounds.Add(new CombatLogUnit(0, 0, 0, hp1, hp2));
+
             while (hp1 >= 0 && hp2 >= 0)
             {
 
@@ -87,23 +88,22 @@ namespace CraftLogs.BLL.Services
                 allDmg1 += player1hit;
                 allDmg2 += player2hit;
 
-                string log = round + ". | " + player1hit + " - " + player2hit + " | " + hp1 + " - " + hp2 + "\n";
-                resp.CombatLog += log;
+                resp.CombatLog.Rounds.Add(new CombatLogUnit(round, player1hit, player2hit, hp1, hp2));
 
                 round++;
             }
 
-            resp.CombatLog += "Dps: " + Math.Round((allDmg1 / (double)round-1), 2) + " - " + Math.Round((allDmg2 / (double)round-1), 2) + "\n";
+            resp.CombatLog.DpsText = "Dps: " + Math.Round((allDmg1 / (double)round-1), 2) + " - " + Math.Round((allDmg2 / (double)round-1), 2);
 
             if (hp1 >= 0)
             {
                 resp.IsWin = false;
-                resp.CombatLog += "----- " + Player1.Name + " a győztes.";
+                resp.CombatLog.ResultText = Player1.Name + " a győztes.";
             }
             else if (hp2 >= 0)
             {
                 resp.IsWin = true;
-                resp.CombatLog += "----- " + Player2.Name + " a győztes.";
+                resp.CombatLog.ResultText = Player2.Name + " a győztes.";
             }
 
             resp.Money = SetMoney(leader.Hp, hp1);

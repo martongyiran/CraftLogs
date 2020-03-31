@@ -16,11 +16,13 @@ limitations under the License.
 
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
+using CraftLogs.BLL.Models.ArenaModels;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -35,7 +37,7 @@ namespace CraftLogs.ViewModels
         private Settings _settings;
         private CombatUnit _challenger;
         private CombatUnit _firstUnit;
-        private string _logs;
+        private CombatLogDetailsModel _logs;
 
         public CombatUnit FirstUnit
         {
@@ -43,7 +45,7 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _firstUnit, value);
         }
 
-        public string Logs
+        public CombatLogDetailsModel Logs
         {
             get => _logs; 
             set => SetProperty(ref _logs, value); 

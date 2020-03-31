@@ -260,6 +260,9 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
   <data name="QrScanner_Title" xml:space="preserve">
     <value>QR kód leolvasása</value>
   </data>
+  <data name="QuestPw" xml:space="preserve">
+    <value>111112</value>
+  </data>
   <data name="Quest_CantScoreError" xml:space="preserve">
     <value>Most nem pontozhatsz!</value>
   </data>
