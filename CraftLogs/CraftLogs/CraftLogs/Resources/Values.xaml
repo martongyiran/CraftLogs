@@ -22,5 +22,6 @@
     <converters:ItemTypeEnumToStringConverter x:Key="ItemTypeToStringConverter" />
     <converters:ItemStateEnumToStringConverter x:Key="ItemStateToStringConverter" />
     <converters:ItemStateEnumToActionConverter x:Key="ItemStateToActionConverter" />
+    <converters:CartSizeToBoolConverter x:Key="CartSizeToBoolConverter" />
 
 </ResourceDictionary>

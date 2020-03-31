@@ -40,7 +40,6 @@ namespace CraftLogs.ViewModels
         private string _img2;
         private string _img3;
         private CharacterClassEnum _cast;
-        private ObservableCollection<string> _images;
 
         public string Name
         {

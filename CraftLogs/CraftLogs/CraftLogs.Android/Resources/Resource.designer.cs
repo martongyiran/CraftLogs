@@ -4644,7 +4644,7 @@ namespace CraftLogs.Droid
 			public const int ic_settings_white = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int ic_shop_white = 2131165362;
+			public const int ic_shop = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
 			public const int ic_stamina = 2131165363;

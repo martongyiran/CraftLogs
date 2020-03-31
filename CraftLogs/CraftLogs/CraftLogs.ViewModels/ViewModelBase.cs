@@ -130,5 +130,11 @@ namespace CraftLogs.ViewModels
             IsBusy = true;
             await NavigationService.NavigateAsync("../");
         }
+
+        protected async Task NavigateBack(INavigationParameters parameters)
+        {
+            IsBusy = true;
+            await NavigationService.NavigateAsync("../", parameters);
+        }
     }
 }

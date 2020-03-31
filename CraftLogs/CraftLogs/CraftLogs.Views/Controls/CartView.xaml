@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="CraftLogs.Views.CartView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+    x:Name="cartView"
+    BackgroundColor="#F2FFFFFF"
+    HorizontalOptions="FillAndExpand"
+    IsVisible="{Binding IsCartVisible, Mode=TwoWay}"
+    VerticalOptions="FillAndExpand"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="82" />
+        </Grid.RowDefinitions>
+
+        <CollectionView
+            Grid.Row="0"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding ShoppingCart}"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView
+                        Margin="5"
+                        HeightRequest="250">
+                        <Frame
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <Grid
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="100" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <views:ItemView
+                                    Grid.Row="1"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    HorizontalOptions="CenterAndExpand"
+                                    IsInventoryView="True"
+                                    Item="{Binding}"
+                                    VerticalOptions="StartAndExpand" />
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Style="{StaticResource TitleLabelStyle}"
+                                    Text="{Binding Name}"
+                                    TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}" />
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    FontSize="18"
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource TitleLabelStyle}"
+                                    Text="{Binding Value, StringFormat='{0} $'}" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
+
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding InvString}" />
+
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Padding="0"
+                                    BackgroundColor="DarkRed"
+                                    Command="{Binding BindingContext.RemoveItemCommand, Source={x:Reference cartView}}"
+                                    CommandParameter="{Binding}"
+                                    HeightRequest="50"
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="X"
+                                    TextColor="White"
+                                    VerticalOptions="EndAndExpand"
+                                    WidthRequest="50" />
+                            </Grid>
+                        </Frame>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid
+            Grid.Row="1"
+            Padding="16"
+            BackgroundColor="{StaticResource ColorLight}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Command="{Binding CloseCartCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Mégse"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="120" />
+
+            <Label
+                Grid.Column="1"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource TitleLabelStyle}"
+                Text="{Binding CartValue}"
+                VerticalOptions="CenterAndExpand" />
+
+            <Button
+                Grid.Column="2"
+                Command="{Binding CheckOutCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Fizetés"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="120" />
+        </Grid>
+    </Grid>
+</ContentView>

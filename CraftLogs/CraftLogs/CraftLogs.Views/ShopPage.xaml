@@ -16,225 +16,137 @@
             x:Name="reloadIcon"
             Command="{Binding RefreshCommand}"
             Icon="@drawable/ic_reloadWhite.png" />
-        <views:BindableToolbarItem
-            x:Name="buyitIcon"
-            Clicked="BindableToolbarItem_Clicked"
-            Icon="@drawable/ic_shop_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="82" />
             </Grid.RowDefinitions>
-            <StackLayout
-                x:Name="pickers"
+
+            <Frame
                 Grid.Row="0"
-                BackgroundColor="{StaticResource ColorPrimary}"
-                HeightRequest="50"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="True"
-                Orientation="Horizontal"
-                VerticalOptions="CenterAndExpand">
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker1Values}"
-                    SelectedItem="{Binding SelectedItemType, Mode=TwoWay}"
-                    TextColor="White" />
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker2Values}"
-                    SelectedItem="{Binding SelectedItemClass, Mode=TwoWay}"
-                    TextColor="White" />
-                <Picker
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FontSize="16"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Picker3Values}"
-                    SelectedItem="{Binding SelectedItemTier, Mode=TwoWay}"
-                    TextColor="White" />
-            </StackLayout>
-            <ListView
-                x:Name="shop"
+                Margin="16"
+                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
+                <CollectionView
+                    BackgroundColor="Transparent"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemsSource="{Binding Items}"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            Orientation="Vertical"
+                            Span="4" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="0"
+                                Padding="5"
+                                BackgroundColor="{StaticResource ColorLightAlt}"
+                                BorderColor="Transparent">
+
+                                <views:ItemView
+                                    IsInventoryView="True"
+                                    Item="{Binding}">
+                                    <views:ItemView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Handle_ItemTapped" />
+                                    </views:ItemView.GestureRecognizers>
+                                </views:ItemView>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+            <Frame
                 Grid.Row="1"
-                BackgroundColor="Transparent"
-                CachingStrategy="RecycleElement"
-                HasUnevenRows="True"
-                IsRefreshing="{Binding IsBusy}"
-                IsVisible="True"
-                ItemTapped="Handle_ItemTapped"
-                ItemsSource="{Binding SelectedItems}"
-                SelectionMode="None"
-                SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
-                            <ContentView
-                                Padding="1"
-                                BackgroundColor="Gray"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-                                <Grid
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Grid.Column="0"
-                                        HeightRequest="50"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Source="{Binding Image}"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="50" />
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding InvString}"
-                                        VerticalOptions="CenterAndExpand" />
-                                </Grid>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ContentView
+                Margin="16,0,16,0"
+                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        HorizontalOptions="StartAndExpand"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="{Binding NextRefresh}" />
+
+                    <Label
+                        HorizontalOptions="EndAndExpand"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="{Binding CartValue}" />
+                </StackLayout>
+            </Frame>
+
+            <Grid
+                Grid.Row="2"
+                Margin="16,0,16,16"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}"
+                VerticalOptions="CenterAndExpand">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Command="{Binding EmptyCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Ürítés"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="120" />
+
+                <Image
+                    Grid.Column="1"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="@drawable/ic_shop.png"
+                    VerticalOptions="CenterAndExpand" />
+
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="35"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{Binding CartSize}"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand" />
+
+                <Button
+                    Grid.Column="2"
+                    Command="{Binding CheckCartCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding CartSize, Converter={StaticResource CartSizeToBoolConverter}}"
+                    Text="Tovább"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="120" />
+            </Grid>
+
+            <views:ShopItemDetailsView
                 x:Name="popupView"
                 Grid.Row="0"
-                Grid.RowSpan="2"
-                BackgroundColor="#F2FFFFFF"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="False"
-                VerticalOptions="FillAndExpand">
-                <StackLayout
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand">
-                    <Button
-                        Clicked="Buy_Clicked"
-                        Font="20"
-                        Text="{x:Static values:Texts.Shop_Checkout}"
-                        TextColor="Black" />
-                    <Button
-                        Clicked="Handle_Clicked"
-                        Font="20"
-                        Text="{x:Static values:Texts.Cancel}"
-                        TextColor="Black" />
-                </StackLayout>
-            </ContentView>
+                Grid.RowSpan="3" />
 
-            <StackLayout
-                Grid.Row="2"
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                VerticalOptions="CenterAndExpand">
-                <Label
-                    Margin="5"
-                    FontSize="15"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{Binding NextRefresh}"
-                    TextColor="Black"
-                    VerticalOptions="CenterAndExpand" />
-                <Label
-                    Margin="5"
-                    FontSize="16"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="{Binding CartValue}"
-                    TextColor="Black"
-                    VerticalOptions="CenterAndExpand" />
-                <Label
-                    Margin="5"
-                    FontSize="15"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding Version}"
-                    TextColor="Black"
-                    VerticalOptions="CenterAndExpand" />
-            </StackLayout>
-
-            <StackLayout
-                x:Name="cartMenu"
+            <views:CartView
                 Grid.Row="0"
-                BackgroundColor="{StaticResource ColorPrimary}"
-                HeightRequest="50"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="False"
-                Orientation="Horizontal"
-                VerticalOptions="CenterAndExpand">
-                <Button
-                    Clicked="BindableToolbarItem_Clicked"
-                    Font="15"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.Cancel}"
-                    TextColor="Black" />
-                <Button
-                    Clicked="EmptyButton_Clicked"
-                    Font="15"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.Shop_EmptyCart}"
-                    TextColor="Black" />
-                <Button
-                    Clicked="CheckOutButton_Clicked"
-                    Font="15"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="{x:Static values:Texts.Shop_Checkout}"
-                    TextColor="Black" />
-            </StackLayout>
-            <ListView
-                x:Name="cartList"
-                Grid.Row="1"
-                BackgroundColor="Transparent"
-                CachingStrategy="RecycleElement"
-                HasUnevenRows="True"
-                IsRefreshing="{Binding IsBusy}"
-                IsVisible="False"
-                ItemTapped="CartList_ItemTapped"
-                ItemsSource="{Binding ShoppingCart}"
-                SelectionMode="None"
-                SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <!--<views:ItemControl BindedItem="{Binding}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5"/>-->
-                            <ContentView
-                                Padding="1"
-                                BackgroundColor="Gray"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-                                <Grid
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Grid.Column="0"
-                                        HeightRequest="50"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Source="{Binding Image}"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="50" />
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding InvString}"
-                                        VerticalOptions="CenterAndExpand" />
-                                </Grid>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                Grid.RowSpan="3" />
+
+            <ActivityIndicator
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                HeightRequest="100"
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="True"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand" />
 
         </Grid>
     </ContentPage.Content>
