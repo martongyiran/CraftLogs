@@ -213,6 +213,9 @@
   <data name="Logs_Title" xml:space="preserve">
     <value>Napló</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Tovább</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Nem</value>
   </data>
@@ -378,7 +381,7 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
     <value>Megveszed az alábbi tárgyakat? Ellenőrizd, hogy van e elég pénzed!</value>
   </data>
   <data name="Shop_EmptyCart" xml:space="preserve">
-    <value>Kosár ürítése</value>
+    <value>Ürítés</value>
   </data>
   <data name="Shop_ItemLimit" xml:space="preserve">
     <value>Maximum 5 tárgyat vehetsz egyszerre!</value>

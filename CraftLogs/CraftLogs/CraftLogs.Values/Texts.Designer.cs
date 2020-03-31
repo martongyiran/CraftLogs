@@ -349,6 +349,15 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tovább.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nem.
         /// </summary>
         public static string No {
@@ -831,7 +840,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kosár ürítése.
+        ///   Looks up a localized string similar to Ürítés.
         /// </summary>
         public static string Shop_EmptyCart {
             get {

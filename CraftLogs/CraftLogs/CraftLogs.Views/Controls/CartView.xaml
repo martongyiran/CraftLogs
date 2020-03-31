@@ -129,7 +129,7 @@
                 Grid.Column="0"
                 Command="{Binding CloseCartCommand}"
                 HorizontalOptions="FillAndExpand"
-                Text="Mégse"
+                Text="{x:Static values:Texts.Cancel}"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="120" />
 
@@ -144,7 +144,7 @@
                 Grid.Column="2"
                 Command="{Binding CheckOutCommand}"
                 HorizontalOptions="FillAndExpand"
-                Text="Fizetés"
+                Text="{x:Static values:Texts.Shop_Checkout}"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="120" />
         </Grid>

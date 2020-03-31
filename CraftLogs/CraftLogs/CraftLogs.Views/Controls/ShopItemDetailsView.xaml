@@ -97,7 +97,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Command="{Binding BuyCommand}"
-                Text="Vásárlás" />
+                Text="{x:Static values:Texts.Shop_ToCart}" />
 
             <Button
                 Grid.Row="4"

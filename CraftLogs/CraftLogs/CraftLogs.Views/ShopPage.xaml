@@ -101,7 +101,7 @@
                     Grid.Column="0"
                     Command="{Binding EmptyCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Text="Ürítés"
+                    Text="{x:Static values:Texts.Shop_EmptyCart}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="120" />
 
@@ -125,7 +125,7 @@
                     Command="{Binding CheckCartCommand}"
                     HorizontalOptions="FillAndExpand"
                     IsEnabled="{Binding CartSize, Converter={StaticResource CartSizeToBoolConverter}}"
-                    Text="Tovább"
+                    Text="{x:Static values:Texts.Next}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="120" />
             </Grid>
