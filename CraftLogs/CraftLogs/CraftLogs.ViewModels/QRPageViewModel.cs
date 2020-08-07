@@ -38,7 +38,10 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand NavigateToHomeCommand => new DelayCommand(async () => await ExecuteNavigateToHomeCommandAsync());
 
-        public QRPageViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public QRPageViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
         }

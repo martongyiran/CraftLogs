@@ -70,11 +70,32 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _tradeGetCart, value);
         }
 
-        public List<ItemTypeEnum> Picker1Values { get; set; } = new List<ItemTypeEnum>() { ItemTypeEnum.All, ItemTypeEnum.Armor, ItemTypeEnum.LHand, ItemTypeEnum.RHand, ItemTypeEnum.Neck, ItemTypeEnum.Ring };
+        public List<ItemTypeEnum> Picker1Values { get; set; }
+            = new List<ItemTypeEnum>
+            {
+                ItemTypeEnum.All,
+                ItemTypeEnum.Armor,
+                ItemTypeEnum.LHand,
+                ItemTypeEnum.RHand,
+                ItemTypeEnum.Neck,
+                ItemTypeEnum.Ring
+            };
 
-        public List<CharacterClassEnum> Picker2Values { get; set; } = new List<CharacterClassEnum>() { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
+        public List<CharacterClassEnum> Picker2Values { get; set; }
+            = new List<CharacterClassEnum>
+            {
+                CharacterClassEnum.Mage,
+                CharacterClassEnum.Rogue,
+                CharacterClassEnum.Warrior
+            };
 
-        public List<int> Picker3Values { get; set; } = new List<int>() { 1, 2, 3 };
+        public List<int> Picker3Values { get; set; }
+            = new List<int>
+            {
+                1,
+                2,
+                3
+            };
 
         public ItemTypeEnum SelectedItemType
         {

@@ -161,9 +161,10 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ExecuteLastTradeQRCommandAsync());
 
-        public DelayCommand ShowInfoCommand => new DelayCommand(async () => { await ExecuteShowInfoCommandAsync(); });
+        public DelayCommand ShowInfoCommand => new DelayCommand(async () => await ExecuteShowInfoCommandAsync());
 
-        public DelayCommand<string?> ViewItemCommand => new DelayCommand<string?>(async (a) => { await ExecuteViewItemCommandAsync(a); });
+        public DelayCommand<string?> ViewItemCommand
+            => new DelayCommand<string?>(async (a) => { await ExecuteViewItemCommandAsync(a); });
 
         public ProfilePageViewModel(
             INavigationService navigationService,
@@ -199,7 +200,9 @@ namespace CraftLogs.ViewModels
 
             SetItems();
 
-            TradeIcon = Profile.TradeStatus != TradeStatusEnum.Finished ? "@drawable/ic_trade_whiteIP.png" : "@drawable/ic_trade_white.png";
+            TradeIcon = Profile.TradeStatus != TradeStatusEnum.Finished
+                ? "@drawable/ic_trade_whiteIP.png"
+                : "@drawable/ic_trade_white.png";
 
             ArenaIcon = GetArenaIcon();
 
@@ -229,11 +232,11 @@ namespace CraftLogs.ViewModels
             bcr = bcr >= 60 ? 60 : bcr;
             bdodge = bdodge >= 60 ? 60 : bdodge;
 
-            AtkSum = "ATK: " + batk;
-            DefSum = "DEF: " + bdef;
-            StaminaSum = "STM: " + bstamina;
+            AtkSum = $"ATK: {batk}";
+            DefSum = $"DEF: {bdef}";
+            StaminaSum = $"STM: {bstamina}";
 
-            HpSum = "HP: " + bhp;
+            HpSum = $"HP: {bhp}";
             CritRSum = string.Format(Texts.Profile_CritR, bcr);
             DodgeSum = string.Format(Texts.Profile_Dodge, bdodge);
 
@@ -242,19 +245,34 @@ namespace CraftLogs.ViewModels
 
         private void SetItems()
         {
-            var armor = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Armor).FirstOrDefault();
+            var armor = Profile.Inventory
+                .Where((arg) => arg.State == ItemStateEnum.Equipped 
+                    && arg.ItemType == ItemTypeEnum.Armor)
+                .FirstOrDefault();
             ArmorItem = armor ?? new Item(1111);
 
-            var ring = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Ring).FirstOrDefault();
+            var ring = Profile.Inventory
+                .Where((arg) => arg.State == ItemStateEnum.Equipped
+                    && arg.ItemType == ItemTypeEnum.Ring)
+                .FirstOrDefault();
             RingItem = ring ?? new Item(2222);
 
-            var neck = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.Neck).FirstOrDefault();
+            var neck = Profile.Inventory
+                .Where((arg) => arg.State == ItemStateEnum.Equipped
+                    && arg.ItemType == ItemTypeEnum.Neck)
+                .FirstOrDefault();
             NeckItem = neck ?? new Item(3333);
 
-            var lhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.LHand).FirstOrDefault();
+            var lhand = Profile.Inventory
+                .Where((arg) => arg.State == ItemStateEnum.Equipped
+                    && arg.ItemType == ItemTypeEnum.LHand)
+                .FirstOrDefault();
             LHandItem = lhand ?? new Item(4444);
 
-            var rhand = Profile.Inventory.Where((arg) => arg.State == ItemStateEnum.Equipped && arg.ItemType == ItemTypeEnum.RHand).FirstOrDefault();
+            var rhand = Profile.Inventory
+                .Where((arg) => arg.State == ItemStateEnum.Equipped
+                    && arg.ItemType == ItemTypeEnum.RHand)
+                .FirstOrDefault();
             RHandItem = rhand ?? new Item(4444);
         }
 
@@ -403,9 +421,10 @@ namespace CraftLogs.ViewModels
                     if (ArmorItem.Ad != 1111)
                     {
                         var param = new NavigationParameters
-            {
-                { "item", ArmorItem }
-            };
+                            {
+                                { "item", ArmorItem }
+                            };
+
                         await NavigateTo(NavigationLinks.InventoryPage, param);
                     }
                     else
@@ -417,9 +436,10 @@ namespace CraftLogs.ViewModels
                     if (RingItem.Ad != 2222)
                     {
                         var param = new NavigationParameters
-            {
-                { "item", RingItem }
-            };
+                            {
+                                { "item", RingItem }
+                            };
+
                         await NavigateTo(NavigationLinks.InventoryPage, param);
                     }
                     else
@@ -431,9 +451,10 @@ namespace CraftLogs.ViewModels
                     if (NeckItem.Ad != 3333)
                     {
                         var param = new NavigationParameters
-            {
-                { "item", NeckItem }
-            };
+                            {
+                                { "item", NeckItem }
+                            };
+
                         await NavigateTo(NavigationLinks.InventoryPage, param);
                     }
                     else
@@ -445,9 +466,10 @@ namespace CraftLogs.ViewModels
                     if (LHandItem.Ad != 4444)
                     {
                         var param = new NavigationParameters
-            {
-                { "item", LHandItem }
-            };
+                            {
+                                { "item", LHandItem }
+                            };
+
                         await NavigateTo(NavigationLinks.InventoryPage, param);
                     }
                     else
@@ -459,9 +481,10 @@ namespace CraftLogs.ViewModels
                     if (RHandItem.Ad != 4444)
                     {
                         var param = new NavigationParameters
-            {
-                { "item", RHandItem }
-            };
+                            {
+                                { "item", RHandItem }
+                            };
+
                         await NavigateTo(NavigationLinks.InventoryPage, param);
                     }
                     else

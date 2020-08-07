@@ -80,7 +80,9 @@ namespace CraftLogs.ViewModels
             else
             {
                 FooterIsVisible = false;
-                FilteredLogsList = _logs.Count != 0 ? new ObservableCollection<Log>(_logs) : null;
+                FilteredLogsList = _logs.Count != 0
+                    ? new ObservableCollection<Log>(_logs)
+                    : new ObservableCollection<Log>();
             }
         }
     }

@@ -25,14 +25,6 @@ namespace CraftLogs.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private bool _isDevMode = false;
-
-        public bool IsDevMode
-        {
-            get => _isDevMode;
-            set => SetProperty(ref _isDevMode, value);
-        }
-
         public MainPageViewModel(
             INavigationService navigationService,
             ILocalDataRepository dataRepository,
@@ -42,7 +34,6 @@ namespace CraftLogs.ViewModels
         {
 #if DEV
             Title = Texts.CraftLogs + " DEV";
-            IsDevMode = true;
 #elif STG
             Title = Texts.CraftLogs + " STG";
 #elif PRD

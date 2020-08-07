@@ -70,9 +70,15 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _isQuestReward, value);
         }
 
-        public DelayCommand NavigateToProfilePageCommand => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
+        public DelayCommand NavigateToProfilePageCommand
+            => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
 
-        public QRHandlerViewModel(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService, IQRService qrService, ILoggerService loggerservice)
+        public QRHandlerViewModel(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService,
+            IQRService qrService,
+            ILoggerService loggerservice)
             : base(navigationService, dataRepository, dialogService)
         {
             Title = "QR Handler Page";
@@ -86,12 +92,14 @@ namespace CraftLogs.ViewModels
 
             _settings = DataRepository.GetSettings();
 
-            var lul = parameters["res"] as string;
-            Response = lul ?? "none";
+            var par = parameters["res"] as string;
+            Response = par ?? "none";
             if (Response != "none")
             {
-                await HandleQR(lul);
-                System.Diagnostics.Debug.WriteLine(lul);
+                await HandleQR(par);
+#if DEV
+                System.Diagnostics.Debug.WriteLine(par);
+#endif
             }
         }
 

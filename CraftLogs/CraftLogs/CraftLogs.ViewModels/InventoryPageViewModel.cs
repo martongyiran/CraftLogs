@@ -86,7 +86,10 @@ namespace CraftLogs.ViewModels
 
         private void Init()
         {
-            Items = new ObservableCollection<Item>(DataRepository.GetTeamProfile().Inventory.OrderByDescending(x => x.State).ThenBy(y => y.UsableFor));
+            Items = new ObservableCollection<Item>(
+                DataRepository.GetTeamProfile()
+                .Inventory.OrderByDescending(x => x.State)
+                .ThenBy(y => y.UsableFor));
         }
 
         private void ExecuteItemTapped(object o)
@@ -130,10 +133,13 @@ namespace CraftLogs.ViewModels
                 {
                     if (item.Id == ActiveItem.Id)
                     {
-                        item.State = ActiveItem.State == ItemStateEnum.Backpack ? ItemStateEnum.Equipped : ItemStateEnum.Backpack;
+                        item.State = ActiveItem.State == ItemStateEnum.Backpack
+                            ? ItemStateEnum.Equipped
+                            : ItemStateEnum.Backpack;
                     }
 
-                    if (item.ItemType == ActiveItem.ItemType && item.Id != ActiveItem.Id)
+                    if (item.ItemType == ActiveItem.ItemType
+                        && item.Id != ActiveItem.Id)
                     {
                         item.State = ItemStateEnum.Backpack;
                     }

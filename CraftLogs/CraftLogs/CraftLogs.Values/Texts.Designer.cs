@@ -570,11 +570,29 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tulajdonságok: 1 Stamina == 4 HP. +2 ATK alapból..
+        /// </summary>
+        public static string Register_MageDescription {
+            get {
+                return ResourceManager.GetString("Register_MageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kérlek írj be valamilyen nevet és válassz hőst!.
         /// </summary>
         public static string Register_MissingError {
             get {
                 return ResourceManager.GetString("Register_MissingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tulajdonságok: 1 Stamina == 5 HP. +2 Dodge és CritR alapból..
+        /// </summary>
+        public static string Register_RogueDescription {
+            get {
+                return ResourceManager.GetString("Register_RogueDescription", resourceCulture);
             }
         }
         
@@ -611,6 +629,15 @@ namespace CraftLogs.Values {
         public static string Register_Title {
             get {
                 return ResourceManager.GetString("Register_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tulajdonságok: 1 Stamina == 6 HP. +2 DEF alapból..
+        /// </summary>
+        public static string Register_WarriorDescription {
+            get {
+                return ResourceManager.GetString("Register_WarriorDescription", resourceCulture);
             }
         }
         

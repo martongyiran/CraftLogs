@@ -66,10 +66,15 @@ namespace CraftLogs.ViewModels
         public List<int> C2PointRange { get; set; } = Enumerable.Range(10, 40).ToList();
 
         public DelayCommand SaveSettingsCommand => new DelayCommand(async () => await SaveSettings());
+
         public DelayCommand ResetSettingsCommand => new DelayCommand(async () => await ResetSettingsAsync());
+
         public DelayCommand DeleteProfileCommand => new DelayCommand(async () => await DeleteProfileAsync());
+
         public DelayCommand ToQuestCommand => new DelayCommand(async () => await ToQuest());
+
         public DelayCommand SupportCommand => new DelayCommand(async () => await Launcher.OpenAsync(new Uri("https://paypal.me/CHlGGA")));
+        
         public DelayCommand MyProfileQrCommand => new DelayCommand(async () => await ExecuteMyProfileQrCommand());
 
         public SettingsPageViewModel(
@@ -115,7 +120,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ResetSettingsAsync()
         {
-            var res = await DialogService.DisplayAlertAsync("", Texts.Settings_ResetData, Texts.Yes, Texts.No);
+            var res = await DialogService.DisplayAlertAsync(null, Texts.Settings_ResetData, Texts.Yes, Texts.No);
             if (res)
             {
                 var mode = UserSettings.AppMode;

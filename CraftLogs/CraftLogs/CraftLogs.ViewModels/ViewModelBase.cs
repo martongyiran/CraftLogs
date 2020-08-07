@@ -102,7 +102,7 @@ namespace CraftLogs.ViewModels
         protected async Task NavigateToWithoutHistory(string navigationLink)
         {
             IsBusy = true;
-            await NavigationService.NavigateAsync("../" + navigationLink);
+            var asd = await NavigationService.NavigateAsync("../" + navigationLink);
         }
 
         protected async Task NavigateToWithoutHistory(string navigationLink, INavigationParameters parameters)

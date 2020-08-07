@@ -28,18 +28,8 @@ namespace CraftLogs.ViewModels
     {
         private Settings _settings;
 
-        private bool _isDev = true;
-
-        public bool IsDev
-        {
-            get => _isDev;
-            set => SetProperty(ref _isDev, value);
-        }
-
-        public DelayCommand SetModeToTeamCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Team));
-        public DelayCommand SetModeToShopCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Shop));
-        public DelayCommand SetModeToArenaCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Arena));
-        public DelayCommand SetModeToHqCommand => new DelayCommand(async () => await SetModeAsync(AppModeEnum.Hq));
+        public DelayCommand<AppModeEnum?> SetModeCommand
+            => new DelayCommand<AppModeEnum?>(async (appMode) => await SetModeAsync(appMode));
 
         public SelectModePageViewModel(
             INavigationService navigationService,
@@ -47,11 +37,6 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-#if STG
-            IsDev = false;
-#elif PRD
-            IsDev = false;
-#endif
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -64,7 +49,7 @@ namespace CraftLogs.ViewModels
                 await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
-        private async Task SetModeAsync(AppModeEnum appMode)
+        private async Task SetModeAsync(AppModeEnum? appMode)
         {
             IsBusy = true;
 

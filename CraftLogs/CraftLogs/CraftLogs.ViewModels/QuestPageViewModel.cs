@@ -98,8 +98,10 @@ namespace CraftLogs.ViewModels
 
         public override async Task ToSettings()
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("mode", "npc");
+            NavigationParameters param = new NavigationParameters
+            {
+                { "mode", "npc" }
+            };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }

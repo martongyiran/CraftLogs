@@ -3,6 +3,7 @@
     x:Class="CraftLogs.Views.RegisterPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:enums="clr-namespace:CraftLogs.BLL.Enums;assembly=CraftLogs.BLL"
     xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
     xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
     x:Name="view"
@@ -75,13 +76,26 @@
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         VerticalOptions="StartAndExpand">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Mage: 1 Stamina == 4 HP. +2 ATK&#10;" />
-                                <Span Text="Warrior: 1 Stamina == 6 HP. +2 DEF&#10;" />
-                                <Span Text="Rogue: 1 Stamina == 5 HP. +2 Dodge és CritR" />
-                            </FormattedString>
-                        </Label.FormattedText>
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Cast}"
+                                TargetType="Label"
+                                Value="{x:Static enums:CharacterClassEnum.Mage}">
+                                <Setter Property="Text" Value="{x:Static values:Texts.Register_MageDescription}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding Cast}"
+                                TargetType="Label"
+                                Value="{x:Static enums:CharacterClassEnum.Warrior}">
+                                <Setter Property="Text" Value="{x:Static values:Texts.Register_WarriorDescription}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding Cast}"
+                                TargetType="Label"
+                                Value="{x:Static enums:CharacterClassEnum.Rogue}">
+                                <Setter Property="Text" Value="{x:Static values:Texts.Register_RogueDescription}" />
+                            </DataTrigger>
+                        </Label.Triggers>
                     </Label>
 
                     <Button

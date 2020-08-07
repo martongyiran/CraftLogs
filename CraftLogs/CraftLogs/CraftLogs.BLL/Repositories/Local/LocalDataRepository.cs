@@ -27,22 +27,19 @@ namespace CraftLogs.BLL.Repositories.Local
 {
     public class LocalDataRepository : ILocalDataRepository
     {
-        #region Ctor
-        private readonly IDataService dataService;
+        private readonly IDataService _dataService;
+
         public LocalDataRepository(IDataService dataService)
         {
-            this.dataService = dataService;
+            _dataService = dataService;
         }
-        #endregion
-
-        #region Private functions
 
         private T GetFile<T>(string fileName)
         {
-            if (dataService.IsFileExist(fileName))
+            if (_dataService.IsFileExist(fileName))
             {
                 T data;
-                var input = dataService.ReadAllText(fileName);
+                var input = _dataService.ReadAllText(fileName);
                 data = JsonConvert.DeserializeObject<T>(input);
                 if (data != null)
                 {
@@ -53,17 +50,11 @@ namespace CraftLogs.BLL.Repositories.Local
             throw new Exception("File not found: " + fileName);
         }
 
-        #endregion
-
-        #region Public functions
-
-        #region General
-
         public void DeleteFile(string fileName)
         {
-            if (dataService.IsFileExist(fileName))
+            if (_dataService.IsFileExist(fileName))
             {
-                dataService.DeleteFile(fileName);
+                _dataService.DeleteFile(fileName);
             }
         }
 
@@ -100,19 +91,15 @@ namespace CraftLogs.BLL.Repositories.Local
                 throw new NotImplementedException("Can't save " + data.GetType().ToString() + " type objects to file.");
             }
             var json = JsonConvert.SerializeObject(data);
-            dataService.WriteAllText(fileName, json);
+            _dataService.WriteAllText(fileName, json);
         }
-
-        #endregion
-
-        #region Settings
 
         public void CreateSettings()
         {
-            if (!dataService.IsFileExist(FileNames.Settings))
+            if (!_dataService.IsFileExist(FileNames.Settings))
             {
-                dataService.CreateFile(FileNames.Settings);
-                SaveToFile(dataService.ReadFromMockData<Settings>(FileNames.Settings));
+                _dataService.CreateFile(FileNames.Settings);
+                SaveToFile(_dataService.ReadFromMockData<Settings>(FileNames.Settings));
             }
         }
 
@@ -127,16 +114,12 @@ namespace CraftLogs.BLL.Repositories.Local
             CreateSettings();
         }
 
-        #endregion
-
-        #region Logs
-
         public void CreateLogs()
         {
-            if (!dataService.IsFileExist(FileNames.Logs))
+            if (!_dataService.IsFileExist(FileNames.Logs))
             {
                 ObservableCollection<Log> logs = new ObservableCollection<Log>();
-                dataService.CreateFile(FileNames.Logs);
+                _dataService.CreateFile(FileNames.Logs);
                 SaveToFile(logs);
             }
         }
@@ -148,22 +131,18 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public void DeleteLogs()
         {
-            if (dataService.IsFileExist(FileNames.Logs))
+            if (_dataService.IsFileExist(FileNames.Logs))
             {
                 DeleteFile(FileNames.Logs);
             }
         }
 
-        #endregion
-        
-        #region Teamprofile
-
         public void CreateTeamProfile(string name, HouseEnum house, CharacterClassEnum cast, string image)
         {
-            if (!dataService.IsFileExist(FileNames.TeamProfile))
+            if (!_dataService.IsFileExist(FileNames.TeamProfile))
             {
                 TeamProfile profile = new TeamProfile(name, house, cast, image);
-                dataService.CreateFile(FileNames.TeamProfile);
+                _dataService.CreateFile(FileNames.TeamProfile);
                 SaveToFile(profile);
             }
         }
@@ -177,27 +156,23 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public bool IsTeamProfileExist()
         {
-            return dataService.IsFileExist(FileNames.TeamProfile);
+            return _dataService.IsFileExist(FileNames.TeamProfile);
         }
 
         public void DeleteTeamProfile()
         {
-            if (dataService.IsFileExist(FileNames.TeamProfile))
+            if (_dataService.IsFileExist(FileNames.TeamProfile))
             {
                 DeleteFile(FileNames.TeamProfile);
             }
         }
 
-        #endregion
-
-        #region Shop
-
         public void CreateShopProfile()
         {
-            if (!dataService.IsFileExist(FileNames.ShopProfile))
+            if (!_dataService.IsFileExist(FileNames.ShopProfile))
             {
                 ShopProfile profile = new ShopProfile();
-                dataService.CreateFile(FileNames.ShopProfile);
+                _dataService.CreateFile(FileNames.ShopProfile);
                 SaveToFile(profile);
             }
         }
@@ -211,29 +186,25 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public bool IsShopProfileExist()
         {
-            return dataService.IsFileExist(FileNames.ShopProfile);
+            return _dataService.IsFileExist(FileNames.ShopProfile);
         }
 
         public void DeleteShopProfile()
         {
-            if (dataService.IsFileExist(FileNames.ShopProfile))
+            if (_dataService.IsFileExist(FileNames.ShopProfile))
             {
                 DeleteFile(FileNames.ShopProfile);
             }
         }
 
-        #endregion
-
-        #region Arena
-
         public void CreateArenaProfile()
         {
-            if (!dataService.IsFileExist(FileNames.ArenaProfile))
+            if (!_dataService.IsFileExist(FileNames.ArenaProfile))
             {
                 ArenaProfile profile = new ArenaProfile();
                 CombatUnit defaultUnit = new CombatUnit("Thex", 6, 5, 5, 5, 165);
                 profile.Leader = defaultUnit;
-                dataService.CreateFile(FileNames.ArenaProfile);
+                _dataService.CreateFile(FileNames.ArenaProfile);
                 SaveToFile(profile);
             }
         }
@@ -246,27 +217,23 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public bool IsArenaProfileExist()
         {
-            return dataService.IsFileExist(FileNames.ArenaProfile);
+            return _dataService.IsFileExist(FileNames.ArenaProfile);
         }
 
         public void DeleteArenaProfile()
         {
-            if (dataService.IsFileExist(FileNames.ArenaProfile))
+            if (_dataService.IsFileExist(FileNames.ArenaProfile))
             {
                 DeleteFile(FileNames.ArenaProfile);
             }
         }
 
-        #endregion
-
-        #region HQ
-
         public void CreateHqProfile()
         {
-            if (!dataService.IsFileExist(FileNames.HqProfile))
+            if (!_dataService.IsFileExist(FileNames.HqProfile))
             {
                 HqProfile profile = new HqProfile();
-                dataService.CreateFile(FileNames.HqProfile);
+                _dataService.CreateFile(FileNames.HqProfile);
                 SaveToFile(profile);
             }
         }
@@ -279,18 +246,15 @@ namespace CraftLogs.BLL.Repositories.Local
 
         public bool IsHqProfileExist()
         {
-            return dataService.IsFileExist(FileNames.HqProfile);
+            return _dataService.IsFileExist(FileNames.HqProfile);
         }
 
         public void DeleteHqProfile()
         {
-            if (dataService.IsFileExist(FileNames.HqProfile))
+            if (_dataService.IsFileExist(FileNames.HqProfile))
             {
                 DeleteFile(FileNames.HqProfile);
             }
         }
-
-        #endregion
-        #endregion
     }
 }

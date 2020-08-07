@@ -54,7 +54,14 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _reward, value);
         }
 
-        public List<LegendaryEnum> Legendaries { get; set; } = new List<LegendaryEnum>() { LegendaryEnum.None, LegendaryEnum.Baetylus, LegendaryEnum.Brisingamen, LegendaryEnum.Mjolnir };
+        public List<LegendaryEnum> Legendaries { get; set; }
+            = new List<LegendaryEnum>
+            {
+                LegendaryEnum.None,
+                LegendaryEnum.Baetylus,
+                LegendaryEnum.Brisingamen,
+                LegendaryEnum.Mjolnir
+            };
 
 
         public LegendaryEnum Lego
@@ -63,7 +70,9 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _lego, value);
         }
 
-        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        public DelayCommand NavigateToQRScannerPageCommand
+            => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        
         public DelayCommand GiveCommand => new DelayCommand(async () => await ExecuteGiveCommandAsync());
 
         public HqPageViewModel(

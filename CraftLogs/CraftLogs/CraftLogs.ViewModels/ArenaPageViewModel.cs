@@ -51,7 +51,8 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _logs, value); 
         }
 
-        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        public DelayCommand NavigateToQRScannerPageCommand
+            => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
 
         public ArenaPageViewModel(
             INavigationService navigationService,
@@ -74,8 +75,10 @@ namespace CraftLogs.ViewModels
 
         public override async Task ToSettings()
         {
-            NavigationParameters param = new NavigationParameters();
-            param.Add("mode", "npc");
+            NavigationParameters param = new NavigationParameters
+            {
+                { "mode", "npc" }
+            };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
         }

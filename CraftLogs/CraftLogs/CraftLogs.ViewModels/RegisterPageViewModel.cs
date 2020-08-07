@@ -21,7 +21,7 @@ using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftLogs.ViewModels
@@ -87,9 +87,24 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _img3, value);
         }
 
-        public List<string> Houses { get; set; } = new List<string> { Texts.House1, Texts.House2, Texts.House3, Texts.House4, Texts.House5, Texts.House6 };
+        public List<string> Houses { get; set; }
+            = new List<string>
+            {
+                Texts.House1,
+                Texts.House2,
+                Texts.House3,
+                Texts.House4,
+                Texts.House5,
+                Texts.House6
+            };
 
-        public List<CharacterClassEnum> Classes { get; set; } = new List<CharacterClassEnum> { CharacterClassEnum.Mage, CharacterClassEnum.Rogue, CharacterClassEnum.Warrior };
+        public List<CharacterClassEnum> Classes { get; set; }
+            = new List<CharacterClassEnum>
+            {
+                CharacterClassEnum.Mage,
+                CharacterClassEnum.Rogue,
+                CharacterClassEnum.Warrior
+            };
 
         public string SelectedImage
         {
@@ -98,6 +113,7 @@ namespace CraftLogs.ViewModels
         }
 
         public DelayCommand SaveCommand => new DelayCommand(async () => await ExecuteSaveCommandAsync());
+
         public DelayCommand CancelCommand => new DelayCommand(async () => await ExecuteCancelCommandAsync());
 
         public RegisterPageViewModel(
@@ -114,12 +130,14 @@ namespace CraftLogs.ViewModels
             base.OnNavigatedTo(parameters);
 
             _settings = DataRepository.GetSettings();
-            House = Houses[0];
+            House = Houses.FirstOrDefault();
         }
 
         private async Task ExecuteSaveCommandAsync()
         {
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrEmpty(_selectedImage))
+            if (!string.IsNullOrEmpty(Name)
+                && !string.IsNullOrWhiteSpace(Name)
+                && !string.IsNullOrEmpty(_selectedImage))
             {
                 bool sure = await DialogService.DisplayAlertAsync(Texts.Save, Texts.Register_SaveDialog, Texts.Save, Texts.Cancel);
                 if (sure)

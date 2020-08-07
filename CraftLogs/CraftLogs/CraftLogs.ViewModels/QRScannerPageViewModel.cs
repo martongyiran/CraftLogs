@@ -24,7 +24,8 @@ namespace CraftLogs.ViewModels
 {
     public class QRScannerPageViewModel : ViewModelBase
     {
-        public DelayCommand<string?> GetResultCommand => new DelayCommand<string?>(async (a) => await ExecuteGetResultCommandAsync(a));
+        public DelayCommand<string?> GetResultCommand
+            => new DelayCommand<string?>(async (a) => await ExecuteGetResultCommandAsync(a));
         
         public QRScannerPageViewModel(
             INavigationService navigationService,

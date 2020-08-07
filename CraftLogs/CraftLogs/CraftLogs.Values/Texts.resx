@@ -290,8 +290,14 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
   <data name="Register_House" xml:space="preserve">
     <value>Ház választása:</value>
   </data>
+  <data name="Register_MageDescription" xml:space="preserve">
+    <value>Tulajdonságok: 1 Stamina == 4 HP. +2 ATK alapból.</value>
+  </data>
   <data name="Register_MissingError" xml:space="preserve">
     <value>Kérlek írj be valamilyen nevet és válassz hőst!</value>
+  </data>
+  <data name="Register_RogueDescription" xml:space="preserve">
+    <value>Tulajdonságok: 1 Stamina == 5 HP. +2 Dodge és CritR alapból.</value>
   </data>
   <data name="Register_SaveDialog" xml:space="preserve">
     <value>Biztos, hogy elmented ezt a nevet? A későbbiekben nem módosíthatod!</value>
@@ -304,6 +310,9 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
   </data>
   <data name="Register_Title" xml:space="preserve">
     <value>Profil létrehozása</value>
+  </data>
+  <data name="Register_WarriorDescription" xml:space="preserve">
+    <value>Tulajdonságok: 1 Stamina == 6 HP. +2 DEF alapból.</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Mentés</value>
