@@ -57,7 +57,10 @@ namespace CraftLogs.ViewModels
         protected ILocalDataRepository DataRepository { get; private set; }
         protected IPageDialogService DialogService { get; private set; }
 
-        public ViewModelBase(INavigationService navigationService, ILocalDataRepository dataRepository, IPageDialogService dialogService)
+        public ViewModelBase(
+            INavigationService navigationService,
+            ILocalDataRepository dataRepository,
+            IPageDialogService dialogService)
         {
             NavigationService = navigationService;
             DataRepository = dataRepository;
@@ -69,11 +72,6 @@ namespace CraftLogs.ViewModels
         }
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
-        {
-            IsBusy = false;
-        }
-
-        public virtual void OnNavigatingTo(INavigationParameters parameters)
         {
             IsBusy = false;
         }

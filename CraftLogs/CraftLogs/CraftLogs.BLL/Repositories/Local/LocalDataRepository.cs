@@ -70,6 +70,7 @@ namespace CraftLogs.BLL.Repositories.Local
         public void SaveToFile<T>(T data)
         {
             string fileName = "";
+
             if (typeof(Settings) == data.GetType())
             {
                 fileName = FileNames.Settings;

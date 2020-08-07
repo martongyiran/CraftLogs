@@ -83,9 +83,9 @@ namespace CraftLogs.ViewModels
             Title = Texts.Settings_Title;
         }
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedTo(parameters);
 
             _param = parameters["mode"] as string;
 

@@ -43,9 +43,9 @@ namespace CraftLogs.ViewModels
         {
         }
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatingTo(parameters);
+            base.OnNavigatedTo(parameters);
 
             _settings = DataRepository.GetSettings();
 
