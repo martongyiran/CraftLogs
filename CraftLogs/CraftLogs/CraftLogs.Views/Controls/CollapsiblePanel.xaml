@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="CraftLogs.Views.CollapsiblePanel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Frame
+                Padding="4"
+                BackgroundColor="{StaticResource BackgroundColorLight}"
+                BorderColor="Black"
+                CornerRadius="8">
+                <StackLayout BackgroundColor="{StaticResource BackgroundColorLight}">
+                    <StackLayout
+                        Padding="12,10,12,12"
+                        Orientation="Horizontal"
+                        Spacing="16">
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Toggler_Clicked" />
+                        </StackLayout.GestureRecognizers>
+
+                        <Label
+                            Margin="0"
+                            FontSize="14"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource TitleLabelStyle}"
+                            Text="{TemplateBinding Legend}"
+                            VerticalTextAlignment="Center" />
+
+                        <Image HorizontalOptions="End">
+                            <Image.Triggers>
+                                <DataTrigger
+                                    Binding="{TemplateBinding IsCollapsed}"
+                                    TargetType="Image"
+                                    Value="True">
+                                    <Setter Property="Source" Value="@drawable/ExpandMore.png" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{TemplateBinding IsCollapsed}"
+                                    TargetType="Image"
+                                    Value="False">
+                                    <Setter Property="Source" Value="@drawable/ExpandLess.png" />
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
+                    </StackLayout>
+
+                    <ContentPresenter
+                        Padding="16,0,16,16"
+                        IsVisible="{TemplateBinding IsCollapsed,
+                                                    Mode=OneWay,
+                                                    Converter={StaticResource InverseBoolConverter}}" />
+                </StackLayout>
+            </Frame>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>
