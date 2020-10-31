@@ -107,14 +107,7 @@ namespace CraftLogs.ViewModels
         {
             DataRepository.SaveToFile(UserSettings);
 
-            if (IsNpc)
-            {
-                await DialogService.DisplayAlertAsync("", Texts.Settings_SuccessfulSave, Texts.Ok);
-            }
-            else
-            {
-                await NavigateToWithoutHistory(NavigationLinks.MainPage);
-            }
+            await DialogService.DisplayAlertAsync("", Texts.Settings_SuccessfulSave, Texts.Ok);
 
         }
 

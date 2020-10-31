@@ -28,6 +28,8 @@ using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.BLL.Repositories.Local;
 using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.BLL.Services;
+using CraftLogs.BLL.Enums;
+using CraftLogs.Values;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CraftLogs
@@ -47,7 +49,23 @@ namespace CraftLogs
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            var dataRepository = Container.Resolve<ILocalDataRepository>();
+
+            dataRepository.CreateSettings();
+
+            var settings = dataRepository.GetSettings();
+
+            var navigationTarget = settings.AppMode switch
+            {
+                AppModeEnum.None => NavigationLinks.SelectModePage,
+                AppModeEnum.Team => NavigationLinks.ProfilePage,
+                AppModeEnum.Shop => NavigationLinks.ShopPage,
+                AppModeEnum.Arena => NavigationLinks.ArenaPage,
+                AppModeEnum.Hq => NavigationLinks.HqPage,
+                _ => throw new System.NotImplementedException()
+            };
+
+            await NavigationService.NavigateAsync($"NavigationPage/{navigationTarget}");
         }
 
         protected override void OnStart()
@@ -65,7 +83,6 @@ namespace CraftLogs
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<QuestPage, QuestPageViewModel>();

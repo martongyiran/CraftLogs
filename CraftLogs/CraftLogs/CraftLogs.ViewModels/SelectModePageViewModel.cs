@@ -16,7 +16,6 @@ limitations under the License.
 
 using System.Threading.Tasks;
 using CraftLogs.BLL.Enums;
-using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Repositories.Local.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
@@ -26,8 +25,6 @@ namespace CraftLogs.ViewModels
 {
     public class SelectModePageViewModel : ViewModelBase
     {
-        private Settings _settings;
-
         public DelayCommand<AppModeEnum?> SetModeCommand
             => new DelayCommand<AppModeEnum?>(async (appMode) => await SetModeAsync(appMode));
 
@@ -37,16 +34,6 @@ namespace CraftLogs.ViewModels
             IPageDialogService dialogService)
             : base(navigationService, dataRepository, dialogService)
         {
-        }
-
-        public override async void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            _settings = DataRepository.GetSettings();
-
-            if (_settings.AppMode != AppModeEnum.None)
-                await NavigateToWithoutHistory(NavigationLinks.MainPage);
         }
 
         private async Task SetModeAsync(AppModeEnum? appMode)

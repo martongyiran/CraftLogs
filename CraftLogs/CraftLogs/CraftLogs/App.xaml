@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication
-    x:Class="CraftLogs.App"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-    xmlns:resources="clr-namespace:CraftLogs.Resources;assembly=CraftLogs">
+   x:Class="CraftLogs.App"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+   xmlns:resources="clr-namespace:CraftLogs.Resources;assembly=CraftLogs">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -19,29 +19,25 @@
 
             <Style TargetType="Button">
                 <Setter Property="BorderColor" Value="{StaticResource ColorDark}" />
-                <Setter Property="BorderWidth" Value="4" />
+                <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="FontSize" Value="16" />
-                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="CornerRadius" Value="4" />
             </Style>
 
-            <Style
-                x:Key="FirstLevelButtonStyle"
-                TargetType="Button">
+            <Style x:Key="FirstLevelButtonStyle" TargetType="Button">
                 <Setter Property="BorderColor" Value="{StaticResource ColorDark}" />
-                <Setter Property="BorderWidth" Value="4" />
+                <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorLight}" />
                 <Setter Property="FontSize" Value="16" />
-                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="CornerRadius" Value="4" />
             </Style>
 
-            <Style
-                x:Key="TitleLabelStyle"
-                TargetType="Label">
+            <Style x:Key="TitleLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource ColorDark}" />
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -57,9 +53,7 @@
                 <Setter Property="Padding" Value="16" />
             </Style>
 
-            <Style
-                x:Key="SettingsEntry"
-                TargetType="Entry">
+            <Style x:Key="SettingsEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="EndAndExpand" />
                 <Setter Property="WidthRequest" Value="50" />
@@ -67,26 +61,11 @@
                 <Setter Property="Keyboard" Value="Telephone" />
             </Style>
 
-            <Style
-                x:Key="RegisterEntry"
-                TargetType="Entry">
+            <Style x:Key="RegisterEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="WidthRequest" Value="400" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
-            </Style>
-
-            <Style
-                x:Key="SmallWhiteButton"
-                TargetType="Button">
-                <Setter Property="BorderColor" Value="LightGray" />
-                <Setter Property="BorderRadius" Value="0" />
-                <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="40" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="FontSize" Value="10" />
-                <Setter Property="Margin" Value="5" />
             </Style>
 
         </ResourceDictionary>

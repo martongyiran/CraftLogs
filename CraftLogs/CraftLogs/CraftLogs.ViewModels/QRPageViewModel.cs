@@ -82,9 +82,6 @@ namespace CraftLogs.ViewModels
                     case AppModeEnum.Hq:
                         await NavigateToWithoutHistory(NavigationLinks.HqPage);
                         break;
-                    default:
-                        await NavigateToWithoutHistory(NavigationLinks.MainPage);
-                        break;
                 }
             }
         }
