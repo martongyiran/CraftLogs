@@ -17,7 +17,12 @@ limitations under the License.
 using CraftLogs.BLL.Enums;
 using CraftLogs.BLL.Models;
 using CraftLogs.BLL.Services.Interfaces;
+using CraftLogs.Values;
 using Newtonsoft.Json;
+using Prism.Navigation;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
+using ZXing.Mobile;
 
 namespace CraftLogs.BLL.Services
 {
@@ -94,6 +99,28 @@ namespace CraftLogs.BLL.Services
             var response = JsonConvert.DeserializeObject<QRResponse>(scanResult);
 
             return response;
+        }
+
+        public async Task<INavigationParameters> ReadQr()
+        {
+            var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            if (status == PermissionStatus.Denied || status == PermissionStatus.Disabled)
+            {
+                return null;
+            }
+
+            var scanner = new MobileBarcodeScanner();
+            var scanResult = await scanner.Scan(MobileBarcodeScanningOptions.Default);
+
+            if (scanResult.Text != null)
+            {
+                return new NavigationParameters
+                {
+                    { "res", scanResult.Text }
+                };
+            }
+
+            return null;
         }
     }
 }

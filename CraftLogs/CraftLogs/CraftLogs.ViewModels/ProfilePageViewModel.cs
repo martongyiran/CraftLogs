@@ -25,6 +25,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
+using ZXing.Mobile;
 
 namespace CraftLogs.ViewModels
 {
@@ -149,7 +151,7 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand NavigateToLogsCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.LogsPage));
 
-        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+        public DelayCommand NavigateToQRScannerPageCommand => new DelayCommand(async () => await ReadQR());
 
         public DelayCommand NavigateToInventoryPageCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.InventoryPage));
 
@@ -241,6 +243,17 @@ namespace CraftLogs.ViewModels
             DodgeSum = string.Format(Texts.Profile_Dodge, bdodge);
 
             _combatUnit = new CombatUnit(Profile.Name, batk, bdef, bcr, bdodge, bhp, Profile.House.ToString(), Profile.Image);
+        }
+
+        private async Task ReadQR()
+        {
+            var scanResult = await _qRService.ReadQr();
+
+            if (scanResult != null)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, scanResult);
+            }
+
         }
 
         private void SetItems()
@@ -352,7 +365,12 @@ namespace CraftLogs.ViewModels
                 || Profile.TradeStatus == TradeStatusEnum.TradeFirstOk
                 || Profile.TradeStatus == TradeStatusEnum.TradeSecondOk)
             {
-                await NavigateTo(NavigationLinks.QRScannerPage);
+                var scanResult = await _qRService.ReadQr();
+
+                if (scanResult != null)
+                {
+                    await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, scanResult);
+                }
             }
         }
 

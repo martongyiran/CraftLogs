@@ -64,12 +64,6 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _rewards, value);
         }
 
-        public bool IsQuestReward
-        {
-            get => _isQuestReward;
-            set => SetProperty(ref _isQuestReward, value);
-        }
-
         public DelayCommand NavigateToProfilePageCommand
             => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
 
@@ -137,7 +131,6 @@ namespace CraftLogs.ViewModels
                     Rewards = new ObservableCollection<Item>(temp);
                     DataRepository.SaveToFile(profile);
                     _loggerService.CreateQueustLog(processedData);
-                    IsQuestReward = true;
                 }
                 else if (data.Type == QRTypeEnum.ShopList)
                 {

@@ -15,6 +15,8 @@ limitations under the License.
 */
 
 using CraftLogs.BLL.Models;
+using Prism.Navigation;
+using System.Threading.Tasks;
 
 namespace CraftLogs.BLL.Services.Interfaces
 {
@@ -23,5 +25,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         string CreateQR<T>(T data);
         
         QRResponse HandleQR(string scanResult);
+
+        Task<INavigationParameters> ReadQr();
     }
 }

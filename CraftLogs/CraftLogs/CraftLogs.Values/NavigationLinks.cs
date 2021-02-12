@@ -24,7 +24,6 @@ namespace CraftLogs.Values
         public const string LogsPage = "LogsPage";
         public const string SelectModePage = "SelectModePage";
         public const string QRPage = "QRPage";
-        public const string QRScannerPage = "QRScannerPage";
         public const string QRHandlerPage = "QRHandlerPage";
         public const string RegisterPage = "RegisterPage";
         public const string InventoryPage = "InventoryPage";

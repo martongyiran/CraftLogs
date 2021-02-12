@@ -52,7 +52,7 @@ namespace CraftLogs.ViewModels
         }
 
         public DelayCommand NavigateToQRScannerPageCommand
-            => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+            => new DelayCommand(async () => await ReadQr());
 
         public ArenaPageViewModel(
             INavigationService navigationService,
@@ -81,6 +81,16 @@ namespace CraftLogs.ViewModels
             };
 
             await NavigateTo(NavigationLinks.SettingsPage, param);
+        }
+
+        private async Task ReadQr()
+        {
+            var scanResult = await _qRService.ReadQr();
+
+            if (scanResult != null)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, scanResult);
+            }
         }
 
         private async Task Init()

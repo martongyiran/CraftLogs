@@ -71,7 +71,7 @@ namespace CraftLogs.ViewModels
         }
 
         public DelayCommand NavigateToQRScannerPageCommand
-            => new DelayCommand(async () => await NavigateTo(NavigationLinks.QRScannerPage));
+            => new DelayCommand(async () => await ReadQr());
         
         public DelayCommand GiveCommand => new DelayCommand(async () => await ExecuteGiveCommandAsync());
 
@@ -122,6 +122,16 @@ namespace CraftLogs.ViewModels
             Reward = new HqReward();
 
             Teams = new ObservableCollection<ProfileQr>(_hqProfile.Scores.OrderByDescending(x => x.Score));
+        }
+
+        private async Task ReadQr()
+        {
+            var scanResult = await _qRService.ReadQr();
+
+            if (scanResult != null)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, scanResult);
+            }
         }
 
         private async Task ExecuteGiveCommandAsync()

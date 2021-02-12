@@ -1,100 +1,100 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Grid
-    x:Class="CraftLogs.Views.ItemView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="itemHolder"
-    HeightRequest="70"
-    HorizontalOptions="CenterAndExpand"
-    VerticalOptions="CenterAndExpand"
-    WidthRequest="70"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ItemView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   x:Name="itemHolder"
+   HeightRequest="70"
+   HorizontalOptions="CenterAndExpand"
+   VerticalOptions="CenterAndExpand"
+   WidthRequest="70"
+   mc:Ignorable="d">
     <Frame
-        Padding="0"
-        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
-        BorderColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
-        CornerRadius="10"
-        HasShadow="False"
-        HeightRequest="55"
-        HorizontalOptions="Center"
-        IsClippedToBounds="True"
-        VerticalOptions="Center"
-        WidthRequest="55">
+       Padding="0"
+       BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
+       BorderColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
+       CornerRadius="10"
+       HasShadow="False"
+       HeightRequest="55"
+       HorizontalOptions="Center"
+       IsClippedToBounds="True"
+       VerticalOptions="Center"
+       WidthRequest="55">
         <Frame.Triggers>
             <DataTrigger
-                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="0">
+               Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+               TargetType="Frame"
+               Value="0">
                 <Setter Property="BackgroundColor" Value="White" />
             </DataTrigger>
         </Frame.Triggers>
 
         <Image
-            Margin="3"
-            Aspect="AspectFill"
-            HeightRequest="55"
-            Source="{Binding Item.Image, Source={x:Reference itemHolder}}"
-            WidthRequest="55" />
+           Margin="3"
+           Aspect="AspectFill"
+           HeightRequest="55"
+           Source="{Binding Item.Image, Source={x:Reference itemHolder}}"
+           WidthRequest="55" />
     </Frame>
 
     <Frame
-        Margin="30,0,0,0"
-        Padding="0"
-        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
-        BorderColor="Transparent"
-        CornerRadius="20"
-        HasShadow="False"
-        HeightRequest="20"
-        HorizontalOptions="EndAndExpand"
-        VerticalOptions="EndAndExpand"
-        WidthRequest="20">
+       Margin="30,0,0,0"
+       Padding="0"
+       BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
+       BorderColor="Transparent"
+       CornerRadius="20"
+       HasShadow="False"
+       HeightRequest="20"
+       HorizontalOptions="EndAndExpand"
+       VerticalOptions="EndAndExpand"
+       WidthRequest="20">
 
         <Frame.Triggers>
             <DataTrigger
-                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="0">
+               Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+               TargetType="Frame"
+               Value="0">
                 <Setter Property="IsVisible" Value="False" />
             </DataTrigger>
         </Frame.Triggers>
 
         <Label
-            FontAttributes="Bold"
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Item.Tier, Source={x:Reference itemHolder}}"
-            TextColor="White"
-            VerticalOptions="CenterAndExpand" />
+           FontAttributes="Bold"
+           HorizontalOptions="CenterAndExpand"
+           Text="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+           TextColor="White"
+           VerticalOptions="CenterAndExpand" />
     </Frame>
 
     <Frame
-        Margin="0"
-        Padding="0"
-        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
-        BorderColor="Transparent"
-        CornerRadius="20"
-        HasShadow="False"
-        HeightRequest="20"
-        HorizontalOptions="CenterAndExpand"
-        IsVisible="{Binding IsInventoryView, Source={x:Reference itemHolder}}"
-        VerticalOptions="EndAndExpand"
-        WidthRequest="20">
+       Margin="0"
+       Padding="0"
+       BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
+       BorderColor="Transparent"
+       CornerRadius="20"
+       HasShadow="False"
+       HeightRequest="20"
+       HorizontalOptions="CenterAndExpand"
+       IsVisible="{Binding IsInventoryView, Source={x:Reference itemHolder}}"
+       VerticalOptions="EndAndExpand"
+       WidthRequest="20">
 
         <Frame.Triggers>
             <DataTrigger
-                Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
-                TargetType="Frame"
-                Value="0">
+               Binding="{Binding Item.Tier, Source={x:Reference itemHolder}}"
+               TargetType="Frame"
+               Value="0">
                 <Setter Property="IsVisible" Value="False" />
             </DataTrigger>
         </Frame.Triggers>
 
         <Label
-            FontAttributes="Bold"
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Item.UsableFor, Source={x:Reference itemHolder}, Converter={StaticResource ClassEnumToCharConverter}}"
-            TextColor="White"
-            VerticalOptions="CenterAndExpand" />
+           FontAttributes="Bold"
+           HorizontalOptions="CenterAndExpand"
+           Text="{Binding Item.UsableFor, Source={x:Reference itemHolder}, Converter={StaticResource ClassEnumToCharConverter}}"
+           TextColor="White"
+           VerticalOptions="CenterAndExpand" />
     </Frame>
 </Grid>
