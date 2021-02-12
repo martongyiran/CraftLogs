@@ -1,26 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.ShopPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}">
+   x:Class="CraftLogs.Views.ShopPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}">
     <ContentPage.ToolbarItems>
         <views:BindableToolbarItem
-            x:Name="settingsIcon"
-            Command="{Binding NavigateToSettingsCommand}"
-            Icon="@drawable/ic_settings_white.png" />
+           x:Name="settingsIcon"
+           Command="{Binding NavigateToSettingsCommand}"
+           Icon="@drawable/ic_settings_white.png" />
         <views:BindableToolbarItem
-            x:Name="reloadIcon"
-            Command="{Binding RefreshCommand}"
-            Icon="@drawable/ic_reloadWhite.png" />
+           x:Name="reloadIcon"
+           Command="{Binding RefreshCommand}"
+           Icon="@drawable/ic_reloadWhite.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -29,32 +27,28 @@
             </Grid.RowDefinitions>
 
             <Frame
-                Grid.Row="0"
-                Margin="16"
-                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
+               Grid.Row="0"
+               Margin="16"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
                 <CollectionView
-                    BackgroundColor="Transparent"
-                    ItemSizingStrategy="MeasureFirstItem"
-                    ItemsSource="{Binding Items}"
-                    SelectionMode="None">
+                   BackgroundColor="Transparent"
+                   ItemSizingStrategy="MeasureFirstItem"
+                   ItemsSource="{Binding Items}"
+                   SelectionMode="None">
 
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout
-                            Orientation="Vertical"
-                            Span="4" />
+                        <GridItemsLayout Orientation="Vertical" Span="4" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame
-                                Margin="0"
-                                Padding="5"
-                                BackgroundColor="{StaticResource ColorLightAlt}"
-                                BorderColor="Transparent">
+                               Margin="0"
+                               Padding="5"
+                               BackgroundColor="{StaticResource ColorLightAlt}"
+                               BorderColor="Transparent">
 
-                                <views:ItemView
-                                    IsInventoryView="True"
-                                    Item="{Binding}">
+                                <views:ItemView IsInventoryView="True" Item="{Binding}">
                                     <views:ItemView.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="Handle_ItemTapped" />
                                     </views:ItemView.GestureRecognizers>
@@ -66,30 +60,28 @@
             </Frame>
 
             <Frame
-                Grid.Row="1"
-                Margin="16,0,16,0"
-                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
-                <StackLayout
-                    HorizontalOptions="FillAndExpand"
-                    Orientation="Horizontal">
+               Grid.Row="1"
+               Margin="16,0,16,0"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                     <Label
-                        HorizontalOptions="StartAndExpand"
-                        Style="{StaticResource TitleLabelStyle}"
-                        Text="{Binding NextRefresh}" />
+                       HorizontalOptions="StartAndExpand"
+                       Style="{StaticResource TitleLabelStyle}"
+                       Text="{Binding NextRefresh}" />
 
                     <Label
-                        HorizontalOptions="EndAndExpand"
-                        Style="{StaticResource TitleLabelStyle}"
-                        Text="{Binding CartValue}" />
+                       HorizontalOptions="EndAndExpand"
+                       Style="{StaticResource TitleLabelStyle}"
+                       Text="{Binding CartValue}" />
                 </StackLayout>
             </Frame>
 
             <Grid
-                Grid.Row="2"
-                Margin="16,0,16,16"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}"
-                VerticalOptions="CenterAndExpand">
+               Grid.Row="2"
+               Margin="16,0,16,16"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}"
+               VerticalOptions="CenterAndExpand">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -98,55 +90,56 @@
                 </Grid.ColumnDefinitions>
 
                 <Button
-                    Grid.Column="0"
-                    Command="{Binding EmptyCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    Text="{x:Static values:Texts.Shop_EmptyCart}"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="120" />
+                   Grid.Column="0"
+                   Command="{Binding EmptyCommand}"
+                   HorizontalOptions="FillAndExpand"
+                   Text="{x:Static values:Texts.Shop_EmptyCart}"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="120" />
 
                 <Image
-                    Grid.Column="1"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="@drawable/ic_shop.png"
-                    VerticalOptions="CenterAndExpand" />
+                   Grid.Column="1"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_shop.png"
+                   VerticalOptions="CenterAndExpand" />
 
                 <Label
-                    Grid.Column="1"
-                    FontAttributes="Bold"
-                    FontSize="35"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="{Binding CartSize}"
-                    TextColor="White"
-                    VerticalOptions="CenterAndExpand" />
+                   Grid.Column="1"
+                   FontAttributes="Bold"
+                   FontSize="35"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="{Binding CartSize}"
+                   TextColor="White"
+                   VerticalOptions="CenterAndExpand" />
 
                 <Button
-                    Grid.Column="2"
-                    Command="{Binding CheckCartCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    IsEnabled="{Binding CartSize, Converter={StaticResource CartSizeToBoolConverter}}"
-                    Text="{x:Static values:Texts.Next}"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="120" />
+                   Grid.Column="2"
+                   Command="{Binding CheckCartCommand}"
+                   HorizontalOptions="FillAndExpand"
+                   IsEnabled="{Binding CartSize, Converter={StaticResource CartSizeToBoolConverter}}"
+                   Text="{x:Static values:Texts.Next}"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="120" />
             </Grid>
 
             <views:ShopItemDetailsView
-                x:Name="popupView"
-                Grid.Row="0"
-                Grid.RowSpan="3" />
+               x:Name="popupView"
+               Grid.Row="0"
+               Grid.RowSpan="3" />
 
             <views:CartView
-                Grid.Row="0"
-                Grid.RowSpan="3" />
+               x:Name="cartView"
+               Grid.Row="0"
+               Grid.RowSpan="3" />
 
             <ActivityIndicator
-                Grid.Row="0"
-                Grid.RowSpan="3"
-                HeightRequest="100"
-                HorizontalOptions="CenterAndExpand"
-                IsRunning="True"
-                IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand" />
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               HeightRequest="100"
+               HorizontalOptions="CenterAndExpand"
+               IsRunning="True"
+               IsVisible="{Binding IsBusy}"
+               VerticalOptions="CenterAndExpand" />
 
         </Grid>
     </ContentPage.Content>

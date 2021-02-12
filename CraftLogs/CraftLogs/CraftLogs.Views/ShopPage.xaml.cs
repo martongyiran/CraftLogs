@@ -22,5 +22,14 @@ namespace CraftLogs.Views
 
             viewModel.ItemTappedCommand.Execute(item);
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (cartView.IsVisible && (BindingContext is ShopPageViewModel viewModel))
+            {
+                viewModel.CloseCartCommand.Execute();
+            }
+            return true;
+        }
     }
 }
