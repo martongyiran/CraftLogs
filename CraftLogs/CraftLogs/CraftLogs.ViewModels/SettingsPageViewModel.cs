@@ -101,6 +101,7 @@ namespace CraftLogs.ViewModels
         {
             UserSettings = DataRepository.GetSettings();
             IsNpc = _param == "npc";
+            RaisePropertyChanged(nameof(C2PointRange));
         }
 
         private async Task SaveSettings()

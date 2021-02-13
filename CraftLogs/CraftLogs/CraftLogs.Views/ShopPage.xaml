@@ -93,6 +93,7 @@
                    Grid.Column="0"
                    Command="{Binding EmptyCommand}"
                    HorizontalOptions="FillAndExpand"
+                   IsEnabled="{Binding CanEmpty}"
                    Text="{x:Static values:Texts.Shop_EmptyCart}"
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="120" />

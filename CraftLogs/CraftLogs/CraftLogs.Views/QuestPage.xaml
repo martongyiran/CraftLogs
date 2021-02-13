@@ -1,95 +1,91 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.QuestPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}"
-    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+   x:Class="CraftLogs.Views.QuestPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}"
+   IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Command="{Binding ReloadCommand}"
-            Icon="@drawable/ic_reloadWhite.png" />
-        <ToolbarItem
-            Command="{Binding NavigateToSettingsCommand}"
-            Icon="@drawable/ic_settings_white.png" />
+        <ToolbarItem Command="{Binding ReloadCommand}" Icon="@drawable/ic_reloadWhite.png" />
+        <ToolbarItem Command="{Binding NavigateToSettingsCommand}" Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView Padding="16">
-            <Frame>
-                <Grid
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="100" />
-                    </Grid.RowDefinitions>
+        <ContentView>
+            <ScrollView Padding="16">
+                <Frame>
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
 
-                    <Entry
-                        Grid.Row="0"
-                        Placeholder="Állomás neve"
-                        Style="{StaticResource RegisterEntry}"
-                        Text="{Binding From, Mode=TwoWay}" />
+                        <Entry
+                           Grid.Row="0"
+                           Placeholder="Állomás neve"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding From, Mode=TwoWay}" />
 
-                    <Label
-                        x:Name="scoreLabel"
-                        Grid.Row="1"
-                        FontSize="60"
-                        HorizontalOptions="CenterAndExpand"
-                        IsVisible="{Binding ReadyToScore}"
-                        Text="{Binding Score, StringFormat='{0} pont'}"
-                        TextColor="{StaticResource ColorDark}"
-                        VerticalOptions="CenterAndExpand" />
+                        <Label
+                           x:Name="scoreLabel"
+                           Grid.Row="1"
+                           FontSize="60"
+                           HorizontalOptions="CenterAndExpand"
+                           IsVisible="{Binding ReadyToScore}"
+                           Text="{Binding Score, StringFormat='{0} pont'}"
+                           TextColor="{StaticResource ColorDark}"
+                           VerticalOptions="CenterAndExpand" />
 
-                    <Slider
-                        x:Name="scoreSlider"
-                        Grid.Row="1"
-                        Margin="10,0,10,0"
-                        HorizontalOptions="FillAndExpand"
-                        IsVisible="{Binding ReadyToScore}"
-                        Maximum="100"
-                        MaximumTrackColor="{StaticResource ColorPrimary}"
-                        Minimum="0"
-                        MinimumTrackColor="{StaticResource ColorLight}"
-                        ThumbColor="{StaticResource ColorDark}"
-                        VerticalOptions="End"
-                        Value="{Binding SliderScore, Mode=TwoWay}" />
+                        <Slider
+                           x:Name="scoreSlider"
+                           Grid.Row="1"
+                           Margin="10,0,10,0"
+                           HorizontalOptions="FillAndExpand"
+                           IsVisible="{Binding ReadyToScore}"
+                           Maximum="100"
+                           MaximumTrackColor="{StaticResource ColorPrimary}"
+                           Minimum="0"
+                           MinimumTrackColor="{StaticResource ColorLight}"
+                           ThumbColor="{StaticResource ColorDark}"
+                           VerticalOptions="End"
+                           Value="{Binding SliderScore, Mode=TwoWay}" />
 
-                    <Button
-                        x:Name="scoreButton"
-                        Grid.Row="2"
-                        Command="{Binding ScoreCommand}"
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding ReadyToScore}"
-                        Style="{StaticResource FirstLevelButtonStyle}"
-                        Text="{x:Static values:Texts.Quest_Title}"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="200" />
+                        <Button
+                           x:Name="scoreButton"
+                           Grid.Row="2"
+                           Command="{Binding ScoreCommand}"
+                           HorizontalOptions="Center"
+                           IsVisible="{Binding ReadyToScore}"
+                           Style="{StaticResource FirstLevelButtonStyle}"
+                           Text="{x:Static values:Texts.Quest_Title}"
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="200" />
 
-                    <Image
-                        Grid.Row="1"
-                        Grid.RowSpan="2"
-                        HeightRequest="120"
-                        HorizontalOptions="CenterAndExpand"
-                        IsVisible="{Binding ReadyToScore, Converter={StaticResource InverseBoolConverter}}"
-                        Source="@drawable/ic_plus_circle.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="120">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding StartCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+                        <Image
+                           Grid.Row="1"
+                           Grid.RowSpan="2"
+                           HeightRequest="120"
+                           HorizontalOptions="CenterAndExpand"
+                           IsVisible="{Binding ReadyToScore, Converter={StaticResource InverseBoolConverter}}"
+                           Source="@drawable/ic_plus_circle.png"
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="120">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding StartCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                    <Label
-                        Grid.Row="3"
-                        HorizontalOptions="EndAndExpand"
-                        Text="{Binding Version}"
-                        VerticalOptions="EndAndExpand" />
-                </Grid>
-            </Frame>
-        </ScrollView>
+                        <Label
+                           Grid.Row="3"
+                           HorizontalOptions="EndAndExpand"
+                           Text="{Binding Version}"
+                           VerticalOptions="EndAndExpand" />
+                    </Grid>
+                </Frame>
+            </ScrollView>
+        </ContentView>
     </ContentPage.Content>
 </ContentPage>

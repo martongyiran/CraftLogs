@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CraftLogs.BLL.Enums;
 using Prism.Mvvm;
@@ -109,17 +110,9 @@ namespace CraftLogs.BLL.Models
 
         public ObservableCollection<Item> Inventory = new ObservableCollection<Item>();
 
+        public List<string> Recepies = new List<string>();
+
         public Guid TradeNumber { get; set; }
-
-        public TradeStatusEnum TradeStatus { get; set; } = TradeStatusEnum.Finished;
-
-        public TradeReward TradeOut = new TradeReward();
-
-        public TradeReward TradeIn = new TradeReward();
-
-        public string TradeWith { get; set; }
-
-        public string TradeLastQR { get; set; }
 
         public int Exp => CalcualteExp();
 
@@ -254,16 +247,6 @@ namespace CraftLogs.BLL.Models
         public void Init()
         {
             foreach (var item in Inventory)
-            {
-                item.SetStats(item.StatsFromQR);
-            }
-
-            foreach (var item in TradeIn.ItemsToTrade)
-            {
-                item.SetStats(item.StatsFromQR);
-            }
-
-            foreach (var item in TradeOut.ItemsToTrade)
             {
                 item.SetStats(item.StatsFromQR);
             }

@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.SelectModePage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:enums="clr-namespace:CraftLogs.BLL.Enums;assembly=CraftLogs.BLL"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    BackgroundColor="{StaticResource BackgroundColorLight}"
-    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-    <ScrollView Padding="16">
-        <StackLayout
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="CenterAndExpand">
-            <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{x:Static values:Texts.SelectMode_Subtitle}" />
+   x:Class="CraftLogs.Views.SelectModePage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:enums="clr-namespace:CraftLogs.BLL.Enums;assembly=CraftLogs.BLL"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   BackgroundColor="{StaticResource BackgroundColorLight}"
+   IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <ContentView>
+        <ScrollView Padding="16">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Style="{StaticResource TitleLabelStyle}" Text="{x:Static values:Texts.SelectMode_Subtitle}" />
 
-            <Button
-                Margin="0,16,0,0"
-                Command="{Binding SetModeCommand}"
-                CommandParameter="{x:Static enums:AppModeEnum.Team}"
-                Text="{x:Static values:Texts.SelectMode_Team}" />
+                <Button
+                   Margin="0,16,0,0"
+                   Command="{Binding SetModeCommand}"
+                   CommandParameter="{x:Static enums:AppModeEnum.Team}"
+                   Text="{x:Static values:Texts.SelectMode_Team}" />
 
-            <Button
-                Command="{Binding SetModeCommand}"
-                CommandParameter="{x:Static enums:AppModeEnum.Shop}"
-                Text="{x:Static values:Texts.SelectMode_Shop}" />
+                <Button
+                   Command="{Binding SetModeCommand}"
+                   CommandParameter="{x:Static enums:AppModeEnum.Shop}"
+                   Text="{x:Static values:Texts.SelectMode_Shop}" />
 
-            <Button
-                Command="{Binding SetModeCommand}"
-                CommandParameter="{x:Static enums:AppModeEnum.Arena}"
-                Text="{x:Static values:Texts.SelectMode_Arena}" />
+                <Button
+                   Command="{Binding SetModeCommand}"
+                   CommandParameter="{x:Static enums:AppModeEnum.Arena}"
+                   Text="{x:Static values:Texts.SelectMode_Arena}" />
 
-            <Button
-                Command="{Binding SetModeCommand}"
-                CommandParameter="{x:Static enums:AppModeEnum.Hq}"
-                Text="{x:Static values:Texts.SelectMode_Hq}" />
-        </StackLayout>
-    </ScrollView>
+                <Button
+                   Command="{Binding SetModeCommand}"
+                   CommandParameter="{x:Static enums:AppModeEnum.Hq}"
+                   Text="{x:Static values:Texts.SelectMode_Hq}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentView>
 </ContentPage>

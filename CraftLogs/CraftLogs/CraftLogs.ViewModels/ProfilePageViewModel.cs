@@ -25,8 +25,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using ZXing.Mobile;
 
 namespace CraftLogs.ViewModels
 {
@@ -37,7 +35,6 @@ namespace CraftLogs.ViewModels
         private TeamProfile _profile;
         private CombatUnit _combatUnit;
         private ObservableCollection<Log> _logs;
-        private string _tradeIcon;
         private string _arenaIcon;
         private string _hpSum;
         private string _atkSum;
@@ -46,7 +43,6 @@ namespace CraftLogs.ViewModels
         private string _critRSum;
         private string _dodgeSum;
         private bool _pointIsVisible;
-        private bool _lastQRIsVisible;
         private Item _armorItem;
         private Item _ringItem;
         private Item _neckItem;
@@ -131,22 +127,10 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _rHandItem, value);
         }
 
-        public string TradeIcon
-        {
-            get => _tradeIcon;
-            set => SetProperty(ref _tradeIcon, value);
-        }
-
         public string ArenaIcon
         {
             get => _arenaIcon;
             set => SetProperty(ref _arenaIcon, value);
-        }
-
-        public bool LastQRIsVisible
-        {
-            get => _lastQRIsVisible;
-            set => SetProperty(ref _lastQRIsVisible, value);
         }
 
         public DelayCommand NavigateToLogsCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.LogsPage));
@@ -157,11 +141,9 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand GetArenaQRCommand => new DelayCommand(async () => await ExecuteGetArenaQRCommandAsync());
 
-        public DelayCommand StartTradeCommand => new DelayCommand(async () => await ExecuteStartTradeCommandAsync());
+        public DelayCommand StartTradeCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.TradePage));
 
         public DelayCommand<string?> RaiseStatCommand => new DelayCommand<string?>((a) => ExecuteRaiseStatCommand(a));
-
-        public DelayCommand LastTradeQRCommand => new DelayCommand(async () => await ExecuteLastTradeQRCommandAsync());
 
         public DelayCommand ShowInfoCommand => new DelayCommand(async () => await ExecuteShowInfoCommandAsync());
 
@@ -202,13 +184,7 @@ namespace CraftLogs.ViewModels
 
             SetItems();
 
-            TradeIcon = Profile.TradeStatus != TradeStatusEnum.Finished
-                ? "@drawable/ic_trade_whiteIP.png"
-                : "@drawable/ic_trade_white.png";
-
             ArenaIcon = GetArenaIcon();
-
-            LastQRIsVisible = !string.IsNullOrEmpty(Profile.TradeLastQR);
 
             PointIsVisible = Profile.StatPoint > 0;
 
@@ -353,27 +329,6 @@ namespace CraftLogs.ViewModels
 
         }
 
-        private async Task ExecuteStartTradeCommandAsync()
-        {
-            if (Profile.TradeStatus == TradeStatusEnum.Finished
-                || Profile.TradeStatus == TradeStatusEnum.TradeGetAndGive)
-            {
-                await NavigateTo(NavigationLinks.TradePage);
-            }
-            else if (Profile.TradeStatus == TradeStatusEnum.TradeGive
-                || Profile.TradeStatus == TradeStatusEnum.TradeGiveAndGet
-                || Profile.TradeStatus == TradeStatusEnum.TradeFirstOk
-                || Profile.TradeStatus == TradeStatusEnum.TradeSecondOk)
-            {
-                var scanResult = await _qRService.ReadQr();
-
-                if (scanResult != null)
-                {
-                    await NavigateToWithoutHistory(NavigationLinks.QRHandlerPage, scanResult);
-                }
-            }
-        }
-
         private void ExecuteRaiseStatCommand(string? stat)
         {
             if (Profile.StatPoint > 0)
@@ -412,18 +367,6 @@ namespace CraftLogs.ViewModels
             }
 
             return "@drawable/ic_arena_white.png";
-        }
-
-        private async Task ExecuteLastTradeQRCommandAsync()
-        {
-            var qrCode = Profile.TradeLastQR;
-
-            var param = new NavigationParameters
-            {
-                { "code", qrCode }
-            };
-
-            await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }
 
         private async Task ExecuteShowInfoCommandAsync()

@@ -1,156 +1,156 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.HqPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}">
+   x:Class="CraftLogs.Views.HqPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem
-            Command="{Binding NavigateToSettingsCommand}"
-            Icon="@drawable/ic_settings_white.png" />
+        <views:BindableToolbarItem Command="{Binding NavigateToSettingsCommand}" Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView Padding="16">
-            <Frame>
-                <Grid
-                    Margin="0"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Start">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+        <ContentView>
+            <ScrollView Padding="16">
+                <Frame>
+                    <Grid
+                       Margin="0"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        FontSize="15"
-                        HorizontalOptions="Start"
-                        Text="Exp:"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
+                        <Label
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           Text="Exp:"
+                           TextColor="Black"
+                           VerticalOptions="Center" />
 
-                    <Entry
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Keyboard="Numeric"
-                        Placeholder="Exp"
-                        Style="{StaticResource RegisterEntry}"
-                        Text="{Binding Reward.Exp, Mode=TwoWay}" />
+                        <Entry
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Keyboard="Numeric"
+                           Placeholder="Exp"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding Reward.Exp, Mode=TwoWay}" />
 
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        FontSize="15"
-                        HorizontalOptions="Start"
-                        Text="Honor:"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
+                        <Label
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           Text="Honor:"
+                           TextColor="Black"
+                           VerticalOptions="Center" />
 
-                    <Entry
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Keyboard="Numeric"
-                        Placeholder="Honor"
-                        Style="{StaticResource RegisterEntry}"
-                        Text="{Binding Reward.Honor, Mode=TwoWay}" />
+                        <Entry
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Keyboard="Numeric"
+                           Placeholder="Honor"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding Reward.Honor, Mode=TwoWay}" />
 
-                    <Label
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        FontSize="15"
-                        HorizontalOptions="Start"
-                        Text="Money:"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
+                        <Label
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           Text="Money:"
+                           TextColor="Black"
+                           VerticalOptions="Center" />
 
-                    <Entry
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Keyboard="Numeric"
-                        Placeholder="Money"
-                        Style="{StaticResource RegisterEntry}"
-                        Text="{Binding Reward.Money, Mode=TwoWay}" />
+                        <Entry
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Keyboard="Numeric"
+                           Placeholder="Money"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding Reward.Money, Mode=TwoWay}" />
 
-                    <Label
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        FontSize="15"
-                        HorizontalOptions="Start"
-                        Text="Legendary:"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
+                        <Label
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           Text="Legendary:"
+                           TextColor="Black"
+                           VerticalOptions="Center" />
 
-                    <Picker
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        FontSize="16"
-                        HorizontalOptions="Fill"
-                        ItemsSource="{Binding Legendaries}"
-                        SelectedItem="{Binding Lego, Mode=TwoWay}"
-                        TextColor="{StaticResource ColorDark}"
-                        VerticalOptions="Center" />
+                        <Picker
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           FontSize="16"
+                           HorizontalOptions="Fill"
+                           ItemsSource="{Binding Legendaries}"
+                           SelectedItem="{Binding Lego, Mode=TwoWay}"
+                           TextColor="{StaticResource ColorDark}"
+                           VerticalOptions="Center" />
 
-                    <Button
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Command="{Binding GiveCommand}"
-                        Text="AD" />
+                        <Button
+                           Grid.Row="4"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Command="{Binding GiveCommand}"
+                           Text="AD" />
 
-                    <Button
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Command="{Binding NavigateToQRScannerPageCommand}"
-                        FontSize="15"
-                        Text="SCAN" />
+                        <Button
+                           Grid.Row="5"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Command="{Binding NavigateToQRScannerPageCommand}"
+                           FontSize="15"
+                           Text="SCAN" />
 
-                    <StackLayout
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,16,0,0"
-                        BindableLayout.ItemsSource="{Binding Teams}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout
-                                    HorizontalOptions="StartAndExpand"
-                                    Orientation="Horizontal"
-                                    VerticalOptions="Center">
-                                    <Label
-                                        Margin="15,0,15,0"
-                                        FontSize="15"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Text="{Binding Name}"
-                                        TextColor="Black"
-                                        VerticalOptions="CenterAndExpand" />
-                                    <Label
-                                        Margin="15,0,15,0"
-                                        FontSize="15"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Text="{Binding Score}"
-                                        TextColor="Black"
-                                        VerticalOptions="CenterAndExpand" />
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
+                        <StackLayout
+                           Grid.Row="6"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,16,0,0"
+                           BindableLayout.ItemsSource="{Binding Teams}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout
+                                       HorizontalOptions="StartAndExpand"
+                                       Orientation="Horizontal"
+                                       VerticalOptions="Center">
+                                        <Label
+                                           Margin="15,0,15,0"
+                                           FontSize="15"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Text="{Binding Name}"
+                                           TextColor="Black"
+                                           VerticalOptions="CenterAndExpand" />
+                                        <Label
+                                           Margin="15,0,15,0"
+                                           FontSize="15"
+                                           HorizontalOptions="CenterAndExpand"
+                                           Text="{Binding Score}"
+                                           TextColor="Black"
+                                           VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
 
-                </Grid>
-            </Frame>
-        </ScrollView>
+                    </Grid>
+                </Frame>
+            </ScrollView>
+        </ContentView>
     </ContentPage.Content>
 </ContentPage>

@@ -14,4 +14,5 @@ Az első verzió egy erősen összegányolt alkalmazás volt, a "Jól van ez íg
 \
 \
 \
+Note: minden leg kívül helyezkedő ScrollView-t egy ContentView-ba wrappeltem a Xamarin.Forms 5.0.0.1931-ben lévő bug miatt (https://github.com/xamarin/Xamarin.Forms/issues/13307)
 _More README updates will be added in the future._

@@ -87,13 +87,16 @@ namespace CraftLogs.ViewModels
 
         public int CartSize => ShoppingCart.Count;
 
+        public bool CanEmpty => ShoppingCart.Count > 0;
+
+        public bool CanBuy => ShoppingCart.Count < 5;
         public DelayCommand RefreshCommand => new DelayCommand(ExecuteRefreshCommand);
 
         public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTappedCommand(a));
 
-        public DelayCommand BuyCommand => new DelayCommand(async () => await ExecuteBuyCommandAsync());
+        public DelayCommand BuyCommand => new DelayCommand(ExecuteBuyCommand);
 
-        public DelayCommand EmptyCommand => new DelayCommand(async () => await ExecuteEmptyCommandAsync());
+        public DelayCommand EmptyCommand => new DelayCommand(ExecuteEmptyCommand);
 
         public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommand());
 
@@ -188,6 +191,8 @@ namespace CraftLogs.ViewModels
             NextRefresh = string.Format("{0} {1:HH:mm}", Texts.Shop_RefreshAt, _shopProfile.LastRefresh.AddHours(1));
 
             RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
 
             IsCartVisible = false;
             IsPopupVisible = false;
@@ -205,41 +210,36 @@ namespace CraftLogs.ViewModels
             IsCartVisible = false;
         }
 
-        private async Task ExecuteBuyCommandAsync()
+        private void  ExecuteBuyCommand()
         {
-            if (ShoppingCart.Count < 5)
+            var tempitems = Items;
+            tempitems.Remove(ActiveItem);
+            var templist = ShoppingCart;
+            templist.Add(ActiveItem);
+
+            ShoppingCart = templist;
+            Items = tempitems;
+
+            int allValue = 0;
+
+            foreach (var item in ShoppingCart)
             {
-                var tempitems = Items;
-                tempitems.Remove(ActiveItem);
-                var templist = ShoppingCart;
-                templist.Add(ActiveItem);
-
-                ShoppingCart = templist;
-                Items = tempitems;
-
-                int allValue = 0;
-
-                foreach (var item in ShoppingCart)
-                {
-                    allValue += item.Value;
-                }
-
-                CartValue = string.Format(Texts.Shop_Sum, allValue);
+                allValue += item.Value;
             }
-            else
-            {
-                await DialogService.DisplayAlertAsync("", Texts.Shop_ItemLimit, Texts.Ok);
-            }
+
+            CartValue = string.Format(Texts.Shop_Sum, allValue);
 
             RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
             IsPopupVisible = false;
         }
 
-        private async Task ExecuteEmptyCommandAsync()
+        private void ExecuteEmptyCommand()
         {
             if (ShoppingCart.Count == 0)
             {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Shop_CartIsEmptyError, Texts.Ok);
+                return;
             }
             else
             {
@@ -250,6 +250,8 @@ namespace CraftLogs.ViewModels
             }
 
             RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
             IsPopupVisible = false;
         }
 
@@ -282,6 +284,8 @@ namespace CraftLogs.ViewModels
             }
 
             RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
 
             IsBusy = false;
         }
@@ -314,10 +318,6 @@ namespace CraftLogs.ViewModels
                     DataRepository.SaveToFile(_shopProfile);
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
                 }
-            }
-            else
-            {
-                await DialogService.DisplayAlertAsync(Texts.Error, Texts.Shop_CartIsEmptyError, Texts.Ok);
             }
 
             IsPopupVisible = false;

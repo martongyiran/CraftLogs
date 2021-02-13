@@ -23,12 +23,7 @@ namespace CraftLogs.BLL.Enums
         ProfileForHq,
         ShopList,
         ArenaResult,
-        TradeGive,
-        TradeGetAndGive,
-        TradeGiveAndGet,
-        TradeFirstOk,
-        TradeSecondOk,
-        Finishedd,
+        TradeResult,
         HqReward
     }
 }

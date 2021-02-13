@@ -76,22 +76,9 @@ namespace CraftLogs.BLL.Services
             _dataRepository.SaveToFile(logs);
         }
 
-        public void CreateTradeLog(TeamProfile profile)
+        public void CreateTradeLog(TradeModel model)
         {
-            var logs = _dataRepository.GetLogs();
-            var logText = "Velük: " + profile.TradeWith +"\n\n Adtál: " + profile.TradeOut.Money + " pénzt\n\n";
-            foreach(var item in profile.TradeOut.ItemsToTrade)
-            {
-                logText += item.ToString();
-            }
-            logText += "\n\nKaptál:"  + profile.TradeIn.Money + " pénzt\n\n";
-            foreach (var item in profile.TradeIn.ItemsToTrade)
-            {
-                logText += item.ToString();
-            }
-            var newLog = new Log(LogTypeEnum.Trade, logText);
-            logs.Insert(0, newLog);
-            _dataRepository.SaveToFile(logs);
+
         }
     }
 }

@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.ProfilePage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}"
-    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+   x:Class="CraftLogs.Views.ProfilePage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}"
+   IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem
-            Command="{Binding ShowInfoCommand}"
-            Icon="@drawable/ic_info_white.png" />
-        <views:BindableToolbarItem
-            Command="{Binding NavigateToSettingsCommand}"
-            Icon="@drawable/ic_settings_white.png" />
+        <views:BindableToolbarItem Command="{Binding ShowInfoCommand}" Icon="@drawable/ic_info_white.png" />
+        <views:BindableToolbarItem Command="{Binding NavigateToSettingsCommand}" Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout
-            Margin="0"
-            Padding="0"
-            HorizontalOptions="FillAndExpand"
-            Spacing="0"
-            VerticalOptions="StartAndExpand">
-            <ScrollView
-                Padding="16"
-                VerticalOptions="Start">
+           Margin="0"
+           Padding="0"
+           HorizontalOptions="FillAndExpand"
+           Spacing="0"
+           VerticalOptions="StartAndExpand">
+            <ScrollView Padding="16" VerticalOptions="Start">
                 <Frame>
-                    <StackLayout
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="CenterAndExpand">
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 
                         <views:ProfileInfoView />
 
@@ -41,67 +33,67 @@
             </ScrollView>
 
             <StackLayout
-                BackgroundColor="{StaticResource ColorPrimary}"
-                HeightRequest="60"
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                VerticalOptions="End">
+               BackgroundColor="{StaticResource ColorPrimary}"
+               HeightRequest="60"
+               HorizontalOptions="FillAndExpand"
+               Orientation="Horizontal"
+               VerticalOptions="End">
                 <Image
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FlowDirection="LeftToRight"
-                    HeightRequest="40"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="@drawable/ic_bag_white.png"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40">
+                   BackgroundColor="{StaticResource ColorPrimary}"
+                   FlowDirection="LeftToRight"
+                   HeightRequest="40"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_bag_white.png"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToInventoryPageCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FlowDirection="LeftToRight"
-                    HeightRequest="40"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="@drawable/ic_logs_white.png"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40">
+                   BackgroundColor="{StaticResource ColorPrimary}"
+                   FlowDirection="LeftToRight"
+                   HeightRequest="40"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_logs_white.png"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToLogsCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FlowDirection="LeftToRight"
-                    HeightRequest="40"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="@drawable/ic_rqr_white.png"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40">
+                   BackgroundColor="{StaticResource ColorPrimary}"
+                   FlowDirection="LeftToRight"
+                   HeightRequest="40"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_rqr_white.png"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToQRScannerPageCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FlowDirection="LeftToRight"
-                    HeightRequest="40"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="{Binding TradeIcon}"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40">
+                   BackgroundColor="{StaticResource ColorPrimary}"
+                   FlowDirection="LeftToRight"
+                   HeightRequest="40"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_trade_white.png"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding StartTradeCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
                 <Image
-                    BackgroundColor="{StaticResource ColorPrimary}"
-                    FlowDirection="LeftToRight"
-                    HeightRequest="40"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="{Binding ArenaIcon}"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40">
+                   BackgroundColor="{StaticResource ColorPrimary}"
+                   FlowDirection="LeftToRight"
+                   HeightRequest="40"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="{Binding ArenaIcon}"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GetArenaQRCommand}" />
                     </Image.GestureRecognizers>

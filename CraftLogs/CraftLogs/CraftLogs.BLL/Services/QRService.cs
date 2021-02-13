@@ -54,27 +54,9 @@ namespace CraftLogs.BLL.Services
 
                 return JsonConvert.SerializeObject(response);
             }
-            else if (typeof(TradeGive) == data.GetType())
+            else if (typeof(TradeModel) == data.GetType())
             {
-                QRResponse<TradeGive> response = new QRResponse<TradeGive>(QRTypeEnum.TradeGive, JsonConvert.SerializeObject(data));
-
-                return JsonConvert.SerializeObject(response);
-            }
-            else if (typeof(TradeGetAndGive) == data.GetType())
-            {
-                QRResponse<TradeGetAndGive> response = new QRResponse<TradeGetAndGive>(QRTypeEnum.TradeGetAndGive, JsonConvert.SerializeObject(data));
-
-                return JsonConvert.SerializeObject(response);
-            }
-            else if (typeof(TradeFirstOk) == data.GetType())
-            {
-                QRResponse<TradeFirstOk> response = new QRResponse<TradeFirstOk>(QRTypeEnum.TradeFirstOk, JsonConvert.SerializeObject(data));
-
-                return JsonConvert.SerializeObject(response);
-            }
-            else if (typeof(TradeSecondOk) == data.GetType())
-            {
-                QRResponse<TradeSecondOk> response = new QRResponse<TradeSecondOk>(QRTypeEnum.TradeSecondOk, JsonConvert.SerializeObject(data));
+                QRResponse<TradeModel> response = new QRResponse<TradeModel>(QRTypeEnum.TradeResult, JsonConvert.SerializeObject(data));
 
                 return JsonConvert.SerializeObject(response);
             }
@@ -103,12 +85,6 @@ namespace CraftLogs.BLL.Services
 
         public async Task<INavigationParameters> ReadQr()
         {
-            var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
-            if (status == PermissionStatus.Denied || status == PermissionStatus.Disabled)
-            {
-                return null;
-            }
-
             var scanner = new MobileBarcodeScanner();
             var scanResult = await scanner.Scan(MobileBarcodeScanningOptions.Default);
 

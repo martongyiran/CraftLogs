@@ -101,17 +101,13 @@ namespace CraftLogs.BLL.Models
 
         private int GetValue()
         {
-            switch (Tier)
+            return Tier switch
             {
-                case 1:
-                    return 16;
-                case 2:
-                    return 50;
-                case 3:
-                    return 100;
-                default:
-                    return 0;
-            }
+                1 => 16,
+                2 => 50,
+                3 => 100,
+                _ => 0,
+            };
         }
 
         private string GetInvString()

@@ -39,7 +39,7 @@ namespace CraftLogs.BLL.Services.Interfaces
         /// <summary> 
         /// Create a TradeLog type log entry.
         /// </summary>
-        void CreateTradeLog(TeamProfile profile);
+        void CreateTradeLog(TradeModel profile);
 
         /// <summary> 
         /// Create a ArenaLog type log entry.

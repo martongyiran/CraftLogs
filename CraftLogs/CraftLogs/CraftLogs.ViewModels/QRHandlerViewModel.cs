@@ -37,7 +37,6 @@ namespace CraftLogs.ViewModels
         private string _response;
         private string _rewardText;
         private bool _rewardIsVisible = false;
-        private bool _isQuestReward = false;
         private ObservableCollection<Item> _rewards = new ObservableCollection<Item>();
 
         public string Response
@@ -200,133 +199,37 @@ namespace CraftLogs.ViewModels
                     RewardText = "+1 EXP \n+1 hírnév \n+" + processedData.Money + " $";
                     _loggerService.CreateArenaLog(processedData);
                 }
-                else if (data.Type == QRTypeEnum.TradeGive)
+                else if (data.Type == QRTypeEnum.TradeResult)
                 {
                     var profile = DataRepository.GetTeamProfile();
-                    var processedData = JsonConvert.DeserializeObject<TradeGive>(data.D);
+                    var processedData = JsonConvert.DeserializeObject<TradeModel>(data.D);
 
                     Title = Texts.Trade_Title;
 
-                    if (profile.TradeStatus == TradeStatusEnum.Finished)
+                    if (profile.Name != processedData.Target
+                        || profile.Recepies.Contains(processedData.GetRecepie()))
                     {
-                        profile.TradeStatus = TradeStatusEnum.TradeGetAndGive;
-                        profile.TradeNumber = processedData.TradeNumber;
-                        profile.TradeIn = processedData.Reward;
-                        profile.TradeWith = processedData.Name;
-
-                        DataRepository.SaveToFile(profile);
-                        RewardText = Texts.Handler_TradeInProgress;
-                        await NavigateToWithoutHistory(NavigationLinks.TradePage);
+                        RewardText = "Ezt a csomagot nem neked küldték, vagy már egyszer leolvastad!";
                     }
                     else
                     {
-                        RewardText = Texts.Profile_TradeInProgress;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Profile_TradeInProgress + "Velük: " + profile.TradeWith, Texts.Ok);
-                    }
-                }
-                else if (data.Type == QRTypeEnum.TradeGetAndGive)
-                {
-                    var profile = DataRepository.GetTeamProfile();
-                    var processedData = JsonConvert.DeserializeObject<TradeGetAndGive>(data.D);
+                        profile.Money += processedData.Money;
+                        var temp = new List<Item>();
 
-                    Title = Texts.Trade_Title;
-
-                    if (profile.TradeStatus == TradeStatusEnum.TradeGive && profile.TradeNumber == processedData.TradeNumber)
-                    {
-                        profile.TradeStatus = TradeStatusEnum.TradeFirstOk;
-                        profile.TradeIn = processedData.Reward;
-                        profile.TradeWith = processedData.Name;
-
-                        RewardText = Texts.Handler_TradeInProgress;
-
-                        var tradeResponse = new TradeFirstOk(profile.TradeNumber);
-
-                        var qrCode = _qRService.CreateQR(tradeResponse);
-                        var param = new NavigationParameters
+                        foreach (var item in processedData?.TradeItems)
                         {
-                            { "code", qrCode }
-                        };
-
-                        profile.TradeLastQR = qrCode;
-
-                        DataRepository.SaveToFile(profile);
-
-                        await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-                    }
-                    else
-                    {
-                        RewardText = Texts.Profile_TradeInProgress;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Profile_TradeInProgress + "Velük: " + profile.TradeWith, Texts.Ok);
-                    }
-                }
-                else if (data.Type == QRTypeEnum.TradeFirstOk)
-                {
-                    var profile = DataRepository.GetTeamProfile();
-                    var processedData = JsonConvert.DeserializeObject<TradeFirstOk>(data.D);
-
-                    Title = Texts.Trade_Title;
-
-                    if (profile.TradeStatus == TradeStatusEnum.TradeGiveAndGet && profile.TradeNumber == processedData.TradeNumber)
-                    {
-                        profile.TradeStatus = TradeStatusEnum.Finished;
-
-                        profile.Money += profile.TradeIn.Money;
-
-                        foreach (var item in profile.TradeIn.ItemsToTrade)
-                        {
-                            profile.Inventory.Add(item);
+                            profile.Inventory.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
+                            temp.Add(new Item(item.Tier, item.Rarity, item.ItemType, item.UsableFor, item.StatsFromQR, item.Ad));
                         }
 
-                        RewardText = Texts.Handler_TradeInProgress;
-
-                        TradeSecondOk tradeResponse = new TradeSecondOk(profile.TradeNumber);
-
-                        var qrCode = _qRService.CreateQR(tradeResponse);
-                        var param = new NavigationParameters
-                        {
-                            { "code", qrCode }
-                        };
-
-                        profile.TradeLastQR = qrCode;
+                        profile.Recepies.Add(processedData.GetRecepie());
 
                         DataRepository.SaveToFile(profile);
-                        _loggerService.CreateTradeLog(profile);
+                        RewardText = $"{processedData.Money} $";
 
-                        await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
-                    }
-                    else
-                    {
-                        RewardText = Texts.Profile_TradeInProgress;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Profile_TradeInProgress + "Velük: " + profile.TradeWith, Texts.Ok);
-                    }
-                }
-                else if (data.Type == QRTypeEnum.TradeSecondOk)
-                {
-                    var profile = DataRepository.GetTeamProfile();
-                    var processedData = JsonConvert.DeserializeObject<TradeSecondOk>(data.D);
-
-                    Title = Texts.Trade_Title;
-
-                    if (profile.TradeStatus == TradeStatusEnum.TradeFirstOk && profile.TradeNumber == processedData.TradeNumber)
-                    {
-                        profile.TradeStatus = TradeStatusEnum.Finished;
-
-                        profile.Money += profile.TradeIn.Money;
-
-                        foreach (var item in profile.TradeIn.ItemsToTrade)
-                        {
-                            profile.Inventory.Add(item);
-                        }
-
-                        DataRepository.SaveToFile(profile);
-                        RewardText = "Sikeres csere!";
-
-                        _loggerService.CreateTradeLog(profile);
-                    }
-                    else
-                    {
-                        RewardText = Texts.Profile_TradeInProgress;
-                        await DialogService.DisplayAlertAsync(Texts.Error, Texts.Profile_TradeInProgress + "Velük: " + profile.TradeWith, Texts.Ok);
+                        processedData.TradeItems = new ObservableCollection<Item>(temp);
+                        Rewards = new ObservableCollection<Item>(temp);
+                        _loggerService.CreateTradeLog(processedData);
                     }
                 }
                 else if (data.Type == QRTypeEnum.ProfileForHq && _settings.AppMode == AppModeEnum.Hq)
@@ -369,6 +272,7 @@ namespace CraftLogs.ViewModels
                     Title = Texts.Handler_ErrorTitle;
                     RewardText = Texts.Handler_Error;
                 }
+
                 RewardIsVisible = true;
                 IsBusy = false;
             }

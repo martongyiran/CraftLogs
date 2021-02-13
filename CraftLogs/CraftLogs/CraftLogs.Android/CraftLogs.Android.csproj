@@ -652,9 +652,6 @@
     <AndroidResource Include="Resources\drawable\mage_weapon_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_trade_whiteIP.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\chest.png" />
   </ItemGroup>
   <ItemGroup>

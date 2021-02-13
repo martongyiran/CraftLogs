@@ -1,31 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
-    x:Class="CraftLogs.Views.ShopItemDetailsView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    x:Name="detailsView"
-    BackgroundColor="#F2FFFFFF"
-    HorizontalOptions="FillAndExpand"
-    IsVisible="{Binding IsPopupVisible, Mode=TwoWay}"
-    VerticalOptions="FillAndExpand"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ShopItemDetailsView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   x:Name="detailsView"
+   BackgroundColor="#F2FFFFFF"
+   HorizontalOptions="FillAndExpand"
+   IsVisible="{Binding IsPopupVisible, Mode=TwoWay}"
+   VerticalOptions="FillAndExpand"
+   mc:Ignorable="d">
 
     <ContentView.GestureRecognizers>
         <TapGestureRecognizer Tapped="Close_Clicked" />
     </ContentView.GestureRecognizers>
 
     <Frame
-        Margin="10"
-        HorizontalOptions="FillAndExpand"
-        InputTransparent="False"
-        VerticalOptions="CenterAndExpand">
-        <Grid
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="CenterAndExpand">
+       Margin="10"
+       HorizontalOptions="FillAndExpand"
+       InputTransparent="False"
+       VerticalOptions="CenterAndExpand">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -42,75 +40,76 @@
             </Grid.ColumnDefinitions>
 
             <views:ItemView
-                Grid.Row="1"
-                Grid.RowSpan="4"
-                Grid.Column="0"
-                HorizontalOptions="CenterAndExpand"
-                IsInventoryView="True"
-                Item="{Binding ActiveItem}"
-                VerticalOptions="StartAndExpand" />
+               Grid.Row="1"
+               Grid.RowSpan="4"
+               Grid.Column="0"
+               HorizontalOptions="CenterAndExpand"
+               IsInventoryView="True"
+               Item="{Binding ActiveItem}"
+               VerticalOptions="StartAndExpand" />
 
             <Label
-                Grid.Row="0"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                LineBreakMode="WordWrap"
-                MaxLines="2"
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding ActiveItem.Name}"
-                TextColor="{Binding ActiveItem.Rarity, Converter={StaticResource RarityToColorConverter}}" />
+               Grid.Row="0"
+               Grid.Column="1"
+               Grid.ColumnSpan="2"
+               LineBreakMode="WordWrap"
+               MaxLines="2"
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding ActiveItem.Name}"
+               TextColor="{Binding ActiveItem.Rarity, Converter={StaticResource RarityToColorConverter}}" />
 
             <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                FontSize="18"
-                HorizontalOptions="StartAndExpand"
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding ActiveItem.Value, StringFormat='{0} $'}" />
+               Grid.Row="0"
+               Grid.Column="0"
+               FontSize="18"
+               HorizontalOptions="StartAndExpand"
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding ActiveItem.Value, StringFormat='{0} $'}" />
 
             <Label
-                Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                HorizontalOptions="Center"
-                Text="{Binding ActiveItem.ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
+               Grid.Row="1"
+               Grid.Column="1"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="Center"
+               Text="{Binding ActiveItem.ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
 
             <Label
-                Grid.Row="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                HorizontalOptions="Center"
-                Text="{Binding ActiveItem.State, Converter={StaticResource ItemStateToStringConverter}}" />
+               Grid.Row="2"
+               Grid.Column="1"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="Center"
+               Text="{Binding ActiveItem.State, Converter={StaticResource ItemStateToStringConverter}}" />
 
             <Label
-                Grid.Row="3"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="0,0,0,16"
-                FontAttributes="Bold"
-                FontSize="16"
-                HorizontalOptions="Center"
-                Text="{Binding ActiveItem.InvString}" />
+               Grid.Row="3"
+               Grid.Column="1"
+               Grid.ColumnSpan="2"
+               Margin="0,0,0,16"
+               FontAttributes="Bold"
+               FontSize="16"
+               HorizontalOptions="Center"
+               Text="{Binding ActiveItem.InvString}" />
 
             <Button
-                Grid.Row="4"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Command="{Binding BuyCommand}"
-                Text="{x:Static values:Texts.Shop_ToCart}" />
+               Grid.Row="4"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Command="{Binding BuyCommand}"
+               IsEnabled="{Binding CanBuy}"
+               Text="{x:Static values:Texts.Shop_ToCart}" />
 
             <Button
-                Grid.Row="4"
-                Grid.Column="2"
-                Padding="0"
-                BackgroundColor="DarkRed"
-                Clicked="Close_Clicked"
-                HeightRequest="50"
-                HorizontalOptions="CenterAndExpand"
-                Text="X"
-                TextColor="White"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="50" />
+               Grid.Row="4"
+               Grid.Column="2"
+               Padding="0"
+               BackgroundColor="DarkRed"
+               Clicked="Close_Clicked"
+               HeightRequest="50"
+               HorizontalOptions="CenterAndExpand"
+               Text="X"
+               TextColor="White"
+               VerticalOptions="CenterAndExpand"
+               WidthRequest="50" />
         </Grid>
     </Frame>
 </ContentView>

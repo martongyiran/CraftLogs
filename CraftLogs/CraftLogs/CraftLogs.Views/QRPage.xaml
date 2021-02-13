@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.QRPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-    BackgroundColor="{StaticResource BackgroundColorLight}"
-    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-    <ScrollView Padding="16">
-        <StackLayout
-            HorizontalOptions="Center"
-            Spacing="0"
-            VerticalOptions="Center">
-            <!--  Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323  -->
-            <Entry
-                x:Name="EntryPhoneNumber"
-                IsVisible="False"
-                Text="{Binding QrCode}" />
+   x:Class="CraftLogs.Views.QRPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+   BackgroundColor="White"
+   IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <ContentView>
+        <ScrollView Padding="16">
+            <StackLayout
+               HorizontalOptions="Center"
+               Spacing="0"
+               VerticalOptions="Center">
+                <!--  Workaround for QRCodeWriter error: https://github.com/Redth/ZXing.Net.Mobile/issues/763#issuecomment-417598323  -->
+                <Entry
+                   x:Name="EntryPhoneNumber"
+                   IsVisible="False"
+                   Text="{Binding QrCode}" />
 
-            <zxing:ZXingBarcodeImageView
-                x:Name="qrcode"
-                Margin="0"
-                BarcodeFormat="QR_CODE"
-                BarcodeValue="{Binding Path=Text}"
-                BindingContext="{x:Reference Name=EntryPhoneNumber}"
-                HeightRequest="600"
-                WidthRequest="600" />
+                <zxing:ZXingBarcodeImageView
+                   x:Name="qrcode"
+                   Margin="0"
+                   BarcodeFormat="QR_CODE"
+                   BarcodeValue="{Binding Path=Text}"
+                   BindingContext="{x:Reference Name=EntryPhoneNumber}"
+                   HeightRequest="600"
+                   WidthRequest="600" />
 
-            <Button
-                Command="{Binding NavigateToHomeCommand}"
-                Text="{x:Static values:Texts.Ok}" />
-        </StackLayout>
-    </ScrollView>
+                <Button Command="{Binding NavigateToHomeCommand}" Text="{x:Static values:Texts.Ok}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentView>
 </ContentPage>

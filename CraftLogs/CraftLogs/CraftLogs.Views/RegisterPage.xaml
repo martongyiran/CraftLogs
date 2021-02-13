@@ -1,110 +1,108 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.RegisterPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:enums="clr-namespace:CraftLogs.BLL.Enums;assembly=CraftLogs.BLL"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    x:Name="view"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}"
-    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+   x:Class="CraftLogs.Views.RegisterPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:enums="clr-namespace:CraftLogs.BLL.Enums;assembly=CraftLogs.BLL"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   x:Name="view"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}"
+   IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem
-            Command="{Binding CancelCommand}"
-            Text="{x:Static values:Texts.Cancel}" />
+        <views:BindableToolbarItem Command="{Binding CancelCommand}" Text="{x:Static values:Texts.Cancel}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView
-            Padding="16"
-            VerticalOptions="StartAndExpand">
-            <Frame>
-                <StackLayout
-                    HorizontalOptions="Center"
-                    Orientation="Vertical"
-                    VerticalOptions="Start">
-                    <Label
-                        Margin="5,0,0,0"
-                        FontAttributes="Bold"
-                        FontSize="16"
-                        HorizontalOptions="StartAndExpand"
-                        Text="{x:Static values:Texts.Register_TeamName}"
-                        TextColor="Black" />
+        <ContentView>
+            <ScrollView Padding="16" VerticalOptions="StartAndExpand">
+                <Frame>
+                    <StackLayout
+                       HorizontalOptions="Center"
+                       Orientation="Vertical"
+                       VerticalOptions="Start">
+                        <Label
+                           Margin="5,0,0,0"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           HorizontalOptions="StartAndExpand"
+                           Text="{x:Static values:Texts.Register_TeamName}"
+                           TextColor="Black" />
 
-                    <Entry
-                        Placeholder="{x:Static values:Texts.Register_TeamNamePlaceholder}"
-                        Style="{StaticResource RegisterEntry}"
-                        Text="{Binding Name, Mode=TwoWay}" />
+                        <Entry
+                           Placeholder="{x:Static values:Texts.Register_TeamNamePlaceholder}"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding Name, Mode=TwoWay}" />
 
-                    <Label
-                        Margin="5,0,0,0"
-                        FontAttributes="Bold"
-                        FontSize="16"
-                        HorizontalOptions="Start"
-                        Text="{x:Static values:Texts.Register_House}"
-                        TextColor="Black" />
+                        <Label
+                           Margin="5,0,0,0"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           HorizontalOptions="Start"
+                           Text="{x:Static values:Texts.Register_House}"
+                           TextColor="Black" />
 
-                    <Picker
-                        FontSize="16"
-                        ItemsSource="{Binding Houses}"
-                        SelectedItem="{Binding House, Mode=TwoWay}"
-                        TextColor="{StaticResource ColorDark}" />
+                        <Picker
+                           FontSize="16"
+                           ItemsSource="{Binding Houses}"
+                           SelectedItem="{Binding House, Mode=TwoWay}"
+                           TextColor="{StaticResource ColorDark}" />
 
-                    <Label
-                        Margin="5,0,0,0"
-                        FontAttributes="Bold"
-                        FontSize="16"
-                        Text="{x:Static values:Texts.Register_Class}"
-                        TextColor="Black" />
+                        <Label
+                           Margin="5,0,0,0"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           Text="{x:Static values:Texts.Register_Class}"
+                           TextColor="Black" />
 
-                    <Picker
-                        FontSize="16"
-                        ItemsSource="{Binding Classes}"
-                        SelectedItem="{Binding Cast, Mode=TwoWay}"
-                        TextColor="{StaticResource ColorDark}" />
+                        <Picker
+                           FontSize="16"
+                           ItemsSource="{Binding Classes}"
+                           SelectedItem="{Binding Cast, Mode=TwoWay}"
+                           TextColor="{StaticResource ColorDark}" />
 
-                    <views:ProfilePictureSelectorView
-                        Image1="{Binding Img1}"
-                        Image2="{Binding Img2}"
-                        Image3="{Binding Img3}"
-                        SelectedImage="{Binding SelectedImage}" />
+                        <views:ProfilePictureSelectorView
+                           Image1="{Binding Img1}"
+                           Image2="{Binding Img2}"
+                           Image3="{Binding Img3}"
+                           SelectedImage="{Binding SelectedImage}" />
 
-                    <Label
-                        Margin="10,0,10,0"
-                        FontAttributes="Italic"
-                        HorizontalOptions="StartAndExpand"
-                        HorizontalTextAlignment="Start"
-                        VerticalOptions="StartAndExpand">
-                        <Label.Triggers>
-                            <DataTrigger
-                                Binding="{Binding Cast}"
-                                TargetType="Label"
-                                Value="{x:Static enums:CharacterClassEnum.Mage}">
-                                <Setter Property="Text" Value="{x:Static values:Texts.Register_MageDescription}" />
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding Cast}"
-                                TargetType="Label"
-                                Value="{x:Static enums:CharacterClassEnum.Warrior}">
-                                <Setter Property="Text" Value="{x:Static values:Texts.Register_WarriorDescription}" />
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding Cast}"
-                                TargetType="Label"
-                                Value="{x:Static enums:CharacterClassEnum.Rogue}">
-                                <Setter Property="Text" Value="{x:Static values:Texts.Register_RogueDescription}" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
+                        <Label
+                           Margin="10,0,10,0"
+                           FontAttributes="Italic"
+                           HorizontalOptions="StartAndExpand"
+                           HorizontalTextAlignment="Start"
+                           VerticalOptions="StartAndExpand">
+                            <Label.Triggers>
+                                <DataTrigger
+                                   Binding="{Binding Cast}"
+                                   TargetType="Label"
+                                   Value="{x:Static enums:CharacterClassEnum.Mage}">
+                                    <Setter Property="Text" Value="{x:Static values:Texts.Register_MageDescription}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                   Binding="{Binding Cast}"
+                                   TargetType="Label"
+                                   Value="{x:Static enums:CharacterClassEnum.Warrior}">
+                                    <Setter Property="Text" Value="{x:Static values:Texts.Register_WarriorDescription}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                   Binding="{Binding Cast}"
+                                   TargetType="Label"
+                                   Value="{x:Static enums:CharacterClassEnum.Rogue}">
+                                    <Setter Property="Text" Value="{x:Static values:Texts.Register_RogueDescription}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
 
-                    <Button
-                        Margin="0,16,0,0"
-                        Command="{Binding SaveCommand}"
-                        Style="{StaticResource FirstLevelButtonStyle}"
-                        Text="{x:Static values:Texts.Save}" />
-                </StackLayout>
-            </Frame>
-        </ScrollView>
+                        <Button
+                           Margin="0,16,0,0"
+                           Command="{Binding SaveCommand}"
+                           Style="{StaticResource FirstLevelButtonStyle}"
+                           Text="{x:Static values:Texts.Save}" />
+                    </StackLayout>
+                </Frame>
+            </ScrollView>
+        </ContentView>
     </ContentPage.Content>
 </ContentPage>
