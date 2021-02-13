@@ -112,7 +112,7 @@ namespace CraftLogs.BLL.Services
             var scanner = new MobileBarcodeScanner();
             var scanResult = await scanner.Scan(MobileBarcodeScanningOptions.Default);
 
-            if (scanResult.Text != null)
+            if (scanResult != null && scanResult?.Text != null)
             {
                 return new NavigationParameters
                 {
