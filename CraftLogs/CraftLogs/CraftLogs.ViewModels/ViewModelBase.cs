@@ -90,7 +90,7 @@ namespace CraftLogs.ViewModels
         protected async Task NavigateTo(string navigationLink)
         {
             IsBusy = true;
-            await NavigationService.NavigateAsync(navigationLink);
+            var a = await NavigationService.NavigateAsync(navigationLink);
         }
 
         protected async Task NavigateTo(string navigationLink, INavigationParameters parameters)

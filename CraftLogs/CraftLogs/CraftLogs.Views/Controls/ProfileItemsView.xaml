@@ -1,111 +1,106 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <StackLayout
-    x:Class="CraftLogs.Views.ProfileItemsView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ProfileItemsView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+   mc:Ignorable="d">
 
-    <Frame>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding ViewItemCommand}"
-                CommandParameter="armor" />
-        </Frame.GestureRecognizers>
-
+    <Frame
+       xct:TouchEffect.Command="{Binding ViewItemCommand}"
+       xct:TouchEffect.CommandParameter="armor"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="0.75">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
-                HorizontalOptions="Start"
-                IsInventoryView="False"
-                Item="{Binding ArmorItem}" />
+               HorizontalOptions="Start"
+               IsInventoryView="False"
+               Item="{Binding ArmorItem}" />
 
             <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding ArmorItem.Name}"
-                TextColor="{Binding ArmorItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
-                VerticalOptions="CenterAndExpand" />
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding ArmorItem.Name}"
+               TextColor="{Binding ArmorItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+               VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </Frame>
 
-    <Frame>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding ViewItemCommand}"
-                CommandParameter="ring" />
-        </Frame.GestureRecognizers>
+    <Frame
+       xct:TouchEffect.Command="{Binding ViewItemCommand}"
+       xct:TouchEffect.CommandParameter="ring"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="0.75">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
-                HorizontalOptions="Start"
-                IsInventoryView="False"
-                Item="{Binding RingItem}" />
+               HorizontalOptions="Start"
+               IsInventoryView="False"
+               Item="{Binding RingItem}" />
 
             <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding RingItem.Name}"
-                TextColor="{Binding RingItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
-                VerticalOptions="CenterAndExpand" />
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding RingItem.Name}"
+               TextColor="{Binding RingItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+               VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </Frame>
 
-    <Frame>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding ViewItemCommand}"
-                CommandParameter="neck" />
-        </Frame.GestureRecognizers>
+    <Frame
+       xct:TouchEffect.Command="{Binding ViewItemCommand}"
+       xct:TouchEffect.CommandParameter="neck"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="0.75">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
-                HorizontalOptions="Start"
-                IsInventoryView="False"
-                Item="{Binding NeckItem}" />
+               HorizontalOptions="Start"
+               IsInventoryView="False"
+               Item="{Binding NeckItem}" />
 
             <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding NeckItem.Name}"
-                TextColor="{Binding NeckItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
-                VerticalOptions="CenterAndExpand" />
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding NeckItem.Name}"
+               TextColor="{Binding NeckItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+               VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </Frame>
 
-    <Frame>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding ViewItemCommand}"
-                CommandParameter="lHand" />
-        </Frame.GestureRecognizers>
+    <Frame
+       xct:TouchEffect.Command="{Binding ViewItemCommand}"
+       xct:TouchEffect.CommandParameter="lHand"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="0.75">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
-                HorizontalOptions="Start"
-                IsInventoryView="False"
-                Item="{Binding LHandItem}" />
+               HorizontalOptions="Start"
+               IsInventoryView="False"
+               Item="{Binding LHandItem}" />
 
             <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding LHandItem.Name}"
-                TextColor="{Binding LHandItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
-                VerticalOptions="CenterAndExpand" />
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding LHandItem.Name}"
+               TextColor="{Binding LHandItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+               VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </Frame>
 
-    <Frame>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding ViewItemCommand}"
-                CommandParameter="rHand" />
-        </Frame.GestureRecognizers>
+    <Frame
+       xct:TouchEffect.Command="{Binding ViewItemCommand}"
+       xct:TouchEffect.CommandParameter="rHand"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="0.75">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
-                HorizontalOptions="Start"
-                IsInventoryView="False"
-                Item="{Binding RHandItem}" />
+               HorizontalOptions="Start"
+               IsInventoryView="False"
+               Item="{Binding RHandItem}" />
 
             <Label
-                Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding RHandItem.Name}"
-                TextColor="{Binding RHandItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
-                VerticalOptions="CenterAndExpand" />
+               Style="{StaticResource TitleLabelStyle}"
+               Text="{Binding RHandItem.Name}"
+               TextColor="{Binding RHandItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+               VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </Frame>
 

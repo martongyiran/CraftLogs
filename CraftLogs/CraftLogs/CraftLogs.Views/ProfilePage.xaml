@@ -4,6 +4,7 @@
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    Title="{Binding Title}"
    BackgroundColor="{StaticResource BackgroundColorLight}"
    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
@@ -39,65 +40,64 @@
                Orientation="Horizontal"
                VerticalOptions="End">
                 <Image
+                   xct:TouchEffect.Command="{Binding NavigateToInventoryPageCommand}"
+                   xct:TouchEffect.NormalScale="1"
+                   xct:TouchEffect.PressedScale="0.75"
                    BackgroundColor="{StaticResource ColorPrimary}"
                    FlowDirection="LeftToRight"
                    HeightRequest="40"
                    HorizontalOptions="CenterAndExpand"
                    Source="@drawable/ic_bag_white.png"
                    VerticalOptions="CenterAndExpand"
-                   WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToInventoryPageCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                   WidthRequest="40" />
+
                 <Image
+                   xct:TouchEffect.Command="{Binding NavigateToLogsCommand}"
+                   xct:TouchEffect.NormalScale="1"
+                   xct:TouchEffect.PressedScale="0.75"
                    BackgroundColor="{StaticResource ColorPrimary}"
                    FlowDirection="LeftToRight"
                    HeightRequest="40"
                    HorizontalOptions="CenterAndExpand"
                    Source="@drawable/ic_logs_white.png"
                    VerticalOptions="CenterAndExpand"
-                   WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToLogsCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                   WidthRequest="40" />
+
                 <Image
+                   xct:TouchEffect.Command="{Binding NavigateToQRScannerPageCommand}"
+                   xct:TouchEffect.NormalScale="1"
+                   xct:TouchEffect.PressedScale="0.75"
                    BackgroundColor="{StaticResource ColorPrimary}"
                    FlowDirection="LeftToRight"
                    HeightRequest="40"
                    HorizontalOptions="CenterAndExpand"
                    Source="@drawable/ic_rqr_white.png"
                    VerticalOptions="CenterAndExpand"
-                   WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToQRScannerPageCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                   WidthRequest="40" />
+
                 <Image
+                   xct:TouchEffect.Command="{Binding StartTradeCommand}"
+                   xct:TouchEffect.NormalScale="1"
+                   xct:TouchEffect.PressedScale="0.75"
                    BackgroundColor="{StaticResource ColorPrimary}"
                    FlowDirection="LeftToRight"
                    HeightRequest="40"
                    HorizontalOptions="CenterAndExpand"
                    Source="@drawable/ic_trade_white.png"
                    VerticalOptions="CenterAndExpand"
-                   WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding StartTradeCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                   WidthRequest="40" />
+
                 <Image
+                   xct:TouchEffect.Command="{Binding GetArenaQRCommand}"
+                   xct:TouchEffect.NormalScale="1"
+                   xct:TouchEffect.PressedScale="0.75"
                    BackgroundColor="{StaticResource ColorPrimary}"
                    FlowDirection="LeftToRight"
                    HeightRequest="40"
                    HorizontalOptions="CenterAndExpand"
                    Source="{Binding ArenaIcon}"
                    VerticalOptions="CenterAndExpand"
-                   WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GetArenaQRCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
+                   WidthRequest="40" />
             </StackLayout>
         </StackLayout>
 

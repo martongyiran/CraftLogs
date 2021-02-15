@@ -141,7 +141,7 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand GetArenaQRCommand => new DelayCommand(async () => await ExecuteGetArenaQRCommandAsync());
 
-        public DelayCommand StartTradeCommand => new DelayCommand(async () => await NavigateTo(NavigationLinks.TradePage));
+        public DelayCommand StartTradeCommand => new DelayCommand(async () => TradeAsync());
 
         public DelayCommand<string?> RaiseStatCommand => new DelayCommand<string?>((a) => ExecuteRaiseStatCommand(a));
 
@@ -327,6 +327,11 @@ namespace CraftLogs.ViewModels
 
 #endif
 
+        }
+
+        private async Task TradeAsync()
+        {
+           await NavigateTo(NavigationLinks.TradePage);
         }
 
         private void ExecuteRaiseStatCommand(string? stat)

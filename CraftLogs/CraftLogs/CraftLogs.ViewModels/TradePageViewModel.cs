@@ -37,10 +37,11 @@ namespace CraftLogs.ViewModels
         private ObservableCollection<Item> _items;
         private ObservableCollection<Item> _itemsForTrade = new ObservableCollection<Item>();
         private string _targetName;
-        private int _tradeMoney;
+        private int _tradeMoney = 0;
         private Item _activeItem;
         private bool _isPopupVisible;
         private bool _isCartVisible;
+        private bool _canTrade;
 
         public ObservableCollection<Item> Items
         {
@@ -63,7 +64,22 @@ namespace CraftLogs.ViewModels
         public int TradeMoney
         {
             get => _tradeMoney;
-            set => SetProperty(ref _tradeMoney, value);
+            set
+            {
+                if (value > _teamProfile?.Money)
+                {
+                    value = _teamProfile.Money;
+                }
+                else if (value < 0)
+                {
+                    value = 0;
+                }
+
+                if(SetProperty(ref _tradeMoney, value))
+                {
+                    RaisePropertyChanged(nameof(CanEmpty));
+                }
+            }
         }
 
         public Item ActiveItem
@@ -84,21 +100,31 @@ namespace CraftLogs.ViewModels
             set => SetProperty(ref _isCartVisible, value);
         }
 
+        public bool CanTrade
+        {
+            get => _canTrade;
+            set => SetProperty(ref _canTrade, value);
+        }
+
         public int CartSize => ItemsForTrade.Count;
+
+        public bool CanEmpty => ItemsForTrade.Count > 0 || TradeMoney > 0;
+
+        public bool CanBuy => ItemsForTrade.Count < 5;
 
         public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTappedCommand(a));
 
         public DelayCommand BuyCommand => new DelayCommand(async () => await ExecuteBuyCommandAsync());
 
-       // public DelayCommand EmptyCommand => new DelayCommand(async () => await ExecuteEmptyCommandAsync());
+        public DelayCommand EmptyCommand => new DelayCommand(ExecuteEmptyCommand);
 
-       // public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommand());
+        public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommand());
 
-       // public DelayCommand CloseCartCommand => new DelayCommand(ExecuteCloseCartCommand);
+        public DelayCommand CloseCartCommand => new DelayCommand(ExecuteCloseCartCommand);
 
-        //public DelayCommand CheckCartCommand => new DelayCommand(ExecuteCheckCartCommand);
+        public DelayCommand CheckCartCommand => new DelayCommand(ExecuteCheckCartCommand);
 
-       // public DelayCommand<object> RemoveItemCommand => new DelayCommand<object>((a) => ExecuteRemoveItemCommand(a));
+        public DelayCommand<object> RemoveItemCommand => new DelayCommand<object>((a) => ExecuteRemoveItemCommand(a));
 
         public TradePageViewModel(
             INavigationService navigationService,
@@ -122,6 +148,10 @@ namespace CraftLogs.ViewModels
         {
             _teamProfile = DataRepository.GetTeamProfile();
             Items = new ObservableCollection<Item>(_teamProfile.Inventory.Where(x => x.State == ItemStateEnum.Backpack).ToList());
+
+            RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
         }
 
         private void ExecuteItemTappedCommand(object o)
@@ -152,30 +182,96 @@ namespace CraftLogs.ViewModels
             }
 
             RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
             IsPopupVisible = false;
         }
 
-        private async Task ExecuteSendCommandAsync()
+        private void ExecuteEmptyCommand()
         {
-            var data = new TradeModel()
+            if (ItemsForTrade.Count == 0)
             {
-                Target = TargetName,
-                Money = TradeMoney,
-                TradeItems = ItemsForTrade
-            };
-            data.SetTradeId();
+                TradeMoney = 0;
+                return;
+            }
+            else
+            {
+                Items = new ObservableCollection<Item>();
+                ItemsForTrade = new ObservableCollection<Item>();
+                Items = new ObservableCollection<Item>(
+                    _teamProfile.Inventory
+                        .Where(x => x.State == ItemStateEnum.Backpack)
+                        .OrderBy(y => y.UsableFor)
+                        .ToList());
+            }
+
+            TradeMoney = 0;
+
+            RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
+            IsPopupVisible = false;
+        }
+
+        private void ExecuteRemoveItemCommand(object o)
+        {
+            IsBusy = true;
+
+            var sitem = o as Item;
+
+            var tempitems = ItemsForTrade;
+            tempitems.Remove(sitem);
+            var templist = Items;
+            templist.Add(sitem);
+
+            ItemsForTrade = tempitems;
+            Items = new ObservableCollection<Item>(templist.OrderBy(y => y.UsableFor));
 
 
+            if (CartSize == 0)
+            {
+                IsCartVisible = false;
+            }
 
-            var qrCode = _qRService.CreateQR(data);
-            var param = new NavigationParameters
+            RaisePropertyChanged(nameof(CartSize));
+            RaisePropertyChanged(nameof(CanEmpty));
+            RaisePropertyChanged(nameof(CanBuy));
+
+            IsBusy = false;
+        }
+
+        private void ExecuteCheckCartCommand()
+        {
+            IsCartVisible = true;
+            CanTrade = !string.IsNullOrEmpty(TargetName)
+                && CanEmpty;
+        }
+
+        private async Task ExecuteCheckOutCommand()
+        {
+            var response = await DialogService.DisplayAlertAsync("Csere", "Ha rosszul írtad be a csapat nevét, vagy nem olvassa le a QR-t, akkor buktad a cuccokat!", Texts.Ok, Texts.Cancel);
+            if (response)
+            {
+                var data = new TradeModel()
+                {
+                    Target = TargetName,
+                    Money = TradeMoney,
+                    TradeItems = ItemsForTrade
+                };
+                data.SetTradeId();
+
+                _teamProfile.Inventory = Items;
+                _teamProfile.Money -= TradeMoney;
+                DataRepository.SaveToFile(_teamProfile);
+
+                var qrCode = _qRService.CreateQR(data);
+                var param = new NavigationParameters
                         {
                             { "code", qrCode }
                         };
 
-            DataRepository.SaveToFile(_teamProfile);
-
-            await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
+                await NavigateToWithoutHistoryDouble(NavigationLinks.QRPage, param);
+            }
         }
     }
 }

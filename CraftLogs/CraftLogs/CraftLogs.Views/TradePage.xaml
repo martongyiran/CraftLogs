@@ -10,6 +10,436 @@
    BackgroundColor="{StaticResource BackgroundColorLight}">
 
     <ContentPage.Content>
-        <Button Command="{Binding SendCommand}" Text="Send to ASD" />
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="82" />
+            </Grid.RowDefinitions>
+
+            <Frame
+               Grid.Row="0"
+               Margin="16"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}">
+                <CollectionView
+                   BackgroundColor="Transparent"
+                   ItemSizingStrategy="MeasureFirstItem"
+                   ItemsSource="{Binding Items}"
+                   SelectionMode="None">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="4" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                               Margin="0"
+                               Padding="5"
+                               BackgroundColor="{StaticResource ColorLightAlt}"
+                               BorderColor="Transparent">
+
+                                <views:ItemView IsInventoryView="True" Item="{Binding}">
+                                    <views:ItemView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Handle_ItemTapped" />
+                                    </views:ItemView.GestureRecognizers>
+                                </views:ItemView>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+            <Frame
+               x:Name="tradeDetails"
+               Grid.Row="1"
+               Margin="16,0,16,0"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}"
+               ScaleY="0"
+               VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TradeDetails_Tapped" />
+                </Frame.GestureRecognizers>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <Label
+                       HorizontalOptions="StartAndExpand"
+                       Style="{StaticResource TitleLabelStyle}"
+                       Text="{Binding TargetName, StringFormat='Nekik: {0}'}" />
+
+                    <Label
+                       HorizontalOptions="EndAndExpand"
+                       Style="{StaticResource TitleLabelStyle}"
+                       Text="{Binding TradeMoney, StringFormat='{0} $'}" />
+                </StackLayout>
+            </Frame>
+
+            <Grid
+               Grid.Row="2"
+               Margin="16,0,16,16"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsCartVisible, Converter={StaticResource InverseBoolConverter}}"
+               VerticalOptions="CenterAndExpand">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                   Grid.Column="0"
+                   Command="{Binding EmptyCommand}"
+                   HorizontalOptions="FillAndExpand"
+                   IsEnabled="{Binding CanEmpty}"
+                   Text="{x:Static values:Texts.Shop_EmptyCart}"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="120" />
+
+                <Image
+                   Grid.Column="1"
+                   HorizontalOptions="CenterAndExpand"
+                   Source="@drawable/ic_shop.png"
+                   VerticalOptions="CenterAndExpand" />
+
+                <Label
+                   Grid.Column="1"
+                   FontAttributes="Bold"
+                   FontSize="35"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="{Binding CartSize}"
+                   TextColor="White"
+                   VerticalOptions="CenterAndExpand" />
+
+                <Button
+                   Grid.Column="2"
+                   Command="{Binding CheckCartCommand}"
+                   HorizontalOptions="FillAndExpand"
+                   IsEnabled="{Binding CanEmpty}"
+                   Text="{x:Static values:Texts.Next}"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="120" />
+            </Grid>
+
+            <ContentView
+               x:Name="popupView"
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               BackgroundColor="#F2FFFFFF"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsPopupVisible, Mode=TwoWay}"
+               VerticalOptions="FillAndExpand">
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Close_Clicked" />
+                </ContentView.GestureRecognizers>
+
+                <Frame
+                   Margin="10"
+                   HorizontalOptions="FillAndExpand"
+                   InputTransparent="False"
+                   VerticalOptions="CenterAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <views:ItemView
+                           Grid.Row="1"
+                           Grid.RowSpan="4"
+                           Grid.Column="0"
+                           HorizontalOptions="CenterAndExpand"
+                           IsInventoryView="True"
+                           Item="{Binding ActiveItem}"
+                           VerticalOptions="StartAndExpand" />
+
+                        <Label
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           LineBreakMode="WordWrap"
+                           MaxLines="2"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding ActiveItem.Name}"
+                           TextColor="{Binding ActiveItem.Rarity, Converter={StaticResource RarityToColorConverter}}" />
+
+                        <Label
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="18"
+                           HorizontalOptions="StartAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding ActiveItem.Value, StringFormat='{0} $'}" />
+
+                        <Label
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
+
+                        <Label
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.State, Converter={StaticResource ItemStateToStringConverter}}" />
+
+                        <Label
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,16"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.InvString}" />
+
+                        <Button
+                           Grid.Row="4"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Command="{Binding BuyCommand}"
+                           IsEnabled="{Binding CanBuy}"
+                           Text="Odaad" />
+
+                        <Button
+                           Grid.Row="4"
+                           Grid.Column="2"
+                           Padding="0"
+                           BackgroundColor="DarkRed"
+                           Clicked="Close_Clicked"
+                           HeightRequest="50"
+                           HorizontalOptions="CenterAndExpand"
+                           Text="X"
+                           TextColor="White"
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="50" />
+                    </Grid>
+                </Frame>
+            </ContentView>
+
+            <ContentView
+               x:Name="cartView"
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               BackgroundColor="#F2FFFFFF"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsCartVisible, Mode=TwoWay}"
+               VerticalOptions="FillAndExpand">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="82" />
+                    </Grid.RowDefinitions>
+
+                    <CollectionView
+                       Grid.Row="0"
+                       ItemSizingStrategy="MeasureFirstItem"
+                       ItemsSource="{Binding ItemsForTrade}"
+                       SelectionMode="None">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView Margin="5" HeightRequest="250">
+                                    <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="100" />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <views:ItemView
+                                               Grid.Row="1"
+                                               Grid.RowSpan="2"
+                                               Grid.Column="0"
+                                               HorizontalOptions="CenterAndExpand"
+                                               IsInventoryView="True"
+                                               Item="{Binding}"
+                                               VerticalOptions="StartAndExpand" />
+
+                                            <Label
+                                               Grid.Row="0"
+                                               Grid.Column="1"
+                                               Grid.ColumnSpan="2"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2"
+                                               Style="{StaticResource TitleLabelStyle}"
+                                               Text="{Binding Name}"
+                                               TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}" />
+
+                                            <Label
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               FontSize="18"
+                                               HorizontalOptions="StartAndExpand"
+                                               Style="{StaticResource TitleLabelStyle}"
+                                               Text="{Binding Value, StringFormat='{0} $'}" />
+
+                                            <Label
+                                               Grid.Row="1"
+                                               Grid.Column="1"
+                                               Grid.ColumnSpan="2"
+                                               HorizontalOptions="Center"
+                                               Text="{Binding ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
+
+                                            <Label
+                                               Grid.Row="2"
+                                               Grid.Column="1"
+                                               Grid.ColumnSpan="2"
+                                               FontAttributes="Bold"
+                                               FontSize="16"
+                                               HorizontalOptions="Center"
+                                               Text="{Binding InvString}" />
+
+                                            <Button
+                                               Grid.Row="2"
+                                               Grid.Column="0"
+                                               Padding="0"
+                                               BackgroundColor="DarkRed"
+                                               Command="{Binding BindingContext.RemoveItemCommand, Source={x:Reference cartView}}"
+                                               CommandParameter="{Binding}"
+                                               HeightRequest="50"
+                                               HorizontalOptions="StartAndExpand"
+                                               Text="X"
+                                               TextColor="White"
+                                               VerticalOptions="EndAndExpand"
+                                               WidthRequest="50" />
+                                        </Grid>
+                                    </Frame>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Grid
+                       Grid.Row="1"
+                       Padding="16"
+                       BackgroundColor="{StaticResource ColorLight}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                           Grid.Column="0"
+                           Command="{Binding CloseCartCommand}"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{x:Static values:Texts.Cancel}"
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="120" />
+
+                        <Label
+                           Grid.Column="1"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding TradeMoney, StringFormat='{0} $'}"
+                           VerticalOptions="CenterAndExpand" />
+
+                        <Button
+                           Grid.Column="2"
+                           Command="{Binding CheckOutCommand}"
+                           HorizontalOptions="FillAndExpand"
+                           IsEnabled="{Binding CanTrade}"
+                           Text="Csere"
+                           VerticalOptions="CenterAndExpand"
+                           WidthRequest="120" />
+                    </Grid>
+                </Grid>
+            </ContentView>
+
+            <ContentView
+               x:Name="tradeDetailsPopup"
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               BackgroundColor="#B4000000"
+               InputTransparent="False"
+               Opacity="1">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TradeDetailsPopup_Tapped" />
+                </ContentView.GestureRecognizers>
+                <Frame
+                   x:Name="tradeDetailsFrame"
+                   Padding="16"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="250">
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <Label
+                           Margin="24,0,8,24"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="Adom"
+                           VerticalOptions="CenterAndExpand" />
+                        <Label
+                           HorizontalOptions="StartAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="Nekik"
+                           VerticalOptions="CenterAndExpand" />
+
+                        <Entry
+                           HorizontalOptions="StartAndExpand"
+                           Placeholder="Csapat neve"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding TargetName, Mode=TwoWay}"
+                           VerticalOptions="CenterAndExpand" />
+
+                        <Label
+                           Margin="0,8,0,0"
+                           HorizontalOptions="StartAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="Összeg"
+                           VerticalOptions="CenterAndExpand" />
+                        <Entry
+                           HorizontalOptions="StartAndExpand"
+                           Keyboard="Numeric"
+                           Placeholder="$$$"
+                           Style="{StaticResource RegisterEntry}"
+                           Text="{Binding TradeMoney, Mode=TwoWay}"
+                           VerticalOptions="CenterAndExpand" />
+
+                        <Button
+                           Margin="0,16,0,0"
+                           Clicked="TradeDetailsPopup_Tapped"
+                           HorizontalOptions="CenterAndExpand"
+                           Text="Ok"
+                           VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+
+            <ActivityIndicator
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               HeightRequest="100"
+               HorizontalOptions="CenterAndExpand"
+               IsRunning="True"
+               IsVisible="{Binding IsBusy}"
+               VerticalOptions="CenterAndExpand" />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
