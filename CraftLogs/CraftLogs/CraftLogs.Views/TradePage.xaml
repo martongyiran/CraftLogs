@@ -10,10 +10,7 @@
    BackgroundColor="{StaticResource BackgroundColorLight}">
 
     <ContentPage.Content>
-        <Grid
-           HorizontalOptions="FillAndExpand"
-           IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-           VerticalOptions="FillAndExpand">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -434,6 +431,13 @@
                 </Frame>
             </ContentView>
 
+            <ContentView
+               Grid.Row="0"
+               Grid.RowSpan="3"
+               BackgroundColor="{StaticResource BackgroundColorLight}"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsBusy}"
+               VerticalOptions="FillAndExpand" />
             <ActivityIndicator
                Grid.Row="0"
                Grid.RowSpan="3"

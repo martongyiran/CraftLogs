@@ -18,7 +18,10 @@
            Icon="@drawable/ic_reloadWhite.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid
+           HorizontalOptions="FillAndExpand"
+           IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+           VerticalOptions="FillAndExpand">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

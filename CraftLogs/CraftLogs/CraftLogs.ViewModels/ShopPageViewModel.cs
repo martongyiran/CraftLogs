@@ -118,13 +118,18 @@ namespace CraftLogs.ViewModels
             _qRService = qRService;
 
             Title = Texts.Shop_Title;
+            IsBusy = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            ExecuteRefreshCommand();
+            Task.Run(() =>
+            {
+                ExecuteRefreshCommand();
+                IsBusy = false;
+            });
         }
 
         public override async Task ToSettings()

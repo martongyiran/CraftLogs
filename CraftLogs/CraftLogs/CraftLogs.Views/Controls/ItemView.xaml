@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Grid
+<AbsoluteLayout
    x:Class="CraftLogs.Views.ItemView"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,6 +13,8 @@
    mc:Ignorable="d">
     <Frame
        Padding="0"
+       AbsoluteLayout.LayoutBounds="0.5,0.5,55,55"
+       AbsoluteLayout.LayoutFlags="PositionProportional"
        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
        BorderColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
        CornerRadius="10"
@@ -40,8 +42,9 @@
     </Frame>
 
     <Frame
-       Margin="30,0,0,0"
        Padding="0"
+       AbsoluteLayout.LayoutBounds="1,1,20,20"
+       AbsoluteLayout.LayoutFlags="PositionProportional"
        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
        BorderColor="Transparent"
        CornerRadius="20"
@@ -71,6 +74,8 @@
     <Frame
        Margin="0"
        Padding="0"
+       AbsoluteLayout.LayoutBounds="0.5,1,55,55"
+       AbsoluteLayout.LayoutFlags="PositionProportional"
        BackgroundColor="{Binding Item.Rarity, Source={x:Reference itemHolder}, Converter={StaticResource RarityToColorConverter}}"
        BorderColor="Transparent"
        CornerRadius="20"
@@ -97,4 +102,4 @@
            TextColor="White"
            VerticalOptions="CenterAndExpand" />
     </Frame>
-</Grid>
+</AbsoluteLayout>
