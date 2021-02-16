@@ -25,7 +25,7 @@
 
                         <views:ProfileInfoView />
 
-                        <views:ProfileStatsView Margin="0,16,0,0" />
+                        <views:ProfileStatsView Margin="0,16,0,0" xct:TouchEffect.LongPressCommand="{Binding ShowInfoCommand}" />
 
                         <views:ProfileItemsView Margin="0,16,0,0" />
 

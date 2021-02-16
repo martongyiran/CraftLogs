@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Grid
-    x:Class="CraftLogs.Views.ProfileStatsView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ProfileStatsView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+   mc:Ignorable="d">
 
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
@@ -23,160 +24,151 @@
     </Grid.ColumnDefinitions>
 
     <Label
-        Grid.Row="0"
-        Grid.Column="0"
-        Grid.ColumnSpan="3"
-        HorizontalOptions="StartAndExpand"
-        HorizontalTextAlignment="Start"
-        IsVisible="{Binding PointIsVisible}"
-        Style="{StaticResource TitleLabelStyle}"
-        Text="{Binding Profile.StatPoint, StringFormat='Elosztható pontok: {0}'}" />
+       Grid.Row="0"
+       Grid.Column="0"
+       Grid.ColumnSpan="3"
+       HorizontalOptions="StartAndExpand"
+       HorizontalTextAlignment="Start"
+       IsVisible="{Binding PointIsVisible}"
+       Style="{StaticResource TitleLabelStyle}"
+       Text="{Binding Profile.StatPoint, StringFormat='Elosztható pontok: {0}'}" />
 
     <Image
-        Grid.Row="1"
-        Grid.Column="0"
-        HeightRequest="30"
-        HorizontalOptions="CenterAndExpand"
-        Source="@drawable/ic_stamina.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="1"
+       Grid.Column="0"
+       HeightRequest="30"
+       HorizontalOptions="CenterAndExpand"
+       Source="@drawable/ic_stamina.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="1"
-        Grid.Column="1"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding StaminaSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="1"
+       Grid.Column="1"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding StaminaSum}"
+       VerticalOptions="CenterAndExpand" />
 
     <Image
-        x:Name="stamPlus"
-        Grid.Row="1"
-        Grid.Column="2"
-        HeightRequest="40"
-        HorizontalOptions="StartAndExpand"
-        IsVisible="{Binding PointIsVisible}"
-        Source="@drawable/ic_plus.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="40">
-        <Image.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding RaiseStatCommand}"
-                CommandParameter="stamina" />
-            <TapGestureRecognizer Tapped="Stam_Tapped" />
-        </Image.GestureRecognizers>
-    </Image>
+       x:Name="stamPlus"
+       Grid.Row="1"
+       Grid.Column="2"
+       xct:TouchEffect.Command="{Binding RaiseStatCommand}"
+       xct:TouchEffect.CommandParameter="stamina"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="1.2"
+       HeightRequest="40"
+       HorizontalOptions="StartAndExpand"
+       IsVisible="{Binding PointIsVisible}"
+       Source="@drawable/ic_plus.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="40" />
 
     <Image
-        Grid.Row="2"
-        Grid.Column="0"
-        HeightRequest="30"
-        HorizontalOptions="CenterAndExpand"
-        Source="@drawable/ic_attack.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="2"
+       Grid.Column="0"
+       HeightRequest="30"
+       HorizontalOptions="CenterAndExpand"
+       Source="@drawable/ic_attack.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="2"
-        Grid.Column="1"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding AtkSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="2"
+       Grid.Column="1"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding AtkSum}"
+       VerticalOptions="CenterAndExpand" />
 
     <Image
-        x:Name="atkPlus"
-        Grid.Row="2"
-        Grid.Column="2"
-        HeightRequest="40"
-        HorizontalOptions="StartAndExpand"
-        IsVisible="{Binding PointIsVisible}"
-        Source="@drawable/ic_plus.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="40">
-        <Image.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding RaiseStatCommand}"
-                CommandParameter="atk" />
-            <TapGestureRecognizer Tapped="Atk_Tapped" />
-        </Image.GestureRecognizers>
-    </Image>
+       x:Name="atkPlus"
+       Grid.Row="2"
+       Grid.Column="2"
+       xct:TouchEffect.Command="{Binding RaiseStatCommand}"
+       xct:TouchEffect.CommandParameter="atk"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="1.2"
+       HeightRequest="40"
+       HorizontalOptions="StartAndExpand"
+       IsVisible="{Binding PointIsVisible}"
+       Source="@drawable/ic_plus.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="40" />
 
     <Image
-        Grid.Row="3"
-        Grid.Column="0"
-        HeightRequest="30"
-        HorizontalOptions="CenterAndExpand"
-        Source="@drawable/ic_def.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="3"
+       Grid.Column="0"
+       HeightRequest="30"
+       HorizontalOptions="CenterAndExpand"
+       Source="@drawable/ic_def.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="3"
-        Grid.Column="1"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding DefSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="3"
+       Grid.Column="1"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding DefSum}"
+       VerticalOptions="CenterAndExpand" />
 
     <Image
-        x:Name="defPlus"
-        Grid.Row="3"
-        Grid.Column="2"
-        HeightRequest="40"
-        HorizontalOptions="StartAndExpand"
-        IsVisible="{Binding PointIsVisible}"
-        Source="@drawable/ic_plus.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="40">
-        <Image.GestureRecognizers>
-            <TapGestureRecognizer
-                Command="{Binding RaiseStatCommand}"
-                CommandParameter="def" />
-            <TapGestureRecognizer Tapped="Def_Tapped" />
-        </Image.GestureRecognizers>
-    </Image>
+       x:Name="defPlus"
+       Grid.Row="3"
+       Grid.Column="2"
+       xct:TouchEffect.Command="{Binding RaiseStatCommand}"
+       xct:TouchEffect.CommandParameter="def"
+       xct:TouchEffect.NormalScale="1"
+       xct:TouchEffect.PressedScale="1.2"
+       HeightRequest="40"
+       HorizontalOptions="StartAndExpand"
+       IsVisible="{Binding PointIsVisible}"
+       Source="@drawable/ic_plus.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="40" />
 
     <Image
-        Grid.Row="1"
-        Grid.Column="3"
-        HeightRequest="30"
-        Source="@drawable/ic_hp.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="1"
+       Grid.Column="3"
+       HeightRequest="30"
+       Source="@drawable/ic_hp.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="1"
-        Grid.Column="4"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding HpSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="1"
+       Grid.Column="4"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding HpSum}"
+       VerticalOptions="CenterAndExpand" />
 
     <Image
-        Grid.Row="2"
-        Grid.Column="3"
-        HeightRequest="30"
-        Source="@drawable/ic_critr.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="2"
+       Grid.Column="3"
+       HeightRequest="30"
+       Source="@drawable/ic_critr.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="2"
-        Grid.Column="4"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding CritRSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="2"
+       Grid.Column="4"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding CritRSum}"
+       VerticalOptions="CenterAndExpand" />
 
     <Image
-        Grid.Row="3"
-        Grid.Column="3"
-        HeightRequest="30"
-        Source="@drawable/ic_dodge.png"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="30" />
+       Grid.Row="3"
+       Grid.Column="3"
+       HeightRequest="30"
+       Source="@drawable/ic_dodge.png"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="30" />
 
     <Label
-        Grid.Row="3"
-        Grid.Column="4"
-        HorizontalOptions="StartAndExpand"
-        Text="{Binding DodgeSum}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="3"
+       Grid.Column="4"
+       HorizontalOptions="StartAndExpand"
+       Text="{Binding DodgeSum}"
+       VerticalOptions="CenterAndExpand" />
 
 </Grid>

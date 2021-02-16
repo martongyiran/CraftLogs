@@ -36,19 +36,13 @@ namespace CraftLogs.ViewModels
         private Settings _settings;
         private string _response;
         private string _rewardText;
-        private bool _rewardIsVisible = false;
         private ObservableCollection<Item> _rewards = new ObservableCollection<Item>();
+        private Item _activeItem;
 
         public string Response
         {
             get => _response;
             set => SetProperty(ref _response, value);
-        }
-
-        public bool RewardIsVisible
-        {
-            get => _rewardIsVisible;
-            set => SetProperty(ref _rewardIsVisible, value);
         }
 
         public string RewardText
@@ -62,6 +56,20 @@ namespace CraftLogs.ViewModels
             get => _rewards;
             set => SetProperty(ref _rewards, value);
         }
+
+        public Item ActiveItem
+        {
+            get => _activeItem;
+            set
+            {
+                if (SetProperty(ref _activeItem, value) && value != null)
+                {
+                    ActiveItem_changed?.Invoke(null, null);
+                }
+            }
+        }
+
+        public EventHandler ActiveItem_changed;
 
         public DelayCommand NavigateToProfilePageCommand
             => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
@@ -77,6 +85,7 @@ namespace CraftLogs.ViewModels
             Title = "QR Handler Page";
             _qRService = qrService;
             _loggerService = loggerservice;
+            IsBusy = true;
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -101,8 +110,6 @@ namespace CraftLogs.ViewModels
             try
             {
                 var data = _qRService.HandleQR(rspns);
-
-                IsBusy = true;
 
                 if (data.Type == QRTypeEnum.Reward)
                 {
@@ -272,15 +279,13 @@ namespace CraftLogs.ViewModels
                     Title = Texts.Handler_ErrorTitle;
                     RewardText = Texts.Handler_Error;
                 }
-
-                RewardIsVisible = true;
-                IsBusy = false;
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("------------" + e.ToString());
             }
 
+            IsBusy = false;
         }
     }
 }

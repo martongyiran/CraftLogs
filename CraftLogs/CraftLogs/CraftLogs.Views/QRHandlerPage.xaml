@@ -4,67 +4,215 @@
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:Name="view"
    Title="{Binding Title}"
    Padding="16,0"
    BackgroundColor="{StaticResource BackgroundColorLight}"
    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+    <ContentPage.Resources>
+        <Style TargetType="ContentView">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                <Setter Property="Scale" Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                <Setter Property="Scale" Value="0.9" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
-
-        <CollectionView
-           BackgroundColor="Transparent"
-           ItemsSource="{Binding Rewards}"
-           SelectionMode="None"
-           VerticalOptions="Center">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.Header>
-                <StackLayout>
-                    <Frame
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="CenterAndExpand">
-                        <Label
-                           FontAttributes="Bold"
-                           FontSize="18"
-                           HorizontalOptions="CenterAndExpand"
-                           Text="{Binding BindingContext.RewardText, Source={x:Reference view}}" />
-                    </Frame>
-                    <ContentView BackgroundColor="Transparent" HeightRequest="8" />
-                </StackLayout>
-            </CollectionView.Header>
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                        <StackLayout
-                           HorizontalOptions="StartAndExpand"
-                           Orientation="Horizontal"
+        <Grid>
+            <CollectionView
+               x:Name="collectionView"
+               BackgroundColor="Transparent"
+               ItemSizingStrategy="MeasureFirstItem"
+               ItemsSource="{Binding Rewards}"
+               SelectedItem="{Binding ActiveItem, Mode=TwoWay}"
+               SelectionMode="Single"
+               VerticalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.Header>
+                    <StackLayout>
+                        <Frame
+                           Margin="10"
+                           HorizontalOptions="FillAndExpand"
                            VerticalOptions="CenterAndExpand">
-                            <views:ItemView IsInventoryView="True" Item="{Binding}" />
-
                             <Label
-                               HorizontalOptions="StartAndExpand"
-                               Style="{StaticResource TitleLabelStyle}"
-                               Text="{Binding Name}"
-                               TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}"
-                               VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               HorizontalOptions="CenterAndExpand"
+                               Text="{Binding BindingContext.RewardText, Source={x:Reference view}}" />
+                        </Frame>
+                        <ContentView BackgroundColor="Transparent" HeightRequest="8" />
+                    </StackLayout>
+                </CollectionView.Header>
 
-            <CollectionView.Footer>
-                <StackLayout>
-                    <ContentView BackgroundColor="Transparent" HeightRequest="48" />
-                    <Button Command="{Binding BindingContext.NavigateToProfilePageCommand, Source={x:Reference view}}" Text="Köszi" />
-                    <ContentView BackgroundColor="Transparent" HeightRequest="48" />
-                </StackLayout>
-            </CollectionView.Footer>
-        </CollectionView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <StackLayout
+                                   HorizontalOptions="StartAndExpand"
+                                   Orientation="Horizontal"
+                                   VerticalOptions="CenterAndExpand">
+                                    <views:ItemView IsInventoryView="True" Item="{Binding}" />
 
+                                    <Label
+                                       HorizontalOptions="StartAndExpand"
+                                       Style="{StaticResource TitleLabelStyle}"
+                                       Text="{Binding Name}"
+                                       TextColor="{Binding Rarity, Converter={StaticResource RarityToColorConverter}}"
+                                       VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </Frame>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
+                <CollectionView.Footer>
+                    <StackLayout>
+                        <ContentView BackgroundColor="Transparent" HeightRequest="48" />
+                        <Button Command="{Binding BindingContext.NavigateToProfilePageCommand, Source={x:Reference view}}" Text="Köszi" />
+                        <ContentView BackgroundColor="Transparent" HeightRequest="48" />
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
 
+            <Grid
+               x:Name="detailsView"
+               BackgroundColor="#B4FFFFFF"
+               HorizontalOptions="FillAndExpand"
+               InputTransparent="True"
+               Opacity="0"
+               VerticalOptions="FillAndExpand">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Close_Clicked" />
+                    <SwipeGestureRecognizer Direction="Left" Swiped="SwipeGestureRecognizer_Swiped_Left" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_Swiped_Right" />
+                </Grid.GestureRecognizers>
+
+                <Frame
+                   x:Name="detailsFrame"
+                   Margin="10"
+                   HeightRequest="300"
+                   HorizontalOptions="FillAndExpand"
+                   InputTransparent="False"
+                   ScaleY="0"
+                   VerticalOptions="CenterAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <views:ItemView
+                           Grid.Row="1"
+                           Grid.RowSpan="4"
+                           Grid.Column="0"
+                           HorizontalOptions="CenterAndExpand"
+                           IsInventoryView="True"
+                           Item="{Binding ActiveItem}"
+                           VerticalOptions="StartAndExpand" />
+
+                        <Label
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           LineBreakMode="WordWrap"
+                           MaxLines="2"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding ActiveItem.Name}"
+                           TextColor="{Binding ActiveItem.Rarity, Converter={StaticResource RarityToColorConverter}}"
+                           VerticalOptions="StartAndExpand" />
+
+                        <Label
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="18"
+                           HorizontalOptions="StartAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding ActiveItem.Value, StringFormat='{0} $'}" />
+
+                        <Label
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.ItemType, Converter={StaticResource ItemTypeToStringConverter}}" />
+
+                        <Label
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.State, Converter={StaticResource ItemStateToStringConverter}}" />
+
+                        <Label
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,16"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           Text="{Binding ActiveItem.InvString}" />
+                    </Grid>
+                </Frame>
+
+                <ContentView
+                   Margin="0,0,-16,100"
+                   BackgroundColor="Transparent"
+                   HeightRequest="200"
+                   HorizontalOptions="End"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="200">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Next_Clicked" />
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+
+                <ContentView
+                   Margin="-16,0,0,100"
+                   BackgroundColor="Transparent"
+                   HeightRequest="200"
+                   HorizontalOptions="Start"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="200">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Prev_Clicked" />
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </Grid>
+
+            <ActivityIndicator
+               HeightRequest="100"
+               HorizontalOptions="CenterAndExpand"
+               IsRunning="True"
+               IsVisible="{Binding IsBusy}"
+               VerticalOptions="CenterAndExpand" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

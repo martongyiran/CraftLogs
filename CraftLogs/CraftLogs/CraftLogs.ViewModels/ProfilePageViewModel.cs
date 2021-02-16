@@ -141,7 +141,7 @@ namespace CraftLogs.ViewModels
 
         public DelayCommand GetArenaQRCommand => new DelayCommand(async () => await ExecuteGetArenaQRCommandAsync());
 
-        public DelayCommand StartTradeCommand => new DelayCommand(async () => TradeAsync());
+        public DelayCommand StartTradeCommand => new DelayCommand(async () => await TradeAsync());
 
         public DelayCommand<string?> RaiseStatCommand => new DelayCommand<string?>((a) => ExecuteRaiseStatCommand(a));
 
@@ -159,13 +159,18 @@ namespace CraftLogs.ViewModels
         {
             _qRService = qrService;
             Title = Texts.Profile_Title;
+            IsBusy = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            Init();
+            Task.Run(() =>
+            {
+                Init();
+                IsBusy = false;
+            });
         }
 
         public override async Task ToSettings()

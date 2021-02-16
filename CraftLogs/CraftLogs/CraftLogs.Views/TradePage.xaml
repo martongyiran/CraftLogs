@@ -10,7 +10,10 @@
    BackgroundColor="{StaticResource BackgroundColorLight}">
 
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid
+           HorizontalOptions="FillAndExpand"
+           IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+           VerticalOptions="FillAndExpand">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -375,7 +378,7 @@
                x:Name="tradeDetailsPopup"
                Grid.Row="0"
                Grid.RowSpan="3"
-               BackgroundColor="#B4000000"
+               BackgroundColor="#B4FFFFFF"
                InputTransparent="False"
                Opacity="1">
                 <ContentView.GestureRecognizers>

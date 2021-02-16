@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,10 +32,12 @@ namespace CraftLogs.ViewModels
     {
 
         private readonly ILoggerService _logger;
-
+        
         private ObservableCollection<Item> _items = new ObservableCollection<Item>();
         private Item _activeItem;
-        private bool _isPopupVisible;
+
+        public EventHandler ActiveItem_changed;
+        public EventHandler Close_Details;
 
         public ObservableCollection<Item> Items
         {
@@ -45,21 +48,19 @@ namespace CraftLogs.ViewModels
         public Item ActiveItem
         {
             get => _activeItem;
-            set => SetProperty(ref _activeItem, value);
+            set
+            {
+                if (SetProperty(ref _activeItem, value) && value != null)
+                {
+                    ActiveItem_changed?.Invoke(null, null);
+                }
+            }
         }
-
-        public bool IsPopupVisible
-        {
-            get => _isPopupVisible;
-            set => SetProperty(ref _isPopupVisible, value);
-        }
-
-        public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTapped(a));
 
         public DelayCommand SellCommand => new DelayCommand(async () => await ExecuteSellCommandAsync());
 
         public DelayCommand UseCommand => new DelayCommand(async () => await ExecuteUseCommandAsync());
-
+        
         public InventoryPageViewModel(
             INavigationService navigationService,
             ILocalDataRepository dataRepository,
@@ -69,19 +70,20 @@ namespace CraftLogs.ViewModels
         {
             Title = Texts.Inventory_Title;
             _logger = loggerService;
+            IsBusy = true;
         }
-
+        
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            IsBusy = true;
             base.OnNavigatedTo(parameters);
 
-            ActiveItem = parameters["item"] as Item;
+            Task.Run(() =>
+            {
+                Init();
+                IsBusy = false;
+            });
 
-            Init();
-
-            IsPopupVisible = ActiveItem != null;
-            IsBusy = false;
+            ActiveItem = parameters["item"] as Item; 
         }
 
         private void Init()
@@ -90,11 +92,6 @@ namespace CraftLogs.ViewModels
                 DataRepository.GetTeamProfile()
                 .Inventory.OrderByDescending(x => x.State)
                 .ThenBy(y => y.UsableFor));
-        }
-
-        private void ExecuteItemTapped(object o)
-        {
-            ActiveItem = o as Item;
         }
 
         private async Task ExecuteSellCommandAsync()
@@ -114,12 +111,13 @@ namespace CraftLogs.ViewModels
                 }
 
                 profile.Inventory = Items;
-                IsPopupVisible = false;
 
                 _logger.CreateSellLog(ActiveItem);
                 DataRepository.SaveToFile(profile);
 
-                Init();
+                Close_Details?.Invoke(null, null);
+
+                await Task.Run(() => Init());
             }
         }
 
@@ -146,10 +144,12 @@ namespace CraftLogs.ViewModels
                 }
 
                 profile.Inventory = Items;
-                IsPopupVisible = false;
 
                 DataRepository.SaveToFile(profile);
-                Init();
+
+                Close_Details?.Invoke(null, null);
+
+                await Task.Run(() => Init());
             }
             else
             {
