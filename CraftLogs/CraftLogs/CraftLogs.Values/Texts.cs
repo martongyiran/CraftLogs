@@ -47,12 +47,12 @@ namespace CraftLogs.Values
         public const string Error = "Hiba";
         public const string Support = "Támogatás";
 
-        public const string House1 = "Doctor Who";
-        public const string House2 = "Pokémon";
-        public const string House3 = "Marvel";
-        public const string House4 = "Treasure Planet";
-        public const string House5 = "Star Wars";
-        public const string House6 = "Harry Potter";
+        public const string House1 = "R.G.B.";
+        public const string House2 = "G.Y.R.O.S.";
+        public const string House3 = "K.A.R.M.A.";
+        public const string House4 = "EL DARÁLÓK";
+        public const string House5 = "I.K.E.A.";
+        public const string House6 = "T.U.R.M.I.X.";
 
         #endregion
 
