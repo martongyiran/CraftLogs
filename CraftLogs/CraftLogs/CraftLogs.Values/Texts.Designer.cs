@@ -205,7 +205,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doctor Who.
+        ///   Looks up a localized string similar to R.G.B..
         /// </summary>
         public static string House1 {
             get {
@@ -214,7 +214,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pokémon.
+        ///   Looks up a localized string similar to G.Y.R.O.S..
         /// </summary>
         public static string House2 {
             get {
@@ -223,7 +223,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Marvel.
+        ///   Looks up a localized string similar to K.A.R.M.A..
         /// </summary>
         public static string House3 {
             get {
@@ -232,7 +232,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Treasure Planet.
+        ///   Looks up a localized string similar to EL DARÁLÓK.
         /// </summary>
         public static string House4 {
             get {
@@ -241,7 +241,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Star Wars.
+        ///   Looks up a localized string similar to I.K.E.A..
         /// </summary>
         public static string House5 {
             get {
@@ -250,7 +250,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Harry Potter.
+        ///   Looks up a localized string similar to T.U.R.M.I.X..
         /// </summary>
         public static string House6 {
             get {

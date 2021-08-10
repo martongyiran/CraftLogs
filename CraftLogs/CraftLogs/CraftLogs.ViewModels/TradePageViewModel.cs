@@ -31,6 +31,7 @@ namespace CraftLogs.ViewModels
     public class TradePageViewModel : ViewModelBase
     {
         private readonly IQRService _qRService;
+        private readonly ILoggerService _logger;
 
         private TeamProfile _teamProfile;
 
@@ -130,11 +131,13 @@ namespace CraftLogs.ViewModels
             INavigationService navigationService,
             ILocalDataRepository dataRepository,
             IPageDialogService dialogService,
-            IQRService qrService)
+            IQRService qrService,
+            ILoggerService loggerService)
             : base(navigationService, dataRepository, dialogService)
         {
             _qRService = qrService;
             Title = Texts.Trade_Title;
+            _logger = loggerService;
             IsBusy = true;
         }
 
@@ -268,6 +271,7 @@ namespace CraftLogs.ViewModels
                 _teamProfile.Inventory = Items;
                 _teamProfile.Money -= TradeMoney;
                 DataRepository.SaveToFile(_teamProfile);
+                _logger.CreateTradeLog(data);
 
                 var qrCode = _qRService.CreateQR(data);
                 var param = new NavigationParameters

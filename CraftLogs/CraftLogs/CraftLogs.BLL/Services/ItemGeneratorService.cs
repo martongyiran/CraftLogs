@@ -404,7 +404,7 @@ namespace CraftLogs.BLL.Services
         new Tuple<string,string>("Hentesbárd","@drawable/warrior_weapon_8.png"),
         new Tuple<string,string>("Lefejező","@drawable/warrior_weapon_9.png"),
         new Tuple<string,string>("Tömzsi lefejző","@drawable/warrior_weapon_10.png"),
-        new Tuple<string,string>("Megmunkélt kőbalta","@drawable/warrior_weapon_11.png"),
+        new Tuple<string,string>("Megmunkált kőbalta","@drawable/warrior_weapon_11.png"),
         new Tuple<string,string>("Hősök csákánya","@drawable/warrior_weapon_12.png"),
         new Tuple<string,string>("Kétélű csoda","@drawable/warrior_weapon_13.png"),
         new Tuple<string,string>("Recés balta","@drawable/warrior_weapon_14.png"),
@@ -414,42 +414,42 @@ namespace CraftLogs.BLL.Services
         private readonly List<Tuple<string, string>> Rings = new List<Tuple<string, string>>()
         {
         new Tuple<string,string>("Prométeusz tüzes munkája","@drawable/ring_1.png"),
-        new Tuple<string,string>("Klári jeges áldása","@drawable/ring_2.png"),
-        new Tuple<string,string>("Pelcsi zafír jegygyűrűje","@drawable/ring_3.png"),
-        new Tuple<string,string>("Neme$ tüskés boxere","@drawable/ring_4.png"),
+        new Tuple<string,string>("Dalma jeges áldása","@drawable/ring_2.png"),
+        new Tuple<string,string>("Cetli zafír jegygyűrűje","@drawable/ring_3.png"),
+        new Tuple<string,string>("Zodi tüskés boxere","@drawable/ring_4.png"),
         new Tuple<string,string>("Boric$ ünnepi gyűrűje","@drawable/ring_5.png"),
         new Tuple<string,string>("Cica rettentő haragja","@drawable/ring_6.png"),
         new Tuple<string,string>("Anett megfékezhetetlen dühe","@drawable/ring_7.png"),
-        new Tuple<string,string>("Marcika viking ajándéka","@drawable/ring_8.png"),
-        new Tuple<string,string>("Cucu felhevült karikagyűrűje","@drawable/ring_9.png"),
-        new Tuple<string,string>("Zodi fényes szerencsegyűrűje","@drawable/ring_10.png"),
+        new Tuple<string,string>("Bajusz viking ajándéka","@drawable/ring_8.png"),
+        new Tuple<string,string>("Bucsi felhevült karikagyűrűje","@drawable/ring_9.png"),
+        new Tuple<string,string>("Elena fényes szerencsegyűrűje","@drawable/ring_10.png"),
         new Tuple<string,string>("nemecsek jádeköves gyűrűje","@drawable/ring_11.png"),
-        new Tuple<string,string>("Jim rubin szerencsegyűrűje","@drawable/ring_12.png"),
+        new Tuple<string,string>("Kacsa rubin szerencsegyűrűje","@drawable/ring_12.png"),
         new Tuple<string,string>("Dézintegráló gyűrű","@drawable/ring_13.png"),
-        new Tuple<string,string>("A Vimbablak kulcsa","@drawable/ring_14.png"),
-        new Tuple<string,string>("Thor markolatgombja","@drawable/ring_15.png")
+        new Tuple<string,string>("Dóra gyűrűje","@drawable/ring_14.png"),
+        new Tuple<string,string>("Thor szőrmókjának nyakörve","@drawable/ring_15.png")
         };
 
         private readonly List<Tuple<string, string>> Necks = new List<Tuple<string, string>>()
         {
-        new Tuple<string,string>("Zseton türkiz nyakéke","@drawable/neck_1.png"),
-        new Tuple<string,string>("Chili smaragdos nyaklánca","@drawable/neck_2.png"),
-        new Tuple<string,string>("Bab rubin ékköve","@drawable/neck_3.png"),
-        new Tuple<string,string>("Roti igéző nyakéke","@drawable/neck_4.png"),
-        new Tuple<string,string>("BigBen kampós nyaklánca","@drawable/neck_5.png"),
-        new Tuple<string,string>("Csüti ametiszt nyaklánca","@drawable/neck_6.png"),
-        new Tuple<string,string>("Kara smaragd ékköve","@drawable/neck_7.png"),
-        new Tuple<string,string>("Gyümi kék spirálköve","@drawable/neck_8.png"),
-        new Tuple<string,string>("Zozi ametiszt uralomköve","@drawable/neck_9.png"),
-        new Tuple<string,string>("Andi smaragdos uralomköve","@drawable/neck_10.png"),
-        new Tuple<string,string>("Bércy indián nyakéke","@drawable/neck_11.png"),
-        new Tuple<string,string>("Pixie fényes zafírköve","@drawable/neck_12.png"),
-        new Tuple<string,string>("Lhora ametiszt uralomköve","@drawable/neck_13.png"),
-        new Tuple<string,string>("Cápa fényes smaragdköve","@drawable/neck_14.png"),
-        new Tuple<string,string>("Bombó kagylós barátságnyakéke","@drawable/neck_15.png"),
-        new Tuple<string,string>("M.I. zafír rúnaköve","@drawable/neck_16.png"),
-        new Tuple<string,string>("Ruszki vörös uralomköve","@drawable/neck_17.png"),
-        new Tuple<string,string>("Kuni aranyos uralomköve","@drawable/neck_18.png")
+        new Tuple<string,string>("Arki türkiz nyakéke","@drawable/neck_1.png"),
+        new Tuple<string,string>("Róka smaragdos nyaklánca","@drawable/neck_2.png"),
+        new Tuple<string,string>("Pite rubin ékköve","@drawable/neck_3.png"),
+        new Tuple<string,string>("Zozi igéző nyakéke","@drawable/neck_4.png"),
+        new Tuple<string,string>("Mészi kampós nyaklánca","@drawable/neck_5.png"),
+        new Tuple<string,string>("Dante ametiszt nyaklánca","@drawable/neck_6.png"),
+        new Tuple<string,string>("Hexa smaragd ékköve","@drawable/neck_7.png"),
+        new Tuple<string,string>("Apa kék spirálköve","@drawable/neck_8.png"),
+        new Tuple<string,string>("Lucy ametiszt uralomköve","@drawable/neck_9.png"),
+        new Tuple<string,string>("Portál smaragdos uralomköve","@drawable/neck_10.png"),
+        new Tuple<string,string>("Foxi indián nyakéke","@drawable/neck_11.png"),
+        new Tuple<string,string>("Kiki fényes zafírköve","@drawable/neck_12.png"),
+        new Tuple<string,string>("Brandy ametiszt uralomköve","@drawable/neck_13.png"),
+        new Tuple<string,string>("Maci fényes smaragdköve","@drawable/neck_14.png"),
+        new Tuple<string,string>("Leves kagylós barátságnyakéke","@drawable/neck_15.png"),
+        new Tuple<string,string>("Martin zafír rúnaköve","@drawable/neck_16.png"),
+        new Tuple<string,string>("Zeus vörös uralomköve","@drawable/neck_17.png"),
+        new Tuple<string,string>("Suu aranyos uralomköve","@drawable/neck_18.png")
         };
 
         private readonly List<Tuple<string, string>> Legends = new List<Tuple<string, string>>()
