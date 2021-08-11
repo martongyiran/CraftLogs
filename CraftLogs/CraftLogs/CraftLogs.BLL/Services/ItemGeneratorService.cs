@@ -332,13 +332,11 @@ namespace CraftLogs.BLL.Services
                 return null;
             }
         }
-    }
 
-    public enum LegendaryEnum
-    {
-        None,
-        Mjolnir,
-        Baetylus,
-        Brisingamen
+        public Item GetHqCreatedItem(CharacterClassEnum usableFor, ItemTypeEnum itemType, int tier, ItemRarityEnum itemRarity, string stats)
+        {
+            var ad = GetNameAndImage(usableFor, itemType);
+            return new Item(tier, itemRarity, itemType, usableFor, stats, ad);
+        }
     }
 }

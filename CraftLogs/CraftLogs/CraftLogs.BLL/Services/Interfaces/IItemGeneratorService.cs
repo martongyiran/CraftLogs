@@ -37,5 +37,16 @@ namespace CraftLogs.BLL.Services.Interfaces
         Item GetSpecificItem(int tier, ItemTypeEnum itemType);
 
         Item GetLegendary(LegendaryEnum legendary);
+
+        /// <summary>
+        /// Returns a specific handmade HQ created item.
+        /// </summary>
+        /// <param name="usableFor"></param>
+        /// <param name="itemType"></param>
+        /// <param name="tier"></param>
+        /// <param name="itemRarity"></param>
+        /// <param name="stats">Stats in order separeted by space: atk def stamina crit dodge</param>
+        /// <returns>A brand new item.</returns>
+        Item GetHqCreatedItem(CharacterClassEnum usableFor, ItemTypeEnum itemType, int tier, ItemRarityEnum itemRarity, string stats);
     }
 }

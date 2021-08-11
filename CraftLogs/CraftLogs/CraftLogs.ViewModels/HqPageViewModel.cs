@@ -40,6 +40,11 @@ namespace CraftLogs.ViewModels
         private ObservableCollection<ProfileQr> _teams = new ObservableCollection<ProfileQr>();
         private HqReward _reward;
         private LegendaryEnum _lego = LegendaryEnum.None;
+        private string _stats;
+        private CharacterClassEnum _selectedClass;
+        private ItemTypeEnum _selectedItemType;
+        private int _selectedTier;
+        private ItemRarityEnum _selectedRarity;
 
         public ObservableCollection<ProfileQr> Teams
         {
@@ -69,6 +74,64 @@ namespace CraftLogs.ViewModels
             get => _lego;
             set => SetProperty(ref _lego, value);
         }
+
+        public CharacterClassEnum SelectedClass
+        {
+            get => _selectedClass;
+            set => SetProperty(ref _selectedClass, value);
+        }
+
+        public ItemTypeEnum SelectedItemType
+        {
+            get => _selectedItemType;
+            set => SetProperty(ref _selectedItemType, value);
+        }
+
+        public int SelectedTier
+        {
+            get => _selectedTier;
+            set => SetProperty(ref _selectedTier, value);
+        }
+
+        public ItemRarityEnum SelectedRarity
+        {
+            get => _selectedRarity;
+            set => SetProperty(ref _selectedRarity, value);
+        }
+
+        public List<CharacterClassEnum> Classes { get; set; }
+            = new List<CharacterClassEnum>
+            {
+                CharacterClassEnum.Mage,
+                CharacterClassEnum.Rogue,
+                CharacterClassEnum.Warrior
+            };
+
+        public List<ItemTypeEnum> Types { get; set; }
+            = new List<ItemTypeEnum>
+            {
+                ItemTypeEnum.Armor,
+                ItemTypeEnum.LHand,
+                ItemTypeEnum.Neck,
+                ItemTypeEnum.RHand,
+                ItemTypeEnum.Ring
+            };
+
+        public string Stats
+        {
+            get => _stats;
+            set => SetProperty(ref _stats, value);
+        }
+
+        public List<int> Tier { get; set; } = Enumerable.Range(1, 3).ToList();
+
+        public List<ItemRarityEnum> Rarity { get; set; }
+            = new List<ItemRarityEnum>
+            {
+                ItemRarityEnum.Common,
+                ItemRarityEnum.Rare,
+                ItemRarityEnum.Legendary
+            };
 
         public DelayCommand NavigateToQRScannerPageCommand
             => new DelayCommand(async () => await ReadQr());
@@ -139,6 +202,11 @@ namespace CraftLogs.ViewModels
             if (Lego != LegendaryEnum.None)
             {
                 Reward.RewardItems.Add(_itemGenerator.GetLegendary(Lego));
+            }
+
+            if (!string.IsNullOrEmpty(Stats))
+            {
+                Reward.RewardItems.Add(_itemGenerator.GetHqCreatedItem(SelectedClass, SelectedItemType, SelectedTier, SelectedRarity, Stats));
             }
 
             var qrCode = _qRService.CreateQR(Reward);

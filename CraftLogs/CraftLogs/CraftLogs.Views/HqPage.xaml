@@ -108,11 +108,32 @@
                            Grid.Column="0"
                            Grid.ColumnSpan="2">
                             <StackLayout>
-                                <Label Text="class" />
-                                <Label Text="type" />
-                                <Label Text="tier" />
-                                <Label Text="rarity" />
-                                <Label Text="stats" />
+
+                                <Picker
+                                   FontSize="16"
+                                   ItemsSource="{Binding Classes}"
+                                   SelectedItem="{Binding SelectedClass, Mode=TwoWay}"
+                                   TextColor="{StaticResource ColorDark}" />
+
+                                <Picker
+                                   FontSize="16"
+                                   ItemsSource="{Binding Types}"
+                                   SelectedItem="{Binding SelectedItemType, Mode=TwoWay}"
+                                   TextColor="{StaticResource ColorDark}" />
+
+                                <Picker
+                                   FontSize="16"
+                                   ItemsSource="{Binding Tier}"
+                                   SelectedItem="{Binding SelectedTier, Mode=TwoWay}"
+                                   TextColor="{StaticResource ColorDark}" />
+
+                                <Picker
+                                   FontSize="16"
+                                   ItemsSource="{Binding Rarity}"
+                                   SelectedItem="{Binding SelectedRarity, Mode=TwoWay}"
+                                   TextColor="{StaticResource ColorDark}" />
+
+                                <Entry Placeholder="atk def stm cr ddg" Text="{Binding Stats, Mode=TwoWay}" />
                             </StackLayout>
                         </Frame>
 
