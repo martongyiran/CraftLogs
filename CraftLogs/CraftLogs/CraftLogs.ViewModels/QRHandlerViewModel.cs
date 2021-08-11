@@ -82,7 +82,7 @@ namespace CraftLogs.ViewModels
             ILoggerService loggerservice)
             : base(navigationService, dataRepository, dialogService)
         {
-            Title = "QR Handler Page";
+            Title = Texts.Handler_Title;
             _qRService = qrService;
             _loggerService = loggerservice;
             IsBusy = true;
@@ -216,7 +216,7 @@ namespace CraftLogs.ViewModels
                     if (profile.Name != processedData.Target
                         || profile.Recepies.Contains(processedData.GetRecepie()))
                     {
-                        RewardText = "Ezt a csomagot nem neked küldték, vagy már egyszer leolvastad!";
+                        RewardText = Texts.Handler_NotYourStuff;
                     }
                     else
                     {

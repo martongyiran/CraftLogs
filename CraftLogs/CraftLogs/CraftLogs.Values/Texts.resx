@@ -153,6 +153,9 @@
   <data name="Handler_NotEnoughMoney" xml:space="preserve">
     <value>Nem volt elég pénzed a vásárlásra!</value>
   </data>
+  <data name="Handler_NotYourStuff" xml:space="preserve">
+    <value>Ezt a csomagot nem neked küldték, vagy már egyszer leolvastad!</value>
+  </data>
   <data name="Handler_QuestRewardTitle" xml:space="preserve">
     <value>Jutalom</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Handler_ShopListOkTitle" xml:space="preserve">
     <value>Sikeres vásárlás!</value>
+  </data>
+  <data name="Handler_Title" xml:space="preserve">
+    <value>QR Handler Page</value>
   </data>
   <data name="Handler_TradeInProgress" xml:space="preserve">
     <value>A csere oldalon folytathatod a kereskedelmet.</value>
@@ -264,7 +270,7 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
     <value>QR kód leolvasása</value>
   </data>
   <data name="QuestPw" xml:space="preserve">
-    <value>111112</value>
+    <value>sajnosnemtudom</value>
   </data>
   <data name="Quest_CantScoreError" xml:space="preserve">
     <value>Most nem pontozhatsz!</value>
@@ -421,6 +427,9 @@ A Dodge a kitérésé, akkor nem kapsz be sebzést az adott körben.
   </data>
   <data name="Trade_Title" xml:space="preserve">
     <value>Csere</value>
+  </data>
+  <data name="Trade_Warning" xml:space="preserve">
+    <value>Ha rosszul írtad be a csapat nevét, vagy nem olvassa le a QR-t, akkor buktad a cuccokat!</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version: {0}</value>

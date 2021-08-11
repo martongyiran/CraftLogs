@@ -21,7 +21,6 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -186,7 +185,7 @@ namespace CraftLogs.ViewModels
             }
             else
             {
-                await DialogService.DisplayAlertAsync("", "Maximum 5 tárgyat adhatsz egyszerre!", Texts.Ok);
+                await DialogService.DisplayAlertAsync("", Texts.Trade_ItemLimit, Texts.Ok);
             }
 
             RaisePropertyChanged(nameof(CartSize));
@@ -257,7 +256,7 @@ namespace CraftLogs.ViewModels
 
         private async Task ExecuteCompleteTradeCommandAsync()
         {
-            var response = await DialogService.DisplayAlertAsync("Csere", "Ha rosszul írtad be a csapat nevét, vagy nem olvassa le a QR-t, akkor buktad a cuccokat!", Texts.Ok, Texts.Cancel);
+            var response = await DialogService.DisplayAlertAsync(Texts.Trade_Title, Texts.Trade_Warning, Texts.Ok, Texts.Cancel);
             if (response)
             {
                 var data = new TradeModel()

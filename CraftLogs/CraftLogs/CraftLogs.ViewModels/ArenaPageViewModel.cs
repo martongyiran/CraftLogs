@@ -131,9 +131,9 @@ namespace CraftLogs.ViewModels
 
                     var qrCode = _qRService.CreateQR(details);
                     var param = new NavigationParameters
-                            {
-                                { "code", qrCode }
-                            };
+                        {
+                            { "code", qrCode }
+                        };
 
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
 

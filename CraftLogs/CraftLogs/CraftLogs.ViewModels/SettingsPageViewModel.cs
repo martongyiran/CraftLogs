@@ -149,10 +149,10 @@ namespace CraftLogs.ViewModels
             var profileQr = new ProfileQr(teamProfile);
             var qrCode = _qRService.CreateQR(profileQr);
             var param = new NavigationParameters
-            {
-                { "code", qrCode },
-                {"type", "settings"}
-            };
+                {
+                    { "code", qrCode },
+                    {"type", "settings"}
+                };
 
             await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
         }

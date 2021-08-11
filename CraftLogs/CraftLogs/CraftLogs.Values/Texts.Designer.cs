@@ -169,6 +169,15 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ezt a csomagot nem neked küldték, vagy már egyszer leolvastad!.
+        /// </summary>
+        public static string Handler_NotYourStuff {
+            get {
+                return ResourceManager.GetString("Handler_NotYourStuff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jutalom.
         /// </summary>
         public static string Handler_QuestRewardTitle {
@@ -192,6 +201,15 @@ namespace CraftLogs.Values {
         public static string Handler_ShopListOkTitle {
             get {
                 return ResourceManager.GetString("Handler_ShopListOkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QR Handler Page.
+        /// </summary>
+        public static string Handler_Title {
+            get {
+                return ResourceManager.GetString("Handler_Title", resourceCulture);
             }
         }
         
@@ -525,7 +543,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 111112.
+        ///   Looks up a localized string similar to sajnosnemtudom.
         /// </summary>
         public static string QuestPw {
             get {
@@ -962,6 +980,15 @@ namespace CraftLogs.Values {
         public static string Trade_Title {
             get {
                 return ResourceManager.GetString("Trade_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ha rosszul írtad be a csapat nevét, vagy nem olvassa le a QR-t, akkor buktad a cuccokat!.
+        /// </summary>
+        public static string Trade_Warning {
+            get {
+                return ResourceManager.GetString("Trade_Warning", resourceCulture);
             }
         }
         
