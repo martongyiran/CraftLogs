@@ -13,7 +13,7 @@
        xct:TouchEffect.Command="{Binding ViewItemCommand}"
        xct:TouchEffect.CommandParameter="armor"
        xct:TouchEffect.NormalScale="1"
-       xct:TouchEffect.PressedScale="0.75">
+       xct:TouchEffect.PressedScale="0.95">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
                HorizontalOptions="Start"
@@ -32,7 +32,7 @@
        xct:TouchEffect.Command="{Binding ViewItemCommand}"
        xct:TouchEffect.CommandParameter="ring"
        xct:TouchEffect.NormalScale="1"
-       xct:TouchEffect.PressedScale="0.75">
+       xct:TouchEffect.PressedScale="0.95">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
                HorizontalOptions="Start"
@@ -51,7 +51,7 @@
        xct:TouchEffect.Command="{Binding ViewItemCommand}"
        xct:TouchEffect.CommandParameter="neck"
        xct:TouchEffect.NormalScale="1"
-       xct:TouchEffect.PressedScale="0.75">
+       xct:TouchEffect.PressedScale="0.95">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
                HorizontalOptions="Start"
@@ -70,7 +70,7 @@
        xct:TouchEffect.Command="{Binding ViewItemCommand}"
        xct:TouchEffect.CommandParameter="lHand"
        xct:TouchEffect.NormalScale="1"
-       xct:TouchEffect.PressedScale="0.75">
+       xct:TouchEffect.PressedScale="0.95">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
                HorizontalOptions="Start"
@@ -89,7 +89,7 @@
        xct:TouchEffect.Command="{Binding ViewItemCommand}"
        xct:TouchEffect.CommandParameter="rHand"
        xct:TouchEffect.NormalScale="1"
-       xct:TouchEffect.PressedScale="0.75">
+       xct:TouchEffect.PressedScale="0.95">
         <StackLayout Orientation="Horizontal">
             <views:ItemView
                HorizontalOptions="Start"
