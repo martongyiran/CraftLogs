@@ -22,6 +22,7 @@
                             <RowDefinition Height="60" />
                             <RowDefinition Height="60" />
                             <RowDefinition Height="60" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="50" />
                             <RowDefinition Height="50" />
                             <RowDefinition Height="Auto" />
@@ -102,15 +103,28 @@
                            TextColor="{StaticResource ColorDark}"
                            VerticalOptions="Center" />
 
-                        <Button
+                        <Frame
                            Grid.Row="4"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2">
+                            <StackLayout>
+                                <Label Text="class" />
+                                <Label Text="type" />
+                                <Label Text="tier" />
+                                <Label Text="rarity" />
+                                <Label Text="stats" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Button
+                           Grid.Row="5"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Command="{Binding GiveCommand}"
                            Text="AD" />
 
                         <Button
-                           Grid.Row="5"
+                           Grid.Row="6"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Command="{Binding NavigateToQRScannerPageCommand}"
@@ -118,7 +132,7 @@
                            Text="SCAN" />
 
                         <StackLayout
-                           Grid.Row="6"
+                           Grid.Row="7"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Margin="0,16,0,0"
