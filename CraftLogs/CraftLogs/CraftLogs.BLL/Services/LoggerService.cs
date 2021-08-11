@@ -76,10 +76,13 @@ namespace CraftLogs.BLL.Services
             _dataRepository.SaveToFile(logs);
         }
 
-        public void CreateTradeLog(TradeModel model)
+        public void CreateTradeLog(TradeModel model, bool give)
         {
             var logs = _dataRepository.GetLogs();
-            var newLogText = model.ToString();
+            string newLogText = give
+                ? model.ToStringGiveItems()
+                : model.ToStringGetItems();
+
             var newLog = new Log(LogTypeEnum.Trade, newLogText);
             logs.Insert(0, newLog);
             _dataRepository.SaveToFile(logs);

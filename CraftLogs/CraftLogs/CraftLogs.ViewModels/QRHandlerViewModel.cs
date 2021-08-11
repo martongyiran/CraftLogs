@@ -182,7 +182,7 @@ namespace CraftLogs.ViewModels
 
                     RewardText = Texts.Arena_Scanned;
 
-                    await NavigateBack();
+                    await NavigateToWithoutHistory(NavigationLinks.ArenaPage);
                 }
                 else if (data.Type == QRTypeEnum.ArenaResult)
                 {
@@ -232,11 +232,11 @@ namespace CraftLogs.ViewModels
                         profile.Recepies.Add(processedData.GetRecepie());
 
                         DataRepository.SaveToFile(profile);
-                        RewardText = $"{processedData.Money} $";
+                        RewardText = $"{processedData.From} : {processedData.Money} $";
 
                         processedData.TradeItems = new ObservableCollection<Item>(temp);
                         Rewards = new ObservableCollection<Item>(temp);
-                        _loggerService.CreateTradeLog(processedData);
+                        _loggerService.CreateTradeLog(processedData, false);
                     }
                 }
                 else if (data.Type == QRTypeEnum.ProfileForHq && _settings.AppMode == AppModeEnum.Hq)
@@ -251,7 +251,7 @@ namespace CraftLogs.ViewModels
                 }
                 else if (data.Type == QRTypeEnum.HqReward)
                 {
-                    Title = Texts.Arena_Details;
+                    Title = Texts.Handler_QuestRewardTitle;
                     var processedData = JsonConvert.DeserializeObject<HqReward>(data.D);
 
                     var profile = DataRepository.GetTeamProfile();

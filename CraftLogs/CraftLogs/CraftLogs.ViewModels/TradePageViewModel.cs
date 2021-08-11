@@ -111,15 +111,15 @@ namespace CraftLogs.ViewModels
 
         public bool CanEmpty => ItemsForTrade.Count > 0 || TradeMoney > 0;
 
-        public bool CanBuy => ItemsForTrade.Count < 5;
+        public bool CanSelectMore => ItemsForTrade.Count < 5;
 
         public DelayCommand<object> ItemTappedCommand => new DelayCommand<object>((a) => ExecuteItemTappedCommand(a));
 
-        public DelayCommand BuyCommand => new DelayCommand(async () => await ExecuteBuyCommandAsync());
+        public DelayCommand SelectItemCommand => new DelayCommand(async () => await ExecuteSelectItemCommandAsync());
 
         public DelayCommand EmptyCommand => new DelayCommand(ExecuteEmptyCommand);
 
-        public DelayCommand CheckOutCommand => new DelayCommand(async () => await ExecuteCheckOutCommand());
+        public DelayCommand CompleteTradeCommand => new DelayCommand(async () => await ExecuteCompleteTradeCommandAsync());
 
         public DelayCommand CloseCartCommand => new DelayCommand(ExecuteCloseCartCommand);
 
@@ -159,7 +159,7 @@ namespace CraftLogs.ViewModels
 
             RaisePropertyChanged(nameof(CartSize));
             RaisePropertyChanged(nameof(CanEmpty));
-            RaisePropertyChanged(nameof(CanBuy));
+            RaisePropertyChanged(nameof(CanSelectMore));
         }
 
         private void ExecuteItemTappedCommand(object o)
@@ -172,7 +172,7 @@ namespace CraftLogs.ViewModels
             IsCartVisible = false;
         }
 
-        private async Task ExecuteBuyCommandAsync()
+        private async Task ExecuteSelectItemCommandAsync()
         {
             if (ItemsForTrade.Count < 5)
             {
@@ -191,7 +191,7 @@ namespace CraftLogs.ViewModels
 
             RaisePropertyChanged(nameof(CartSize));
             RaisePropertyChanged(nameof(CanEmpty));
-            RaisePropertyChanged(nameof(CanBuy));
+            RaisePropertyChanged(nameof(CanSelectMore));
             IsPopupVisible = false;
         }
 
@@ -217,7 +217,7 @@ namespace CraftLogs.ViewModels
 
             RaisePropertyChanged(nameof(CartSize));
             RaisePropertyChanged(nameof(CanEmpty));
-            RaisePropertyChanged(nameof(CanBuy));
+            RaisePropertyChanged(nameof(CanSelectMore));
             IsPopupVisible = false;
         }
 
@@ -243,7 +243,7 @@ namespace CraftLogs.ViewModels
 
             RaisePropertyChanged(nameof(CartSize));
             RaisePropertyChanged(nameof(CanEmpty));
-            RaisePropertyChanged(nameof(CanBuy));
+            RaisePropertyChanged(nameof(CanSelectMore));
 
             IsBusy = false;
         }
@@ -255,7 +255,7 @@ namespace CraftLogs.ViewModels
                 && CanEmpty;
         }
 
-        private async Task ExecuteCheckOutCommand()
+        private async Task ExecuteCompleteTradeCommandAsync()
         {
             var response = await DialogService.DisplayAlertAsync("Csere", "Ha rosszul írtad be a csapat nevét, vagy nem olvassa le a QR-t, akkor buktad a cuccokat!", Texts.Ok, Texts.Cancel);
             if (response)
@@ -264,14 +264,15 @@ namespace CraftLogs.ViewModels
                 {
                     Target = TargetName,
                     Money = TradeMoney,
-                    TradeItems = ItemsForTrade
+                    TradeItems = ItemsForTrade,
+                    From = _teamProfile.Name
                 };
                 data.SetTradeId();
 
                 _teamProfile.Inventory = Items;
                 _teamProfile.Money -= TradeMoney;
                 DataRepository.SaveToFile(_teamProfile);
-                _logger.CreateTradeLog(data);
+                _logger.CreateTradeLog(data, true);
 
                 var qrCode = _qRService.CreateQR(data);
                 var param = new NavigationParameters

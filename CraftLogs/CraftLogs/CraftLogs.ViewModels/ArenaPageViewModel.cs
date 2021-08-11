@@ -22,6 +22,7 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.Values;
 using Prism.Navigation;
 using Prism.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,8 +48,8 @@ namespace CraftLogs.ViewModels
 
         public CombatLogDetailsModel Logs
         {
-            get => _logs; 
-            set => SetProperty(ref _logs, value); 
+            get => _logs;
+            set => SetProperty(ref _logs, value);
         }
 
         public DelayCommand NavigateToQRScannerPageCommand
@@ -110,7 +111,7 @@ namespace CraftLogs.ViewModels
             FirstUnit = _arenaProfile.Leader;
             Logs = _arenaProfile.LastLog;
 
-            if(_arenaProfile.Attacker != null)
+            if (_arenaProfile.Attacker != null)
             {
                 _challenger = _arenaProfile?.Attacker;
 
@@ -130,9 +131,9 @@ namespace CraftLogs.ViewModels
 
                     var qrCode = _qRService.CreateQR(details);
                     var param = new NavigationParameters
-                    {
-                        { "code", qrCode }
-                    };
+                            {
+                                { "code", qrCode }
+                            };
 
                     await NavigateToWithoutHistory(NavigationLinks.QRPage, param);
 
@@ -146,7 +147,7 @@ namespace CraftLogs.ViewModels
                     await DialogService.DisplayAlertAsync(Texts.Error, Texts.Arena_CantFight, Texts.Ok);
                 }
             }
-            
+
             IsBusy = false;
         }
     }

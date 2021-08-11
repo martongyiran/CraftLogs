@@ -210,8 +210,8 @@
                            Grid.Row="4"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Command="{Binding BuyCommand}"
-                           IsEnabled="{Binding CanBuy}"
+                           Command="{Binding SelectItemCommand}"
+                           IsEnabled="{Binding CanSelectMore}"
                            Text="Odaad" />
 
                         <Button
@@ -361,7 +361,7 @@
 
                         <Button
                            Grid.Column="2"
-                           Command="{Binding CheckOutCommand}"
+                           Command="{Binding CompleteTradeCommand}"
                            HorizontalOptions="FillAndExpand"
                            IsEnabled="{Binding CanTrade}"
                            Text="Csere"
