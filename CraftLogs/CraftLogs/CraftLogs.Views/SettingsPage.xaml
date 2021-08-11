@@ -131,6 +131,13 @@
 
                     <Label
                        Margin="16"
+                       FontSize="10"
+                       HorizontalOptions="Start"
+                       Text="Developed by Gyirán Márton (Csiga)"
+                       VerticalOptions="End" />
+
+                    <Label
+                       Margin="16"
                        HorizontalOptions="End"
                        Text="{Binding Version}"
                        VerticalOptions="End">
