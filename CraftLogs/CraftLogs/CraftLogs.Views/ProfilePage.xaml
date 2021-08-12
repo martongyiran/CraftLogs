@@ -3,6 +3,7 @@
    x:Class="CraftLogs.Views.ProfilePage"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    Title="{Binding Title}"
@@ -39,7 +40,7 @@
                HorizontalOptions="FillAndExpand"
                Orientation="Horizontal"
                VerticalOptions="End">
-                <Image
+                <ffimage:CachedImage
                    xct:TouchEffect.Command="{Binding NavigateToInventoryPageCommand}"
                    xct:TouchEffect.NormalScale="1"
                    xct:TouchEffect.PressedScale="0.75"
@@ -51,7 +52,7 @@
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="40" />
 
-                <Image
+                <ffimage:CachedImage
                    xct:TouchEffect.Command="{Binding NavigateToLogsCommand}"
                    xct:TouchEffect.NormalScale="1"
                    xct:TouchEffect.PressedScale="0.75"
@@ -63,7 +64,7 @@
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="40" />
 
-                <Image
+                <ffimage:CachedImage
                    xct:TouchEffect.Command="{Binding NavigateToQRScannerPageCommand}"
                    xct:TouchEffect.NormalScale="1"
                    xct:TouchEffect.PressedScale="0.75"
@@ -75,7 +76,7 @@
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="40" />
 
-                <Image
+                <ffimage:CachedImage
                    xct:TouchEffect.Command="{Binding StartTradeCommand}"
                    xct:TouchEffect.NormalScale="1"
                    xct:TouchEffect.PressedScale="0.75"
@@ -87,7 +88,7 @@
                    VerticalOptions="CenterAndExpand"
                    WidthRequest="40" />
 
-                <Image
+                <ffimage:CachedImage
                    xct:TouchEffect.Command="{Binding GetArenaQRCommand}"
                    xct:TouchEffect.NormalScale="1"
                    xct:TouchEffect.PressedScale="0.75"

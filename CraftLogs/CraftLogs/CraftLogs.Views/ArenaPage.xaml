@@ -1,33 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CraftLogs.Views.ArenaPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
-    xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
-    x:Name="view"
-    Title="{Binding Title}"
-    BackgroundColor="{StaticResource BackgroundColorLight}">
+   x:Class="CraftLogs.Views.ArenaPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+   xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
+   xmlns:views="clr-namespace:CraftLogs.Views;assembly=CraftLogs.Views"
+   x:Name="view"
+   Title="{Binding Title}"
+   BackgroundColor="{StaticResource BackgroundColorLight}">
 
     <ContentPage.ToolbarItems>
-        <views:BindableToolbarItem
-            Command="{Binding NavigateToQRScannerPageCommand}"
-            Icon="@drawable/ic_rqr_white.png" />
-        <views:BindableToolbarItem
-            Command="{Binding NavigateToSettingsCommand}"
-            Icon="@drawable/ic_settings_white.png" />
+        <views:BindableToolbarItem Command="{Binding NavigateToQRScannerPageCommand}" Icon="@drawable/ic_rqr_white.png" />
+        <views:BindableToolbarItem Command="{Binding NavigateToSettingsCommand}" Icon="@drawable/ic_settings_white.png" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout
-            Padding="16"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="StartAndExpand">
+           Padding="16"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="StartAndExpand">
             <Frame VerticalOptions="StartAndExpand">
                 <Grid
-                    ColumnSpacing="12"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand">
+                   ColumnSpacing="12"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="CenterAndExpand">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="110" />
@@ -45,120 +42,118 @@
                     </Grid.RowDefinitions>
 
                     <Frame
-                        Grid.Row="0"
-                        Grid.RowSpan="4"
-                        Grid.Column="0"
-                        Margin="0"
-                        Padding="0"
-                        CornerRadius="100"
-                        HeightRequest="100"
-                        HorizontalOptions="CenterAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="100">
-                        <Image
-                            Aspect="AspectFill"
-                            HeightRequest="100"
-                            HorizontalOptions="FillAndExpand"
-                            Source="{Binding FirstUnit.Image}"
-                            VerticalOptions="FillAndExpand"
-                            WidthRequest="100" />
+                       Grid.Row="0"
+                       Grid.RowSpan="4"
+                       Grid.Column="0"
+                       Margin="0"
+                       Padding="0"
+                       CornerRadius="100"
+                       HeightRequest="100"
+                       HorizontalOptions="CenterAndExpand"
+                       IsClippedToBounds="True"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="100">
+                        <ffimage:CachedImage
+                           Aspect="AspectFill"
+                           HeightRequest="100"
+                           HorizontalOptions="FillAndExpand"
+                           Source="{Binding FirstUnit.Image}"
+                           VerticalOptions="FillAndExpand"
+                           WidthRequest="100" />
                     </Frame>
 
 
                     <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="4"
-                        FontSize="30"
-                        HorizontalOptions="CenterAndExpand"
-                        Style="{StaticResource TitleLabelStyle}"
-                        Text="{Binding FirstUnit.Name}"
-                        VerticalOptions="CenterAndExpand" />
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Grid.ColumnSpan="4"
+                       FontSize="30"
+                       HorizontalOptions="CenterAndExpand"
+                       Style="{StaticResource TitleLabelStyle}"
+                       Text="{Binding FirstUnit.Name}"
+                       VerticalOptions="CenterAndExpand" />
 
-                    <Image
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HeightRequest="30"
-                        Source="@drawable/ic_hp.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30" />
-
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}"
-                        VerticalOptions="CenterAndExpand" />
-
-                    <Image
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HeightRequest="30"
-                        Source="@drawable/ic_attack.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30" />
+                    <ffimage:CachedImage
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       HeightRequest="30"
+                       Source="@drawable/ic_hp.png"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="30" />
 
                     <Label
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}"
-                        VerticalOptions="CenterAndExpand" />
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}"
+                       VerticalOptions="CenterAndExpand" />
 
-                    <Image
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        HeightRequest="30"
-                        Source="@drawable/ic_def.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30" />
-
-                    <Label
-                        Grid.Row="3"
-                        Grid.Column="2"
-                        Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}"
-                        VerticalOptions="CenterAndExpand" />
-
-                    <Image
-                        Grid.Row="1"
-                        Grid.Column="3"
-                        HeightRequest="30"
-                        Source="@drawable/ic_critr.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30" />
+                    <ffimage:CachedImage
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       HeightRequest="30"
+                       Source="@drawable/ic_attack.png"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="30" />
 
                     <Label
-                        Grid.Row="1"
-                        Grid.Column="4"
-                        Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}"
-                        VerticalOptions="CenterAndExpand" />
+                       Grid.Row="2"
+                       Grid.Column="2"
+                       Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}"
+                       VerticalOptions="CenterAndExpand" />
 
-                    <Image
-                        Grid.Row="2"
-                        Grid.Column="3"
-                        HeightRequest="30"
-                        Source="@drawable/ic_dodge.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30" />
+                    <ffimage:CachedImage
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       HeightRequest="30"
+                       Source="@drawable/ic_def.png"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="30" />
 
                     <Label
-                        Grid.Row="2"
-                        Grid.Column="4"
-                        FontSize="14"
-                        Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}"
-                        TextColor="Black"
-                        VerticalOptions="CenterAndExpand" />
+                       Grid.Row="3"
+                       Grid.Column="2"
+                       Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}"
+                       VerticalOptions="CenterAndExpand" />
+
+                    <ffimage:CachedImage
+                       Grid.Row="1"
+                       Grid.Column="3"
+                       HeightRequest="30"
+                       Source="@drawable/ic_critr.png"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="30" />
+
+                    <Label
+                       Grid.Row="1"
+                       Grid.Column="4"
+                       Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}"
+                       VerticalOptions="CenterAndExpand" />
+
+                    <ffimage:CachedImage
+                       Grid.Row="2"
+                       Grid.Column="3"
+                       HeightRequest="30"
+                       Source="@drawable/ic_dodge.png"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="30" />
+
+                    <Label
+                       Grid.Row="2"
+                       Grid.Column="4"
+                       FontSize="14"
+                       Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}"
+                       TextColor="Black"
+                       VerticalOptions="CenterAndExpand" />
                 </Grid>
             </Frame>
 
             <CollectionView
-                Margin="0,16,0,0"
-                ItemsSource="{Binding Logs.Rounds}"
-                SelectionMode="None">
+               Margin="0,16,0,0"
+               ItemsSource="{Binding Logs.Rounds}"
+               SelectionMode="None">
 
                 <CollectionView.Header>
-                    <Grid
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="StartAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -174,41 +169,41 @@
                         </Grid.RowDefinitions>
 
                         <Label
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="5"
-                            FontSize="18"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="{Binding BindingContext.Logs.Title, Source={x:Reference view}}" />
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="5"
+                           FontSize="18"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding BindingContext.Logs.Title, Source={x:Reference view}}" />
 
                         <Label
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="Kör" />
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="Kör" />
                         <BoxView
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            BackgroundColor="Black"
-                            HorizontalOptions="End"
-                            WidthRequest="1" />
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           BackgroundColor="Black"
+                           HorizontalOptions="End"
+                           WidthRequest="1" />
 
                         <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Grid.ColumnSpan="2"
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="Sebzés" />
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="Sebzés" />
 
                         <Label
-                            Grid.Row="1"
-                            Grid.Column="3"
-                            Grid.ColumnSpan="2"
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="HP" />
+                           Grid.Row="1"
+                           Grid.Column="3"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="HP" />
 
                     </Grid>
                 </CollectionView.Header>
@@ -216,23 +211,21 @@
                 <CollectionView.Footer>
                     <StackLayout>
                         <Label
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="{Binding BindingContext.Logs.DpsText, Source={x:Reference view}}" />
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding BindingContext.Logs.DpsText, Source={x:Reference view}}" />
 
                         <Label
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource TitleLabelStyle}"
-                            Text="{Binding BindingContext.Logs.ResultText, Source={x:Reference view}}" />
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding BindingContext.Logs.ResultText, Source={x:Reference view}}" />
                     </StackLayout>
                 </CollectionView.Footer>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <Grid
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="StartAndExpand">
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -243,35 +236,35 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label
-                                    Grid.Column="0"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Style="{StaticResource TitleLabelStyle}"
-                                    Text="{Binding Round}" />
+                                   Grid.Column="0"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Style="{StaticResource TitleLabelStyle}"
+                                   Text="{Binding Round}" />
                                 <BoxView
-                                    Grid.Column="0"
-                                    BackgroundColor="Black"
-                                    HorizontalOptions="End"
-                                    WidthRequest="1" />
+                                   Grid.Column="0"
+                                   BackgroundColor="Black"
+                                   HorizontalOptions="End"
+                                   WidthRequest="1" />
 
                                 <Label
-                                    Grid.Column="1"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="{Binding Dmg1}" />
+                                   Grid.Column="1"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Text="{Binding Dmg1}" />
 
                                 <Label
-                                    Grid.Column="2"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="{Binding Dmg2}" />
+                                   Grid.Column="2"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Text="{Binding Dmg2}" />
 
                                 <Label
-                                    Grid.Column="3"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="{Binding Hp1}" />
+                                   Grid.Column="3"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Text="{Binding Hp1}" />
 
                                 <Label
-                                    Grid.Column="4"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="{Binding Hp2}" />
+                                   Grid.Column="4"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Text="{Binding Hp2}" />
                             </Grid>
                         </ContentView>
                     </DataTemplate>

@@ -17,6 +17,7 @@ limitations under the License.
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using FFImageLoading.Forms.Platform;
 using Prism;
 using Prism.Ioc;
 
@@ -36,6 +37,10 @@ namespace CraftLogs.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             ZXing.Mobile.MobileBarcodeScanner.Initialize(Application);
+
+            {
+                CachedImageRenderer.Init(true);
+            }
 
             LoadApplication(new App(new AndroidInitializer()));
         }

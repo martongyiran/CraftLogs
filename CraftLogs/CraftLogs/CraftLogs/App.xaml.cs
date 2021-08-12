@@ -30,6 +30,7 @@ using CraftLogs.BLL.Services.Interfaces;
 using CraftLogs.BLL.Services;
 using CraftLogs.BLL.Enums;
 using CraftLogs.Values;
+using FFImageLoading;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CraftLogs
@@ -48,6 +49,8 @@ namespace CraftLogs
         protected override async void OnInitialized()
         {
             InitializeComponent();
+
+            ImageService.Instance.Initialize();
 
             var dataRepository = Container.Resolve<ILocalDataRepository>();
 

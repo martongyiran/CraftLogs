@@ -3,6 +3,7 @@
    x:Class="CraftLogs.Views.QuestPage"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
    xmlns:values="clr-namespace:CraftLogs.Values;assembly=CraftLogs.Values"
    Title="{Binding Title}"
    BackgroundColor="{StaticResource BackgroundColorLight}"

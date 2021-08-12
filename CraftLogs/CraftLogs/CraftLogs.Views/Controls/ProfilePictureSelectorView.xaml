@@ -1,51 +1,58 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <StackLayout
-    x:Class="CraftLogs.Views.ProfilePictureSelectorView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="currentView"
-    HorizontalOptions="CenterAndExpand"
-    Orientation="Horizontal"
-    VerticalOptions="CenterAndExpand"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ProfilePictureSelectorView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   x:Name="currentView"
+   HorizontalOptions="CenterAndExpand"
+   Orientation="Horizontal"
+   VerticalOptions="CenterAndExpand"
+   mc:Ignorable="d">
 
     <ContentView
-        x:Name="Slot1"
-        Padding="3"
-        BackgroundColor="Transparent">
+       x:Name="Slot1"
+       Padding="3"
+       BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
             <TapGestureRecognizer Tapped="Slot1_Tapped" />
         </ContentView.GestureRecognizers>
-        <Image
-            HeightRequest="100"
-            Source="{Binding Image1, Source={x:Reference currentView}}" />
+        <ffimage:CachedImage
+           Aspect="AspectFit"
+           HeightRequest="100"
+           Source="{Binding Image1, Source={x:Reference currentView}}"
+           WidthRequest="100" />
     </ContentView>
 
     <ContentView
-        x:Name="Slot2"
-        Padding="3"
-        BackgroundColor="Transparent">
+       x:Name="Slot2"
+       Padding="3"
+       BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
             <TapGestureRecognizer Tapped="Slot2_Tapped" />
         </ContentView.GestureRecognizers>
-        <Image
-            HeightRequest="100"
-            Source="{Binding Image2, Source={x:Reference currentView}}" />
+        <ffimage:CachedImage
+           Aspect="AspectFit"
+           HeightRequest="100"
+           Source="{Binding Image2, Source={x:Reference currentView}}"
+           WidthRequest="100" />
     </ContentView>
 
     <ContentView
-        x:Name="Slot3"
-        Padding="3"
-        BackgroundColor="Transparent">
+       x:Name="Slot3"
+       Padding="3"
+       BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
             <TapGestureRecognizer Tapped="Slot3_Tapped" />
         </ContentView.GestureRecognizers>
 
-        <Image
-            HeightRequest="100"
-            Source="{Binding Image3, Source={x:Reference currentView}}" />
+        <ffimage:CachedImage
+           Aspect="AspectFit"
+           HeightRequest="100"
+           Source="{Binding Image3, Source={x:Reference currentView}}"
+           WidthRequest="100" />
     </ContentView>
 
 </StackLayout>

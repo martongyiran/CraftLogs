@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Grid
-    x:Class="CraftLogs.Views.ProfileInfoView"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    HorizontalOptions="FillAndExpand"
-    VerticalOptions="CenterAndExpand"
-    mc:Ignorable="d">
+   x:Class="CraftLogs.Views.ProfileInfoView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   HorizontalOptions="FillAndExpand"
+   VerticalOptions="CenterAndExpand"
+   mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="50" />
         <RowDefinition Height="Auto" />
@@ -23,101 +24,101 @@
     </Grid.ColumnDefinitions>
 
     <Frame
-        Grid.Row="0"
-        Grid.RowSpan="4"
-        Grid.Column="0"
-        Padding="0"
-        BackgroundColor="{StaticResource ColorPrimary}"
-        BorderColor="Transparent"
-        CornerRadius="110"
-        HasShadow="False"
-        HeightRequest="110"
-        HorizontalOptions="Center"
-        IsClippedToBounds="True"
-        VerticalOptions="Center"
-        WidthRequest="110">
-        <Image
-            Margin="0"
-            Aspect="AspectFit"
-            HeightRequest="110"
-            HorizontalOptions="CenterAndExpand"
-            Source="{Binding Profile.Image}"
-            VerticalOptions="CenterAndExpand"
-            WidthRequest="110" />
+       Grid.Row="0"
+       Grid.RowSpan="4"
+       Grid.Column="0"
+       Padding="0"
+       BackgroundColor="{StaticResource ColorPrimary}"
+       BorderColor="Transparent"
+       CornerRadius="110"
+       HasShadow="False"
+       HeightRequest="110"
+       HorizontalOptions="Center"
+       IsClippedToBounds="True"
+       VerticalOptions="Center"
+       WidthRequest="110">
+        <ffimage:CachedImage
+           Margin="0"
+           Aspect="AspectFit"
+           HeightRequest="110"
+           HorizontalOptions="CenterAndExpand"
+           Source="{Binding Profile.Image}"
+           VerticalOptions="CenterAndExpand"
+           WidthRequest="110" />
     </Frame>
 
     <Frame
-        Grid.Row="0"
-        Grid.RowSpan="2"
-        Grid.Column="0"
-        Margin="80,0,0,0"
-        Padding="0"
-        BackgroundColor="{StaticResource ColorPrimary}"
-        BorderColor="Transparent"
-        CornerRadius="30"
-        HasShadow="False"
-        HeightRequest="30"
-        HorizontalOptions="Center"
-        VerticalOptions="Start"
-        WidthRequest="30">
+       Grid.Row="0"
+       Grid.RowSpan="2"
+       Grid.Column="0"
+       Margin="80,0,0,0"
+       Padding="0"
+       BackgroundColor="{StaticResource ColorPrimary}"
+       BorderColor="Transparent"
+       CornerRadius="30"
+       HasShadow="False"
+       HeightRequest="30"
+       HorizontalOptions="Center"
+       VerticalOptions="Start"
+       WidthRequest="30">
         <Label
-            FontAttributes="Bold"
-            FontSize="16"
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding Profile.Level}"
-            TextColor="White"
-            VerticalOptions="CenterAndExpand" />
+           FontAttributes="Bold"
+           FontSize="16"
+           HorizontalOptions="CenterAndExpand"
+           Text="{Binding Profile.Level}"
+           TextColor="White"
+           VerticalOptions="CenterAndExpand" />
     </Frame>
 
     <Label
-        Grid.Row="0"
-        Grid.Column="1"
-        Grid.ColumnSpan="2"
-        HorizontalOptions="CenterAndExpand"
-        Style="{StaticResource TitleLabelStyle}"
-        Text="{Binding Profile.Name}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="0"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       HorizontalOptions="CenterAndExpand"
+       Style="{StaticResource TitleLabelStyle}"
+       Text="{Binding Profile.Name}"
+       VerticalOptions="CenterAndExpand" />
 
     <Label
-        Grid.Row="1"
-        Grid.Column="1"
-        Grid.ColumnSpan="2"
-        FontSize="12"
-        HorizontalOptions="CenterAndExpand"
-        Text="{Binding Profile.Cast}"
-        VerticalOptions="StartAndExpand" />
+       Grid.Row="1"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       FontSize="12"
+       HorizontalOptions="CenterAndExpand"
+       Text="{Binding Profile.Cast}"
+       VerticalOptions="StartAndExpand" />
 
     <ProgressBar
-        Grid.Row="2"
-        Grid.Column="1"
-        Grid.ColumnSpan="2"
-        HorizontalOptions="CenterAndExpand"
-        Progress="{Binding Profile.ExpProgress}"
-        VerticalOptions="CenterAndExpand"
-        WidthRequest="110" />
+       Grid.Row="2"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       HorizontalOptions="CenterAndExpand"
+       Progress="{Binding Profile.ExpProgress}"
+       VerticalOptions="CenterAndExpand"
+       WidthRequest="110" />
 
     <Label
-        Grid.Row="3"
-        Grid.Column="1"
-        Grid.ColumnSpan="2"
-        HorizontalOptions="CenterAndExpand"
-        Text="{Binding Profile.ExpText}"
-        VerticalOptions="StartAndExpand" />
+       Grid.Row="3"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       HorizontalOptions="CenterAndExpand"
+       Text="{Binding Profile.ExpText}"
+       VerticalOptions="StartAndExpand" />
 
     <Label
-        Grid.Row="4"
-        Grid.Column="1"
-        FontAttributes="Bold"
-        HorizontalOptions="CenterAndExpand"
-        Text="{Binding Profile.Honor, StringFormat='{0} hírnév'}}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="4"
+       Grid.Column="1"
+       FontAttributes="Bold"
+       HorizontalOptions="CenterAndExpand"
+       Text="{Binding Profile.Honor, StringFormat='{0} hírnév'}}"
+       VerticalOptions="CenterAndExpand" />
 
     <Label
-        Grid.Row="4"
-        Grid.Column="2"
-        FontAttributes="Bold"
-        HorizontalOptions="CenterAndExpand"
-        Text="{Binding Profile.Money, StringFormat='{0} $'}"
-        VerticalOptions="CenterAndExpand" />
+       Grid.Row="4"
+       Grid.Column="2"
+       FontAttributes="Bold"
+       HorizontalOptions="CenterAndExpand"
+       Text="{Binding Profile.Money, StringFormat='{0} $'}"
+       VerticalOptions="CenterAndExpand" />
 
 </Grid>
