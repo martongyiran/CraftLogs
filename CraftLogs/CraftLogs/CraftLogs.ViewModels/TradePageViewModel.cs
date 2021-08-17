@@ -268,7 +268,14 @@ namespace CraftLogs.ViewModels
                 };
                 data.SetTradeId();
 
-                _teamProfile.Inventory = Items;
+                var newInventory = _teamProfile.Inventory.Where(item => item.State == ItemStateEnum.Equipped).ToList();
+
+                foreach (var item in Items)
+                {
+                    newInventory.Add(item);
+                }
+
+                _teamProfile.Inventory = new ObservableCollection<Item>(newInventory);
                 _teamProfile.Money -= TradeMoney;
                 DataRepository.SaveToFile(_teamProfile);
                 _logger.CreateTradeLog(data, true);

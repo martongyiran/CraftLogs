@@ -21,30 +21,12 @@
            HorizontalOptions="FillAndExpand"
            VerticalOptions="StartAndExpand">
             <Frame VerticalOptions="StartAndExpand">
-                <Grid
-                   ColumnSpacing="12"
+                <StackLayout
                    HorizontalOptions="FillAndExpand"
+                   Orientation="Horizontal"
                    VerticalOptions="CenterAndExpand">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="110" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-
                     <Frame
-                       Grid.Row="0"
-                       Grid.RowSpan="4"
-                       Grid.Column="0"
                        Margin="0"
                        Padding="0"
                        CornerRadius="100"
@@ -62,89 +44,75 @@
                            WidthRequest="100" />
                     </Frame>
 
+                    <StackLayout Margin="10,0,0,0" HorizontalOptions="CenterAndExpand">
+                        <Label
+                           FontSize="30"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource TitleLabelStyle}"
+                           Text="{Binding FirstUnit.Name}"
+                           VerticalOptions="CenterAndExpand" />
 
-                    <Label
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="4"
-                       FontSize="30"
-                       HorizontalOptions="CenterAndExpand"
-                       Style="{StaticResource TitleLabelStyle}"
-                       Text="{Binding FirstUnit.Name}"
-                       VerticalOptions="CenterAndExpand" />
+                        <StackLayout Orientation="Horizontal">
+                            <ffimage:CachedImage
+                               HeightRequest="30"
+                               Source="@drawable/ic_hp.png"
+                               VerticalOptions="CenterAndExpand"
+                               WidthRequest="30" />
 
-                    <ffimage:CachedImage
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       HeightRequest="30"
-                       Source="@drawable/ic_hp.png"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="30" />
+                            <Label Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
 
-                    <Label
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Text="{Binding FirstUnit.Hp, StringFormat='HP: {0}'}"
-                       VerticalOptions="CenterAndExpand" />
 
-                    <ffimage:CachedImage
-                       Grid.Row="2"
-                       Grid.Column="1"
-                       HeightRequest="30"
-                       Source="@drawable/ic_attack.png"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="30" />
+                        <StackLayout Orientation="Horizontal">
+                            <ffimage:CachedImage
+                               HeightRequest="30"
+                               Source="@drawable/ic_attack.png"
+                               VerticalOptions="CenterAndExpand"
+                               WidthRequest="30" />
 
-                    <Label
-                       Grid.Row="2"
-                       Grid.Column="2"
-                       Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}"
-                       VerticalOptions="CenterAndExpand" />
+                            <Label Text="{Binding FirstUnit.Atk, StringFormat='ATK: {0}'}" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
 
-                    <ffimage:CachedImage
-                       Grid.Row="3"
-                       Grid.Column="1"
-                       HeightRequest="30"
-                       Source="@drawable/ic_def.png"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="30" />
 
-                    <Label
-                       Grid.Row="3"
-                       Grid.Column="2"
-                       Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}"
-                       VerticalOptions="CenterAndExpand" />
+                        <StackLayout Orientation="Horizontal">
+                            <ffimage:CachedImage
+                               HeightRequest="30"
+                               Source="@drawable/ic_def.png"
+                               VerticalOptions="CenterAndExpand"
+                               WidthRequest="30" />
 
-                    <ffimage:CachedImage
-                       Grid.Row="1"
-                       Grid.Column="3"
-                       HeightRequest="30"
-                       Source="@drawable/ic_critr.png"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="30" />
+                            <Label Text="{Binding FirstUnit.Def, StringFormat='DEF: {0}'}" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
 
-                    <Label
-                       Grid.Row="1"
-                       Grid.Column="4"
-                       Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}"
-                       VerticalOptions="CenterAndExpand" />
 
-                    <ffimage:CachedImage
-                       Grid.Row="2"
-                       Grid.Column="3"
-                       HeightRequest="30"
-                       Source="@drawable/ic_dodge.png"
-                       VerticalOptions="CenterAndExpand"
-                       WidthRequest="30" />
+                        <StackLayout Orientation="Horizontal">
+                            <ffimage:CachedImage
+                               HeightRequest="30"
+                               Source="@drawable/ic_critr.png"
+                               VerticalOptions="CenterAndExpand"
+                               WidthRequest="30" />
 
-                    <Label
-                       Grid.Row="2"
-                       Grid.Column="4"
-                       FontSize="14"
-                       Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}"
-                       TextColor="Black"
-                       VerticalOptions="CenterAndExpand" />
-                </Grid>
+                            <Label Text="{Binding FirstUnit.CritR, StringFormat='CritR: {0} %'}" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+
+                        <StackLayout Orientation="Horizontal">
+                            <ffimage:CachedImage
+                               HeightRequest="30"
+                               Source="@drawable/ic_dodge.png"
+                               VerticalOptions="CenterAndExpand"
+                               WidthRequest="30" />
+
+                            <Label
+                               FontSize="14"
+                               Text="{Binding FirstUnit.Dodge, StringFormat='Dodge: {0} %'}"
+                               TextColor="Black"
+                               VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
             </Frame>
 
             <CollectionView

@@ -72,7 +72,7 @@ namespace CraftLogs.ViewModels
         public EventHandler ActiveItem_changed;
 
         public DelayCommand NavigateToProfilePageCommand
-            => new DelayCommand(async () => await NavigateToWithoutHistory(NavigationLinks.ProfilePage));
+            => new DelayCommand(async () => await NavigateToSpecificPage());
 
         public QRHandlerViewModel(
             INavigationService navigationService,
@@ -102,6 +102,18 @@ namespace CraftLogs.ViewModels
 #if DEV
                 System.Diagnostics.Debug.WriteLine(par);
 #endif
+            }
+        }
+
+        private async Task NavigateToSpecificPage()
+        {
+            if(_settings.AppMode == AppModeEnum.Hq)
+            {
+                await NavigateToWithoutHistory(NavigationLinks.HqPage);
+            }
+            else
+            {
+                await NavigateToWithoutHistory(NavigationLinks.ProfilePage);
             }
         }
 

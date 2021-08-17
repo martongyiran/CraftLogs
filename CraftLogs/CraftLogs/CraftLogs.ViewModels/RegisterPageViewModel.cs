@@ -44,7 +44,18 @@ namespace CraftLogs.ViewModels
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value);
+            set
+            {
+                if (value.Length > 20)
+                {
+                    RaisePropertyChanged(nameof(Name));
+                    return;
+                }
+                else
+                {
+                    SetProperty(ref _name, value);
+                }
+            }
         }
 
         public string House

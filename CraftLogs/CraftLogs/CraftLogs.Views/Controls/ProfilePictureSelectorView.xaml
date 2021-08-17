@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<StackLayout
+<Grid
    x:Class="CraftLogs.Views.ProfilePictureSelectorView"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,13 +7,14 @@
    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    x:Name="currentView"
+   ColumnDefinitions="auto,auto,auto"
    HorizontalOptions="CenterAndExpand"
-   Orientation="Horizontal"
    VerticalOptions="CenterAndExpand"
    mc:Ignorable="d">
 
     <ContentView
        x:Name="Slot1"
+       Grid.Column="0"
        Padding="3"
        BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
@@ -28,6 +29,7 @@
 
     <ContentView
        x:Name="Slot2"
+       Grid.Column="1"
        Padding="3"
        BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
@@ -42,6 +44,7 @@
 
     <ContentView
        x:Name="Slot3"
+       Grid.Column="2"
        Padding="3"
        BackgroundColor="Transparent">
         <ContentView.GestureRecognizers>
@@ -55,4 +58,4 @@
            WidthRequest="100" />
     </ContentView>
 
-</StackLayout>
+</Grid>
