@@ -543,7 +543,7 @@ namespace CraftLogs.Values {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sajnosnemtudom.
+        ///   Looks up a localized string similar to csigabiga.
         /// </summary>
         public static string QuestPw {
             get {
